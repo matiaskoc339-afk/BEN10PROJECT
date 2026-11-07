@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#101911" />
+    <title>Ben 10 · El Omnitrix Fracturado</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Ccircle cx='30' cy='30' r='29' fill='%2398f249'/%3E%3Cpath d='M17 13h26L30 30l13 17H17l13-17Z' fill='%23101911'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <canvas id="game" aria-label="Escenario del juego Ben 10"></canvas>
+    <div id="vignette"></div>
+    <header id="masthead">
+      <a class="brand" href="#" aria-label="Menú principal"
+        ><span class="watch small">⌛</span><b>BEN<span>10</span></b
+        ><i>EL OMNITRIX FRACTURADO</i></a
+      >
+      <div class="edition">
+        <span class="live-dot"></span> CAPÍTULO 01
+        <span class="divider">/</span> AVENTURA ORIGINAL
+      </div>
+      <button
+        id="sound"
+        class="icon-button"
+        title="Activar o silenciar audio"
+        aria-label="Activar o silenciar audio"
+      >
+        ♪
+      </button>
+    </header>
+    <main id="menu" class="screen">
+      <section class="menu-copy">
+        <div class="eyebrow"><span></span> UNA SEÑAL. DIEZ POSIBILIDADES.</div>
+        <div class="hero-logo">
+          <span>BEN</span><strong>10</strong><i>EL OMNITRIX<br />FRACTURADO</i>
+        </div>
+        <p class="lead">Te quitaron el poder.<br /><em>No al héroe.</em></p>
+        <p class="intro-copy">
+          Siete firmas de ADN robadas. Una alianza imposible.<br />Recupera el
+          Omnitrix, una transformación a la vez.
+        </p>
+        <button id="new-game" class="primary">
+          <span class="watch">⌛</span> NUEVA AVENTURA
+          <span class="arrow">↗</span></button
+        ><button id="continue" class="secondary" disabled>
+          CONTINUAR PARTIDA <span>↗</span>
+        </button>
+        <div class="menu-links">
+          <button data-panel="settings">OPCIONES</button><span>/</span
+          ><button data-panel="controls">CONTROLES</button>
+        </div>
+        <div class="chapter-note">
+          <span>01</span>
+          <div>
+            <b>LA CAZA DE LOS CABALLEROS</b>
+            <p>Bellwood · Una ciudad bajo asedio</p>
+          </div>
+        </div>
+      </section>
+      <div class="hero-caption">
+        <span class="tiny-label">PORTADOR DEL OMNITRIX</span><b>BEN TENNYSON</b
+        ><span>10 AÑOS. TODO UN HÉROE.</span>
+      </div>
+      <div class="menu-foot">
+        <span
+          >WASD <i>MOVER</i> <span class="divider">/</span> Q
+          <i>OMNITRIX</i></span
+        ><span class="fan-note">PROYECTO FAN · SIN FINES COMERCIALES</span
+        ><span class="build"
+          >SISTEMA EN LÍNEA <span class="live-dot"></span
+        ></span>
+      </div>
+    </main>
+    <div id="hud" hidden>
+      <section class="vitals">
+        <canvas id="avatar" width="90" height="90"></canvas>
+        <div>
+          <div class="vital-head">
+            <b id="form-name">BEN TENNYSON</b><span id="health-number"></span>
+          </div>
+          <div class="meter health"><i id="health-fill"></i></div>
+          <div class="meter energy"><i id="energy-fill"></i></div>
+          <div class="vital-sub">
+            <span id="watch-status">OMNITRIX DISPONIBLE</span
+            ><span id="energy-number"></span>
+          </div>
+        </div>
+      </section>
+      <section class="objective">
+        <span>CAPÍTULO 01 <i>•</i> <span id="zone-name">BELLWOOD</span></span
+        ><b id="objective-text"></b
+        ><small id="checkpoint-note"
+          >Guardado automático en puntos de control</small
+        >
+      </section>
+      <button id="pause-button" class="icon-button" title="Pausa (Esc)">
+        Ⅱ
+      </button>
+      <div id="boss-hud" hidden>
+        <span id="boss-name"></span>
+        <div class="meter"><i id="boss-fill"></i></div>
+        <small id="boss-tip"></small>
+      </div>
+      <div id="combo" aria-live="polite"></div>
+      <div id="toast" role="status"></div>
+      <div id="interaction"></div>
+      <div class="bottom-hud">
+        <div id="favorites"></div>
+        <div id="combat-help">
+          <kbd>J</kbd> LIGERO <kbd>K</kbd> FUERTE <kbd>F</kbd> ESPECIAL
+          <kbd>ESPACIO</kbd> ESQUIVA <kbd>Q</kbd> OMNITRIX
+        </div>
+        <div class="special-indicator">
+          <span id="special-status">ESPECIAL LISTO</span><kbd>X</kbd> VOLVER A
+          BEN
+        </div>
+      </div>
+    </div>
+    <div id="wheel" hidden>
+      <div class="wheel-shade"></div>
+      <div id="wheel-ring"></div>
+      <div class="wheel-center">
+        <span class="tiny-label">SELECCIONAR ADN</span
+        ><b id="wheel-name">FUEGO</b><small id="wheel-info"></small
+        ><span class="watch">⌛</span>
+      </div>
+      <p>
+        Apunta con el mouse · Suelta <kbd>Q</kbd> para seleccionar<br /><small
+          >Sin Control Maestro: regresa a Ben con X para cambiar.</small
+        >
+      </p>
+    </div>
+    <div id="unlock-banner" hidden>
+      <span class="tiny-label">SECUENCIA GENÉTICA RECUPERADA</span>
+      <h1>DIAMANTE</h1>
+      <b>DESBLOQUEADO</b>
+      <p>ADN petrosapien restaurado · Favorito 3 disponible</p>
+    </div>
+    <div id="dialogue" hidden>
+      <div class="cinema-top">
+        <span id="scene-title"></span
+        ><button id="skip-scene">OMITIR ESCENA ↗</button>
+      </div>
+      <div class="dialogue-box">
+        <div class="portrait-wrap">
+          <canvas id="portrait" width="180" height="180"></canvas
+          ><span id="expression"></span>
+        </div>
+        <div class="dialogue-copy">
+          <span class="tiny-label">TRANSMISIÓN LOCAL</span>
+          <h2 id="speaker"></h2>
+          <p id="dialogue-text"></p>
+          <button id="advance">CONTINUAR <kbd>E</kbd> ▸</button>
+        </div>
+      </div>
+    </div>
+    <div id="panel" class="modal" hidden>
+      <div class="panel-shell">
+        <div class="panel-heading">
+          <div>
+            <span class="tiny-label">OMNITRIX / SISTEMA</span>
+            <h1 id="panel-title"></h1>
+          </div>
+          <button id="close-panel" class="icon-button" aria-label="Cerrar">
+            ✕
+          </button>
+        </div>
+        <div id="panel-body"></div>
+      </div>
+    </div>
+    <div id="end-screen" class="modal" hidden>
+      <section class="end-card">
+        <div class="watch">⌛</div>
+        <span class="eyebrow">FIRMA GENÉTICA RESTAURADA</span>
+        <h1>CAPÍTULO 1<br /><em>COMPLETADO.</em></h1>
+        <p>
+          Un ADN recuperado. Una familia reunida.<br />La búsqueda del Omnitrix
+          apenas comienza.
+        </p>
+        <div id="end-stats"></div>
+        <button id="explore" class="primary">
+          VOLVER A EXPLORAR BELLWOOD ↗</button
+        ><button id="end-menu" class="secondary">MENÚ PRINCIPAL</button>
+      </section>
+    </div>
+    <script src="js/data.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/actors.js"></script>
+    <script src="js/world.js"></script>
+    <script src="js/combat.js"></script>
+    <script src="js/render.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/game.js"></script>
+  </body>
+</html>
