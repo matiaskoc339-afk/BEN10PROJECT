@@ -25,11 +25,13 @@ const server = http.createServer((req, res) => {
     }
     res.setHeader(
       "Content-Type",
-      file.endsWith(".js")
-        ? "text/javascript"
-        : file.endsWith(".css")
-          ? "text/css"
-          : "text/html",
+      file.endsWith(".png")
+        ? "image/png"
+        : file.endsWith(".js")
+          ? "text/javascript"
+          : file.endsWith(".css")
+            ? "text/css"
+            : "text/html",
     );
     res.end(data);
   });
@@ -62,6 +64,7 @@ async function check(name, fn) {
     errors.push("Unexpected native browser dialog");
   });
   await page.goto("http://127.0.0.1:8765");
+  await page.waitForFunction(() => B10.assetsLoaded);
   await check("menu and empty continue slot", async () => {
     assert.ok(await page.locator("#menu").isVisible());
     assert.ok(await page.locator("#continue").isDisabled());
@@ -130,17 +133,16 @@ async function check(name, fn) {
     },
   );
   await check(
-    "walking, blocking, striking and slam poses have distinct animation frames",
+    "directional walk, windup, contact and recovery have distinct frames",
     async () => {
       const frames = await page.evaluate(() => {
         const states = [
           {},
-          { walk: 0.5 },
-          { walk: 2.7 },
-          { blocking: true },
-          { attack: { time: 0.2, total: 0.38, pattern: "JJK" } },
-          { special: { time: 0.5, total: 0.7 } },
-          { special: { time: 0.1, total: 0.7 } },
+          { walk: 2 },
+          { walk: 4.5 },
+          { attack: { time: 0.46, total: 0.48, hitAt: 0.13 } },
+          { attack: { time: 0.32, total: 0.48, hitAt: 0.13 } },
+          { attack: { time: 0.05, total: 0.48, hitAt: 0.13 } },
         ];
         return states.map((state) => {
           const c = document.createElement("canvas");
@@ -228,13 +230,49 @@ async function check(name, fn) {
       await page.waitForTimeout(50);
       const hp = await page.evaluate(() => game.world.enemies[0].hp);
       await page.keyboard.press("KeyJ");
-      await page.waitForTimeout(70);
+      await page.waitForTimeout(120);
       assert.ok((await page.evaluate(() => game.world.enemies[0].hp)) < hp);
       await page.keyboard.press("Space");
       assert.ok((await page.evaluate(() => game.player.dodgeCD)) > 0);
       await page.screenshot({
         path: path.join(root, "artifacts/gameplay.png"),
       });
+    },
+  );
+  await check(
+    "camera stays centered on the player even at the map boundary",
+    async () => {
+      const centered = await page.evaluate(() => {
+        const x = game.player.x,
+          y = game.player.y;
+        game.player.x = 25;
+        game.player.y = 570;
+        game.update(1 / 60);
+        const error = Math.hypot(
+          game.camera.x - game.player.x,
+          game.camera.y - (game.player.y - 28),
+        );
+        game.player.x = x;
+        game.player.y = y;
+        game.update(1 / 60);
+        return error;
+      });
+      assert.ok(centered < 0.001);
+    },
+  );
+  await check(
+    "M opens a usable map and pauses movement while viewing it",
+    async () => {
+      await page.keyboard.press("KeyM");
+      assert.equal(await page.evaluate(() => game.ui.panelType), "map");
+      assert.ok(await page.locator("#panel-body canvas").isVisible());
+      const x = await page.evaluate(() => game.player.x);
+      await page.keyboard.down("KeyD");
+      await page.waitForTimeout(150);
+      await page.keyboard.up("KeyD");
+      assert.equal(await page.evaluate(() => game.player.x), x);
+      await page.keyboard.press("KeyM");
+      assert.equal(await page.evaluate(() => game.mode), "play");
     },
   );
   await check("real AI attacks can reduce player health", async () => {
@@ -358,6 +396,7 @@ async function check(name, fn) {
         for (let i = 0; i < 4; i++) {
           game.player.attackCD = 0;
           B10.attack(game, "J");
+          B10.advanceAttack(game, 0.14);
           for (let j = 0; j < 10; j++) B10.updateEffects(game, 0.04);
         }
       });
@@ -370,11 +409,13 @@ async function check(name, fn) {
       await page.keyboard.press("KeyX");
       await page.keyboard.press("Digit1");
       await page.keyboard.down("KeyE");
-      await page.waitForTimeout(1900);
+      await page.waitForFunction(() => game.save.flags.gate, null, {
+        timeout: 7000,
+      });
       await page.keyboard.up("KeyE");
       assert.ok(await page.evaluate(() => game.save.flags.gate));
       await page.evaluate(() => {
-        game.player.x = 1720;
+        game.player.x = game.world.exit.x;
         game.player.y = 550;
         B10.updateWorld(game, 0.01);
       });
@@ -395,6 +436,7 @@ async function check(name, fn) {
         for (let i = 0; i < 7; i++) {
           game.player.attackCD = 0;
           B10.attack(game, "K");
+          B10.advanceAttack(game, 0.14);
         }
         e.stun = 0;
         B10.updateEnemies(game, 0.01);
@@ -410,6 +452,7 @@ async function check(name, fn) {
         for (let i = 0; i < 10 && !e.dead; i++) {
           game.player.attackCD = 0;
           B10.attack(game, "K");
+          B10.advanceAttack(game, 0.14);
         }
         if (game.ui.dialogue) game.ui.skip();
       });
@@ -418,7 +461,7 @@ async function check(name, fn) {
       if (await page.locator("#dialogue").isVisible())
         await page.click("#skip-scene");
       await page.evaluate(() => {
-        game.player.x = 1730;
+        game.player.x = game.world.exit.x;
         game.player.y = 550;
         B10.updateWorld(game, 0.01);
       });
@@ -440,6 +483,7 @@ async function check(name, fn) {
           for (let i = 0; i < 4; i++) {
             game.player.attackCD = 0;
             B10.attack(game, "J");
+            B10.advanceAttack(game, 0.14);
             for (let n = 0; n < 8; n++) B10.updateEffects(game, 0.04);
           }
           B10.revert(game);
@@ -447,13 +491,14 @@ async function check(name, fn) {
           for (let i = 0; i < 2; i++) {
             game.player.attackCD = 0;
             B10.attack(game, "K");
+            B10.advanceAttack(game, 0.14);
           }
         }
       });
       assert.ok(await page.evaluate(() => game.save.flags.supports));
       await page.evaluate(() => {
         game.pending = null;
-        game.player.x = 1730;
+        game.player.x = game.world.exit.x;
         game.player.y = 550;
         B10.updateWorld(game, 0.01);
       });
@@ -476,6 +521,7 @@ async function check(name, fn) {
           for (let i = 0; i < 5; i++) {
             game.player.attackCD = 0;
             B10.attack(game, "J");
+            B10.advanceAttack(game, 0.14);
             for (let n = 0; n < 10; n++) B10.updateEffects(game, 0.04);
           }
           B10.revert(game);
@@ -483,6 +529,7 @@ async function check(name, fn) {
           for (let i = 0; i < 2; i++) {
             game.player.attackCD = 0;
             B10.attack(game, "K");
+            B10.advanceAttack(game, 0.14);
           }
         }
       });
@@ -492,6 +539,7 @@ async function check(name, fn) {
         for (let i = 0; i < 12 && e.hp >= 330; i++) {
           game.player.attackCD = 0;
           B10.attack(game, "K");
+          B10.advanceAttack(game, 0.14);
         }
         e.stun = 0;
         B10.updateEnemies(game, 0.01);
@@ -507,6 +555,7 @@ async function check(name, fn) {
         for (let i = 0; i < 12 && !e.dead; i++) {
           game.player.attackCD = 0;
           B10.attack(game, "K");
+          B10.advanceAttack(game, 0.14);
         }
         game.pending?.();
         game.pending = null;
@@ -542,6 +591,7 @@ async function check(name, fn) {
           for (let i = 0; i < 3; i++) {
             game.player.attackCD = 0;
             B10.attack(game, "J");
+            B10.advanceAttack(game, 0.14);
             for (let n = 0; n < 8; n++) B10.updateEffects(game, 0.04);
           }
         }
@@ -552,7 +602,7 @@ async function check(name, fn) {
         ),
       );
       await page.evaluate(() => {
-        game.player.x = 1730;
+        game.player.x = game.world.exit.x;
         game.player.y = 550;
         B10.updateWorld(game, 0.01);
       });

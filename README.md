@@ -1,10 +1,14 @@
 # BEN 10: El Omnitrix Fracturado
 
-Videojuego fan de acción y aventura top-down, en español, inspirado en Ben 10 clásico. Ben tiene diez años. Esta entrega contiene un capítulo compacto con principio, desarrollo y final. Canvas 2D, personajes vectoriales animados y audio sintetizado; no descarga imágenes, fuentes, música ni bibliotecas durante la partida.
+Videojuego fan de acción y aventura top-down, en español, inspirado en Ben 10 clásico. Ben tiene diez años. Esta entrega contiene un capítulo compacto con principio, desarrollo y final. Canvas 2D, personajes ilustrados con atlas de fotogramas y audio sintetizado; incluye todas las imágenes en el repositorio y no depende de recursos de terceros durante la partida.
 
-## Revisión visual
+## Revisión 2.0: cámara, mapa e ilustración
 
-La versión 1.1 rehace personajes, proporciones, retratos, poses y materiales del escenario. [Ver la comparación antes/después y los criterios de dibujo](docs/art-direction.md). El Rey Eterno ya no usa placas de Diamante en el prólogo.
+La gráfica anterior se retiró. Esta versión usa ilustración 2D y animación por fotogramas, conforme al estilo elegido: cinco atlas de 24 fotogramas, un reparto narrativo y escenarios ilustrados locales. [Ver los criterios de la revisión y una captura del juego](docs/art-direction.md). [Clip real de movimiento y combate](docs/gameplay-v2.mp4).
+
+La cámara centra el cuerpo del jugador incluso en los bordes. Bellwood y el distrito comercial tienen 2600 × 1900 unidades, calles conectadas por el norte y el sur, jardín, patios y accesos laterales. **M abre el mapa** sin avanzar la simulación.
+
+Los golpes tienen preparación, contacto y recuperación. El daño, los proyectiles y los efectos se activan en el contacto; esquivar antes lo cancela. La dirección del golpe se fija al iniciarlo, la marcha sigue la dirección de desplazamiento y los pies dejan de animarse al chocar. La simulación usa pasos fijos de 60 Hz para conservar la misma velocidad cuando baja la frecuencia de renderizado.
 
 ## Ejecutar
 
@@ -50,6 +54,7 @@ Los scripts son clásicos y no usan `fetch` ni módulos, para permitir abrir `in
 | Volver a Ben                  | X                                        |
 | Usar ADN preparado            | E, estando como Ben                      |
 | Árbol de habilidades          | Tab                                      |
+| Mapa de la zona               | M                                        |
 | Pausa                         | Esc                                      |
 
 Los controles se pueden cambiar desde Opciones → Controles o desde el menú principal. Los favoritos 1/2/3 están reservados. Durante un diálogo, la primera pulsación revela la frase y la siguiente continúa. La acción y el movimiento se pausan durante conversaciones y menús. La rueda ralentiza el mundo: no lo detiene por completo.
@@ -76,22 +81,21 @@ La rueda contiene **exactamente diez** ADN. Los otros siete permanecen bloqueado
 
 `B10.futureMissions` registra las asociaciones de ADN con sus villanos y la obtención de Blitzwolfer mediante escaneo independiente. Sirve como registro extensible, no como campaña ya desarrollada. El cambio directo de forma admite una futura bandera de Control Maestro, pero ninguna acción de este capítulo la activa.
 
-Las cinemáticas son escenas dentro del motor, con actuaciones y cámara sencillas; no son videos ni tienen doblaje. El arte es vectorial estilizado y el sonido usa Web Audio, no recursos oficiales de la serie. La interfaz se adapta a ventanas pequeñas, pero el juego requiere teclado y mouse: no tiene controles táctiles ni soporte de mando.
+Las cinemáticas son escenas dentro del motor, con actuaciones y cámara sencillas; no son videos ni tienen doblaje. El arte usa sprites ilustrados locales generados para esta entrega; su procedencia se explica en `assets/README.md`. El sonido usa Web Audio. No se incluyen recursos oficiales de la serie. La interfaz se adapta a ventanas pequeñas, pero el juego requiere teclado y mouse: no tiene controles táctiles ni soporte de mando.
 
 ## Arquitectura
 
-| Archivo                 | Responsabilidad                                                     |
-| ----------------------- | ------------------------------------------------------------------- |
-| `js/data.js`            | ADN, controles, árboles, guiones y futuras misiones                 |
-| `js/game.js`            | Bucle, entrada, cámara, transiciones, almacenamiento y coordinación |
-| `js/actors.js`          | Jugador, colisiones, movimiento, defensa y transformaciones         |
-| `js/world.js`           | Zonas, encuentros, objetos, puzles, secretos y navegación           |
-| `js/combat.js`          | Combos, daño, IA, jefes, proyectiles y áreas persistentes           |
-| `js/character-art.js`   | Modelos específicos, articulación, expresiones y retratos           |
-| `js/environment-art.js` | Texturas en caché, fachadas e iluminación ambiental                 |
-| `js/render.js`          | Personajes, escenarios, efectos y presentación del menú             |
-| `js/ui.js`              | HUD, rueda, narrativa, opciones, habilidades y favoritos            |
-| `js/audio.js`           | Efectos sintetizados con Web Audio                                  |
+| Archivo        | Responsabilidad                                                         |
+| -------------- | ----------------------------------------------------------------------- |
+| `js/data.js`   | ADN, controles, árboles, guiones y futuras misiones                     |
+| `js/game.js`   | Bucle, entrada, cámara, transiciones, almacenamiento y coordinación     |
+| `js/actors.js` | Jugador, colisiones, movimiento, defensa y transformaciones             |
+| `js/world.js`  | Zonas, encuentros, objetos, puzles, secretos y navegación               |
+| `js/combat.js` | Combos, daño, IA, jefes, proyectiles y áreas persistentes               |
+| `js/assets.js` | Carga de imágenes locales, selección de fotogramas, anclajes y retratos |
+| `js/render.js` | Personajes, escenarios, efectos y presentación del menú                 |
+| `js/ui.js`     | HUD, rueda, narrativa, opciones, habilidades y favoritos                |
+| `js/audio.js`  | Efectos sintetizados con Web Audio                                      |
 
 Las nuevas misiones se añaden con datos de zona, encuentros, objetos y guiones; se reutilizan el guardado, las transformaciones, los diálogos y los disparadores. No se necesita un worktree: cada tarea en la nube ya usa un entorno aislado.
 
@@ -103,7 +107,7 @@ Pruebas de sistemas sin dependencias (Node.js 18+):
 npm test
 ```
 
-21 pruebas cubren combate, parry, coordinación, consumo, agotamiento, conservación, colisiones, ambos jefes, puzles, mejoras y técnicas.
+25 pruebas cubren combate, parry, coordinación, consumo, agotamiento, conservación, colisiones, ambos jefes, puzles, mejoras y técnicas.
 
 Pruebas de navegador opcionales, con Playwright y Chromium disponibles:
 
@@ -115,6 +119,6 @@ npm run test:browser
 
 El ejecutable predeterminado es `/usr/bin/chromium`; usa `CHROMIUM_PATH` para indicar otro Chromium instalado. El runner levanta y cierra su propio servidor en el puerto 8765. Genera capturas en `artifacts/`, ignoradas por Git.
 
-Resultado en este entorno: **21 pruebas de sistemas y 18 comprobaciones de integración aprobadas**, sin errores de página. Se comprobaron teclado, daño de IA, opciones, favoritos, diálogos, guardado, muerte, puzles y la secuencia de finalización. Las pruebas de encuentros usan colocación explícita y reinicio de recuperaciones para hacer reproducibles las situaciones; no equivalen a una partida humana completa ni a una evaluación exhaustiva del equilibrio. La prueba opcional de `file://` se omitió por la política del navegador administrado.
+Resultado en este entorno: **25 pruebas de sistemas y 20 comprobaciones de integración aprobadas**, sin errores de página. Se comprobaron teclado, daño de IA, opciones, favoritos, diálogos, guardado, muerte, puzles y la secuencia de finalización. Las pruebas de encuentros usan colocación explícita y reinicio de recuperaciones para hacer reproducibles las situaciones; no equivalen a una partida humana completa ni a una evaluación exhaustiva del equilibrio. La prueba opcional de `file://` se omitió por la política del navegador administrado.
 
 Proyecto fan no oficial, sin fines comerciales. Ben 10 y sus personajes pertenecen a sus respectivos titulares.

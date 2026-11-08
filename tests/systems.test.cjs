@@ -106,7 +106,7 @@ test("axis collisions stop movement into buildings and allow sliding", () => {
   B.move(g, g.player, 0, -100);
   assert.equal(g.player.y, 370);
   B.move(g, g.player, 50, 0);
-  assert.equal(g.player.x, 350);
+  assert.ok(Math.abs(g.player.x - 350) < 0.00001);
 });
 test("light and heavy attacks damage enemies and mixed combo has a finisher", () => {
   const g = fixture();
@@ -116,10 +116,13 @@ test("light and heavy attacks damage enemies and mixed combo has a finisher", ()
   g.player.form = "four";
   g.player.facing = 0;
   B.attack(g, "J");
+  B.advanceAttack(g, 0.14);
   g.player.attackCD = 0;
   B.attack(g, "J");
+  B.advanceAttack(g, 0.14);
   g.player.attackCD = 0;
   B.attack(g, "K");
+  B.advanceAttack(g, 0.14);
   assert.ok(g.world.enemies[0].hp < 50);
   assert.equal(g.player.attack.finisher, true);
   assert.equal(g.player.attack.pattern, "JJK");
@@ -317,7 +320,7 @@ test("revisiting zones works after the chapter: west returns and the empty thron
   g.player.y = 550;
   B.updateWorld(g, 0.01);
   assert.equal(g.world.zone, "city");
-  assert.equal(g.player.x, 1680);
+  assert.equal(g.player.x, g.world.exit.x - 80);
   const throne = B.createWorld("throne", g.save);
   assert.equal(throne.enemies.length, 0);
   assert.ok(throne.exit);
@@ -331,7 +334,8 @@ test("a constructed bridge leaves the rest of the chasm impassable", () => {
   g.player.x = 680;
   g.player.y = 300;
   B.move(g, g.player, 80, 0);
-  assert.equal(g.player.x, 680);
+  assert.ok(g.player.x <= 710 - g.player.r);
+  g.player.x = 680;
   g.player.y = 550;
   B.move(g, g.player, 80, 0);
   assert.equal(g.player.x, 760);
@@ -341,7 +345,7 @@ test("special action animation expires and cannot leak into the next transformat
   const g = fixture();
   B.transform(g, "four");
   B.special(g);
-  assert.equal(g.player.specialPose.total, 0.7);
+  assert.equal(g.player.specialPose.total, 0.65);
   B.updatePlayer(g, 0.2);
   assert.ok(g.player.specialPose.time > 0);
   B.updatePlayer(g, 0.6);
@@ -352,4 +356,104 @@ test("special action animation expires and cannot leak into the next transformat
   assert.equal(g.player.specialPose, null);
   B.transform(g, "heat");
   assert.equal(g.player.specialPose, null);
+});
+
+test("damage is applied once at contact, using the direction captured at attack start", () => {
+  const g = fixture();
+  g.player.form = "four";
+  g.player.x = 300;
+  g.player.y = 550;
+  g.player.facing = 0;
+  const enemy = B.makeEnemy("heavy", 390, 550, "timing");
+  g.world.enemies = [enemy];
+  B.attack(g, "K");
+  assert.equal(enemy.hp, 155);
+  B.advanceAttack(g, 0.1);
+  assert.equal(enemy.hp, 155);
+  g.player.facing = Math.PI;
+  B.advanceAttack(g, 0.04);
+  assert.equal(enemy.hp, 102);
+  B.advanceAttack(g, 0.15);
+  assert.equal(enemy.hp, 102);
+});
+test("dodge cancels the pending contact instead of dealing invisible damage", () => {
+  const g = fixture();
+  g.player.form = "four";
+  g.player.x = 300;
+  g.player.y = 550;
+  g.player.facing = 0;
+  const enemy = B.makeEnemy("heavy", 390, 550, "cancel");
+  g.world.enemies = [enemy];
+  B.attack(g, "K");
+  B.dodge(g);
+  B.advanceAttack(g, 0.5);
+  assert.equal(enemy.hp, 155);
+});
+test("walk animation stops against a wall and advances with actual displacement", () => {
+  const g = fixture();
+  g.world.obstacles = [{ x: 340, y: 0, w: 40, h: 1000 }];
+  g.player.x = 320;
+  g.player.y = 550;
+  g.player.walk = 6;
+  g.keys.add("right");
+  B.updatePlayer(g, 1 / 60);
+  assert.equal(g.player.moving, false);
+  assert.equal(g.player.walk, 6);
+  g.world.obstacles = [];
+  B.updatePlayer(g, 1 / 60);
+  assert.ok(g.player.moving);
+  assert.ok(g.player.walk > 6);
+});
+test("the expanded town connects north streets, southern paths and garden before the main gate", () => {
+  const g = fixture(),
+    w = g.world,
+    step = 32,
+    cols = Math.ceil(w.w / step),
+    rows = Math.ceil(w.h / step);
+  assert.ok(w.w >= 2600 && w.h >= 1900);
+  const free = (x, y) =>
+    x >= 19 &&
+    y >= 19 &&
+    x < w.w - 19 &&
+    y < w.h - 19 &&
+    !w.obstacles.some((o) => !o.open && B.circleRect(x, y, 19, o));
+  const sx = Math.round(280 / step),
+    sy = Math.round(570 / step),
+    queue = [[sx, sy]],
+    visited = new Set([sy * cols + sx]);
+  for (let head = 0; head < queue.length; head++) {
+    const [x, y] = queue[head];
+    for (const [dx, dy] of [
+      [1, 0],
+      [-1, 0],
+      [0, 1],
+      [0, -1],
+    ]) {
+      const nx = x + dx,
+        ny = y + dy,
+        key = ny * cols + nx;
+      if (
+        nx < 0 ||
+        ny < 0 ||
+        nx >= cols ||
+        ny >= rows ||
+        visited.has(key) ||
+        !free(nx * step, ny * step) ||
+        !free(((x + nx) * step) / 2, ((y + ny) * step) / 2)
+      )
+        continue;
+      visited.add(key);
+      queue.push([nx, ny]);
+    }
+  }
+  for (const [x, y] of [
+    [480, 32],
+    [500, 1700],
+    [1300, 1450],
+    [1500, 550],
+  ])
+    assert.ok(
+      visited.has(Math.round(y / step) * cols + Math.round(x / step)),
+      `reachable ${x},${y}`,
+    );
 });

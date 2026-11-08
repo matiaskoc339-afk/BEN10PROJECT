@@ -292,6 +292,7 @@
       body.replaceChildren();
       this.panelType = type;
       const title = {
+        map: "MAPA DE LA ZONA",
         pause: "TIEMPO FUERA",
         settings: "CONFIGURACIÓN",
         controls: "TUS CONTROLES",
@@ -327,6 +328,7 @@
         action("OMNITRIX · Configurar favoritos", () =>
           this.panel("favorites"),
         );
+        action("MAPA · Explorar la zona", () => this.panel("map"));
         action("MISIÓN · Progreso del capítulo", () => this.panel("progress"));
         action("REGISTRO · Historial de diálogos", () => this.panel("history"));
         action("CONFIGURACIÓN", () => this.panel("settings"));
@@ -527,6 +529,59 @@
           });
           cols.append(col);
         });
+      } else if (type === "map") {
+        paragraph(
+          "Las calles se conectan por el norte y el sur. Puedes explorar el jardín, los patios y los comercios antes de seguir la misión.",
+        );
+        const canvas = document.createElement("canvas");
+        canvas.width = 740;
+        canvas.height = 500;
+        canvas.style.width = "100%";
+        body.append(canvas);
+        const c = canvas.getContext("2d"),
+          w = g.world,
+          s = Math.min(700 / w.w, 440 / w.h);
+        c.fillStyle = "#172b29";
+        c.fillRect(0, 0, 740, 500);
+        c.save();
+        c.translate(20, 20);
+        c.scale(s, s);
+        c.fillStyle = "#566b50";
+        c.fillRect(0, 0, w.w, w.h);
+        for (const o of w.obstacles) {
+          if (o.open) continue;
+          c.fillStyle =
+            o.kind === "building"
+              ? "#b3a288"
+              : o.kind === "fence" || o.kind === "gate"
+                ? "#a99f74"
+                : "#324c42";
+          c.fillRect(o.x, o.y, o.w, o.h);
+        }
+        for (const o of w.objects) {
+          if (g.save.items.includes(o.id)) continue;
+          c.fillStyle = o.type === "safe" ? "#a4ee65" : "#dfb876";
+          c.beginPath();
+          c.arc(o.x, o.y, 15, 0, B.TAU);
+          c.fill();
+        }
+        c.fillStyle = "#e8ffd0";
+        c.beginPath();
+        c.arc(g.player.x, g.player.y, 20, 0, B.TAU);
+        c.fill();
+        if (w.exit) {
+          c.fillStyle = "#b8f873";
+          c.fillRect(w.exit.x - 25, w.exit.y - 25, 50, 50);
+        }
+        c.restore();
+        for (const place of w.places || []) {
+          c.fillStyle = "#e9eed8";
+          c.font = "11px Arial";
+          c.fillText(place.name, 20 + place.x * s, 42 + place.y * s);
+        }
+        paragraph(
+          "Blanco: tú · Verde: salida y descansos · Ámbar: mecanismos y recompensas. Esc o M para cerrar.",
+        );
       } else if (type === "progress") {
         for (const [ok, text] of [
           [true, "Escapar del extractor de Vilgax"],

@@ -1284,3 +1284,7 @@ select {
 #advance {
   font-family: Arial, "DejaVu Sans", sans-serif;
 }
+/* Keep the illustrated playfield clear; the character is the camera's focus. */
+#vignette {
+  box-shadow: inset 0 0 80px #071b161f;
+}

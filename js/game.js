@@ -119,6 +119,7 @@
       window.addEventListener("mousemove", (e) => {
         this.mouse.x = e.clientX;
         this.mouse.y = e.clientY;
+        this.lastAimAt = g.clock;
         if (g.mode === "wheel") g.ui.wheelMove(e.clientX, e.clientY);
       });
       g.canvas.addEventListener("mousedown", (e) => {
@@ -159,13 +160,11 @@
         );
       } catch {}
       this.bindings = { ...B.defaults };
-      if (
-        this.settings.bindings &&
-        Object.keys(B.defaults).every(
-          (k) => typeof this.settings.bindings[k] === "string",
-        )
-      )
-        this.bindings = { ...this.settings.bindings };
+      if (this.settings.bindings)
+        for (const key of Object.keys(B.defaults)) {
+          if (typeof this.settings.bindings[key] === "string")
+            this.bindings[key] = this.settings.bindings[key];
+        }
       this.audio = new B.AudioSystem();
       this.audio.volume = B.clamp(Number(this.settings.volume) || 0, 0, 1);
       this.audio.muted = !!this.settings.muted;
@@ -192,6 +191,16 @@
       this.resize();
       window.addEventListener("resize", () => this.resize());
       this.ui.menu();
+      B.$("new-game").disabled = true;
+      B.$("continue").disabled = true;
+      B.assetsReady
+        .then(() => {
+          B.$("new-game").disabled = false;
+          this.ui.menu();
+        })
+        .catch((error) => {
+          B.$("menu").querySelector(".intro-copy").textContent = error.message;
+        });
       B.$("sound").textContent = this.audio.muted ? "♪̸" : "♪";
       this.last = performance.now();
       requestAnimationFrame((t) => this.frame(t));
@@ -204,7 +213,7 @@
       };
       this.canvas.width = Math.floor(this.view.w * this.view.dpr);
       this.canvas.height = Math.floor(this.view.h * this.view.dpr);
-      this.camera.zoom = Math.min(1.15, Math.max(0.7, this.view.w / 1400));
+      this.camera.zoom = Math.min(1.5, Math.max(1.15, this.view.w / 1080));
     }
     keyLabel(action) {
       const key = this.bindings[action] || "";
@@ -307,7 +316,11 @@
         return;
       }
       if (this.mode === "panel") {
-        if (action === "pause" && this.ui.panelType !== "death")
+        if (
+          (action === "pause" ||
+            (action === "map" && this.ui.panelType === "map")) &&
+          this.ui.panelType !== "death"
+        )
           this.ui.closePanel();
         return;
       }
@@ -319,6 +332,10 @@
       if (this.mode === "wheel") return;
       if (action === "wheel") {
         this.ui.openWheel();
+        return;
+      }
+      if (action === "map") {
+        this.ui.panel("map");
         return;
       }
       if (action === "skills") {
@@ -485,17 +502,8 @@
                 y: this.cine.escaped ? 550 : 470,
               }
             : this.player;
-        const mx = Math.min(
-            this.world.w / 2,
-            this.view.w / this.camera.zoom / 2,
-          ),
-          my = Math.min(this.world.h / 2, this.view.h / this.camera.zoom / 2);
-        this.camera.x +=
-          (B.clamp(target.x, mx, this.world.w - mx) - this.camera.x) *
-          Math.min(1, dt * 1.2);
-        this.camera.y +=
-          (B.clamp(target.y, my, this.world.h - my) - this.camera.y) *
-          Math.min(1, dt * 1.2);
+        this.camera.x += (target.x - this.camera.x) * Math.min(1, dt * 5);
+        this.camera.y += (target.y - 28 - this.camera.y) * Math.min(1, dt * 5);
         return;
       }
       const slow = this.mode === "wheel" ? 0.06 : 1;
@@ -522,23 +530,18 @@
       if (this.mode === "panel") return;
       B.updateWorld(this, dt);
       const p = this.player;
-      const marginX = Math.min(
-          this.world.w / 2,
-          this.view.w / this.camera.zoom / 2,
-        ),
-        marginY = Math.min(
-          this.world.h / 2,
-          this.view.h / this.camera.zoom / 2,
-        );
-      const tx = B.clamp(p.x, marginX, this.world.w - marginX),
-        ty = B.clamp(p.y, marginY, this.world.h - marginY);
-      this.camera.x += (tx - this.camera.x) * Math.min(1, dt * 7);
-      this.camera.y += (ty - this.camera.y) * Math.min(1, dt * 7);
+      // Center on the body, not the feet. Map edges do not pin the camera.
+      this.camera.x = p.x;
+      this.camera.y = p.y - 28;
     }
     frame(t) {
-      const dt = Math.min(0.04, Math.max(0, (t - this.last) / 1000));
+      const elapsed = Math.min(0.2, Math.max(0, (t - this.last) / 1000));
       this.last = t;
-      this.update(dt);
+      this.accumulator = (this.accumulator || 0) + elapsed;
+      while (this.accumulator >= 1 / 60) {
+        this.update(1 / 60);
+        this.accumulator -= 1 / 60;
+      }
       this.renderer.draw();
       requestAnimationFrame((t) => this.frame(t));
     }

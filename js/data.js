@@ -135,6 +135,7 @@ window.B10 = {};
     wheel: "KeyQ",
     cancel: "KeyX",
     skills: "Tab",
+    map: "KeyM",
     pause: "Escape",
   };
   B.controlNames = {
@@ -151,6 +152,7 @@ window.B10 = {};
     wheel: "Mantener rueda del Omnitrix",
     cancel: "Regresar a Ben",
     skills: "Árboles de habilidades",
+    map: "Mapa de la zona",
     pause: "Pausa",
   };
   B.fresh = () => ({

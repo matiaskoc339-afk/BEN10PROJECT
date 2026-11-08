@@ -2,7 +2,7 @@
 (function (B) {
   B.attack = (g, kind) => {
     const p = g.player;
-    if (p.dodgeTime > 0) return false;
+    if (p.dodgeTime > 0 || p.specialPose) return false;
     if (p.attackCD > 0) {
       g.buffer = kind;
       g.bufferTimer = 0.24;
@@ -16,7 +16,7 @@
       pattern = p.combo;
     let damage = (heavy ? f.heavy : f.light) * (finisher ? 1.45 : 1),
       reach = f.reach + (heavy ? 25 : 0),
-      aoe = heavy;
+      aoe = false;
     if (p.form === "four" && g.has("four", 2) && pattern === "JKJ") {
       damage *= 2;
       reach += 40;
@@ -27,27 +27,49 @@
       aoe = true;
       g.field(p.x, p.y, 185, 0.32, "shock", 0);
     }
-    p.attackCD = heavy ? 0.52 : 0.24;
+    p.attackCD = heavy ? 0.52 : 0.25;
     p.attack = {
       kind,
-      time: heavy ? 0.38 : 0.23,
-      total: heavy ? 0.38 : 0.23,
+      time: heavy ? 0.48 : 0.25,
+      total: heavy ? 0.48 : 0.25,
+      hitAt: heavy ? 0.13 : 0.055,
       angle: p.facing,
       finisher,
       pattern,
+      damage,
+      reach,
+      aoe,
+      fired: false,
     };
     p.blocking = false;
+    return true;
+  };
+  B.advanceAttack = (g, dt) => {
+    const p = g.player,
+      a = p.attack;
+    if (!a) return;
+    a.time -= dt;
+    if (!a.fired && a.total - a.time >= a.hitAt) {
+      a.fired = true;
+      B.resolveAttack(g, a);
+    }
+    if (a.time <= 0) p.attack = null;
+  };
+  B.resolveAttack = (g, a) => {
+    const p = g.player,
+      heavy = a.kind === "K",
+      { damage, reach, aoe, finisher, pattern } = a;
     g.audio.play(p.form === "heat" ? "fire" : heavy ? "heavy" : "light");
     if (p.form === "heat") {
       if (!heavy) {
-        g.shoot(p.x, p.y, p.facing, 550, damage, "fire", "player", 11, 1.1);
+        g.shoot(p.x, p.y, a.angle, 550, damage, "fire", "player", 11, 1.1);
       } else {
-        B.melee(g, damage, 170, 1.2, finisher, true);
-        for (let a = -2; a <= 2; a++)
+        B.melee(g, damage, 170, 1.0, finisher, false);
+        for (let offset = -2; offset <= 2; offset++)
           g.shoot(
             p.x,
             p.y,
-            p.facing + a * 0.17,
+            a.angle + offset * 0.17,
             380,
             damage * 0.4,
             "fire",
@@ -62,11 +84,11 @@
         : g.has("diamond", 0)
           ? [-0.13, 0, 0.13]
           : [0];
-      for (const a of spread)
+      for (const offset of spread)
         g.shoot(
           p.x,
           p.y,
-          p.facing + a,
+          a.angle + offset,
           heavy ? 470 : 640,
           damage,
           "crystal",
@@ -74,7 +96,7 @@
           heavy ? 12 : 8,
           1.05,
         );
-      if (heavy) B.melee(g, damage, 105, 1.2, true, true);
+      if (heavy) B.melee(g, damage, 105, 1.2, true, false);
     } else B.melee(g, damage, reach, aoe ? 1.5 : 1.05, finisher || heavy, aoe);
     if (finisher) {
       g.ui.comboLabel = {
@@ -89,26 +111,26 @@
       };
       p.combo = "";
     }
-    return true;
   };
   B.melee = (g, damage, reach, arc, knock, full) => {
     const p = g.player;
+    const angle = p.attack?.angle ?? p.facing;
     for (const e of g.world.enemies) {
       if (
         e.dead ||
         B.dist(p, e) > reach + e.r ||
-        (!full && Math.abs(B.wrap(B.angle(p, e) - p.facing)) > arc)
+        (!full && Math.abs(B.wrap(B.angle(p, e) - angle)) > arc)
       )
         continue;
       B.hitEnemy(g, e, damage, {
         power: p.form,
         heavy: p.attack?.kind === "K",
         knock: knock ? 85 : 24,
-        angle: p.facing,
+        angle,
       });
     }
-    const x = p.x + Math.cos(p.facing) * reach * 0.55,
-      y = p.y + Math.sin(p.facing) * reach * 0.55;
+    const x = p.x + Math.cos(angle) * reach * 0.55,
+      y = p.y + Math.sin(angle) * reach * 0.55;
     B.applyPuzzle(g, x, y, reach * 0.75, p.form, p.attack?.kind === "K");
   };
   B.special = (g) => {
@@ -119,12 +141,26 @@
     }
     if (p.specialCD > 0 || p.energy < 10) return;
     p.specialCD = (p.form === "four" ? 7 : 6) * (g.has(p.form, 5) ? 0.7 : 1);
-    p.specialPose = { time: 0.7, total: 0.7 };
+    p.specialPose = { time: 0.65, total: 0.65, hitAt: 0.14, fired: false };
+    p.attack = null;
     p.energy -= 10;
-    p.attackCD = 0.45;
-    p.invuln = 0.35;
+    p.attackCD = 0.65;
+    p.invuln = 0.3;
+  };
+  B.advanceSpecial = (g, dt) => {
+    const a = g.player.specialPose;
+    if (!a) return;
+    a.time -= dt;
+    if (!a.fired && a.total - a.time >= a.hitAt) {
+      a.fired = true;
+      B.resolveSpecial(g);
+    }
+    if (a.time <= 0) g.player.specialPose = null;
+  };
+  B.resolveSpecial = (g) => {
+    const p = g.player;
     g.audio.play("heavy");
-    g.shake = 7;
+    g.shake = 2;
     if (p.form === "heat") {
       g.field(
         p.x,
@@ -366,6 +402,7 @@
     );
     for (const e of w.enemies) {
       if (e.dead) continue;
+      e.moving = false;
       for (const k of ["cd", "stun", "flash", "vulnerable"])
         e[k] = Math.max(0, e[k] - dt);
       const dist = B.dist(e, p);
@@ -432,11 +469,11 @@
             (boss && (e.phase === 3 || (e.phase === 1 && e.attackN % 2 === 0)))
           ) {
             const spread = boss ? [-0.2, 0, 0.2] : [0];
-            for (const a of spread)
+            for (const offset of spread)
               g.shoot(
                 e.x,
                 e.y,
-                e.lockAngle + a,
+                e.lockAngle + offset,
                 boss ? 300 : 280,
                 e.damage,
                 boss ? "darkcrystal" : "energy",
@@ -542,8 +579,12 @@
           dy += ((e.y - other.y) / d) * 45 * dt;
         }
       }
+      const beforeX = e.x,
+        beforeY = e.y;
       B.move(g, e, dx, dy);
-      if (move) e.walk += dt * 7;
+      const moved = Math.hypot(e.x - beforeX, e.y - beforeY);
+      e.moving = moved > 0.01;
+      if (e.moving) e.walk += moved / 18;
     }
   };
   B.updateEffects = (g, dt) => {

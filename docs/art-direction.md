@@ -1,31 +1,33 @@
-# Revisión visual 1.1
+# Revisión 2.0 — ilustración y animación por fotogramas
 
-Esta revisión reemplaza los dibujos de los personajes publicados en el primer commit (`b82394c`). La imagen compara las dos versiones dibujadas por sus renderizadores reales, con la misma escala de mundo y sin recursos promocionales sustituyendo a los sprites.
+Se retiraron `character-art.js`, `environment-art.js` y la comparativa de los modelos anteriores. Esta entrega sigue la preferencia expresa por ilustración 2D cercana al dibujo de la serie clásica.
 
-![Comparación de personajes](character-comparison.png)
+![Juego con cámara centrada y arte ilustrado](gameplay-v2.png)
 
-## Cambios concretos
+[Ver movimiento y combate en una captura de la partida](gameplay-v2.mp4) · [Ver el mapa con M](map-v2.png)
 
-- Ben conserva diez años, camiseta blanca y negra, pantalones verdes y el reloj en la muñeca izquierda. La cabeza deja de ser un círculo; tiene mandíbula, esclerótica, iris, nariz, cejas y boca con expresiones. El cuello queda separado de los hombros y el torso, sin la espalda encorvada de la versión anterior. La pose del menú levanta el reloj.
-- Kevin tiene su propio dibujo: cuerpo más delgado y alto, pelo negro largo que cae sobre la cara, ojos hundidos, camiseta sin mangas, pantalones grises y colgante. No reutiliza el cuerpo ni la cara de Ben.
-- Vilgax tiene una escala y anchura superiores a las de los niños, antebrazos implantados, armadura oscura, rostro cefalópodo y ojos estrechos. Los tentáculos tienen volumen y trazos internos; desaparecen los ojos redondos y el cuerpo pequeño.
-- Malware usa una silueta alta, asimétrica y angulosa, un sensor único y circuitos rojos sobre una masa negra. No comparte la plantilla humanoide genérica de los otros villanos. Se utiliza su aspecto rojo de Mechamorph corrupto, adaptado a la continuidad alternativa solicitada.
-- Hex tiene capucha roja, maquillaje de calavera, bastón y amuletos; se elimina el sombrero puntiagudo de mago genérico.
-- Zombozo tiene chaqueta y pantalones púrpuras, chaleco, maquillaje oscuro, pelo lateral verdoso y sonrisa con dientes; deja de ser una cara redonda alegre.
-- Ánimo tiene gafas, transmodulador, antenas, cara alargada, bata deteriorada y aparato de muñeca.
-- Driscoll utiliza metal oscuro y ribetes de bronce en el prólogo. Las placas de cristal se añaden únicamente durante la fase de armadura del jefe y desaparecen al romperse. Tanto los retratos como el escenario usan la misma regla narrativa.
-- Gwen, Max, Fuego, Cuatro Brazos, Diamante y los caballeros también se redibujaron para mantener las mismas proporciones, contornos y sombreado.
+## Arte local
 
-## Animación y escenarios
+`assets/characters/` contiene cinco atlas de 24 fotogramas para Ben, Fuego, Cuatro Brazos, Diamante y un caballero. Cada atlas tiene cuatro orientaciones y seis columnas: reposo, dos pasos, preparación, contacto y recuperación. El dibujo cambia de fotograma; no se deforma un muñeco vectorial ni se gira el cuerpo entero para fingir un puñetazo.
 
-Cada dibujo usa articulaciones, no una imagen estática rotada. La marcha alterna rodillas y apoyo de los pies; las acciones cambian codos, manos y torso. Se distinguen postura de guardia, ataque, esquiva y habilidades especiales. Cuatro Brazos alterna brazos y eleva los puños antes de su golpe de suelo. Los retratos tienen encuadre propio y no usan una ampliación arbitraria del sprite completo.
+Un atlas adicional contiene a Gwen, Max, Kevin, los villanos y las variantes del Rey Eterno. Esos personajes narrativos tienen ilustraciones de pose completa; no se presentan como ciclos de movimiento completos. Las variantes de armadura de Driscoll siguen separadas por el estado de historia. Los jefes usan poses específicas y desplazamientos del motor, pero todavía tienen menos fotogramas que los personajes jugables.
 
-La ciudad tiene asfalto azul grisáceo, aceras cálidas, fachadas con profundidad, cristales reflejantes, sombras proyectadas, alcantarillas, rejillas y señalización pintada. La fortaleza usa piedra fría, alfombra del trono y reflejos de los mecanismos. El grano de las superficies se genera una vez y se conserva en caché para evitar parpadeos; los trazados vectoriales se reutilizan mediante `Path2D`.
+Los escenarios combinan un atlas ilustrado de edificios, vehículos, árboles, mobiliario y maquinaria con texturas de césped, aceras, asfalto y piedra. Las imágenes se cargan desde el propio repositorio. No se conserva la generación geométrica de personajes y fachadas de las entregas anteriores.
 
-## Referencias consultadas y alcance
+## Cámara y movimiento
 
-- [Ben10 Wiki, repositorio comunitario](https://github.com/DevaMhatre/ben10-wiki): se consultaron sus imágenes de la serie clásica para la camiseta, el reloj y la silueta infantil de Ben. Sus imágenes de Alien Force no se usaron para convertirlo en adolescente.
-- [Ben 10 Encyclopedia, repositorio comunitario](https://github.com/ramdineshr87-lang/ben10-encyclopedia/blob/main/js/data.js): se contrastaron identidad y rasgos narrativos como el rostro cefalópodo de Vilgax, Kevin de once años, maquillaje de calavera de Hex, transmodulador de Ánimo y naturaleza Mechamorph de Malware. Es una fuente secundaria, no una hoja de modelos oficial.
-- Se intentó consultar las fichas de Fandom, pero la política de red del entorno impidió abrirlas. No se afirma haber visto esas fichas ni sus galerías.
+La cámara sigue el centro del cuerpo del jugador y no se detiene al llegar a un margen de pantalla. El terreno circundante se dibuja más allá del límite transitable para evitar bandas vacías. El zoom permite leer los personajes sin perder el espacio del combate.
 
-Los trazados son dibujos locales hechos en código. No se incorporaron imágenes de esos repositorios, capturas oficiales ni recursos externos al juego. Los diseños siguen siendo una interpretación vectorial estilizada, no una reproducción exacta de los modelos de producción de la serie. La comparación está incluida para que el resultado se pueda revisar visualmente.
+El fotograma de marcha depende de la distancia real recorrida. Contra una pared se mantiene la pose de reposo. Al caminar se mira hacia el desplazamiento; al atacar o bloquear se utiliza la dirección de apuntado. Los puñetazos fijan su dirección al empezar, aplican daño una sola vez en el contacto y permiten cancelarse con la esquiva durante la preparación. Los especiales también tienen un contacto programado.
+
+La simulación se ejecuta en pasos de 1/60 de segundo. Una caída de FPS no reduce artificialmente el ritmo del juego ni alarga los mecanismos que requieren mantener una tecla.
+
+## Exploración
+
+Las dos zonas urbanas miden 2600 × 1900 unidades. Hay recorridos por arriba y por abajo de las manzanas, calles que se cruzan, jardín municipal, accesos laterales y un encuentro opcional fuera de la ruta principal. El encuentro opcional no bloquea la salida. M muestra obstáculos, mecanismos, puntos seguros, salida y ubicación del jugador; mientras se consulta, el mundo queda pausado.
+
+La campaña conserva sus compuertas, puzles y orden de capítulos: la ampliación ofrece libertad dentro de cada zona, sin eliminar los objetivos de historia.
+
+## Procedencia y límites
+
+Las ilustraciones se generaron para el proyecto con la herramienta de imágenes y se integraron como atlas locales. No son recursos oficiales ni se presentan como dibujos hechos manualmente por un artista de la serie. Véase [assets/README.md](../assets/README.md). El nuevo sistema es ampliable con más fotogramas de esquiva, defensa, ataques y conversación; las animaciones actuales reutilizan poses de recuperación para algunas de esas acciones.

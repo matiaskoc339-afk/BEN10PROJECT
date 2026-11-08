@@ -119,11 +119,15 @@
   };
   B.move = (g, a, dx, dy) => {
     const obs = g.world.obstacles.filter((o) => !o.open);
-    let nx = B.clamp(a.x + dx, a.r, g.world.w - a.r),
-      ny = B.clamp(a.y + dy, a.r, g.world.h - a.r);
-    if (!obs.some((o) => B.circleRect(nx, a.y, a.r, o))) a.x = nx;
-    if (!obs.some((o) => B.circleRect(a.x, ny, a.r, o))) a.y = ny;
+    const steps = Math.max(1, Math.ceil(Math.hypot(dx, dy) / 8));
+    for (let step = 0; step < steps; step++) {
+      const nx = B.clamp(a.x + dx / steps, a.r, g.world.w - a.r);
+      const ny = B.clamp(a.y + dy / steps, a.r, g.world.h - a.r);
+      if (!obs.some((o) => B.circleRect(nx, a.y, a.r, o))) a.x = nx;
+      if (!obs.some((o) => B.circleRect(a.x, ny, a.r, o))) a.y = ny;
+    }
   };
+
   B.transform = (g, id) => {
     const p = g.player;
     if (!g.save.unlocked.includes(id)) {
@@ -194,10 +198,7 @@
       p.comboTimer -= dt;
       if (p.comboTimer <= 0) p.combo = "";
     }
-    if (p.specialPose) {
-      p.specialPose.time -= dt;
-      if (p.specialPose.time <= 0) p.specialPose = null;
-    }
+    B.advanceSpecial(g, dt);
     if (p.hitTimer <= 0) p.hitCount = 0;
     if (p.form !== "ben") {
       p.energy = Math.max(0, p.energy - dt * 1.65);
@@ -220,9 +221,11 @@
       dx /= n;
       dy /= n;
     }
-    p.facing = Math.atan2(i.mouse.y - g.view.h / 2, i.mouse.x - g.view.w / 2);
     const target = g.screenToWorld(i.mouse.x, i.mouse.y);
-    p.facing = B.angle(p, target);
+    target.y += 28;
+    p.facing = p.attack ? p.attack.angle : B.angle(p, target);
+    const oldX = p.x,
+      oldY = p.y;
     if (p.dodgeTime > 0) {
       dx = Math.cos(p.dodgeAngle);
       dy = Math.sin(p.dodgeAngle);
@@ -230,15 +233,25 @@
       if (g.has("heat", 2) && p.form === "heat" && Math.random() < dt * 25)
         g.field(p.x, p.y, 32, 1.6, "fire", 8);
     } else {
-      let speed = f.speed * (p.blocking ? 0.4 : 1) * (p.attack ? 0.65 : 1);
+      let speed =
+        f.speed *
+        (p.blocking ? 0.4 : 1) *
+        (p.attack ? (p.attack.kind === "K" ? 0.45 : 0.82) : 1);
       B.move(g, p, dx * speed * dt, dy * speed * dt);
     }
-    if (n || p.dodgeTime > 0) p.walk += dt * (p.dodgeTime > 0 ? 24 : 11);
-    else p.walk *= Math.max(0, 1 - dt * 7);
-    if (p.attack) {
-      p.attack.time -= dt;
-      if (p.attack.time <= 0) p.attack = null;
+    const moved = Math.hypot(p.x - oldX, p.y - oldY);
+    p.moving = moved > 0.01;
+    p.vx = (p.x - oldX) / Math.max(dt, 0.001);
+    p.vy = (p.y - oldY) / Math.max(dt, 0.001);
+    if (p.moving) {
+      p.walk += moved / 18;
+      p.moveFacing = Math.atan2(p.vy, p.vx);
     }
+    if (p.moving && !p.attack && !p.blocking && !p.specialPose)
+      p.renderFacing = p.moveFacing;
+    else if (p.attack || p.blocking || g.clock - (i.lastAimAt ?? -10) < 0.2)
+      p.renderFacing = p.facing;
+    B.advanceAttack(g, dt);
     if (g.buffer && p.attackCD <= 0) {
       const b = g.buffer;
       g.buffer = null;

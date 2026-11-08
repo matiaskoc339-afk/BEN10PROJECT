@@ -49,6 +49,19 @@
       return w;
     }
     if (zone === "city" || zone === "market") {
+      w.w = 2600;
+      w.h = 1900;
+      w.exit = { x: 2510, y: 550, r: 65 };
+      w.places = [
+        { name: "La Rustbucket", x: 200, y: 540 },
+        { name: "Jardín municipal", x: 1120, y: 1320 },
+        { name: "Mercado", x: 820, y: 200 },
+        {
+          name: zone === "city" ? "Compuerta" : "Plaza del Ejecutor",
+          x: zone === "city" ? 1580 : 1400,
+          y: 550,
+        },
+      ];
       o(40, 65, 410, 280, "building", {
         label: zone === "city" ? "BELLWOOD AUTO" : "RÉCORDS",
         palette: 0,
@@ -74,9 +87,26 @@
         o(1230, 345, 185, 25, "shopwall");
         obj("health", 1150, 245, "hp-shop");
       }
-      o(40, 890, 530, 190, "building", { label: "TALLER", palette: 2 });
-      o(660, 915, 430, 165, "building", { label: "BELLWOOD", palette: 0 });
-      o(1190, 890, 260, 190, "building", { label: "DEPÓSITO", palette: 1 });
+      // Smaller blocks separated by crossings, side streets and a public garden.
+      o(80, 980, 350, 230, "building", { label: "TALLER", palette: 2 });
+      o(610, 1120, 320, 220, "building", { label: "CAFÉ", palette: 1 });
+      o(90, 1510, 400, 230, "building", { label: "DEPÓSITO", palette: 0 });
+      o(1780, 100, 390, 240, "building", { label: "MUSEO", palette: 1 });
+      o(1780, 980, 310, 250, "building", { label: "BIBLIOTECA", palette: 2 });
+      o(2250, 1330, 230, 260, "building", { label: "ESTACIÓN", palette: 0 });
+      o(1130, 1310, 110, 75, "fountain");
+      o(1020, 1470, 80, 24, "bench");
+      o(1360, 1470, 80, 24, "bench");
+      for (const [x, y] of [
+        [770, 1510],
+        [1320, 1140],
+        [1460, 1680],
+        [1880, 1450],
+        [2330, 850],
+        [2180, 1660],
+      ])
+        o(x, y, 38, 38, "tree");
+      w.decor.push({ kind: "sign", x: 660, y: 965, text: "JARDÍN ↓" });
       o(455, 378, 115, 48, "car", { palette: 0 });
       o(1000, 776, 125, 50, "car", { palette: 1 });
       o(720, 710, 50, 50, "crate", { destructible: true, hp: 35 });
@@ -107,13 +137,18 @@
           progress: save.flags.gate ? 1 : 0,
         });
         o(1570, 0, 45, 475, "fence");
-        o(1570, 625, 45, 475, "fence");
+        o(1570, 625, 45, w.h - 625, "fence");
         o(1570, 475, 45, 150, "gate", { id: "gate", open: !!save.flags.gate });
         add("basic", 620, 510, "c1");
         add("basic", 730, 610, "c2");
         add("shield", 1050, 540, "c3");
         add("energy", 1200, 700, "c4");
         obj("crate", 920, 840, "cache-city");
+        if (!save.flags["dead:park-patrol"]) {
+          const patrol = foe("basic", 1390, 1550, "park-patrol");
+          patrol.optional = true;
+          w.enemies.push(patrol);
+        }
       } else {
         obj("safe", 215, 510, "rest-market");
         obj("heater", 590, 825, "optional-heat", {
@@ -206,10 +241,8 @@
     g.player.invuln = 1;
     g.player.combo = "";
     g.buffer = null;
-    const mx = Math.min(g.world.w / 2, g.view.w / g.camera.zoom / 2),
-      my = Math.min(g.world.h / 2, g.view.h / g.camera.zoom / 2);
-    g.camera.x = B.clamp(g.player.x, mx, g.world.w - mx);
-    g.camera.y = B.clamp(g.player.y, my, g.world.h - my);
+    g.camera.x = g.player.x;
+    g.camera.y = g.player.y - 28;
     g.save.zone = zone;
     g.save.checkpoint = zone;
     g.player.hp = g.player.maxHp;
@@ -414,7 +447,7 @@
         " · TRANSFORMAR EN " +
         B.form(p.queued).name.toUpperCase();
     g.ui.hint(hint);
-    const alive = w.enemies.filter((e) => !e.dead);
+    const alive = w.enemies.filter((e) => !e.dead && !e.optional);
     if (w.zone !== "city" && p.x < 100 && Math.abs(p.y - 550) < 75) {
       const previous = {
         market: "city",
@@ -424,7 +457,7 @@
       }[w.zone];
       if (previous) {
         B.loadZone(g, previous, false);
-        g.player.x = 1680;
+        g.player.x = g.world.exit ? g.world.exit.x - 80 : g.world.w - 120;
         g.player.y = 550;
         return;
       }
