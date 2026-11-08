@@ -4,7 +4,14 @@ const fs = require("node:fs"),
   vm = require("node:vm"),
   path = require("node:path");
 global.window = global;
-for (const file of ["data", "actors", "world", "combat", "world-life"])
+for (const file of [
+  "data",
+  "actors",
+  "world",
+  "combat",
+  "scenery",
+  "world-life",
+])
   vm.runInThisContext(
     fs.readFileSync(path.join(__dirname, "../js", file + ".js"), "utf8"),
     { filename: file + ".js" },
@@ -510,10 +517,48 @@ test("environment motion is deterministic, surface-aware and changes with world 
     b = new B.WorldLife();
   assert.deepEqual(a.state(g.world).leaves, b.state(g.world).leaves);
   assert.equal(B.surfaceAt(g.world, 600, 505), "asphalt");
-  assert.equal(B.surfaceAt(g.world, 300, 370), "paving");
+  assert.equal(B.surfaceAt(g.world, 300, 390), "paving");
   assert.equal(B.surfaceAt(g.world, 960, 1280), "grass");
   assert.equal(B.surfaceAt(B.createWorld("fort", g.save), 600, 505), "stone");
   const wind = a.wind(g.world, 600, 800);
   g.world.time += 1;
   assert.notEqual(a.wind(g.world, 600, 800), wind);
+});
+
+test("every playable form uses three distinct light attacks, a separate heavy and restarts the combo", () => {
+  for (const form of ["ben", "four", "heat", "diamond"]) {
+    const g = fixture();
+    g.player.form = form;
+    g.world.enemies = [];
+    const variants = [];
+    for (let n = 0; n < 4; n++) {
+      g.player.attackCD = 0;
+      B.attack(g, "J");
+      variants.push(g.player.attack.variant);
+      B.advanceAttack(g, 0.2);
+    }
+    assert.deepEqual(variants, [0, 1, 2, 0], form);
+    g.player.attackCD = 0;
+    B.attack(g, "K");
+    assert.equal(g.player.attack.variant, 3, form);
+    B.advanceAttack(g, 0.6);
+    g.player.attackCD = 0;
+    g.player.comboTimer = 0.01;
+    B.updatePlayer(g, 0.02);
+    B.attack(g, "J");
+    assert.equal(g.player.attack.variant, 0, form + " after timeout");
+  }
+});
+
+test("north streets stop before the shops and their surface matches the visible sidewalk", () => {
+  const g = fixture();
+  assert.equal(B.surfaceAt(g.world, 600, 100), "grass");
+  assert.equal(B.surfaceAt(g.world, 600, 410), "paving");
+  assert.equal(B.surfaceAt(g.world, 600, 510), "asphalt");
+  for (const o of g.world.obstacles.filter((o) => o.kind === "building")) {
+    const box = B.buildingBox(o);
+    assert.ok(box.w > 0 && box.h > 0);
+    assert.equal(box.y + box.h, o.y + o.h);
+    assert.ok(box.x >= o.x && box.x + box.w <= o.x + o.w);
+  }
 });

@@ -1,24 +1,24 @@
 # Recursos ilustrados locales
 
-Estas imágenes fueron generadas para esta revisión mediante la herramienta de generación de imágenes de la sesión, siguiendo el estilo de ilustración 2D elegido por el usuario. No son capturas ni recursos oficiales de Ben 10. La integración, los estados de animación, las colisiones y los tiempos de contacto se implementan en JavaScript.
+Las imágenes se generaron mediante la herramienta de generación de imágenes de la sesión, con el estilo de ilustración 2D elegido por el usuario. No son capturas ni recursos oficiales de Ben 10. El movimiento, las colisiones y los tiempos de contacto se implementan en JavaScript. Todos los PNG se sirven desde el propio juego, sin servidores de imágenes externos.
 
-| Archivo                        | Distribución         | Uso                                                    |
-| ------------------------------ | -------------------- | ------------------------------------------------------ |
-| `characters/ben-atlas.png`     | 6 columnas × 4 filas | Ben de diez años, cuatro orientaciones                 |
-| `characters/four-atlas.png`    | 6 × 4                | Cuatro Brazos                                          |
-| `characters/heat-atlas.png`    | 6 × 4                | Fuego                                                  |
-| `characters/diamond-atlas.png` | 6 × 4                | Diamante                                               |
-| `characters/knight-atlas.png`  | 6 × 4                | Caballeros, movimiento y espada                        |
-| `characters/story-cast.png`    | 4 × 3                | Reparto narrativo y variantes de jefes                 |
-| `world/props.png`              | 4 × 4                | Edificios, Rustbucket, vehículos, árboles y maquinaria |
-| `world/terrain.png`            | 2 × 2                | Césped, aceras, asfalto y piedra                       |
+## Personajes
 
-Los atlas animados se ordenan por filas: sur, este, norte, oeste. Sus columnas son reposo, paso izquierdo, paso derecho, preparación, contacto y recuperación. El cargador calcula los límites transparentes y fija un anclaje común de cuerpo para que extender un brazo no desplace al personaje. La vista de combate utiliza el ángulo capturado al comenzar el ataque.
+Los atlas aprobados `characters/ben-atlas.png`, `four-atlas.png`, `heat-atlas.png` y `diamond-atlas.png` conservan los diseños, reposos y recuperaciones. `knight-atlas.png` y `story-cast.png` conservan a enemigos y reparto. Los cinco ciclos `*-walk.png` siguen aportando seis poses de marcha por dirección.
 
-No se necesitan servidores de imágenes ni descargas de terceros. La primera carga lee aproximadamente 28 MiB de PNG del mismo servidor que sirve el juego. Los personajes bloqueados conservan indicadores de ADN y nombre, sin anunciar animaciones jugables que no están implementadas.
+La revisión 2.2 añade `ben-combat.png`, `four-combat.png`, `heat-combat.png` y `diamond-combat.png`. Cada hoja contiene 32 poses: preparación y contacto de tres ataques ligeros y un fuerte en cuatro direcciones. Las filas lógicas son sur, este, norte y oeste; las columnas lógicas agrupan los ataques por parejas. La recuperación procede del atlas anterior. Son poses dibujadas distintas, sin cambiar el sistema de daño por contacto.
 
-## Ciclos complementarios de marcha
+`js/atlas-frames.js` delimita las siluetas completas, incluyendo las manos que rebasan la cuadrícula nominal. El script opcional `scripts/register-combat-atlas.py` lee las componentes alfa y regenera esos metadatos si cambia el arte; no modifica los píxeles. Requiere Pillow para esa operación de desarrollo. El juego usa los metadatos ya incluidos y no requiere Python ni Pillow en el navegador.
 
-La revisión 2.1 añade `ben-walk.png`, `four-walk.png`, `heat-walk.png`, `diamond-walk.png` y `knight-walk.png`. Se generaron usando los atlas aprobados como referencia, manteniendo su diseño. Cada hoja contiene cuatro direcciones y un ciclo de seis poses de contacto, carga, paso y elevación. Los atlas originales `*-atlas.png`, el reparto y los objetos de escenario permanecen sin cambios.
+## Escenario
 
-Los anclajes se calculan sobre el centro de la pelvis para que extender una mano no arrastre el cuerpo. Los pasos dependen de la distancia recorrida y producen contactos visibles y sonidos según la superficie. Las sombras usan la silueta alfa del modelo; no son otra ilustración pegada. Fondos, sombras y escalados se reutilizan en caché para mantener el coste de dibujo acotado.
+| Archivo               | Distribución | Uso                                                                              |
+| --------------------- | ------------ | -------------------------------------------------------------------------------- |
+| `world/buildings.png` | 2 × 2        | Garaje, mercado, edificio cívico y café completos, con márgenes transparentes    |
+| `world/props.png`     | 4 × 4        | Vehículos, árboles, fuente, bancos, cajas, columnas, maquinaria y módulo de muro |
+| `world/flora.png`     | 2 × 2        | Arbusto, flores, seto con jardinera y jardinera circular                         |
+| `world/terrain.png`   | 2 × 2        | Césped, pavimento, asfalto y piedra con una paleta común                         |
+
+Los edificios usan la hoja dedicada de mayor resolución. El conjunto de objetos y los materiales de suelo se renovaron para esta revisión. Cada ilustración se dibuja completa, conservando su relación de aspecto y anclando su base. El mismo rectángulo se usa para la imagen, la sombra y, en la fuente, el agua animada.
+
+La carga inicial lee aproximadamente 36 MiB de PNG. Las imágenes escaladas y las sombras se guardan en caché; el suelo y la jardinería se componen una vez por zona. La prueba de navegador revisa los bordes transparentes y la proporción de los objetos para detectar recortes y deformaciones.

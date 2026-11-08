@@ -1,21 +1,5 @@
 "use strict";
 (function (B) {
-  const roadX = [520, 1100, 1700, 2250],
-    roadY = [430, 930, 1460];
-  B.surfaceAt = (w, x, y) => {
-    if (!["city", "market"].includes(w.zone)) return "stone";
-    if (
-      roadX.some((a) => x >= a && x <= a + 160) ||
-      roadY.some((a) => y >= a && y <= a + 150)
-    )
-      return "asphalt";
-    if (
-      [450, 1030, 1630, 2180].some((a) => x >= a && x <= a + 300) ||
-      [340, 840, 1370].some((a) => y >= a && y <= a + 300)
-    )
-      return "paving";
-    return "grass";
-  };
   function rng(seed) {
     let s = seed;
     return () => {
@@ -144,28 +128,6 @@
         actors = [g.player, ...w.enemies.filter((e) => !e.dead)];
       if (city) {
         c.save();
-        // Bevelled curbs terminate at crossings instead of drawing through them.
-        for (const y of roadY)
-          for (const edge of [y, y + 150]) {
-            let x = 0;
-            for (const gap of [...roadX, w.w]) {
-              if (gap > x) {
-                c.strokeStyle = "#1c3a3245";
-                c.lineWidth = 5;
-                c.beginPath();
-                c.moveTo(x, edge + 2);
-                c.lineTo(gap, edge + 2);
-                c.stroke();
-                c.strokeStyle = "#f1e6c488";
-                c.lineWidth = 1;
-                c.beginPath();
-                c.moveTo(x, edge - 1);
-                c.lineTo(gap, edge - 1);
-                c.stroke();
-              }
-              x = gap + 160;
-            }
-          }
         for (const d of s.decals) {
           if (!this.visible(g, d.x, d.y, 20)) continue;
           c.strokeStyle = "#253d3c22";
@@ -240,23 +202,10 @@
         )
           continue;
         const { x, y, w, h } = o;
-        if (o.kind === "building")
-          B.drawPropShadow(
-            c,
-            o.label?.includes("CAFÉ")
-              ? 7
-              : o.palette === 1
-                ? 1
-                : o.palette === 2
-                  ? 2
-                  : 0,
-            x,
-            y,
-            w,
-            h,
-            0.18,
-          );
-        else if (o.kind === "tree")
+        if (o.kind === "building") {
+          const box = B.buildingBox(o);
+          B.drawPropShadow(c, box.index, box.x, box.y, box.w, box.h, 0.22);
+        } else if (o.kind === "tree")
           B.drawPropShadow(
             c,
             (x + y) % 3 ? 8 : 9,
@@ -266,23 +215,10 @@
             145,
             0.2,
           );
-        else if (["car", "rv", "knightcar"].includes(o.kind))
-          B.drawPropShadow(
-            c,
-            o.kind === "rv"
-              ? 3
-              : o.kind === "knightcar"
-                ? 6
-                : o.palette
-                  ? 5
-                  : 4,
-            x,
-            y - 25,
-            w,
-            h + 25,
-            0.15,
-          );
-        else if (o.kind === "fountain")
+        else if (["car", "rv", "knightcar"].includes(o.kind)) {
+          const box = B.vehicleBox(o);
+          B.drawPropShadow(c, box.index, box.x, box.y, box.w, box.h, 0.18);
+        } else if (o.kind === "fountain")
           B.drawPropShadow(c, 10, x - 20, y - 70, w + 40, h + 70, 0.18);
         else if (o.kind === "machine" || o.kind === "pillar")
           B.drawPropShadow(
@@ -297,10 +233,11 @@
       }
     }
     fountain(c, o, t) {
-      const left = o.x - 20,
-        top = o.y - 70,
-        w = o.w + 40,
-        h = o.h + 70;
+      const fit = B.propRect(10, o.x - 20, o.y - 70, o.w + 40, o.h + 70),
+        left = fit.x,
+        top = fit.y,
+        w = fit.w,
+        h = fit.h;
       for (const [cy, rx, ry] of [
         [top + h * 0.71, w * 0.34, h * 0.12],
         [top + h * 0.34, w * 0.16, h * 0.055],

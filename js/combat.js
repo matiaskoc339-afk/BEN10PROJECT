@@ -36,6 +36,7 @@
       angle: p.facing,
       finisher,
       pattern,
+      variant: heavy ? 3 : Math.min(2, pattern.length - 1),
       damage,
       reach,
       aoe,
@@ -51,7 +52,7 @@
     const before = a.total - a.time;
     a.time -= dt;
     if ((p.form === "ben" || p.form === "four") && a.hitAt !== undefined) {
-      const distance = a.kind === "K" ? 20 : 8;
+      const distance = [8, 11, 14, 20][a.variant ?? (a.kind === "K" ? 3 : 0)];
       const drive =
         distance *
         (B.clamp((a.total - a.time - a.hitAt) / 0.09, 0, 1) -
@@ -69,7 +70,10 @@
     const p = g.player,
       heavy = a.kind === "K",
       { damage, reach, aoe, finisher, pattern } = a;
-    g.audio.play(p.form === "heat" ? "fire" : heavy ? "heavy" : "light");
+    g.audio.play(
+      p.form === "heat" ? "fire" : heavy ? "heavy" : "light",
+      a.variant,
+    );
     if (p.form === "heat") {
       if (!heavy) {
         g.shoot(p.x, p.y, a.angle, 550, damage, "fire", "player", 11, 1.1);
@@ -151,7 +155,13 @@
     }
     if (p.specialCD > 0 || p.energy < 10) return;
     p.specialCD = (p.form === "four" ? 7 : 6) * (g.has(p.form, 5) ? 0.7 : 1);
-    p.specialPose = { time: 0.65, total: 0.65, hitAt: 0.14, fired: false };
+    p.specialPose = {
+      time: 0.65,
+      total: 0.65,
+      hitAt: 0.14,
+      fired: false,
+      variant: 3,
+    };
     p.attack = null;
     p.energy -= 10;
     p.attackCD = 0.65;

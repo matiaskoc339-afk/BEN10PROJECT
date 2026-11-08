@@ -77,23 +77,24 @@
         });
       } else {
         // A traversable shop, with a doorway facing the sidewalk.
-        o(930, 65, 520, 85, "building", {
+        o(930, 65, 520, 85, "shopwall", {
           label: "ARCHIVOS · ABIERTO",
-          palette: 2,
         });
         o(930, 150, 35, 220, "shopwall");
         o(1415, 150, 35, 220, "shopwall");
         o(965, 345, 175, 25, "shopwall");
         o(1230, 345, 185, 25, "shopwall");
+        o(990, 170, 100, 30, "bookcase");
+        o(1280, 170, 100, 30, "bookcase");
         obj("health", 1150, 245, "hp-shop");
       }
       // Smaller blocks separated by crossings, side streets and a public garden.
-      o(80, 650, 350, 180, "building", { label: "TALLER", palette: 2 });
+      o(80, 650, 350, 180, "building", { label: "TALLER", palette: 0 });
       o(610, 1120, 320, 220, "building", { label: "CAFÉ", palette: 1 });
       o(90, 1670, 350, 170, "building", { label: "DEPÓSITO", palette: 0 });
-      o(1930, 90, 240, 250, "building", { label: "MUSEO", palette: 1 });
+      o(1930, 90, 240, 250, "building", { label: "MUSEO", palette: 2 });
       o(1930, 650, 250, 180, "building", { label: "BIBLIOTECA", palette: 2 });
-      o(1930, 1150, 250, 190, "building", { label: "ESTACIÓN", palette: 0 });
+      o(1930, 1150, 250, 190, "building", { label: "ESTACIÓN", palette: 2 });
       o(1320, 1310, 110, 75, "fountain");
       o(1000, 1400, 80, 24, "bench");
       o(1350, 1410, 80, 24, "bench");
@@ -129,7 +130,7 @@
       });
       if (zone === "city") {
         o(70, 490, 165, 78, "rv");
-        obj("safe", 265, 455, "max");
+        obj("safe", 360, 485, "max");
         obj("gate", 1580, 550, "gate", {
           thermal: true,
           required: "four",

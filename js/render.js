@@ -51,53 +51,7 @@
       }
     }
     paintGround() {
-      const g = this.g,
-        c = this.c,
-        w = g.world,
-        city = ["city", "market"].includes(w.zone);
-      c.fillStyle = B.groundPattern(c, city ? 0 : 3);
-      c.fillRect(0, 0, w.w, w.h);
-      if (city) {
-        // Interconnected streets with a north/south loop, rather than one corridor.
-        c.fillStyle = B.groundPattern(c, 1);
-        for (const y of [340, 840, 1370]) c.fillRect(-100, y, w.w + 200, 300);
-        for (const x of [450, 1030, 1630, 2180])
-          c.fillRect(x, x === 450 || x === 1030 ? 340 : -100, 300, w.h + 200);
-        c.fillStyle = B.groundPattern(c, 2);
-        for (const y of [430, 930, 1460]) c.fillRect(-100, y, w.w + 200, 150);
-        for (const x of [520, 1100, 1700, 2250])
-          c.fillRect(x, x === 520 || x === 1100 ? 430 : -100, 160, w.h + 200);
-        c.strokeStyle = "#dfd4a777";
-        c.lineWidth = 3;
-        c.setLineDash([28, 35]);
-        for (const y of [505, 1005, 1535]) {
-          c.beginPath();
-          c.moveTo(0, y);
-          c.lineTo(w.w, y);
-          c.stroke();
-        }
-        c.setLineDash([]);
-        for (let i = 0; i < 6; i++) {
-          c.fillStyle = "#eee0bcbb";
-          c.fillRect(485, 439 + i * 24, 155, 11);
-        }
-        if (w.zone === "market") {
-          c.fillStyle = B.groundPattern(c, 1);
-          c.fillRect(1190, 385, 420, 430);
-          ring(c, 1400, 585, 190, "#9c9d8044", 5);
-        }
-      } else {
-        c.fillStyle = B.groundPattern(c, 3);
-        c.fillRect(0, 0, w.w, w.h);
-        if (w.zone === "throne") {
-          c.fillStyle = "#6e3949";
-          c.fillRect(370, 380, 1180, 340);
-          c.strokeStyle = "#bd9a62";
-          c.lineWidth = 3;
-          c.strokeRect(385, 395, 1150, 310);
-          ring(c, 1180, 550, 145, "#bc9d7044", 3);
-        }
-      }
+      B.paintScenery(this.c, this.g.world);
     }
     ground() {
       const g = this.g,
@@ -118,10 +72,7 @@
         top = g.camera.y - g.view.h / g.camera.zoom / 2,
         right = left + g.view.w / g.camera.zoom,
         bottom = top + g.view.h / g.camera.zoom;
-      c.fillStyle = B.groundPattern(
-        c,
-        ["city", "market"].includes(w.zone) ? 0 : 3,
-      );
+      c.fillStyle = ["city", "market"].includes(w.zone) ? "#739365" : "#40565c";
       if (left < 0) c.fillRect(left, top, -left, bottom - top);
       if (top < 0)
         c.fillRect(Math.max(0, left), top, right - Math.max(0, left), -top);
@@ -156,7 +107,12 @@
             y > g.camera.y + halfH
           )
             return;
-          B.drawProp(c, 8, x, y, 210, 220, { wind: g.life.wind(w, x, y) });
+          const seed = Math.abs(Math.round(x * 11 + y * 3)),
+            width = 180 + (seed % 45),
+            height = 200 + (seed % 40);
+          B.drawProp(c, seed % 3 ? 8 : 9, x + (seed % 25), y, width, height, {
+            wind: g.life.wind(w, x, y),
+          });
         };
         // The physical limit reads as a wooded edge, not an invisible wall in grass.
         for (let x = -170; x < w.w + 170; x += 155) {
@@ -240,12 +196,12 @@
         items.push({ y: g.player.y, draw: () => this.player() });
         if (w.zone === "city") {
           items.push({
-            y: 460,
-            draw: () => B.drawActor(c, "Max", 210, 460, 1, { time: t }),
+            y: 485,
+            draw: () => B.drawActor(c, "Max", 325, 485, 1, { time: t }),
           });
           items.push({
-            y: 470,
-            draw: () => B.drawActor(c, "Gwen", 280, 470, 1, { time: t }),
+            y: 500,
+            draw: () => B.drawActor(c, "Gwen", 400, 500, 1, { time: t }),
           });
         }
       }
@@ -309,21 +265,13 @@
       const { x, y, w, h, kind } = o,
         c = this.c,
         g = this.g;
+      if (kind === "bookcase") {
+        B.drawBookcase(c, o);
+        return;
+      }
       if (kind === "building") {
-        B.drawProp(
-          c,
-          o.label?.includes("CAFÉ")
-            ? 7
-            : o.palette === 1
-              ? 1
-              : o.palette === 2
-                ? 2
-                : 0,
-          x,
-          y,
-          w,
-          h,
-        );
+        const box = B.buildingBox(o);
+        B.drawProp(c, box.index, box.x, box.y, box.w, box.h);
         return;
       }
       if (kind === "tree") {
@@ -345,14 +293,8 @@
         return;
       }
       if (["car", "rv", "knightcar"].includes(kind)) {
-        B.drawProp(
-          c,
-          kind === "rv" ? 3 : kind === "knightcar" ? 6 : o.palette ? 5 : 4,
-          x,
-          y - 25,
-          w,
-          h + 25,
-        );
+        const box = B.vehicleBox(o);
+        B.drawProp(c, box.index, box.x, box.y, box.w, box.h);
         return;
       }
       if (kind === "fountain") {
@@ -458,19 +400,9 @@
         c.restore();
         return;
       }
-      if (kind === "labwall" || kind === "shopwall") {
-        for (let yy = y; yy < y + h; yy += 80)
-          for (let xx = x; xx < x + w; xx += 120)
-            B.drawProp(
-              c,
-              15,
-              xx,
-              yy,
-              Math.min(120, x + w - xx),
-              Math.min(80, y + h - yy),
-            );
-      }
+      if (kind === "labwall" || kind === "shopwall") B.drawWall(c, o);
     }
+
     object(o) {
       const c = this.c,
         g = this.g;
@@ -551,13 +483,29 @@
         c.strokeStyle = B.form(p.form).color;
         c.lineWidth = p.attack.kind === "K" ? 5 : 3;
         c.beginPath();
-        c.arc(
-          p.x,
-          p.y - 32,
-          p.attack.reach * 0.65,
-          p.attack.angle - 0.55,
-          p.attack.angle + 0.55,
-        );
+        const a = p.attack,
+          variant = a.variant ?? 0,
+          reach = a.reach * 0.55;
+        c.translate(p.x, p.y - (variant === 3 ? 9 : 35));
+        c.rotate(a.angle);
+        if (variant === 0) {
+          c.moveTo(reach * 0.35, -3);
+          c.lineTo(reach, -3);
+        } else if (variant === 1) {
+          c.moveTo(reach * 0.3, -reach * 0.45);
+          c.quadraticCurveTo(
+            reach * 1.2,
+            -reach * 0.1,
+            reach * 0.7,
+            reach * 0.5,
+          );
+        } else if (variant === 2) {
+          c.moveTo(reach * 0.2, reach * 0.35);
+          c.quadraticCurveTo(reach * 1.05, 0, reach * 0.65, -reach * 0.5);
+        } else {
+          c.scale(1, 0.45);
+          c.ellipse(reach * 0.4, 0, reach * 0.65, reach * 0.65, 0, 0, B.TAU);
+        }
         c.stroke();
         c.restore();
       }

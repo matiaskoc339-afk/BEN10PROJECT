@@ -170,6 +170,90 @@ async function check(name, fn) {
     assert.equal(new Set(frames).size, 3);
   });
   await check(
+    "scenery and combat atlases have complete silhouettes with clear frame borders",
+    async () => {
+      const bad = await page.evaluate(() => {
+        const issues = [];
+        for (const [key, sheet] of Object.entries(B10.sheets)) {
+          if (
+            !["props", "buildings", "flora"].includes(key) &&
+            !key.endsWith("Combat")
+          )
+            continue;
+          for (const [index, f] of sheet.frames.entries()) {
+            const cv = document.createElement("canvas");
+            cv.width = f.w;
+            cv.height = f.h;
+            const c = cv.getContext("2d");
+            c.drawImage(sheet.img, f.x, f.y, f.w, f.h, 0, 0, f.w, f.h);
+            const pixels = c.getImageData(0, 0, f.w, f.h).data;
+            let cut = 0;
+            for (let y = 0; y < f.h; y++)
+              for (let x = 0; x < f.w; x++) {
+                if (
+                  (x < 2 || y < 2 || x >= f.w - 2 || y >= f.h - 2) &&
+                  pixels[(y * f.w + x) * 4 + 3] > 200
+                )
+                  cut++;
+              }
+            if (cut) issues.push({ key, index, cut });
+          }
+        }
+        return issues;
+      });
+      assert.deepEqual(bad, []);
+    },
+  );
+  await check(
+    "scenery keeps its aspect ratio and fits entirely inside its display area",
+    async () => {
+      const layouts = await page.evaluate(() =>
+        Array.from({ length: 20 }, (_, index) => {
+          const r = B10.propRect(index, 25, 40, 113, 260),
+            f = B10.sheets[r.key].frames[r.index];
+          return { ...r, ratio: f.b.w / f.b.h };
+        }),
+      );
+      for (const r of layouts) {
+        assert.ok(Math.abs(r.w / r.h - r.ratio) < 0.00001);
+        assert.ok(r.x >= 24.99999 && r.y >= 39.99999);
+        assert.ok(r.x + r.w <= 138.00001 && r.y + r.h <= 300.00001);
+      }
+    },
+  );
+  await check(
+    "Ben and each alien have four visibly different attacks in all four directions",
+    async () => {
+      const variants = await page.evaluate(() => {
+        const result = [];
+        for (const id of ["ben", "four", "heat", "diamond"])
+          for (const facing of [0, Math.PI / 2, Math.PI, -Math.PI / 2]) {
+            const frames = [];
+            for (let variant = 0; variant < 4; variant++) {
+              const cv = document.createElement("canvas");
+              cv.width = cv.height = 300;
+              B10.drawActor(cv.getContext("2d"), id, 150, 270, 1.5, {
+                time: 0,
+                facing,
+                attack: {
+                  time: 0.32,
+                  total: 0.48,
+                  hitAt: 0.13,
+                  variant,
+                  fired: true,
+                },
+              });
+              frames.push(cv.toDataURL());
+            }
+            result.push({ id, facing, count: new Set(frames).size });
+          }
+        return result;
+      });
+      for (const v of variants)
+        assert.equal(v.count, 4, v.id + " facing " + v.facing);
+    },
+  );
+  await check(
     "walking uses six consecutive gait poses without interleaving idle",
     async () => {
       const poses = await page.evaluate(() =>
@@ -199,7 +283,7 @@ async function check(name, fn) {
     },
   );
   await check(
-    "the fountain animates water over the same approved scenery model",
+    "the fountain animates water over its fitted scenery model",
     async () => {
       const frames = await page.evaluate(() =>
         [0, 1.2].map((t) => {

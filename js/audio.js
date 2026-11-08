@@ -37,7 +37,7 @@
       gain.connect(c.destination);
       source.start(t);
     }
-    play(type) {
+    play(type, variant = 0) {
       if (!this.ctx || this.muted || !this.volume) return;
       const c = this.ctx,
         t = c.currentTime;
@@ -58,7 +58,10 @@
         hurt: [120, 0.15, "sawtooth"],
         ui: [530, 0.06, "sine"],
       };
-      const [f, d, w] = settings[type] || settings.ui;
+      const [base, d, w] = settings[type] || settings.ui;
+      const f =
+        base *
+        (["light", "heavy", "fire"].includes(type) ? 1 + variant * 0.08 : 1);
       const o = c.createOscillator(),
         g = c.createGain();
       o.type = w;

@@ -10,6 +10,12 @@
       cast: ["assets/characters/story-cast.png", 4, 3],
       props: ["assets/world/props.png", 4, 4],
       terrain: ["assets/world/terrain.png", 2, 2],
+      buildings: ["assets/world/buildings.png", 2, 2],
+      flora: ["assets/world/flora.png", 2, 2],
+      benCombat: ["assets/characters/ben-combat.png", 8, 4],
+      fourCombat: ["assets/characters/four-combat.png", 8, 4],
+      heatCombat: ["assets/characters/heat-combat.png", 8, 4],
+      diamondCombat: ["assets/characters/diamond-combat.png", 8, 4],
       benWalk: ["assets/characters/ben-walk.png", 6, 4],
       fourWalk: ["assets/characters/four-walk.png", 6, 4],
       heatWalk: ["assets/characters/heat-walk.png", 6, 4],
@@ -74,17 +80,20 @@
             const frames = [];
             for (let row = 0; row < rows; row++)
               for (let col = 0; col < cols; col++) {
-                const x = Math.round((col * img.width) / cols),
-                  y = Math.round((row * img.height) / rows);
+                const box = B.atlasFrames?.[key]?.[row * cols + col],
+                  x = box ? box[0] : Math.round((col * img.width) / cols),
+                  y = box ? box[1] : Math.round((row * img.height) / rows),
+                  fw = box ? box[2] : sw,
+                  fh = box ? box[3] : sh;
                 frames.push({
                   x,
                   y,
-                  w: sw,
-                  h: sh,
+                  w: fw,
+                  h: fh,
                   b:
                     key === "terrain"
                       ? { x: 0, y: 0, w: sw, h: sh }
-                      : bounds(img, x, y, sw, sh),
+                      : bounds(img, x, y, fw, fh),
                 });
               }
             const rowHeights = [];
@@ -94,7 +103,7 @@
                 .map((f) => f.b.h)
                 .sort((a, b) => a - b);
               rowHeights.push(
-                key.endsWith("Walk")
+                key.endsWith("Walk") || key.endsWith("Combat")
                   ? hs[Math.floor(hs.length / 2)]
                   : frames[row * cols].b.h,
               );
@@ -191,6 +200,16 @@
     if (action) {
       const elapsed = action.total - action.time,
         contact = action.hitAt ?? action.total * 0.3;
+      const variant = action.variant ?? (action.kind === "K" ? 3 : 0);
+      if (sheets[key + "Combat"] && elapsed < contact + 0.11) {
+        return {
+          key: key + "Combat",
+          index: row * 8 + variant * 2 + (elapsed < contact ? 0 : 1),
+          row,
+          variant,
+          phase: elapsed < contact ? "windup" : "contact",
+        };
+      }
       col = elapsed < contact ? 3 : elapsed < contact + 0.085 ? 4 : 5;
     } else if (opts.hurtTime > 0) col = 5;
     else if (opts.dodging) {
@@ -288,7 +307,7 @@
     c.filter = "blur(2px)";
     const sheet = sheets[key],
       f = sheet.frames[index];
-    if (key === "props") {
+    if (key === "props" || key === "buildings" || key === "flora") {
       const b = f.b;
       c.drawImage(
         silhouette(key, index),
@@ -345,7 +364,7 @@
     c.imageSmoothingQuality = "high";
     const sheet = sheets[key],
       f = sheet.frames[index];
-    if (key === "props") {
+    if (key === "props" || key === "buildings" || key === "flora") {
       const b = f.b;
       c.drawImage(
         sheet.img,
@@ -371,8 +390,22 @@
     const step = opts.moving ? Math.sin((opts.walk || 0) * 2) * 0.7 : 0;
     const sway = opts.moving ? Math.sin(opts.walk || 0) * 0.35 : 0;
     const progress = action ? (action.total - action.time) / action.total : 0;
-    const anticipation =
-      action && !action.fired ? -Math.sin(progress * Math.PI) * 1.8 : 0;
+    const variant = action?.variant ?? 0,
+      contact = action
+        ? (action.hitAt ?? action.total * 0.3) / action.total
+        : 0,
+      strike = action
+        ? Math.sin(
+            (Math.min(1, progress / Math.max(0.01, contact)) * Math.PI) / 2,
+          )
+        : 0,
+      settling =
+        action && action.fired ? Math.max(0, 1 - (progress - contact) * 3) : 0;
+    const anticipation = action
+      ? action.fired
+        ? settling * [1.2, 2.5, 2, 3.5][variant]
+        : -strike * [1.2, 2.2, 1.5, 3][variant]
+      : 0;
     // Continuous band coordinates keep the legs planted while the chest breathes.
     const bend = (u) => Math.pow(1 - u, 2);
     const yAt = (u) => top + height * u - (breathing + step) * scale * bend(u);
@@ -493,14 +526,36 @@
       canvas.height,
     );
   };
+  function propSource(index) {
+    if (index >= 16) return { key: "flora", index: index - 16 };
+    return [0, 1, 2, 7].includes(index)
+      ? { key: "buildings", index: index === 7 ? 3 : index }
+      : { key: "props", index };
+  }
+  // One layout is shared by the sprite, projected shadow, water and culling.
+  // Contain the entire alpha silhouette; never stretch it to a collision box.
+  B.propRect = (index, x, y, w, h) => {
+    const source = propSource(index),
+      frame = sheets[source.key]?.frames[source.index];
+    if (!frame) return { ...source, x, y, w, h };
+    const scale = Math.min(w / frame.b.w, h / frame.b.h),
+      width = frame.b.w * scale,
+      height = frame.b.h * scale;
+    return {
+      ...source,
+      x: x + (w - width) / 2,
+      y: y + h - height,
+      w: width,
+      h: height,
+    };
+  };
   B.drawProp = (c, index, x, y, w, h, opts = {}) => {
-    const sheet = sheets.props;
-    if (!sheet) return;
-    const paint = preparedImage("props", index, w, h);
+    const r = B.propRect(index, x, y, w, h);
+    if (!sheets[r.key]) return;
+    const paint = preparedImage(r.key, r.index, r.w, r.h);
     if (opts.wind || opts.fadeCanopy) {
       for (let i = 0; i < 12; i++) {
         const u = i / 12,
-          v = (i + 1) / 12,
           shift = (opts.wind || 0) * (1 - u) * (1 - u);
         c.save();
         if (opts.fadeCanopy && i < 8) c.globalAlpha *= 0.45;
@@ -510,21 +565,22 @@
           paint.height * u,
           paint.width,
           paint.height / 12,
-          x + shift,
-          y + h * u,
-          w,
-          h / 12 + 0.2,
+          r.x + shift,
+          r.y + r.h * u,
+          r.w,
+          r.h / 12 + 0.2,
         );
         c.restore();
       }
-    } else c.drawImage(paint, x, y, w, h);
+    } else c.drawImage(paint, r.x, r.y, r.w, r.h);
   };
   B.drawPropShadow = (c, index, x, y, w, h, opacity = 0.17) => {
-    if (!sheets.props) return;
-    const cached = projection("props", index, 0, -h, w, h, 0.48, 0.26);
+    const r = B.propRect(index, x, y, w, h);
+    if (!sheets[r.key]) return;
+    const cached = projection(r.key, r.index, 0, -r.h, r.w, r.h, 0.48, 0.26);
     c.save();
     c.globalAlpha *= opacity;
-    c.drawImage(cached.canvas, x + cached.x, y + h + cached.y);
+    c.drawImage(cached.canvas, r.x + cached.x, r.y + r.h + cached.y);
     c.restore();
   };
   const patterns = new Map();
