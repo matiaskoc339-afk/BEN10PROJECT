@@ -1,45 +1,43 @@
-# Versión 3.0 — mundo lateral
+# Versión 4.0 — actuación y recorridos únicos
 
-[Ver el vídeo de juego](lateral-gameplay.mp4) · [Referencias consultadas](references.md)
+[Ver la revisión en movimiento](motion-gameplay.mp4) · [Referencias consultadas](references.md)
 
-![Bellwood](lateral-city.png)
+## Un recorrido con lugares distintos
 
-## Perspectiva y movimiento
+![Parque del canal](motion-city-park.png)
 
-El capítulo se reconstruyó como beat ’em up lateral. La cámara acompaña el avance horizontal; W/S mueven los pies hacia el fondo o hacia la cámara sin cambiar su altura. Los actores miran a izquierda o derecha y se ordenan según la posición de sus pies.
+La arquitectura ocupa posiciones fijas y cada panorama se usa una sola vez por recorrido. El barrio de Bellwood desemboca en un parque con canal y después en una estación de carga. El mercado reúne galería comercial, bazar nocturno y plaza del Ejecutor. La fortaleza pasa de la energía cristalina a los talleres mecánicos y al salón de estandartes. Tras el trono, el corredor derrumbado termina en los jardines abiertos del acueducto.
 
-Las colisiones pertenecen a la banda del suelo. Los edificios quedan detrás de ella. Las cajas, columnas y mecanismos tienen una huella de colisión y un dibujo apoyado sobre esa huella. Los golpes necesitan una profundidad similar, y la IA busca alinearse antes de preparar un ataque. El mapa representa la nueva ruta y sus secretos.
+![Estación de Bellwood](motion-city-station.png)
 
-## Escenarios reconstruidos
+Los extremos de cada pintura se solapan con una máscara suave. El suelo cambia de color y material según el tramo: adoquines, sendero y raíles aportan hitos propios. Las lámparas y los elementos de primer plano tienen posiciones elegidas para cada lugar. La profundidad sigue siendo transitable y los edificios quedan detrás de las colisiones de los pies.
 
-![Mercado al anochecer](lateral-market.png)
+![Bazar nocturno](motion-market-bazaar.png)
 
-Cada zona tiene un panorama arquitectónico completo, una paleta y un suelo propios. Cielo y siluetas lejanas, arquitectura intermedia, actores y elementos de primer plano se desplazan a distinta velocidad. Los módulos de arquitectura se enlazan con apoyos en sus uniones.
+![Taller mecánico](motion-fort-works.png)
 
-El suelo utiliza luz y textura discretas para que los pies y las siluetas se lean claramente. Las sombras de contacto, la luz de ambiente aplicada a los actores, las pisadas y los reflejos suaves integran los cuerpos en el escenario. No se rota un personaje completo para simular que golpea.
+![Salida a los jardines](motion-escape-garden.png)
 
-![Taller de la fortaleza](lateral-fort.png)
+## Un prólogo propio
 
-Las lámparas oscilan con el viento del mundo; su luz varía. La calle tiene una fuente con caídas y ondas, la Rustbucket emite humo tenue y los interiores tienen vapor y motas. Fuego proyecta un resplandor animado y pequeñas chispas. Estos efectos continúan durante las conversaciones y se detienen al pausar o abrir el mapa.
+![Laboratorio del prólogo](motion-intro.png)
 
-![Sala del Rey Eterno](lateral-throne.png)
+El laboratorio industrial tiene su propio fondo, una máquina de extracción abierta y luces electrónicas. No usa el reactor cristalino ni el panorama de la fortaleza. Los encuadres muestran al interlocutor y un acompañante; los personajes escuchan, gesticulan y reaccionan con dibujos diferentes. La fractura libera las firmas genéticas y provoca la pelea. Ben forcejea, se protege, se levanta y huye con desplazamiento continuo. Driscoll conserva su armadura original hasta el encuentro del trono.
 
-![Corredor de evacuación](lateral-escape.png)
+El reparto tiene 60 dibujos de actuación repartidos en dos hojas: Vilgax, Malware, Kevin, Hex, Zombozo, Dr. Ánimo, Driscoll, Ben, Gwen y Max. Los gestos son actuación por poses; no hay doblaje ni sincronización labial fonética.
 
-## Personajes y encuadres
+## Reposo, guardia y golpes
 
-Ben, Fuego, Cuatro Brazos, Diamante y los caballeros tienen nuevas hojas de reposo, guardia y marcha lateral, con dos orientaciones y seis poses de paso. La marcha sigue la distancia real recorrida. El diseño de los personajes conserva la identidad aprobada.
+Ben, Fuego, Cuatro Brazos y Diamante tienen cuatro dibujos de reposo y cuatro de guardia por personaje, con parpadeo, manos, rodillas y cambios de peso. Cada uno tiene además 24 dibujos nuevos de ataque: tres ligeros y un fuerte, con seis fases por movimiento. Las orientaciones se reflejan alrededor del apoyo del cuerpo, conservando el contacto de los pies. La marcha mantiene seis poses y avanza con la distancia real recorrida.
 
-Se reutilizan las orientaciones laterales de los cuatro movimientos de combate: tres ligeros y un fuerte. Cada movimiento tiene preparación y contacto propios, seguidos de recuperación. Los proyectiles se presentan a la altura de manos o pies según el ataque.
+El Ejecutor y las dos apariencias de armadura del Rey tienen otras 18 poses: guardia, cambio de peso, preparación, contacto, reacción y paso. Los caballeros alternan guardia y usan sus ciclos de marcha y ataque. Las reacciones no giran el recorte completo del personaje.
 
-Los encuadres se calculan por la silueta completa de cada pose. Las imágenes de objetos conservan su proporción y dejan un margen transparente. Las pruebas inspeccionan sus bordes para detectar anatomía o mobiliario cortados. Los panoramas son paños continuos que ocupan la anchura de su módulo; sus extremos son uniones arquitectónicas deliberadas.
+**Fuego** es más ágil que Cuatro Brazos: velocidad 255 frente a 185, ligero de 0,22 frente a 0,32 s, y espera entre esquivas de 0,56 frente a 0,86 s. J tiene tres contactos físicos distintos. K carga fuego y lo libera desde las manos, con estela y núcleo de llama. La dirección queda fijada al iniciar el golpe y el daño se aplica una sola vez al contacto.
 
-Los personajes narrativos conservan poses ilustradas y respiración sencilla, con el nuevo apoyo de pies y luz de escena. No se añaden ciclos completos de actuación o sincronización labial.
-
-![Prólogo del extractor](lateral-intro.png)
+Los destellos aparecen a altura del cuerpo, con retroceso y una pausa de 23 ms al acertar un ligero o 50 ms en uno fuerte. La defensa reduce el efecto. Las sombras, la luz de ambiente, los reflejos y los contactos con el suelo integran los sprites en el escenario.
 
 ## Validación
 
-Pasaron 34 pruebas de sistemas y 31 comprobaciones en Chromium, incluyendo la secuencia completa hasta recuperar Diamante y terminar el escape. Se probaron encuadres, marcha, golpes según profundidad, límites del suelo, accesibilidad de rutas y secretos, cámara horizontal, luz ambiental, desplazamiento de panoramas, guardado y pausa. No hubo errores de página. La modalidad opcional con `file://` se omitió por la política del navegador administrado.
+Pasaron **38 pruebas de sistemas y 34 comprobaciones en Chromium**, sin errores de página. La comprobación opcional con `file://` se omitió por la política del navegador administrado. Las pruebas comprueban los límites de cámara durante el diálogo, rutas sin repetición, geometría del suelo, comportamiento de Fuego, huida gradual, seis poses por golpe, actuación del reparto, bordes de los atlas, mecanismos, guardado y la secuencia completa del capítulo. El vídeo de revisión combina controles reales con colocación explícita de los encuentros y cambios de zona para mostrar la revisión en un clip breve.
 
-El vídeo utiliza controles reales; los encuentros y cambios de zona se colocan explícitamente para mostrar el capítulo en un clip breve. Los fondos estáticos, escalados, sombras y versiones iluminadas se reutilizan en caché. La simulación mantiene pasos de 60 Hz; no se garantiza la misma frecuencia de dibujo en todos los equipos.
+Los fondos, versiones escaladas e iluminadas, sombras y suelos se guardan en caché. La simulación usa pasos de 60 Hz; la frecuencia de dibujo depende del equipo.

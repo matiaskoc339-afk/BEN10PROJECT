@@ -246,7 +246,8 @@
     if (p.dodgeTime > 0) {
       dx = Math.cos(p.dodgeAngle);
       dy = Math.sin(p.dodgeAngle);
-      B.move(g, p, dx * 620 * dt, dy * 620 * dt);
+      const dash = p.form === "heat" ? 690 : p.form === "four" ? 570 : 620;
+      B.move(g, p, dx * dash * dt, dy * dash * dt);
       if (g.has("heat", 2) && p.form === "heat" && Math.random() < dt * 25)
         g.field(p.x, p.y, 32, 1.6, "fire", 8);
     } else {
@@ -283,8 +284,10 @@
   B.dodge = (g) => {
     const p = g.player;
     if (p.dodgeCD > 0) return;
-    p.dodgeCD = 0.75;
-    p.dodgeTime = 0.21;
+    p.dodgeCD = p.form === "heat" ? 0.56 : p.form === "four" ? 0.86 : 0.75;
+    p.dodgeDuration =
+      p.form === "heat" ? 0.19 : p.form === "four" ? 0.23 : 0.21;
+    p.dodgeTime = p.dodgeDuration;
     p.invuln = 0.3;
     p.attack = null;
     p.attackCD = Math.min(p.attackCD, 0.12);

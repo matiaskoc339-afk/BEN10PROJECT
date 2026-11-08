@@ -2,12 +2,22 @@
 (function (B) {
   B.sameLane = (g, a, b, width = 44) =>
     !g.world.lateral || Math.abs(a.y - b.y) <= width;
+  B.attackTiming = (form, heavy) => {
+    const light =
+      { heat: 0.22, ben: 0.26, diamond: 0.29, four: 0.32 }[form] || 0.28;
+    const total = heavy ? (form === "heat" ? 0.44 : 0.5) : light;
+    return {
+      total,
+      cooldown: total + 0.015,
+      hitAt: heavy ? 0.13 : total * 0.3,
+    };
+  };
   B.attack = (g, kind) => {
     const p = g.player;
     if (p.dodgeTime > 0 || p.specialPose) return false;
     if (p.attackCD > 0) {
       g.buffer = kind;
-      g.bufferTimer = 0.24;
+      g.bufferTimer = 0.36;
       return false;
     }
     const f = B.form(p.form),
@@ -29,12 +39,13 @@
       aoe = true;
       g.field(p.x, p.y, 185, 0.32, "shock", 0);
     }
-    p.attackCD = heavy ? 0.52 : 0.25;
+    const timing = B.attackTiming(p.form, heavy);
+    p.attackCD = timing.cooldown;
     p.attack = {
       kind,
-      time: heavy ? 0.48 : 0.25,
-      total: heavy ? 0.48 : 0.25,
-      hitAt: heavy ? 0.13 : 0.055,
+      time: timing.total,
+      total: timing.total,
+      hitAt: timing.hitAt,
       angle: p.facing,
       finisher,
       pattern,
@@ -53,7 +64,7 @@
     if (!a) return;
     const before = a.total - a.time;
     a.time -= dt;
-    if ((p.form === "ben" || p.form === "four") && a.hitAt !== undefined) {
+    if (!(p.form === "heat" && a.kind === "K") && a.hitAt !== undefined) {
       const distance = [8, 11, 14, 20][a.variant ?? (a.kind === "K" ? 3 : 0)];
       const drive =
         distance *
@@ -73,25 +84,24 @@
       heavy = a.kind === "K",
       { damage, reach, aoe, finisher, pattern } = a;
     g.audio.play(
-      p.form === "heat" ? "fire" : heavy ? "heavy" : "light",
+      p.form === "heat" && heavy ? "fire" : heavy ? "heavy" : "light",
       a.variant,
     );
     if (p.form === "heat") {
       if (!heavy) {
-        g.shoot(p.x, p.y, a.angle, 550, damage, "fire", "player", 11, 1.1);
+        B.melee(g, damage, reach, 1.05, finisher, false);
       } else {
-        B.melee(g, damage, 170, 1.0, finisher, false);
-        for (let offset = -2; offset <= 2; offset++)
+        for (let offset = -1; offset <= 1; offset++)
           g.shoot(
-            p.x,
+            p.x + Math.cos(a.angle) * 38,
             p.y,
-            a.angle + offset * 0.17,
-            380,
-            damage * 0.4,
+            a.angle + offset * 0.075,
+            560,
+            damage * (offset === 0 ? 1 : 0.35),
             "fire",
             "player",
-            9,
-            0.42,
+            offset === 0 ? 14 : 9,
+            0.85,
           );
       }
     } else if (p.form === "diamond") {
@@ -340,7 +350,15 @@
       g.player.hitCount++;
       g.player.hitTimer = 2.8;
       g.shake = Math.max(g.shake, hit.heavy ? 5 : 2);
-      g.hitstop = Math.max(g.hitstop, hit.heavy ? 0.025 : 0.008);
+      g.hitstop = Math.max(g.hitstop, hit.heavy ? 0.05 : 0.023);
+      (g.world.impacts ||= []).push({
+        x: e.x,
+        y: e.y - 75,
+        angle: hit.angle ?? B.angle(g.player, e),
+        heavy: !!hit.heavy,
+        life: 0.18,
+        max: 0.18,
+      });
     }
     g.floatText(
       e.x,
@@ -649,6 +667,9 @@
     }
   };
   B.updateEffects = (g, dt) => {
+    for (const impact of g.world.impacts || []) impact.life -= dt;
+    if (g.world.impacts)
+      g.world.impacts = g.world.impacts.filter((a) => a.life > 0);
     const w = g.world;
     for (const s of w.shots) {
       if (s.life <= 0) continue;

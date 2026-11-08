@@ -10,6 +10,7 @@ for (const file of [
   "world",
   "combat",
   "scenery",
+  "cinematic",
   "world-life",
 ])
   vm.runInThisContext(
@@ -578,7 +579,7 @@ test("a punch hits an aligned enemy and misses an enemy standing deeper in the s
     far = B.makeEnemy("heavy", 870, 695, "deep");
   g.world.enemies = [near, far];
   B.attack(g, "J");
-  B.advanceAttack(g, 0.08);
+  B.advanceAttack(g, g.player.attack.hitAt + 0.01);
   assert.ok(near.hp < near.maxHp);
   assert.equal(far.hp, far.maxHp);
 });
@@ -601,4 +602,75 @@ test("all stage mechanisms and enemy spawns lie inside the new walkable belt", (
     for (const a of [...w.objects, ...w.enemies])
       assert.ok(a.y >= w.lane.top && a.y <= w.lane.bottom, zone + " " + a.id);
   }
+});
+
+test("Heatblast light is close melee and heavy releases forward fire at contact once", () => {
+  const g = fixture();
+  g.world.obstacles = [];
+  g.world.objects = [];
+  Object.assign(g.player, { form: "heat", x: 800, y: 620, facing: 0 });
+  const near = B.makeEnemy("heavy", 860, 620, "near"),
+    far = B.makeEnemy("heavy", 1120, 620, "far");
+  g.world.enemies = [near, far];
+  B.attack(g, "J");
+  B.advanceAttack(g, g.player.attack.hitAt + 0.01);
+  assert.ok(near.hp < near.maxHp);
+  assert.equal(far.hp, far.maxHp);
+  assert.equal(g.world.shots.length, 0);
+  g.world.enemies = [far];
+  g.player.attack = null;
+  g.player.attackCD = 0;
+  B.attack(g, "K");
+  B.advanceAttack(g, 0.12);
+  assert.equal(g.world.shots.length, 0);
+  B.advanceAttack(g, 0.02);
+  assert.equal(g.world.shots.length, 3);
+  B.advanceAttack(g, 0.2);
+  assert.equal(g.world.shots.length, 3);
+  for (let n = 0; n < 18; n++) B.updateEffects(g, 0.04);
+  assert.ok(far.hp < far.maxHp);
+});
+test("Heatblast moves, attacks and recovers his dodge faster than Four Arms", () => {
+  assert.ok(B.form("heat").speed > B.form("four").speed * 1.3);
+  assert.ok(
+    B.attackTiming("heat", false).total < B.attackTiming("four", false).total,
+  );
+  const heat = fixture(),
+    four = fixture();
+  heat.player.form = "heat";
+  four.player.form = "four";
+  B.dodge(heat);
+  B.dodge(four);
+  assert.ok(heat.player.dodgeCD < four.player.dodgeCD);
+  assert.ok(heat.player.dodgeDuration < four.player.dodgeDuration);
+});
+test("every stage has a finite unique route covering its full width and a dedicated intro", () => {
+  for (const zone of ["intro", "city", "market", "fort", "throne", "escape"]) {
+    const w = B.createWorld(zone, B.fresh()),
+      sections = B.stageSections(w);
+    assert.equal(new Set(sections.map((s) => s.asset)).size, sections.length);
+    assert.equal(sections[0].x, 0);
+    assert.equal(sections.at(-1).x + sections.at(-1).width, w.w);
+    for (let i = 1; i < sections.length; i++)
+      assert.equal(sections[i - 1].x + sections[i - 1].width, sections[i].x);
+    if (["city", "market", "fort"].includes(zone))
+      assert.equal(sections.length, 3);
+    if (zone === "intro") assert.equal(sections[0].asset, "scene_intro");
+  }
+});
+test("intro blocks speakers in different shots and Ben runs out gradually", () => {
+  const g = fixture("intro");
+  g.cine = {};
+  g.ui.dialogue = { index: 0, scene: B.scenes.intro };
+  const opening = B.cineShot(g);
+  assert.ok(opening.actors.some((a) => a.id === "Vilgax"));
+  g.ui.dialogue.index = 6;
+  assert.ok(B.cineShot(g).actors.some((a) => a.id === "Hex"));
+  g.cine = { escaped: true, escapeAt: 10 };
+  g.world.time = 10;
+  const start = B.cineShot(g).ben.x;
+  g.world.time = 10.8;
+  const middle = B.cineShot(g).ben.x;
+  g.world.time = 11.6;
+  assert.ok(start > middle && middle > B.cineShot(g).ben.x);
 });

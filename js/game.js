@@ -360,6 +360,7 @@
     }
     cineAction(action) {
       const p = this.player;
+      this.cine[action + "At"] = this.world.time;
       if (action === "extract") {
         this.cine.extract = true;
         this.audio.play("boss");
@@ -417,12 +418,7 @@
         team,
         r,
         life,
-        height:
-          team === "player" &&
-          this.player.form === "heat" &&
-          this.player.attack?.variant >= 2
-            ? 18
-            : 62,
+        height: team === "player" && this.player.form === "heat" ? 78 : 62,
         touched: new Set(),
       });
     }
@@ -513,7 +509,13 @@
                 y: this.cine.escaped ? 550 : 470,
               }
             : this.player;
-        this.camera.x += (target.x - this.camera.x) * Math.min(1, dt * 5);
+        const half = this.view.w / this.camera.zoom / 2;
+        const focusX = B.clamp(
+          target.x,
+          Math.min(half, this.world.w / 2),
+          Math.max(this.world.w / 2, this.world.w - half),
+        );
+        this.camera.x += (focusX - this.camera.x) * Math.min(1, dt * 5);
         this.camera.y += (430 - this.camera.y) * Math.min(1, dt * 5);
         return;
       }

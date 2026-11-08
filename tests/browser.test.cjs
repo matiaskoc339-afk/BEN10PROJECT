@@ -178,7 +178,12 @@ async function check(name, fn) {
           if (
             !["props", "buildings", "flora", "sideProps"].includes(key) &&
             !key.endsWith("Combat") &&
-            !key.endsWith("Side")
+            !key.endsWith("Side") &&
+            !key.endsWith("Idle") &&
+            !key.endsWith("Fight") &&
+            !key.startsWith("castAct") &&
+            key !== "bossAct" &&
+            key !== "extractor"
           )
             continue;
           for (const [index, f] of sheet.frames.entries()) {
@@ -186,7 +191,7 @@ async function check(name, fn) {
             cv.width = f.w;
             cv.height = f.h;
             const c = cv.getContext("2d");
-            c.drawImage(sheet.img, f.x, f.y, f.w, f.h, 0, 0, f.w, f.h);
+            B10.paintAtlasFrame(c, key, index);
             const pixels = c.getImageData(0, 0, f.w, f.h).data;
             let cut = 0;
             for (let y = 0; y < f.h; y++)
@@ -209,7 +214,7 @@ async function check(name, fn) {
     "scenery keeps its aspect ratio and fits entirely inside its display area",
     async () => {
       const layouts = await page.evaluate(() =>
-        Array.from({ length: 28 }, (_, index) => {
+        Array.from({ length: 29 }, (_, index) => {
           const r = B10.propRect(index, 25, 40, 113, 260),
             f = B10.sheets[r.key].frames[r.index];
           return { ...r, ratio: f.b.w / f.b.h };
@@ -392,6 +397,118 @@ async function check(name, fn) {
     },
   );
   await check(
+    "player idle and guard use four actual drawings and every attack has six poses",
+    async () => {
+      const counts = await page.evaluate(() => {
+        const result = [];
+        for (const id of ["ben", "four", "heat", "diamond"]) {
+          const calm = [],
+            guard = [];
+          for (let n = 0; n < 4; n++) {
+            calm.push(
+              B10.spriteFrame(id, {
+                lateral: true,
+                moving: false,
+                time: n * 0.25,
+              }).index,
+            );
+            guard.push(
+              B10.spriteFrame(id, {
+                lateral: true,
+                moving: false,
+                combatReady: true,
+                time: n * 0.25,
+              }).index,
+            );
+          }
+          const attacks = [];
+          for (let variant = 0; variant < 4; variant++) {
+            const drawings = [0.005, 0.06, 0.12, 0.16, 0.25, 0.46].map(
+              (elapsed) => {
+                const cv = document.createElement("canvas");
+                cv.width = cv.height = 340;
+                B10.drawActor(cv.getContext("2d"), id, 150, 310, 1.7, {
+                  lateral: true,
+                  attack: {
+                    total: 0.5,
+                    time: 0.5 - elapsed,
+                    hitAt: 0.15,
+                    variant,
+                    fired: elapsed >= 0.15,
+                  },
+                });
+                return cv.toDataURL();
+              },
+            );
+            attacks.push(new Set(drawings).size);
+          }
+          result.push({ id, calm, guard, attacks });
+        }
+        return result;
+      });
+      for (const r of counts) {
+        assert.equal(new Set(r.calm).size, 4, r.id);
+        assert.equal(new Set(r.guard).size, 4);
+        assert.ok(r.guard.every((n) => n >= 4));
+        assert.deepEqual(r.attacks, [6, 6, 6, 6]);
+      }
+    },
+  );
+  await check(
+    "story cast has six distinct full-body acting poses and bosses react to combat",
+    async () => {
+      const result = await page.evaluate(() => {
+        const cast = [
+          "Vilgax",
+          "Malware",
+          "Kevin",
+          "Hex",
+          "Zombozo",
+          "Dr. Ánimo",
+          "Driscoll",
+          "ben",
+          "Gwen",
+          "Max",
+        ];
+        const counts = cast.map(
+          (id) =>
+            new Set(
+              Array.from({ length: 6 }, (_, cinePose) => {
+                const cv = document.createElement("canvas");
+                cv.width = 450;
+                cv.height = 400;
+                B10.drawActor(cv.getContext("2d"), id, 220, 370, 1.4, {
+                  lateral: true,
+                  cinePose,
+                  scene: "intro",
+                });
+                return cv.toDataURL();
+              }),
+            ).size,
+        );
+        const boss = ["executor", "king"].map((id) =>
+          [
+            B10.spriteFrame(id, { lateral: true, armor: 2, time: 0 }),
+            B10.spriteFrame(id, {
+              lateral: true,
+              armor: 2,
+              attack: { fired: false },
+            }),
+            B10.spriteFrame(id, {
+              lateral: true,
+              armor: 2,
+              attack: { fired: true },
+            }),
+            B10.spriteFrame(id, { lateral: true, armor: 2, hurtTime: 0.1 }),
+          ].map((f) => f.index),
+        );
+        return { counts, boss };
+      });
+      assert.ok(result.counts.every((n) => n === 6));
+      assert.ok(result.boss.every((indices) => new Set(indices).size === 4));
+    },
+  );
+  await check(
     "panorama layers redraw continuously when the camera advances horizontally",
     async () => {
       const changed = await page.evaluate(() => {
@@ -522,6 +639,35 @@ async function check(name, fn) {
       assert.equal(result.first.y, 430);
       assert.equal(result.second.y, 430);
       assert.equal(result.edge.x, result.half);
+    },
+  );
+  await check(
+    "dialogue camera keeps scenery edges outside the viewport at both ends of a stage",
+    async () => {
+      const results = await page.evaluate(() => {
+        const p = game.player,
+          oldX = p.x,
+          oldCamera = game.camera.x,
+          results = [];
+        game.ui.scene("gate");
+        for (const x of [-100, game.world.w + 100]) {
+          p.x = x;
+          for (let n = 0; n < 100; n++) game.update(1 / 60);
+          results.push({
+            camera: game.camera.x,
+            half: game.view.w / game.camera.zoom / 2,
+            width: game.world.w,
+          });
+        }
+        game.ui.skip();
+        p.x = oldX;
+        game.camera.x = oldCamera;
+        return results;
+      });
+      for (const r of results) {
+        assert.ok(r.camera >= r.half - 0.01);
+        assert.ok(r.camera <= r.width - r.half + 0.01);
+      }
     },
   );
   await check(
@@ -742,7 +888,7 @@ async function check(name, fn) {
         game.player.facing = 0;
         for (let i = 0; i < 4; i++) {
           game.player.attackCD = 0;
-          B10.attack(game, "J");
+          B10.attack(game, "K");
           B10.advanceAttack(game, 0.14);
           for (let j = 0; j < 10; j++) B10.updateEffects(game, 0.04);
         }
@@ -829,7 +975,7 @@ async function check(name, fn) {
           game.player.facing = 0;
           for (let i = 0; i < 4; i++) {
             game.player.attackCD = 0;
-            B10.attack(game, "J");
+            B10.attack(game, "K");
             B10.advanceAttack(game, 0.14);
             for (let n = 0; n < 8; n++) B10.updateEffects(game, 0.04);
           }
@@ -867,7 +1013,7 @@ async function check(name, fn) {
           game.player.facing = 0;
           for (let i = 0; i < 5; i++) {
             game.player.attackCD = 0;
-            B10.attack(game, "J");
+            B10.attack(game, "K");
             B10.advanceAttack(game, 0.14);
             for (let n = 0; n < 10; n++) B10.updateEffects(game, 0.04);
           }

@@ -107,6 +107,9 @@
       }
       this.g.input.clear();
       this.g.mode = "dialogue";
+      this.g.player.moving = false;
+      this.g.player.attack = null;
+      this.g.player.specialPose = null;
       this.g.sceneAge = 0;
       this.dialogue = {
         id,
@@ -126,6 +129,7 @@
       const d = this.dialogue;
       if (!d) return;
       const l = d.scene.lines[d.index];
+      d.lineStarted = this.g.world.time;
       d.chars = this.g.settings.typewriter ? 0 : l.text.length;
       $("speaker").textContent = l.who.toUpperCase();
       $("expression").textContent = l.expression;
@@ -694,7 +698,10 @@
         : p.form === "ben"
           ? "OMNITRIX DISPONIBLE"
           : "ADN ACTIVO · ENERGÍA EN USO";
-      $("zone-name").textContent = B.zoneNames[g.world.zone] || "PRÓLOGO";
+      $("zone-name").textContent = B.stageSectionAt(
+        g.world,
+        g.player.x,
+      ).name.toUpperCase();
       $("objective-text").textContent = g.save.completed
         ? "Explora Bellwood y encuentra los secretos"
         : B.objectives[g.world.zone] || "Escapa de la máquina de Vilgax";

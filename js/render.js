@@ -131,12 +131,23 @@
         if (w.zone === "city") {
           items.push({
             y: 625,
-            draw: () => B.drawStageActor(c, g, "Max", 430, 625, 1, { time: t }),
+            draw: () =>
+              B.drawStageActor(c, g, "Max", 430, 625, 1, {
+                time: t,
+                speaking:
+                  g.ui.dialogue?.scene.lines[g.ui.dialogue.index]?.who ===
+                  "Max",
+              }),
           });
           items.push({
             y: 650,
             draw: () =>
-              B.drawStageActor(c, g, "Gwen", 530, 650, 1, { time: t }),
+              B.drawStageActor(c, g, "Gwen", 530, 650, 1, {
+                time: t,
+                speaking:
+                  g.ui.dialogue?.scene.lines[g.ui.dialogue.index]?.who ===
+                  "Gwen",
+              }),
           });
         }
       }
@@ -147,12 +158,30 @@
         c.translate(shot.x, shot.y - (shot.height ?? 62));
         c.rotate(shot.angle);
         if (shot.kind === "fire") {
+          const pulse = Math.sin(t * 32 + shot.x * 0.03) * 3;
+          c.fillStyle = "#f57935bb";
+          c.beginPath();
+          c.moveTo(shot.r + 7, 0);
+          c.quadraticCurveTo(
+            -shot.r,
+            -shot.r - pulse,
+            -shot.r * 3.5,
+            -shot.r * 0.3,
+          );
+          c.lineTo(-shot.r * 2.2, 0);
+          c.lineTo(-shot.r * 3.2, shot.r * 0.55);
+          c.quadraticCurveTo(-shot.r, shot.r + pulse, shot.r + 7, 0);
+          c.fill();
           const glow = c.createRadialGradient(0, 0, 1, 0, 0, shot.r * 2);
           glow.addColorStop(0, "#fff6bc");
           glow.addColorStop(0.5, "#f8af4b");
           glow.addColorStop(1, "#f0752800");
           c.fillStyle = glow;
           c.fillRect(-shot.r * 2, -shot.r * 2, shot.r * 4, shot.r * 4);
+          c.fillStyle = "#fff1a8";
+          c.beginPath();
+          c.ellipse(0, 0, shot.r, shot.r * 0.55, 0, 0, B.TAU);
+          c.fill();
         } else {
           c.fillStyle = shot.team === "player" ? "#bbe8db" : "#d994d5";
           c.strokeStyle = "#567677";
@@ -167,6 +196,7 @@
         }
         c.restore();
       }
+      for (const impact of w.impacts || []) this.impact(impact);
       for (const a of g.particles) {
         c.globalAlpha = Math.max(0, a.life / a.max);
         c.fillStyle = a.color;
@@ -217,6 +247,7 @@
         blocking: p.blocking,
         dodging: p.dodgeTime > 0,
         dodgeTime: p.dodgeTime,
+        dodgeDuration: p.dodgeDuration,
         hurtTime: p.hurtTime,
         invuln: p.invuln,
       });
@@ -232,7 +263,11 @@
         const a = p.attack,
           variant = a.variant ?? 0,
           reach = a.reach * 0.55;
-        c.translate(p.x, p.y - (variant === 3 ? 9 : 35));
+        c.translate(
+          p.x,
+          p.y -
+            (p.form === "heat" && variant === 3 ? 78 : variant === 2 ? 42 : 77),
+        );
         c.rotate(a.angle);
         if (variant === 0) {
           c.moveTo(reach * 0.35, -3);
@@ -276,7 +311,7 @@
       B.drawStageActor(c, g, id, e.x, e.y, scale, {
         time: g.world.time,
         walk: e.walk,
-        moving: e.moving,
+        moving: e.moving && g.mode !== "dialogue",
         combatReady: B.dist(e, g.player) < 350,
         facing:
           Math.abs(Math.cos(e.facing)) < 0.08
@@ -315,46 +350,128 @@
     intro(items) {
       const g = this.g,
         c = this.c,
-        t = g.world.time;
-      B.SideScene.obstacle(c, g, {
-        x: 625,
-        y: 570,
-        w: 140,
-        h: 50,
-        kind: "machine",
+        t = g.world.time,
+        shot = B.cineShot(g);
+      items.push({
+        y: 635,
+        draw: () => {
+          B.drawProp(c, 28, 535, 340, 320, 310);
+          if (g.cine.extract && !g.cine.fractured) {
+            B.SideScene.glow(
+              c,
+              695,
+              540,
+              130,
+              "#adff91",
+              0.16 + Math.sin(t * 12) * 0.04,
+            );
+            c.save();
+            c.strokeStyle = "#bdff9c";
+            c.lineWidth = 2;
+            for (let i = 0; i < 3; i++) {
+              c.beginPath();
+              c.ellipse(
+                695,
+                538 + i * 25 + Math.sin(t * 4) * 8,
+                57,
+                10,
+                0,
+                0,
+                B.TAU,
+              );
+              c.stroke();
+            }
+            c.restore();
+          }
+        },
       });
       items.push({
-        y: 640,
+        y: shot.ben.y,
         draw: () =>
-          B.drawStageActor(c, g, "ben", g.cine.escaped ? 350 : 695, 640, 1, {
+          B.drawStageActor(c, g, "ben", shot.ben.x, shot.ben.y, 1.15, {
             time: t,
-            facing: 0,
-            moving: !!g.cine.escaped,
-            walk: t * 8,
+            facing: shot.ben.facing,
+            moving: shot.ben.moving,
+            walk: shot.ben.walk,
+            combatReady: g.cine.fractured,
+            cinePose: shot.ben.pose,
           }),
       });
-      for (const [id, x, y] of [
-        ["Vilgax", 950, 560],
-        ["Kevin", 480, 550],
-        ["Malware", 1120, 650],
-        ["Hex", 330, 600],
-        ["Zombozo", 1110, 570],
-        ["Dr. Ánimo", 420, 705],
-        ["Driscoll", 900, 710],
-      ])
+      for (const actor of shot.actors)
         items.push({
-          y,
-          draw: () =>
-            B.drawStageActor(c, g, id, x, y, 1, { scene: "intro", time: t }),
+          y: actor.y,
+          draw: () => {
+            B.drawStageActor(
+              c,
+              g,
+              actor.id,
+              actor.x,
+              actor.y,
+              actor.speaking ? 1.08 : 1,
+              {
+                scene: "intro",
+                time: t,
+                facing: actor.facing,
+                cinePose: actor.pose,
+              },
+            );
+          },
         });
-      label(
-        c,
-        g.cine.fractured ? "EXTRACTOR DAÑADO" : "EXTRACTOR GENÉTICO",
-        695,
-        448,
-        11,
-        "#c9e2ad",
-      );
+      if (g.cine.fractured) {
+        const q = B.clamp((t - g.cine.fractureAt) / 1.7, 0, 1);
+        if (q < 1)
+          for (let i = 0; i < 7; i++) {
+            const a = (i * B.TAU) / 7,
+              x = 695 + Math.cos(a) * q * 440,
+              y = 545 + Math.sin(a) * q * 150;
+            B.SideScene.glow(
+              c,
+              x,
+              y,
+              24,
+              ["#74d6ff", "#8cedad", "#efb4fa", "#ffd48c"][i % 4],
+              0.6 * (1 - q),
+            );
+            c.fillStyle = "#deffad";
+            c.beginPath();
+            c.arc(x, y, 4 * (1 - q), 0, B.TAU);
+            c.fill();
+          }
+      }
+      if (g.cine.brawl) {
+        const n = Math.floor(t * 5),
+          x = 930 + Math.sin(n * 4) * 100,
+          y = 490 + Math.cos(n) * 35;
+        this.impact({
+          x,
+          y,
+          angle: n,
+          life: 0.08 + ((t * 5) % 1) * 0.08,
+          max: 0.18,
+          heavy: true,
+        });
+      }
+    }
+    impact(a) {
+      const c = this.c,
+        q = Math.max(0, a.life / a.max);
+      c.save();
+      c.translate(a.x, a.y);
+      c.rotate(a.angle);
+      c.globalAlpha = q;
+      c.fillStyle = "#ffedb6";
+      c.strokeStyle = "#ea9e54";
+      c.lineWidth = 1.5;
+      c.beginPath();
+      for (let i = 0; i < 16; i++) {
+        const angle = (i * B.TAU) / 16,
+          r = (i % 2 ? 5 : a.heavy ? 32 : 22) * (1.3 - q * 0.3);
+        c.lineTo(Math.cos(angle) * r, Math.sin(angle) * r * 0.7);
+      }
+      c.closePath();
+      c.fill();
+      c.stroke();
+      c.restore();
     }
     menu() {
       const g = this.g,

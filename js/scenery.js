@@ -1,6 +1,13 @@
 "use strict";
 (function (B) {
   const palettes = {
+    intro: {
+      sky: ["#10282d", "#223f45"],
+      floor: ["#485d60", "#202e38"],
+      trim: "#71918d",
+      light: "#b0efa2",
+      ink: "#12282e",
+    },
     city: {
       sky: ["#c6c5b9", "#f3cf9a"],
       floor: ["#687a78", "#374b52"],
@@ -37,8 +44,74 @@
       ink: "#17313c",
     },
   };
-  const palette = (w) =>
-    palettes[w.zone === "intro" ? "fort" : w.zone] || palettes.city;
+  const palette = (w) => palettes[w.zone] || palettes.city;
+  // Finite authored route: each landmark appears once, at a fixed world position.
+  const routes = {
+    intro: [["intro", "Laboratorio de extracción", "#40575b"]],
+    city: [
+      ["city", "Barrio del Rustbucket", "#5e7373"],
+      ["cityPark", "Parque del canal", "#b8ad8c"],
+      ["cityStation", "Estación de carga", "#627176"],
+    ],
+    market: [
+      ["market", "Galería comercial", "#566274"],
+      ["marketBazaar", "Bazar nocturno", "#7e716b"],
+      ["marketPlaza", "Plaza del Ejecutor", "#61667c"],
+    ],
+    fort: [
+      ["fort", "Cámara de energía", "#526b73"],
+      ["fortWorks", "Taller de la Orden", "#706c63"],
+      ["fortHall", "Galería de estandartes", "#5d5864"],
+    ],
+    throne: [["throne", "Trono del Rey Eterno", "#665666"]],
+    escape: [
+      ["escape", "Galería derrumbada", "#486767"],
+      ["escapeGarden", "Jardines del acueducto", "#7d9688"],
+    ],
+  };
+  B.stageSections = (world) =>
+    (routes[world.zone] || routes.city).map(
+      ([asset, name, color], n, list) => ({
+        asset: "scene_" + asset,
+        name,
+        color,
+        x: (world.w * n) / list.length,
+        width: world.w / list.length,
+        first: n === 0,
+        last: n === list.length - 1,
+      }),
+    );
+  B.stageSectionAt = (world, x) =>
+    B.stageSections(world).find(
+      (section, i, list) =>
+        x < section.x + section.width || i === list.length - 1,
+    );
+  const murals = new Map();
+  function mural(section) {
+    const img = B.sheets[section.asset]?.img;
+    if (!img) return null;
+    const cacheKey = section.asset + ":" + section.width;
+    if (murals.has(cacheKey)) return murals.get(cacheKey);
+    const overlap = 100,
+      width = Math.ceil(section.width + overlap * 2),
+      height = Math.ceil((width * img.height) / img.width);
+    const cv = document.createElement("canvas");
+    cv.width = width;
+    cv.height = height;
+    const ctx = cv.getContext("2d");
+    ctx.drawImage(img, 0, 0, width, height);
+    ctx.globalCompositeOperation = "destination-in";
+    const mask = ctx.createLinearGradient(0, 0, width, 0);
+    mask.addColorStop(0, section.first ? "#000" : "#0000");
+    mask.addColorStop((overlap * 2) / width, "#000");
+    mask.addColorStop(1 - (overlap * 2) / width, "#000");
+    mask.addColorStop(1, section.last ? "#000" : "#0000");
+    ctx.fillStyle = mask;
+    ctx.fillRect(0, 0, width, height);
+    const paint = { cv, height, overlap };
+    murals.set(cacheKey, paint);
+    return paint;
+  }
   const floors = new WeakMap();
   function rng(seed) {
     return () => {
@@ -77,11 +150,16 @@
     c.restore();
   }
   B.surfaceAt = (w, x, y) =>
-    ["city", "market"].includes(w.zone)
-      ? w.zone === "market"
-        ? "paving"
-        : "asphalt"
-      : "stone";
+    B.stageSectionAt(w, x).asset === "scene_cityPark" ||
+    B.stageSectionAt(w, x).asset === "scene_escapeGarden"
+      ? y < 535 || y > 715
+        ? "grass"
+        : "paving"
+      : ["city", "market"].includes(w.zone)
+        ? w.zone === "market"
+          ? "paving"
+          : "asphalt"
+        : "stone";
   function floor(c, g) {
     const w = g.world,
       p = palette(w);
@@ -102,6 +180,61 @@
           y = rand() * 420;
         ctx.fillStyle = n % 2 ? "#e9ddd50b" : "#0b263214";
         ctx.fillRect(x, y, 1 + rand() * 5, 1 + rand() * 1.3);
+      }
+      for (const section of B.stageSections(w)) {
+        const tint = ctx.createLinearGradient(
+          section.x - 120,
+          0,
+          section.x + section.width + 120,
+          0,
+        );
+        tint.addColorStop(0, section.color + "00");
+        tint.addColorStop(0.15, section.color + "cc");
+        tint.addColorStop(0.85, section.color + "cc");
+        tint.addColorStop(1, section.color + "00");
+        ctx.fillStyle = tint;
+        ctx.fillRect(section.x - 120, 0, section.width + 240, 420);
+        if (
+          section.asset === "scene_cityPark" ||
+          section.asset === "scene_escapeGarden"
+        ) {
+          for (const y of [55, 125, 220]) {
+            line(
+              ctx,
+              section.x + 20,
+              y,
+              section.x + section.width - 20,
+              y,
+              "#5d665b33",
+              2,
+            );
+            for (
+              let x = section.x + 80 + y;
+              x < section.x + section.width - 50;
+              x += 180
+            )
+              line(ctx, x, y, x + 12, y + 65, "#5d665b22");
+          }
+          for (let i = 0; i < 24; i++) {
+            const x = section.x + rand() * section.width,
+              y = 35 + rand() * 250;
+            line(ctx, x, y, x + 12, y + 1, "#c4b78d55", 2);
+          }
+        }
+        if (section.asset === "scene_cityStation") {
+          for (const y of [70, 230]) {
+            line(ctx, section.x, y, section.x + section.width, y, "#263c42", 7);
+            line(
+              ctx,
+              section.x,
+              y - 3,
+              section.x + section.width,
+              y - 3,
+              "#a3a59a",
+              2,
+            );
+          }
+        }
       }
       if (w.zone !== "city")
         for (const y of [20, 62, 127, 218, 342]) {
@@ -177,20 +310,15 @@
             box(c, x + a, 330 - h + b, 10, 16, "#f2d29b20");
       }
     }
-    const id = w.zone === "intro" ? "fort" : w.zone,
-      img = B.sheets["scene_" + id]?.img;
-    if (img) {
-      const height = 610,
-        tw = (img.width / img.height) * height,
-        offset = g.camera.x * 0.08;
-      const first = Math.floor((left - offset) / tw) - 1,
-        last = Math.ceil((left + wide - offset) / tw) + 1;
-      for (let n = first; n <= last; n++) {
-        const x = n * tw + offset;
-        // The painted masonry at each end joins the next bay. A small overlap
-        // closes subpixel seams without adding a visible frame to the panorama.
-        c.drawImage(img, x - 0.5, -105, tw + 1, height);
-      }
+    for (const section of B.stageSections(w)) {
+      if (
+        section.x > left + wide + 120 ||
+        section.x + section.width < left - 120
+      )
+        continue;
+      const paint = mural(section);
+      if (!paint) continue;
+      c.drawImage(paint.cv, section.x - paint.overlap, 487 - paint.height);
     }
     floor(c, g);
   }
@@ -215,17 +343,23 @@
       t = w.time,
       left = g.camera.x - g.view.w / g.camera.zoom / 2,
       right = g.camera.x + g.view.w / g.camera.zoom / 2;
-    for (let x = Math.floor(left / 540) * 540 + 260; x < right + 300; x += 540)
-      lamp(c, x, 320, t, p, g.life.wind(w, x, 320));
+    const lights =
+      {
+        intro: [320, 1110],
+        city: [680, 1450, 3650, 4600],
+        market: [540, 1210, 1870, 2340, 3090, 3990],
+        fort: [470, 1180, 2030, 3210, 3880],
+        throne: [470, 2110],
+        escape: [340, 1010, 1570],
+      }[w.zone] || [];
+    for (const x of lights)
+      if (x > left - 130 && x < right + 130)
+        lamp(c, x, 290 + Math.sin(x) * 35, t, p, g.life.wind(w, x, 320));
     if (w.zone === "city") {
       water(c, 3320, 497, t);
     }
     if (w.zone === "fort" || w.zone === "intro" || w.zone === "escape") {
-      for (
-        let x = Math.floor(left / 500) * 500 + 240;
-        x < right + 400;
-        x += 500
-      ) {
+      for (let x = 390; x < w.w; x += 1137) {
         glow(c, x, 412, 110, p.light, 0.045 + Math.sin(t * 1.6 + x) * 0.012);
         for (let n = 0; n < 3; n++) {
           const phase = (t * 0.21 + n / 3) % 1;
@@ -469,20 +603,35 @@
   function foreground(c, g) {
     const p = palette(g.world),
       left = g.camera.x - g.view.w / g.camera.zoom / 2;
-    for (
-      let j = Math.floor((left + g.camera.x * 0.12) / 1150) - 1;
-      j < (left + g.view.w / g.camera.zoom + g.camera.x * 0.12) / 1150 + 1;
-      j++
-    ) {
-      const x = j * 1150 - g.camera.x * 0.12;
+    const anchors =
+      {
+        intro: [80, 1340],
+        city: [100, 1930, 3560, 5110],
+        market: [60, 1660, 3350, 4740],
+        fort: [80, 1510, 2920, 4130],
+        throne: [60, 2520],
+        escape: [60, 1920, 3520],
+      }[g.world.zone] || [];
+    for (const anchor of anchors) {
+      const x = anchor - g.camera.x * 0.07;
+      if (x < left - 200 || x > left + g.view.w / g.camera.zoom + 200) continue;
       c.save();
-      c.globalAlpha = 0.6;
-      box(c, x, 825, 280, 40, p.ink, 5);
-      for (let a = 12; a < 275; a += 36)
-        line(c, x + a, 835, x + a + 15, 825, p.trim, 2);
+      c.globalAlpha = 0.65;
+      if (
+        (g.world.zone === "city" && anchor > 1800 && anchor < 3500) ||
+        (g.world.zone === "escape" && anchor > 1800)
+      ) {
+        for (let n = 0; n < 7; n++)
+          ellipse(c, x + n * 23, 829 + Math.sin(n) * 9, 29, 15, p.ink);
+      } else {
+        box(c, x, 824, 150, 34, p.ink, 4);
+        for (let a = 8; a < 145; a += 23)
+          line(c, x + a, 831, x + a + 6, 853, p.trim, 1);
+      }
       c.restore();
     }
   }
+
   B.SideScene = {
     palette,
     background,
@@ -496,7 +645,7 @@
   B.drawStageActor = (c, g, id, x, y, scale = 1, opts = {}) => {
     const p = palette(g.world),
       depth = B.clamp((y - 500) / 230, 0, 1),
-      size = scale * (1.2 + depth * 0.07);
+      size = scale * (1.4 + depth * 0.07);
     if (["market", "fort", "throne"].includes(g.world.zone)) {
       c.save();
       c.translate(x, y + 4);

@@ -8,6 +8,26 @@
       heatSide: ["assets/characters/heat-side.png", 8, 2],
       diamondSide: ["assets/characters/diamond-side.png", 8, 2],
       knightSide: ["assets/characters/knight-side.png", 8, 2],
+      benIdle: ["assets/characters/ben-idle.png", 4, 2],
+      fourIdle: ["assets/characters/four-idle.png", 4, 2],
+      heatIdle: ["assets/characters/heat-idle.png", 4, 2],
+      diamondIdle: ["assets/characters/diamond-idle.png", 4, 2],
+      benFight: ["assets/characters/ben-fight.png", 6, 4],
+      fourFight: ["assets/characters/four-fight.png", 6, 4],
+      heatFight: ["assets/characters/heat-fight.png", 6, 4],
+      diamondFight: ["assets/characters/diamond-fight.png", 6, 4],
+      castActA: ["assets/characters/cast-act-a.png", 6, 4],
+      castActB: ["assets/characters/cast-act-b.png", 6, 6],
+      bossAct: ["assets/characters/boss-act.png", 6, 3],
+      extractor: ["assets/stages/extractor.png", 1, 1],
+      scene_intro: ["assets/stages/intro.png", 1, 1],
+      scene_cityPark: ["assets/stages/city-park.png", 1, 1],
+      scene_cityStation: ["assets/stages/city-station.png", 1, 1],
+      scene_marketBazaar: ["assets/stages/market-bazaar.png", 1, 1],
+      scene_marketPlaza: ["assets/stages/market-plaza.png", 1, 1],
+      scene_fortWorks: ["assets/stages/fort-works.png", 1, 1],
+      scene_fortHall: ["assets/stages/fort-hall.png", 1, 1],
+      scene_escapeGarden: ["assets/stages/escape-garden.png", 1, 1],
       sideProps: ["assets/stages/props.png", 4, 2],
       scene_city: ["assets/stages/city.png", 1, 1],
       scene_market: ["assets/stages/market.png", 1, 1],
@@ -33,12 +53,36 @@
       diamondWalk: ["assets/characters/diamond-walk.png", 6, 4],
       knightWalk: ["assets/characters/knight-walk.png", 6, 4],
     };
-  function bounds(img, x, y, w, h) {
+  function paintFrame(c, img, frame, width = frame.w, height = frame.h) {
+    c.save();
+    c.scale(width / frame.w, height / frame.h);
+    if (frame.clip) {
+      c.beginPath();
+      frame.clip.forEach(([x, y], n) => (n ? c.lineTo(x, y) : c.moveTo(x, y)));
+      c.closePath();
+      c.clip();
+    }
+    c.drawImage(
+      img,
+      frame.x,
+      frame.y,
+      frame.w,
+      frame.h,
+      0,
+      0,
+      frame.w,
+      frame.h,
+    );
+    c.restore();
+  }
+  B.paintAtlasFrame = (c, key, index) =>
+    paintFrame(c, sheets[key].img, sheets[key].frames[index]);
+  function bounds(img, x, y, w, h, clip) {
     const canvas = document.createElement("canvas");
     canvas.width = w;
     canvas.height = h;
     const c = canvas.getContext("2d");
-    c.drawImage(img, x, y, w, h, 0, 0, w, h);
+    paintFrame(c, img, { x, y, w, h, clip });
     let data;
     try {
       data = c.getImageData(0, 0, w, h).data;
@@ -101,10 +145,18 @@
                   y,
                   w: fw,
                   h: fh,
+                  clip: B.atlasClips?.[key]?.[row * cols + col],
                   b:
                     key === "terrain" || key.startsWith("scene_")
                       ? { x: 0, y: 0, w: sw, h: sh }
-                      : bounds(img, x, y, fw, fh),
+                      : bounds(
+                          img,
+                          x,
+                          y,
+                          fw,
+                          fh,
+                          B.atlasClips?.[key]?.[row * cols + col],
+                        ),
                 });
               }
             const rowHeights = [];
@@ -114,14 +166,20 @@
                 .map((f) => f.b.h)
                 .sort((a, b) => a - b);
               rowHeights.push(
-                key.endsWith("Walk") ||
-                  key.endsWith("Combat") ||
-                  key.endsWith("Side")
-                  ? hs[Math.floor(hs.length / 2)]
-                  : frames[row * cols].b.h,
+                key.endsWith("Fight")
+                  ? frames[0].b.h / 0.93
+                  : key.startsWith("castAct") || key === "bossAct"
+                    ? frames[row * cols].b.h
+                    : key.endsWith("Idle")
+                      ? Math.max(...frames.slice(0, cols).map((f) => f.b.h))
+                      : key.endsWith("Walk") ||
+                          key.endsWith("Combat") ||
+                          key.endsWith("Side")
+                        ? hs[Math.floor(hs.length / 2)]
+                        : frames[row * cols].b.h,
               );
             }
-            sheets[key] = { img, cols, rows, frames, rowHeights };
+            sheets[key] = { key, img, cols, rows, frames, rowHeights };
             resolve();
           };
           img.onerror = () => reject(new Error("No se pudo cargar " + url));
@@ -147,7 +205,7 @@
     king: 10,
   };
   const heights = {
-    ben: 96,
+    ben: 108,
     heat: 114,
     four: 126,
     diamond: 118,
@@ -172,6 +230,56 @@
         : "crystal"
       : "original";
   function selection(id, opts) {
+    const acting = {
+      Vilgax: ["castActA", 0],
+      Malware: ["castActA", 1],
+      Kevin: ["castActA", 2],
+      Hex: ["castActA", 3],
+      Zombozo: ["castActB", 0],
+      "Dr. Ánimo": ["castActB", 1],
+      Driscoll: ["castActB", 2],
+      ben: ["castActB", 3],
+      Gwen: ["castActB", 4],
+      Max: ["castActB", 5],
+    };
+    if (opts.cinePose !== undefined && acting[id]) {
+      const [key, row] = acting[id];
+      return {
+        key,
+        row,
+        index: row * 6 + opts.cinePose,
+        flip: opts.facing === Math.PI,
+      };
+    }
+    if ((id === "Gwen" || id === "Max") && opts.lateral) {
+      const [key, row] = acting[id];
+      const cycle = Math.floor((opts.time || 0) * 3) % 8;
+      const pose = opts.speaking
+        ? [1, 2, 1, 0][cycle % 4]
+        : [0, 0, 0, 1, 0, 0, 0, 0][cycle];
+      return { key, row, index: row * 6 + pose, flip: opts.facing === Math.PI };
+    }
+    if (opts.lateral && (id === "king" || id === "executor")) {
+      const row = id === "executor" ? 0 : opts.armor > 0 ? 1 : 2;
+      const col =
+        opts.hurtTime > 0
+          ? 4
+          : opts.attack
+            ? opts.attack.fired
+              ? 3
+              : 2
+            : opts.moving
+              ? Math.floor((opts.walk || 0) * 1.5) % 2
+                ? 5
+                : 1
+              : Math.floor((opts.time || 0) * 3) % 2;
+      return {
+        key: "bossAct",
+        row,
+        index: row * 6 + col,
+        flip: Math.cos(opts.facing ?? 0) < 0,
+      };
+    }
     if (id === "Driscoll" || id === "king")
       return {
         key: "cast",
@@ -220,18 +328,45 @@
     ) {
       const sideRow = row === 1 ? 0 : 1;
       const moving = opts.moving || (opts.walk && opts.moving !== false);
+      if (!moving && sheets[key + "Idle"]) {
+        const guard = opts.combatReady || opts.blocking ? 1 : 0;
+        return {
+          key: key + "Idle",
+          index: guard * 4 + (Math.floor((opts.time || 0) * 4) % 4),
+          row: guard,
+          flip: sideRow === 1,
+        };
+      }
       const phase = ((opts.walk || 0) / B.TAU) % 1;
       col = moving
         ? 2 + Math.floor(((phase + 1) % 1) * 6)
         : opts.combatReady || opts.blocking
-          ? 1
-          : 0;
+          ? Math.floor((opts.time || 0) * 2) % 2
+          : Math.floor((opts.time || 0) * 1.5) % 2;
       return { key: key + "Side", index: sideRow * 8 + col, row: sideRow };
     }
     if (action) {
       const elapsed = action.total - action.time,
         contact = action.hitAt ?? action.total * 0.3;
       const variant = action.variant ?? (action.kind === "K" ? 3 : 0);
+      if (opts.lateral && sheets[key + "Fight"]) {
+        const phase =
+          elapsed < contact
+            ? Math.min(2, Math.floor((elapsed / contact) * 3))
+            : elapsed < contact + 0.045
+              ? 3
+              : elapsed < contact + (action.total - contact) * 0.55
+                ? 4
+                : 5;
+        return {
+          key: key + "Fight",
+          index: variant * 6 + phase,
+          row: variant,
+          variant,
+          phase,
+          flip: row === 3,
+        };
+      }
       if (sheets[key + "Combat"] && elapsed < contact + 0.11) {
         return {
           key: key + "Combat",
@@ -244,7 +379,7 @@
       col = elapsed < contact ? 3 : elapsed < contact + 0.085 ? 4 : 5;
     } else if (opts.hurtTime > 0) col = 5;
     else if (opts.dodging) {
-      const phase = 1 - (opts.dodgeTime ?? 0.1) / 0.21;
+      const phase = 1 - (opts.dodgeTime ?? 0.1) / (opts.dodgeDuration || 0.21);
       col = phase < 0.5 ? 2 : 5;
     } else if (opts.blocking) col = 5;
     else if (opts.moving || (opts.walk && opts.moving !== false)) {
@@ -295,7 +430,7 @@
     cv.width = f.w;
     cv.height = f.h;
     const c = cv.getContext("2d");
-    c.drawImage(sheet.img, f.x, f.y, f.w, f.h, 0, 0, f.w, f.h);
+    paintFrame(c, sheet.img, f);
     c.globalCompositeOperation = "source-in";
     c.fillStyle = "#183329";
     c.fillRect(0, 0, cv.width, cv.height);
@@ -316,8 +451,18 @@
     c.fillStyle = g;
     c.fillRect(-64, -64, 128, 128);
   }
-  function projection(key, index, left, top, width, height, shear, depth) {
-    const id = [key, index, left, top, width, height, shear, depth]
+  function projection(
+    key,
+    index,
+    left,
+    top,
+    width,
+    height,
+    shear,
+    depth,
+    flip = false,
+  ) {
+    const id = [key, index, left, top, width, height, shear, depth, flip]
       .map((x) => (typeof x === "number" ? x.toFixed(2) : x))
       .join(":");
     if (projectedShadows.has(id)) return projectedShadows.get(id);
@@ -326,7 +471,7 @@
       [left + width, top],
       [left, top + height],
       [left + width, top + height],
-    ].map(([x, y]) => [x - shear * y, -depth * y]);
+    ].map(([x, y]) => [(flip ? -x : x) - shear * y, -depth * y]);
     const minX = Math.floor(Math.min(...corners.map((a) => a[0]))) - 4,
       minY = Math.floor(Math.min(...corners.map((a) => a[1]))) - 4;
     const cv = document.createElement("canvas");
@@ -335,6 +480,7 @@
     const c = cv.getContext("2d");
     c.translate(-minX, -minY);
     c.transform(1, 0, -shear, -depth, 0, 0);
+    if (flip) c.scale(-1, 1);
     c.filter = "blur(2px)";
     const sheet = sheets[key],
       f = sheet.frames[index];
@@ -372,6 +518,7 @@
     anchorX,
     anchorY,
     opacity = 0.18,
+    flip = false,
   ) {
     const cached = projection(
       key,
@@ -382,6 +529,7 @@
       height,
       0.58,
       0.24,
+      flip,
     );
     c.save();
     c.globalAlpha *= opacity;
@@ -418,8 +566,7 @@
         cv.width,
         cv.height,
       );
-    } else
-      c.drawImage(sheet.img, f.x, f.y, f.w, f.h, 0, 0, cv.width, cv.height);
+    } else paintFrame(c, sheet.img, f, cv.width, cv.height);
     prepared.set(id, cv);
     return cv;
   }
@@ -474,7 +621,7 @@
     // Continuous band coordinates keep the legs planted while the chest breathes.
     const bend = (u) => Math.pow(1 - u, 2);
     const yAt = (u) => top + height * u - (breathing + step) * scale * bend(u);
-    const bands = opts.moving ? 1 : 8;
+    const bands = opts.moving || /Idle|Fight|Act/.test(sheet.key) ? 1 : 8;
     for (let i = 0; i < bands; i++) {
       const u = i / bands,
         v = (i + 1) / bands,
@@ -504,6 +651,7 @@
     }
     const sheet = sheets[chosen.key];
     if (!sheet) return;
+    c.save();
     const f = sheet.frames[chosen.index],
       height = (heights[id] || 106) * scale;
     const s =
@@ -516,8 +664,13 @@
       width = f.w * s,
       h = f.h * s;
     const jump = opts.dodging
-      ? Math.sin(B.clamp(1 - (opts.dodgeTime ?? 0.1) / 0.21, 0, 1) * Math.PI) *
-        12
+      ? Math.sin(
+          B.clamp(
+            1 - (opts.dodgeTime ?? 0.1) / (opts.dodgeDuration || 0.21),
+            0,
+            1,
+          ) * Math.PI,
+        ) * 12
       : 0;
     c.save();
     if (opts.invuln && Math.floor((opts.time || 0) * 18) % 2 === 0)
@@ -534,6 +687,7 @@
         x,
         y,
         0.16 * (1 - jump / 30),
+        !!chosen.flip,
       );
       const aoWidth = height * 0.42 * (1 - jump / 35);
       c.drawImage(
@@ -545,6 +699,10 @@
       );
     }
     if (opts.flash > 0) c.filter = "brightness(1.45)";
+    if (chosen.flip) {
+      c.translate(x * 2, 0);
+      c.scale(-1, 1);
+    }
     drawBody(
       c,
       sheet,
@@ -553,10 +711,11 @@
       top - jump,
       width,
       h,
-      opts,
+      chosen.flip ? { ...opts, facing: 0 } : opts,
       s,
       litPaint(preparedImage(chosen.key, chosen.index, width, h), opts.light),
     );
+    c.restore();
     c.restore();
   };
   B.drawCharacterPortrait = (canvas, id, opts = {}) => {
@@ -592,6 +751,7 @@
     );
   };
   function propSource(index) {
+    if (index === 28) return { key: "extractor", index: 0 };
     if (index >= 20) return { key: "sideProps", index: index - 20 };
     if (index >= 16) return { key: "flora", index: index - 16 };
     return [0, 1, 2, 7].includes(index)
