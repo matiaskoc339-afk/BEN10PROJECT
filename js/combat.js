@@ -1,5 +1,7 @@
 "use strict";
 (function (B) {
+  B.sameLane = (g, a, b, width = 44) =>
+    !g.world.lateral || Math.abs(a.y - b.y) <= width;
   B.attack = (g, kind) => {
     const p = g.player;
     if (p.dodgeTime > 0 || p.specialPose) return false;
@@ -132,6 +134,7 @@
     for (const e of g.world.enemies) {
       if (
         e.dead ||
+        (!full && !B.sameLane(g, p, e, p.attack?.kind === "K" ? 55 : 43)) ||
         B.dist(p, e) > reach + e.r ||
         (!full && Math.abs(B.wrap(B.angle(p, e) - angle)) > arc)
       )
@@ -492,7 +495,11 @@
               B.makeEnemy(
                 "basic",
                 e.x - 160,
-                e.y + (j ? 120 : -120),
+                B.clamp(
+                  e.y + (j ? 100 : -100),
+                  (w.lane?.top || 0) + 30,
+                  (w.lane?.bottom || w.h) - 30,
+                ),
                 "reinforcement-" + g.clock + "-" + j,
               ),
             );
@@ -529,6 +536,7 @@
             const reach = e.range + (boss && e.phase === 2 ? 40 : 0);
             if (
               B.dist(e, p) < reach + 22 &&
+              B.sameLane(g, e, p, mini || boss ? 58 : 43) &&
               (Math.abs(B.wrap(B.angle(e, p) - e.lockAngle)) < 1.3 ||
                 e.attackN % 3 === 0)
             )
@@ -568,7 +576,12 @@
         continue;
       }
       const ranged = e.type === "energy" || (boss && e.phase === 3);
-      if (dist < (ranged ? 520 : e.range + 28) && e.cd <= 0 && tokens < 2) {
+      if (
+        dist < (ranged ? 520 : e.range + 28) &&
+        B.sameLane(g, e, p, ranged ? 40 : 35) &&
+        e.cd <= 0 &&
+        tokens < 2
+      ) {
         e.state = "windup";
         e.timer =
           boss && e.phase === 2
@@ -579,7 +592,7 @@
                 ? 1.05
                 : 0.68;
         e.windTotal = e.timer;
-        e.lockAngle = e.facing;
+        e.lockAngle = w.lateral ? (p.x < e.x ? Math.PI : 0) : e.facing;
         e.tx = p.x;
         e.ty = p.y;
         tokens++;
@@ -596,7 +609,12 @@
           a += Math.PI / 2;
           move = e.speed * 0.35;
         }
-      } else if (dist > e.range * 0.82) move = e.speed;
+      } else if (dist > e.range * 0.82 || !B.sameLane(g, e, p, 30))
+        move = e.speed;
+      if (w.lateral && !B.sameLane(g, e, p, 30)) {
+        a = Math.atan2(p.y - e.y, Math.abs(p.x - e.x) < 180 ? 0 : p.x - e.x);
+        move = e.speed;
+      }
       if (
         boss &&
         e.phase === 2 &&

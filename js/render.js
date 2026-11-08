@@ -17,7 +17,6 @@
     constructor(g) {
       this.g = g;
       this.c = g.canvas.getContext("2d");
-      this.backdrops = new WeakMap();
     }
     draw() {
       const g = this.g,
@@ -50,80 +49,15 @@
         c.fillRect(0, 0, v.w, v.h);
       }
     }
-    paintGround() {
-      B.paintScenery(this.c, this.g.world);
-    }
     ground() {
-      const g = this.g,
-        c = this.c,
-        w = g.world;
-      let cached = this.backdrops.get(w);
-      if (!cached) {
-        cached = document.createElement("canvas");
-        cached.width = w.w;
-        cached.height = w.h;
-        this.c = cached.getContext("2d");
-        this.paintGround();
-        g.life.shadows(this.c, g, true);
-        this.c = c;
-        this.backdrops.set(w, cached);
-      }
-      const left = g.camera.x - g.view.w / g.camera.zoom / 2,
-        top = g.camera.y - g.view.h / g.camera.zoom / 2,
-        right = left + g.view.w / g.camera.zoom,
-        bottom = top + g.view.h / g.camera.zoom;
-      c.fillStyle = ["city", "market"].includes(w.zone) ? "#739365" : "#40565c";
-      if (left < 0) c.fillRect(left, top, -left, bottom - top);
-      if (top < 0)
-        c.fillRect(Math.max(0, left), top, right - Math.max(0, left), -top);
-      if (right > w.w) c.fillRect(w.w, top, right - w.w, bottom - top);
-      if (bottom > w.h)
-        c.fillRect(
-          Math.max(0, left),
-          w.h,
-          Math.min(right, w.w) - Math.max(0, left),
-          bottom - w.h,
-        );
-      const sx = Math.max(0, left),
-        sy = Math.max(0, top),
-        sw = Math.min(w.w, right) - sx,
-        sh = Math.min(w.h, bottom) - sy;
-      if (sw > 0 && sh > 0) c.drawImage(cached, sx, sy, sw, sh, sx, sy, sw, sh);
+      B.SideScene.background(this.c, this.g);
     }
     world() {
       const g = this.g,
         c = this.c,
         w = g.world,
-        t = g.clock;
+        t = w.time;
       this.ground();
-      if (w.zone === "city" || w.zone === "market") {
-        const halfW = g.view.w / g.camera.zoom / 2;
-        const halfH = g.view.h / g.camera.zoom / 2;
-        const borderTree = (x, y) => {
-          if (
-            x + 210 < g.camera.x - halfW ||
-            x > g.camera.x + halfW ||
-            y + 220 < g.camera.y - halfH ||
-            y > g.camera.y + halfH
-          )
-            return;
-          const seed = Math.abs(Math.round(x * 11 + y * 3)),
-            width = 180 + (seed % 45),
-            height = 200 + (seed % 40);
-          B.drawProp(c, seed % 3 ? 8 : 9, x + (seed % 25), y, width, height, {
-            wind: g.life.wind(w, x, y),
-          });
-        };
-        // The physical limit reads as a wooded edge, not an invisible wall in grass.
-        for (let x = -170; x < w.w + 170; x += 155) {
-          borderTree(x, -195);
-          borderTree(x, w.h - 10);
-        }
-        for (let y = -30; y < w.h; y += 150) {
-          borderTree(-190, y);
-          borderTree(w.w - 15, y);
-        }
-      }
       g.life.ground(c, g);
 
       for (const o of w.obstacles) if (o.kind === "chasm") this.obstacle(o);
@@ -196,12 +130,13 @@
         items.push({ y: g.player.y, draw: () => this.player() });
         if (w.zone === "city") {
           items.push({
-            y: 485,
-            draw: () => B.drawActor(c, "Max", 325, 485, 1, { time: t }),
+            y: 625,
+            draw: () => B.drawStageActor(c, g, "Max", 430, 625, 1, { time: t }),
           });
           items.push({
-            y: 500,
-            draw: () => B.drawActor(c, "Gwen", 400, 500, 1, { time: t }),
+            y: 650,
+            draw: () =>
+              B.drawStageActor(c, g, "Gwen", 530, 650, 1, { time: t }),
           });
         }
       }
@@ -209,7 +144,7 @@
       for (const item of items) item.draw();
       for (const shot of w.shots) {
         c.save();
-        c.translate(shot.x, shot.y - 32);
+        c.translate(shot.x, shot.y - (shot.height ?? 62));
         c.rotate(shot.angle);
         if (shot.kind === "fire") {
           const glow = c.createRadialGradient(0, 0, 1, 0, 0, shot.r * 2);
@@ -245,8 +180,8 @@
         label(c, a.text, a.x, a.y, 12, a.color);
       }
       c.globalAlpha = 1;
-      g.life.fixtures(c, g);
-      g.life.air(c, g);
+      B.SideScene.ambient(c, g);
+      B.SideScene.foreground(c, g);
       for (const d of w.decor) {
         if (d.kind === "sign") {
           c.fillStyle = "#283f35ee";
@@ -262,205 +197,16 @@
         label(c, "← REGRESAR", 85, 595, 9, "#c4d8a6");
     }
     obstacle(o) {
-      const { x, y, w, h, kind } = o,
-        c = this.c,
-        g = this.g;
-      if (kind === "bookcase") {
-        B.drawBookcase(c, o);
-        return;
-      }
-      if (kind === "building") {
-        const box = B.buildingBox(o);
-        B.drawProp(c, box.index, box.x, box.y, box.w, box.h);
-        return;
-      }
-      if (kind === "tree") {
-        c.save();
-        const underCanopy =
-          g.player.y < y + h + 10 &&
-          g.player.y > y + h - 135 &&
-          Math.abs(g.player.x - (x + w / 2)) < 58;
-        B.drawProp(
-          c,
-          (x + y) % 3 ? 8 : 9,
-          x + w / 2 - 65,
-          y + h - 145,
-          130,
-          145,
-          { wind: g.life.wind(g.world, x, y), fadeCanopy: underCanopy },
-        );
-        c.restore();
-        return;
-      }
-      if (["car", "rv", "knightcar"].includes(kind)) {
-        const box = B.vehicleBox(o);
-        B.drawProp(c, box.index, box.x, box.y, box.w, box.h);
-        return;
-      }
-      if (kind === "fountain") {
-        B.drawProp(c, 10, x - 20, y - 70, w + 40, h + 70);
-        g.life.fountain(c, o, g.world.time);
-        return;
-      }
-      if (kind === "bench") {
-        B.drawProp(c, 11, x, y - 35, w, h + 35);
-        return;
-      }
-      if (kind === "crate") {
-        B.drawProp(c, 12, x, y - 22, w, h + 22);
-        return;
-      }
-      if (kind === "pillar" || kind === "crystal") {
-        B.drawProp(c, 13, x, y - 70, w, h + 70);
-        return;
-      }
-      if (kind === "machine") {
-        B.drawProp(c, 14, x, y - 40, w, h + 40);
-        return;
-      }
-      if (kind === "chasm") {
-        c.fillStyle = "#152b36";
-        c.fillRect(x, y, w, h);
-        if (o.open) {
-          c.fillStyle = "#87c7ba";
-          c.fillRect(x, y, w, h);
-          c.strokeStyle = "#d4ead2";
-          c.strokeRect(x + 5, y + 5, w - 10, h - 10);
-        }
-        return;
-      }
-      if (kind === "gate") {
-        const progress =
-          g.world.objects.find((a) => a.id === "gate")?.progress || 0;
-        c.save();
-        c.globalAlpha = 1 - progress;
-        B.drawProp(c, 15, x - 10, y - 30, w + 20, h + 30);
-        c.restore();
-        return;
-      }
-      if (kind === "fence" || kind === "security") {
-        // A transparent mesh rises from the ground line, with posts rooted in it.
-        const base = x + w * 0.68,
-          top = base - 15,
-          rise = 38;
-        c.save();
-        c.fillStyle = "#172b3024";
-        c.beginPath();
-        c.moveTo(base, y);
-        c.lineTo(base + 18, y + 7);
-        c.lineTo(base + 18, y + h + 7);
-        c.lineTo(base, y + h);
-        c.fill();
-        c.save();
-        c.beginPath();
-        c.moveTo(base, y);
-        c.lineTo(base, y + h);
-        c.lineTo(top, y + h - rise);
-        c.lineTo(top, y - rise);
-        c.closePath();
-        c.clip();
-        c.fillStyle = "#6c879b12";
-        c.fillRect(top, y - rise, base - top, h + rise);
-        c.strokeStyle = kind === "security" ? "#8ca9b1aa" : "#92a19c99";
-        c.lineWidth = 0.8;
-        c.beginPath();
-        for (let yy = y - rise - 32; yy < y + h + 32; yy += 9) {
-          c.moveTo(top, yy);
-          c.lineTo(base, yy + 21);
-          c.moveTo(top, yy + 21);
-          c.lineTo(base, yy);
-        }
-        c.stroke();
-        c.restore();
-        c.strokeStyle = "#465e61";
-        c.lineWidth = 2;
-        c.beginPath();
-        c.moveTo(top, y - rise);
-        c.lineTo(top, y + h - rise);
-        c.moveTo(base, y);
-        c.lineTo(base, y + h);
-        c.stroke();
-        const posts = Math.ceil(h / 96);
-        for (let i = 0; i <= posts; i++) {
-          const yy = y + (h * i) / posts;
-          c.fillStyle = "#57696a";
-          c.beginPath();
-          c.ellipse(base, yy, 5, 2.5, 0, 0, B.TAU);
-          c.fill();
-          c.strokeStyle = "#3e5357";
-          c.lineWidth = 4;
-          c.beginPath();
-          c.moveTo(base, yy);
-          c.lineTo(top, yy - rise);
-          c.stroke();
-          c.strokeStyle = "#b7c3b5";
-          c.lineWidth = 1;
-          c.stroke();
-        }
-        c.restore();
-        return;
-      }
-      if (kind === "labwall" || kind === "shopwall") B.drawWall(c, o);
+      B.SideScene.obstacle(this.c, this.g, o);
     }
-
     object(o) {
-      const c = this.c,
-        g = this.g;
-      if (g.save.items.includes(o.id) || o.broken) return;
-      const { x, y, type } = o;
-      if (type === "safe") {
-        ring(c, x, y, 27, "#a4dc7766");
-        label(c, "DESCANSO", x, y + 21, 7, "#cee4ac");
-        return;
-      }
-      if (["gate", "support", "heater"].includes(type)) {
-        if (type === "gate" && o.progress >= 1) return;
-        B.drawProp(c, 14, x - 31, y - 69, 62, 76);
-        if (o.heat > 0) {
-          c.fillStyle = "#283e45";
-          c.fillRect(x - 25, y + 12, 50, 5);
-          c.fillStyle = o.heat >= 100 ? "#f7d693" : "#e9a563";
-          c.fillRect(x - 25, y + 12, o.heat * 0.5, 5);
-        }
-        return;
-      }
-      if (type === "bridge" || type === "socket") {
-        B.drawProp(c, 13, x - 20, y - 50, 40, 56);
-        if (o.progress > 0) ring(c, x, y, 27, "#b5e6c9", 2);
-        return;
-      }
-      if (["health", "energy", "crate"].includes(type)) {
-        if (o.requires && !g.save.flags[o.requires]) {
-          B.drawProp(c, 12, x - 25, y - 45, 50, 50);
-          return;
-        }
-        const color =
-          type === "health"
-            ? "#edaa91"
-            : type === "energy"
-              ? "#bcf07d"
-              : "#e3c391";
-        c.save();
-        c.translate(x, y - 22 - Math.sin(g.clock * 3) * 3);
-        c.fillStyle = color;
-        c.strokeStyle = "#38594b";
-        c.lineWidth = 2;
-        c.beginPath();
-        c.moveTo(0, -18);
-        c.lineTo(12, -3);
-        c.lineTo(0, 10);
-        c.lineTo(-12, -3);
-        c.closePath();
-        c.fill();
-        c.stroke();
-        c.restore();
-      }
+      B.SideScene.object(this.c, this.g, o);
     }
     player() {
       const g = this.g,
         p = g.player,
         c = this.c;
-      B.drawActor(c, p.form, p.x, p.y, 1, {
+      B.drawStageActor(c, g, p.form, p.x, p.y, 1, {
         time: g.world.time,
         walk: p.walk,
         moving: p.moving,
@@ -527,12 +273,15 @@
               ? "king"
               : e.type;
       const scale = e.type === "heavy" ? 1.17 : 1;
-      B.drawActor(c, id, e.x, e.y, scale, {
+      B.drawStageActor(c, g, id, e.x, e.y, scale, {
         time: g.world.time,
         walk: e.walk,
         moving: e.moving,
         combatReady: B.dist(e, g.player) < 350,
-        facing: e.moving ? (e.moveFacing ?? e.facing) : e.facing,
+        facing:
+          Math.abs(Math.cos(e.facing)) < 0.08
+            ? (e.sideFacing ?? Math.PI)
+            : e.facing,
         hurtTime: e.flash,
         armor: e.armor,
         scene: g.world.zone,
@@ -542,7 +291,7 @@
           e.state === "windup"
             ? { time: 1, total: 1, hitAt: 1 }
             : e.state === "strike"
-              ? { time: 0.1, total: 0.2, hitAt: 0 }
+              ? { time: 0.1, total: 0.2, hitAt: 0.08, fired: true }
               : null,
       });
       if (e.hp < e.maxHp && !["king", "executor"].includes(e.type)) {
@@ -566,37 +315,43 @@
     intro(items) {
       const g = this.g,
         c = this.c,
-        t = g.clock;
-      B.drawProp(c, 14, 620, 330, 155, 290);
-      const escaped = g.cine.escaped;
+        t = g.world.time;
+      B.SideScene.obstacle(c, g, {
+        x: 625,
+        y: 570,
+        w: 140,
+        h: 50,
+        kind: "machine",
+      });
       items.push({
-        y: 500,
+        y: 640,
         draw: () =>
-          B.drawActor(c, "ben", escaped ? 350 : 695, escaped ? 690 : 500, 1, {
-            facing: Math.PI / 2,
+          B.drawStageActor(c, g, "ben", g.cine.escaped ? 350 : 695, 640, 1, {
             time: t,
-            walk: escaped ? t * 10 : 0,
-            moving: escaped,
+            facing: 0,
+            moving: !!g.cine.escaped,
+            walk: t * 8,
           }),
       });
       for (const [id, x, y] of [
-        ["Vilgax", 870, 390],
-        ["Kevin", 520, 340],
-        ["Zombozo", 1000, 500],
-        ["Hex", 410, 470],
-        ["Dr. Ánimo", 520, 650],
-        ["Malware", 1000, 670],
-        ["Driscoll", 800, 720],
+        ["Vilgax", 950, 560],
+        ["Kevin", 480, 550],
+        ["Malware", 1120, 650],
+        ["Hex", 330, 600],
+        ["Zombozo", 1110, 570],
+        ["Dr. Ánimo", 420, 705],
+        ["Driscoll", 900, 710],
       ])
         items.push({
           y,
-          draw: () => B.drawActor(c, id, x, y, 1, { scene: "intro", time: t }),
+          draw: () =>
+            B.drawStageActor(c, g, id, x, y, 1, { scene: "intro", time: t }),
         });
       label(
         c,
         g.cine.fractured ? "EXTRACTOR DAÑADO" : "EXTRACTOR GENÉTICO",
         695,
-        310,
+        448,
         11,
         "#c9e2ad",
       );
@@ -607,11 +362,15 @@
         { w, h } = g.view;
       c.fillStyle = "#14251f";
       c.fillRect(0, 0, w, h);
-      c.save();
-      c.globalAlpha = 0.22;
-      B.drawProp(c, 2, w * 0.54, h * 0.04, w * 0.5, h * 0.7);
-      B.drawProp(c, 8, w * 0.68, h * 0.1, w * 0.4, h * 0.6);
-      c.restore();
+      const street = B.sheets.scene_city?.img;
+      if (street) {
+        const height = h * 0.9,
+          width = (street.width / street.height) * height;
+        c.save();
+        c.globalAlpha = 0.56;
+        c.drawImage(street, w * 0.3, -h * 0.02, width, height);
+        c.restore();
+      }
       const glow = c.createRadialGradient(
         w * 0.74,
         h * 0.5,

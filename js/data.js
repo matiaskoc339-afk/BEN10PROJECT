@@ -139,8 +139,8 @@ window.B10 = {};
     pause: "Escape",
   };
   B.controlNames = {
-    up: "Mover arriba",
-    down: "Mover abajo",
+    up: "Caminar hacia el fondo",
+    down: "Acercarse a la cámara",
     left: "Mover izquierda",
     right: "Mover derecha",
     light: "Ataque ligero / clic izquierdo",

@@ -1,24 +1,28 @@
-# Recursos ilustrados locales
+# Arte local — versión lateral
 
-Las imágenes se generaron mediante la herramienta de generación de imágenes de la sesión, con el estilo de ilustración 2D elegido por el usuario. No son capturas ni recursos oficiales de Ben 10. El movimiento, las colisiones y los tiempos de contacto se implementan en JavaScript. Todos los PNG se sirven desde el propio juego, sin servidores de imágenes externos.
+El arte se generó con la herramienta de imágenes de la sesión y se integra mediante Canvas 2D. Los nuevos sprites usan como referencia los diseños aprobados de los personajes. Las referencias externas se documentan en [docs/references.md](../docs/references.md); sus imágenes no forman parte del juego.
 
-## Personajes
+## Recursos activos de la vista lateral
 
-Los atlas aprobados `characters/ben-atlas.png`, `four-atlas.png`, `heat-atlas.png` y `diamond-atlas.png` conservan los diseños, reposos y recuperaciones. `knight-atlas.png` y `story-cast.png` conservan a enemigos y reparto. Los cinco ciclos `*-walk.png` siguen aportando seis poses de marcha por dirección.
+| Archivo                     | Contenido                                                                                             |
+| --------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `stages/city.png`           | Fachadas continuas de Bellwood al atardecer                                                           |
+| `stages/market.png`         | Mercado y arcadas iluminadas al anochecer                                                             |
+| `stages/fort.png`           | Taller y reactores de los Caballeros Eternos                                                          |
+| `stages/throne.png`         | Cámara del trono con arcos, columnas y antorchas                                                      |
+| `stages/escape.png`         | Corredor dañado de evacuación                                                                         |
+| `stages/props.png`          | Rustbucket de lado, caja, columna, reactor, consola, dos lámparas y fuente frontal                    |
+| `characters/*-side.png`     | Ben, Fuego, Cuatro Brazos, Diamante y caballeros: reposo, guardia y seis pasos, a derecha e izquierda |
+| `characters/*-combat.png`   | Preparación y contacto de tres ataques ligeros y un fuerte; se usan sus orientaciones laterales       |
+| `characters/*-atlas.png`    | Recuperaciones, esquiva, expresiones, combate de caballeros y retratos                                |
+| `characters/story-cast.png` | Reparto narrativo y variantes de jefes                                                                |
 
-La revisión 2.2 añade `ben-combat.png`, `four-combat.png`, `heat-combat.png` y `diamond-combat.png`. Cada hoja contiene 32 poses: preparación y contacto de tres ataques ligeros y un fuerte en cuatro direcciones. Las filas lógicas son sur, este, norte y oeste; las columnas lógicas agrupan los ataques por parejas. La recuperación procede del atlas anterior. Son poses dibujadas distintas, sin cambiar el sistema de daño por contacto.
+Los atlas de marcha anteriores y el conjunto `world/` se conservan para compatibilidad de los renderizadores de recursos y como historial de arte; los niveles nuevos usan los panoramas y objetos de `stages/`.
 
-`js/atlas-frames.js` delimita las siluetas completas, incluyendo las manos que rebasan la cuadrícula nominal. El script opcional `scripts/register-combat-atlas.py` lee las componentes alfa y regenera esos metadatos si cambia el arte; no modifica los píxeles. Requiere Pillow para esa operación de desarrollo. El juego usa los metadatos ya incluidos y no requiere Python ni Pillow en el navegador.
+## Registro y dibujo
 
-## Escenario
+`js/atlas-frames.js` registra las siluetas completas de combate, marcha lateral y objetos. `scripts/register-combat-atlas.py` regenera esas coordenadas leyendo las componentes alfa; no modifica píxeles. Pillow sólo se necesita para ejecutar ese script de desarrollo. El juego no lo requiere al ejecutarse.
 
-| Archivo               | Distribución | Uso                                                                              |
-| --------------------- | ------------ | -------------------------------------------------------------------------------- |
-| `world/buildings.png` | 2 × 2        | Garaje, mercado, edificio cívico y café completos, con márgenes transparentes    |
-| `world/props.png`     | 4 × 4        | Vehículos, árboles, fuente, bancos, cajas, columnas, maquinaria y módulo de muro |
-| `world/flora.png`     | 2 × 2        | Arbusto, flores, seto con jardinera y jardinera circular                         |
-| `world/terrain.png`   | 2 × 2        | Césped, pavimento, asfalto y piedra con una paleta común                         |
+Los encuadres incluyen un margen. El renderizador conserva la relación de aspecto, ancla el pie o la base y aplica una luz de ambiente coherente con cada zona. Las imágenes escaladas, iluminadas y las sombras se reutilizan en caché. Los panoramas se repiten como módulos arquitectónicos y los extremos se integran con apoyos.
 
-Los edificios usan la hoja dedicada de mayor resolución. El conjunto de objetos y los materiales de suelo se renovaron para esta revisión. Cada ilustración se dibuja completa, conservando su relación de aspecto y anclando su base. El mismo rectángulo se usa para la imagen, la sombra y, en la fuente, el agua animada.
-
-La carga inicial lee aproximadamente 36 MiB de PNG. Las imágenes escaladas y las sombras se guardan en caché; el suelo y la jardinería se componen una vez por zona. La prueba de navegador revisa los bordes transparentes y la proporción de los objetos para detectar recortes y deformaciones.
+Las imágenes proceden del mismo servidor que sirve el juego. No se descargan recursos oficiales ni imágenes de terceros durante la partida. Los elementos vivos —luces, oscilación de lámparas, vapor, ondas, chispas y contactos del suelo— se dibujan en el motor y usan el tiempo del mundo.

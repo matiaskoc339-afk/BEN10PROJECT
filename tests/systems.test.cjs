@@ -106,8 +106,10 @@ test("exhaustion reverts, locks, and eventually recovers without puzzle softlock
   assert.equal(g.player.locked, false);
   assert.ok(B.transform(g, "four"));
 });
-test("axis collisions stop movement into buildings and allow sliding", () => {
+test("axis collisions stop movement into solid props and allow sliding", () => {
   const g = fixture();
+  g.world.obstacles = [{ x: 40, y: 65, w: 410, h: 280 }];
+  g.world.lane = null;
   g.player.x = 300;
   g.player.y = 370;
   B.move(g, g.player, 0, -100);
@@ -199,8 +201,8 @@ test("ranged enemy maintains distance and launches a projectile after a telegrap
 test("gate requires heating then a sustained lift; energy exhaustion cannot reset heat", () => {
   const g = fixture();
   const gate = g.world.objects.find((o) => o.type === "gate");
-  g.player.x = 1530;
-  g.player.y = 550;
+  g.player.x = gate.x - 60;
+  g.player.y = gate.y;
   g.player.form = "four";
   g.keys.add("interact");
   B.updateWorld(g, 2);
@@ -293,8 +295,9 @@ test("escape mechanisms only respond to Diamante and build a usable bridge", () 
 });
 test("permanent upgrades are collected only once and alter maximum capacity", () => {
   const g = fixture("market");
-  g.player.x = 1150;
-  g.player.y = 245;
+  const pickup = g.world.objects.find((o) => o.id === "hp-shop");
+  g.player.x = pickup.x;
+  g.player.y = pickup.y;
   B.interact(g);
   assert.equal(g.player.maxHp, 145);
   B.interact(g);
@@ -334,20 +337,20 @@ test("revisiting zones works after the chapter: west returns and the empty thron
 });
 
 test("a constructed bridge leaves the rest of the chasm impassable", () => {
-  const g = fixture("escape");
-  const bridge = g.world.objects.find((o) => o.type === "bridge");
+  const g = fixture("escape"),
+    bridge = g.world.objects.find((o) => o.type === "bridge"),
+    pit = g.world.obstacles.find((o) => o.kind === "chasm" && !o.id);
   for (let i = 0; i < 3; i++)
     B.applyPuzzle(g, bridge.x, bridge.y, 3, "diamond");
-  g.player.x = 680;
-  g.player.y = 300;
-  B.move(g, g.player, 80, 0);
-  assert.ok(g.player.x <= 710 - g.player.r);
-  g.player.x = 680;
-  g.player.y = 550;
-  B.move(g, g.player, 80, 0);
-  assert.equal(g.player.x, 760);
+  g.player.x = pit.x - 45;
+  g.player.y = pit.y + pit.h / 2;
+  B.move(g, g.player, 100, 0);
+  assert.ok(g.player.x <= pit.x - g.player.r);
+  g.player.x = pit.x - 45;
+  g.player.y = bridge.y;
+  B.move(g, g.player, pit.w + 90, 0);
+  assert.ok(g.player.x > pit.x + pit.w);
 });
-
 test("special action animation expires and cannot leak into the next transformation", () => {
   const g = fixture();
   B.transform(g, "four");
@@ -411,60 +414,59 @@ test("walk animation stops against a wall and advances with actual displacement"
   assert.ok(g.player.moving);
   assert.ok(g.player.walk > 6);
 });
-test("the expanded town connects north streets, southern paths and garden before the main gate", () => {
-  const g = fixture(),
-    w = g.world,
-    step = 32,
-    cols = Math.ceil(w.w / step),
-    rows = Math.ceil(w.h / step);
-  assert.ok(w.w >= 2600 && w.h >= 1900);
-  const free = (x, y) =>
-    x >= 19 &&
-    y >= 19 &&
-    x < w.w - 19 &&
-    y < w.h - 19 &&
-    !w.obstacles.some((o) => !o.open && B.circleRect(x, y, 19, o));
-  const sx = Math.round(280 / step),
-    sy = Math.round(570 / step),
-    queue = [[sx, sy]],
-    visited = new Set([sy * cols + sx]);
-  for (let head = 0; head < queue.length; head++) {
-    const [x, y] = queue[head];
-    for (const [dx, dy] of [
-      [1, 0],
-      [-1, 0],
-      [0, 1],
-      [0, -1],
-    ]) {
-      const nx = x + dx,
-        ny = y + dy,
-        key = ny * cols + nx;
-      if (
-        nx < 0 ||
-        ny < 0 ||
-        nx >= cols ||
-        ny >= rows ||
-        visited.has(key) ||
-        !free(nx * step, ny * step) ||
-        !free(((x + nx) * step) / 2, ((y + ny) * step) / 2)
-      )
-        continue;
-      visited.add(key);
-      queue.push([nx, ny]);
-    }
+test("each lateral level connects its entrance, secrets and exit after its mechanism is solved", () => {
+  for (const zone of ["city", "market", "fort", "throne", "escape"]) {
+    const save = B.fresh();
+    Object.assign(save.flags, {
+      gate: true,
+      supports: true,
+      king: true,
+      bridge: true,
+      "exit-crystal": true,
+    });
+    const w = B.createWorld(zone, save),
+      step = 20,
+      cols = Math.ceil(w.w / step),
+      queue = [[14, 31]],
+      visited = new Set([31 * cols + 14]);
+    const free = (x, y) =>
+      x >= 19 &&
+      x <= w.w - 19 &&
+      y >= w.lane.top + 19 &&
+      y <= w.lane.bottom - 19 &&
+      !w.obstacles.some((o) => !o.open && B.circleRect(x, y, 19, o));
+    for (let head = 0; head < queue.length; head++)
+      for (const [dx, dy] of [
+        [1, 0],
+        [-1, 0],
+        [0, 1],
+        [0, -1],
+      ]) {
+        const [x, y] = queue[head],
+          nx = x + dx,
+          ny = y + dy,
+          key = ny * cols + nx;
+        if (
+          visited.has(key) ||
+          !free(nx * step, ny * step) ||
+          !free(((x + nx) * step) / 2, ((y + ny) * step) / 2)
+        )
+          continue;
+        visited.add(key);
+        queue.push([nx, ny]);
+      }
+    for (const o of [
+      w.exit,
+      ...w.objects.filter((o) =>
+        ["safe", "health", "energy", "crate"].includes(o.type),
+      ),
+    ].filter(Boolean))
+      assert.ok(
+        visited.has(Math.round(o.y / step) * cols + Math.round(o.x / step)),
+        zone + " reaches " + (o.id || "exit"),
+      );
   }
-  for (const [x, y] of [
-    [480, 32],
-    [500, 1700],
-    [1300, 1450],
-    [1500, 550],
-  ])
-    assert.ok(
-      visited.has(Math.round(y / step) * cols + Math.round(x / step)),
-      `reachable ${x},${y}`,
-    );
 });
-
 test("melee weight transfer is gradual and never lunges through a wall", () => {
   const g = fixture();
   g.player.x = 320;
@@ -517,8 +519,11 @@ test("environment motion is deterministic, surface-aware and changes with world 
     b = new B.WorldLife();
   assert.deepEqual(a.state(g.world).leaves, b.state(g.world).leaves);
   assert.equal(B.surfaceAt(g.world, 600, 505), "asphalt");
-  assert.equal(B.surfaceAt(g.world, 300, 390), "paving");
-  assert.equal(B.surfaceAt(g.world, 960, 1280), "grass");
+  assert.equal(
+    B.surfaceAt(B.createWorld("market", g.save), 300, 630),
+    "paving",
+  );
+  assert.equal(B.surfaceAt(g.world, 960, 630), "asphalt");
   assert.equal(B.surfaceAt(B.createWorld("fort", g.save), 600, 505), "stone");
   const wind = a.wind(g.world, 600, 800);
   g.world.time += 1;
@@ -550,15 +555,50 @@ test("every playable form uses three distinct light attacks, a separate heavy an
   }
 });
 
-test("north streets stop before the shops and their surface matches the visible sidewalk", () => {
+test("the walkable belt clamps both player and enemy feet while scenery remains out of the collision plane", () => {
   const g = fixture();
-  assert.equal(B.surfaceAt(g.world, 600, 100), "grass");
-  assert.equal(B.surfaceAt(g.world, 600, 410), "paving");
-  assert.equal(B.surfaceAt(g.world, 600, 510), "asphalt");
-  for (const o of g.world.obstacles.filter((o) => o.kind === "building")) {
-    const box = B.buildingBox(o);
-    assert.ok(box.w > 0 && box.h > 0);
-    assert.equal(box.y + box.h, o.y + o.h);
-    assert.ok(box.x >= o.x && box.x + box.w <= o.x + o.w);
+  g.world.obstacles = [];
+  g.player.x = 600;
+  g.player.y = 630;
+  B.move(g, g.player, 10000, -10000);
+  assert.equal(g.player.x, g.world.w - g.player.r);
+  assert.equal(g.player.y, g.world.lane.top + g.player.r);
+  B.move(g, g.player, -10000, 10000);
+  assert.equal(g.player.x, g.player.r);
+  assert.equal(g.player.y, g.world.lane.bottom - g.player.r);
+  const e = B.makeEnemy("basic", 600, 630, "belt");
+  B.move(g, e, 0, 10000);
+  assert.equal(e.y, g.world.lane.bottom - e.r);
+});
+test("a punch hits an aligned enemy and misses an enemy standing deeper in the scene", () => {
+  const g = fixture();
+  g.world.obstacles = [];
+  Object.assign(g.player, { x: 800, y: 620, form: "four", facing: 0 });
+  const near = B.makeEnemy("heavy", 870, 620, "aligned"),
+    far = B.makeEnemy("heavy", 870, 695, "deep");
+  g.world.enemies = [near, far];
+  B.attack(g, "J");
+  B.advanceAttack(g, 0.08);
+  assert.ok(near.hp < near.maxHp);
+  assert.equal(far.hp, far.maxHp);
+});
+test("melee enemies align their depth before preparing a horizontal strike", () => {
+  const g = fixture();
+  g.world.obstacles = [];
+  Object.assign(g.player, { x: 1000, y: 550 });
+  const e = B.makeEnemy("basic", 1000, 690, "align");
+  e.cd = 0;
+  g.world.enemies = [e];
+  B.updateEnemies(g, 0.1);
+  assert.equal(e.state, "idle");
+  assert.ok(e.y < 690);
+});
+test("all stage mechanisms and enemy spawns lie inside the new walkable belt", () => {
+  for (const zone of ["city", "market", "fort", "throne", "escape"]) {
+    const w = B.createWorld(zone, B.fresh());
+    assert.ok(w.lateral);
+    assert.ok(w.w > w.h * 2);
+    for (const a of [...w.objects, ...w.enemies])
+      assert.ok(a.y >= w.lane.top && a.y <= w.lane.bottom, zone + " " + a.id);
   }
 });

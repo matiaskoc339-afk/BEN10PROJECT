@@ -176,8 +176,9 @@ async function check(name, fn) {
         const issues = [];
         for (const [key, sheet] of Object.entries(B10.sheets)) {
           if (
-            !["props", "buildings", "flora"].includes(key) &&
-            !key.endsWith("Combat")
+            !["props", "buildings", "flora", "sideProps"].includes(key) &&
+            !key.endsWith("Combat") &&
+            !key.endsWith("Side")
           )
             continue;
           for (const [index, f] of sheet.frames.entries()) {
@@ -208,7 +209,7 @@ async function check(name, fn) {
     "scenery keeps its aspect ratio and fits entirely inside its display area",
     async () => {
       const layouts = await page.evaluate(() =>
-        Array.from({ length: 20 }, (_, index) => {
+        Array.from({ length: 28 }, (_, index) => {
           const r = B10.propRect(index, 25, 40, 113, 260),
             f = B10.sheets[r.key].frames[r.index];
           return { ...r, ratio: f.b.w / f.b.h };
@@ -222,12 +223,12 @@ async function check(name, fn) {
     },
   );
   await check(
-    "Ben and each alien have four visibly different attacks in all four directions",
+    "Ben and each alien have four distinct attacks in both lateral orientations",
     async () => {
       const variants = await page.evaluate(() => {
         const result = [];
         for (const id of ["ben", "four", "heat", "diamond"])
-          for (const facing of [0, Math.PI / 2, Math.PI, -Math.PI / 2]) {
+          for (const facing of [0, Math.PI]) {
             const frames = [];
             for (let variant = 0; variant < 4; variant++) {
               const cv = document.createElement("canvas");
@@ -235,6 +236,7 @@ async function check(name, fn) {
               B10.drawActor(cv.getContext("2d"), id, 150, 270, 1.5, {
                 time: 0,
                 facing,
+                lateral: true,
                 attack: {
                   time: 0.32,
                   total: 0.48,
@@ -254,7 +256,7 @@ async function check(name, fn) {
     },
   );
   await check(
-    "walking uses six consecutive gait poses without interleaving idle",
+    "lateral walking uses six consecutive gait poses and a separate idle",
     async () => {
       const poses = await page.evaluate(() =>
         ["ben", "four", "heat", "diamond", "basic"].map((id) => {
@@ -262,7 +264,8 @@ async function check(name, fn) {
             B10.spriteFrame(id, {
               moving: true,
               walk: ((n + 0.15) * B10.TAU) / 6,
-              facing: Math.PI / 2,
+              facing: 0,
+              lateral: true,
             }),
           );
           return {
@@ -270,15 +273,17 @@ async function check(name, fn) {
             idle: B10.spriteFrame(id, {
               moving: false,
               walk: 4,
-              facing: Math.PI / 2,
+              facing: 0,
+              lateral: true,
             }),
           };
         }),
       );
       for (const p of poses) {
         assert.equal(new Set(p.frames.map((f) => f.index)).size, 6);
-        assert.ok(p.frames.every((f) => f.key.endsWith("Walk")));
-        assert.ok(!p.idle.key.endsWith("Walk"));
+        assert.ok(p.frames.every((f) => f.key.endsWith("Side")));
+        assert.equal(p.idle.index, 0);
+        assert.ok(p.frames.every((f) => f.index >= 2 && f.index <= 7));
       }
     },
   );
@@ -288,11 +293,10 @@ async function check(name, fn) {
       const frames = await page.evaluate(() =>
         [0, 1.2].map((t) => {
           const cv = document.createElement("canvas");
-          cv.width = 150;
-          cv.height = 145;
+          cv.width = 230;
+          cv.height = 220;
           const c = cv.getContext("2d");
-          B10.drawProp(c, 10, 0, 0, 150, 145);
-          game.life.fountain(c, { x: 20, y: 70, w: 110, h: 75 }, t);
+          B10.SideScene.water(c, 115, 205, t);
           return cv.toDataURL();
         }),
       );
@@ -352,6 +356,66 @@ async function check(name, fn) {
         return count;
       });
       assert.ok(changed > 100);
+    },
+  );
+  await check(
+    "stage lighting and suspended lamps animate while the camera is stationary",
+    async () => {
+      const changed = await page.evaluate(() => {
+        const old = game.world.time,
+          fixture = {
+            ...game,
+            view: { w: 900, h: 520 },
+            camera: { x: 1440, y: 430, zoom: 0.7 },
+          };
+        const paint = (t) => {
+          game.world.time = t;
+          const cv = document.createElement("canvas");
+          cv.width = 900;
+          cv.height = 520;
+          const c = cv.getContext("2d");
+          c.setTransform(0.7, 0, 0, 0.7, -800 * 0.7, -30);
+          B10.SideScene.background(c, fixture);
+          B10.SideScene.ambient(c, fixture);
+          return c.getImageData(0, 0, 900, 520).data;
+        };
+        const a = paint(0),
+          b = paint(1.4);
+        game.world.time = old;
+        let count = 0;
+        for (let n = 0; n < a.length; n += 4)
+          if (a[n] !== b[n] || a[n + 1] !== b[n + 1] || a[n + 2] !== b[n + 2])
+            count++;
+        return count;
+      });
+      assert.ok(changed > 200);
+    },
+  );
+  await check(
+    "panorama layers redraw continuously when the camera advances horizontally",
+    async () => {
+      const changed = await page.evaluate(() => {
+        const paint = (x) => {
+          const fixture = {
+              ...game,
+              view: { w: 900, h: 520 },
+              camera: { x, y: 430, zoom: 0.7 },
+            },
+            cv = document.createElement("canvas");
+          cv.width = 900;
+          cv.height = 520;
+          const c = cv.getContext("2d");
+          c.setTransform(0.7, 0, 0, 0.7, -(x - 640) * 0.7, -30);
+          B10.SideScene.background(c, fixture);
+          return c.getImageData(0, 0, 900, 400).data;
+        };
+        const a = paint(1440),
+          b = paint(1680);
+        let count = 0;
+        for (let n = 0; n < a.length; n += 4) if (a[n] !== b[n]) count++;
+        return count;
+      });
+      assert.ok(changed > 10000);
     },
   );
   await check("options persist and controls can be remapped", async () => {
@@ -425,24 +489,73 @@ async function check(name, fn) {
     },
   );
   await check(
-    "camera stays centered on the player even at the map boundary",
+    "horizontal camera follows progression and holds its height across depth changes",
     async () => {
-      const centered = await page.evaluate(() => {
-        const x = game.player.x,
-          y = game.player.y;
-        game.player.x = 25;
-        game.player.y = 570;
+      const result = await page.evaluate(() => {
+        const p = game.player,
+          old = { x: p.x, y: p.y };
+        game.world.enemies = [];
+        game.save.flags.gateHint = true;
+        game.hitstop = 0;
+        p.dodgeTime = 0;
+        p.attack = null;
+        p.x = 2000;
+        p.y = 540;
         game.update(1 / 60);
-        const error = Math.hypot(
-          game.camera.x - game.player.x,
-          game.camera.y - (game.player.y - 28),
-        );
-        game.player.x = x;
-        game.player.y = y;
+        const first = { ...game.camera };
+        p.y = 690;
         game.update(1 / 60);
-        return error;
+        const second = { ...game.camera };
+        p.x = 25;
+        game.update(1 / 60);
+        const edge = { ...game.camera };
+        p.x = old.x;
+        p.y = old.y;
+        return {
+          first,
+          second,
+          edge,
+          half: game.view.w / game.camera.zoom / 2,
+        };
       });
-      assert.ok(centered < 0.001);
+      assert.equal(result.first.x, 2000);
+      assert.equal(result.first.y, 430);
+      assert.equal(result.second.y, 430);
+      assert.equal(result.edge.x, result.half);
+    },
+  );
+  await check(
+    "W/S moves through the belt without switching to an overhead sprite or moving the camera vertically",
+    async () => {
+      await page.evaluate(() => {
+        game.player.x = 1700;
+        game.player.y = 600;
+        game.player.sideFacing = 0;
+        game.player.renderFacing = 0;
+        game.player.dodgeTime = 0;
+        game.player.attack = null;
+      });
+      const before = await page.evaluate(() => ({
+        y: game.player.y,
+        cam: game.camera.y,
+      }));
+      await page.keyboard.down("KeyS");
+      await page.waitForTimeout(220);
+      await page.keyboard.up("KeyS");
+      const after = await page.evaluate(() => ({
+        y: game.player.y,
+        cam: game.camera.y,
+        frame: B10.spriteFrame(game.player.form, {
+          lateral: true,
+          moving: true,
+          walk: game.player.walk,
+          facing: game.player.renderFacing,
+        }),
+      }));
+      assert.ok(after.y > before.y + 10);
+      assert.equal(after.cam, before.cam);
+      assert.ok(after.frame.key.endsWith("Side"));
+      assert.equal(after.frame.row, 0);
     },
   );
   await check(
@@ -452,10 +565,12 @@ async function check(name, fn) {
       assert.equal(await page.evaluate(() => game.ui.panelType), "map");
       assert.ok(await page.locator("#panel-body canvas").isVisible());
       const x = await page.evaluate(() => game.player.x);
+      const time = await page.evaluate(() => game.world.time);
       await page.keyboard.down("KeyD");
       await page.waitForTimeout(150);
       await page.keyboard.up("KeyD");
       assert.equal(await page.evaluate(() => game.player.x), x);
+      assert.equal(await page.evaluate(() => game.world.time), time);
       await page.keyboard.press("KeyM");
       assert.equal(await page.evaluate(() => game.mode), "play");
     },
@@ -475,6 +590,38 @@ async function check(name, fn) {
     await page.waitForTimeout(1100);
     assert.ok((await page.evaluate(() => game.player.hp)) < 120);
   });
+  await check(
+    "a keyboard punch hits the aligned knight while missing a knight deeper in the belt",
+    async () => {
+      await page.evaluate(() => {
+        Object.assign(game.player, {
+          form: "four",
+          x: 1800,
+          y: 620,
+          attack: null,
+          attackCD: 0,
+          combo: "",
+          sideFacing: 0,
+          dodgeTime: 0,
+        });
+        game.world.enemies = [
+          B10.makeEnemy("heavy", 1870, 620, "front-belt"),
+          B10.makeEnemy("heavy", 1870, 695, "deep-belt"),
+        ];
+        for (const e of game.world.enemies) {
+          e.stun = 1;
+          e.cd = 10;
+        }
+      });
+      await page.waitForTimeout(40);
+      await page.mouse.move(1150, 570);
+      await page.keyboard.press("KeyJ");
+      await page.waitForTimeout(110);
+      const hp = await page.evaluate(() => game.world.enemies.map((e) => e.hp));
+      assert.ok(hp[0] < 155);
+      assert.equal(hp[1], 155);
+    },
+  );
   await check("transform cancel, queuing and wheel locks", async () => {
     await page.evaluate(() => {
       game.world.enemies = [];
@@ -589,8 +736,9 @@ async function check(name, fn) {
         game.world.enemies = [];
         game.player.form = "heat";
         game.player.energy = 100;
-        game.player.x = 1500;
-        game.player.y = 550;
+        const gate = game.world.objects.find((o) => o.type === "gate");
+        game.player.x = gate.x - 80;
+        game.player.y = gate.y;
         game.player.facing = 0;
         for (let i = 0; i < 4; i++) {
           game.player.attackCD = 0;
@@ -615,7 +763,7 @@ async function check(name, fn) {
       assert.ok(await page.evaluate(() => game.save.flags.gate));
       await page.evaluate(() => {
         game.player.x = game.world.exit.x;
-        game.player.y = 550;
+        game.player.y = game.world.exit.y;
         B10.updateWorld(game, 0.01);
       });
       assert.equal(await page.evaluate(() => game.world.zone), "market");
@@ -661,7 +809,7 @@ async function check(name, fn) {
         await page.click("#skip-scene");
       await page.evaluate(() => {
         game.player.x = game.world.exit.x;
-        game.player.y = 550;
+        game.player.y = game.world.exit.y;
         B10.updateWorld(game, 0.01);
       });
       assert.equal(await page.evaluate(() => game.world.zone), "fort");
@@ -698,7 +846,7 @@ async function check(name, fn) {
       await page.evaluate(() => {
         game.pending = null;
         game.player.x = game.world.exit.x;
-        game.player.y = 550;
+        game.player.y = game.world.exit.y;
         B10.updateWorld(game, 0.01);
       });
       assert.equal(await page.evaluate(() => game.world.zone), "throne");
@@ -802,7 +950,7 @@ async function check(name, fn) {
       );
       await page.evaluate(() => {
         game.player.x = game.world.exit.x;
-        game.player.y = 550;
+        game.player.y = game.world.exit.y;
         B10.updateWorld(game, 0.01);
       });
       assert.equal(await page.evaluate(() => game.ui.dialogue.id), "finish");

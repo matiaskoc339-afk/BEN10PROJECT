@@ -1,49 +1,45 @@
-# Revisión 2.2 — escenario y variedad de combate
+# Versión 3.0 — mundo lateral
 
-[Ver el clip dentro del juego](revision-v22.mp4)
+[Ver el vídeo de juego](lateral-gameplay.mp4) · [Referencias consultadas](references.md)
 
-![La plaza y sus jardines](garden-v22.png)
+![Bellwood](lateral-city.png)
 
-## Recortes y proporciones
+## Perspectiva y movimiento
 
-Las ilustraciones de escenario se renovaron con márgenes transparentes. Los cuatro edificios principales tienen una hoja dedicada. `propRect` conserva la proporción y apoya la base: un edificio, un árbol o una camioneta ya no se estiran para ocupar cualquier ancho y alto. La sombra usa exactamente el mismo encuadre. La zona de agua se calcula sobre la fuente ya ajustada.
+El capítulo se reconstruyó como beat ’em up lateral. La cámara acompaña el avance horizontal; W/S mueven los pies hacia el fondo o hacia la cámara sin cambiar su altura. Los actores miran a izquierda o derecha y se ordenan según la posición de sus pies.
 
-Algunos puños de los nuevos dibujos sobrepasan las líneas nominales de la hoja. Para evitar cortar esa anatomía, `atlas-frames.js` registra cada silueta completa con un margen. El script de registro sólo calcula coordenadas; no cambia las imágenes. Las comprobaciones de navegador inspeccionan los píxeles del borde de cada fotograma y verifican la proporción de los objetos.
+Las colisiones pertenecen a la banda del suelo. Los edificios quedan detrás de ella. Las cajas, columnas y mecanismos tienen una huella de colisión y un dibujo apoyado sobre esa huella. Los golpes necesitan una profundidad similar, y la IA busca alinearse antes de preparar un ataque. El mapa representa la nueva ruta y sus secretos.
 
-![Calles y comercios](street-v22.png)
+## Escenarios reconstruidos
 
-## Composición del escenario
+![Mercado al anochecer](lateral-market.png)
 
-- Paleta común para césped, pavimento cálido, asfalto azul gris y piedra de interiores.
-- Aceras con juntas discretas, bordillos que terminan en las intersecciones y pasos de peatones.
-- Edificios con plataformas de entrada, plantas y proporciones consistentes; vehículos con mayor presencia y base alineada con la calle.
-- Jardín con camino curvo, plaza alrededor de la fuente, flores, setos y jardineras.
-- Borde arbolado con variaciones de altura y silueta.
-- Suelos interiores renovados, pasillo principal y muros continuos con hiladas y remates.
+Cada zona tiene un panorama arquitectónico completo, una paleta y un suelo propios. Cielo y siluetas lejanas, arquitectura intermedia, actores y elementos de primer plano se desplazan a distinta velocidad. Los módulos de arquitectura se enlazan con apoyos en sus uniones.
 
-Se mantienen el agua animada, el viento, la reacción de la hierba, las pisadas, las sombras, las hojas y las luces locales. La cámara continúa siguiendo el cuerpo del jugador y el mapa conserva sus rutas y puzles.
+El suelo utiliza luz y textura discretas para que los pies y las siluetas se lean claramente. Las sombras de contacto, la luz de ambiente aplicada a los actores, las pisadas y los reflejos suaves integran los cuerpos en el escenario. No se rota un personaje completo para simular que golpea.
 
-El local de Archivos tiene suelo interior, estanterías y fachada abierta. Se verificó con teclado que la entrada y la mejora de salud siguen accesibles. [Ver el local](market-v22.png).
+![Taller de la fortaleza](lateral-fort.png)
 
-![Interior de la fortaleza](fort-v22.png)
+Las lámparas oscilan con el viento del mundo; su luz varía. La calle tiene una fuente con caídas y ondas, la Rustbucket emite humo tenue y los interiores tienen vapor y motas. Fuego proyecta un resplandor animado y pequeñas chispas. Estos efectos continúan durante las conversaciones y se detienen al pausar o abrir el mapa.
 
-## Combate con poses propias
+![Sala del Rey Eterno](lateral-throne.png)
 
-![Contactos de los cuatro ataques de cada forma](combat-v22.png)
+![Corredor de evacuación](lateral-escape.png)
 
-Cada forma jugable tiene tres movimientos ligeros que se recorren con J y un fuerte independiente con K. Hay preparación y contacto nuevos para cada movimiento y orientación, seguidos de la recuperación del atlas aprobado.
+## Personajes y encuadres
 
-| Forma         | J1                   | J2               | J3               | K                         |
-| ------------- | -------------------- | ---------------- | ---------------- | ------------------------- |
-| Ben           | Jab                  | Cruzado          | Patada           | Golpe con ambos puños     |
-| Cuatro Brazos | Puño superior        | Gancho inferior  | Puño ascendente  | Golpe al suelo            |
-| Fuego         | Palma adelantada     | Palma opuesta    | Patada con llama | Golpe al suelo con fuego  |
-| Diamante      | Estocada de cuchilla | Revés de cristal | Uppercut         | Golpe cristalino al suelo |
+Ben, Fuego, Cuatro Brazos, Diamante y los caballeros tienen nuevas hojas de reposo, guardia y marcha lateral, con dos orientaciones y seis poses de paso. La marcha sigue la distancia real recorrida. El diseño de los personajes conserva la identidad aprobada.
 
-El avance del cuerpo, las estelas y la variación de sonido acompañan el tipo de ataque. El daño conserva un único instante de contacto y una dirección fijada al empezar. La esquiva sigue cancelando el ataque pendiente. Estas poses amplían los tres alienígenas jugables y Ben; no añaden combate para los ADN bloqueados ni animaciones nuevas al reparto narrativo.
+Se reutilizan las orientaciones laterales de los cuatro movimientos de combate: tres ligeros y un fuerte. Cada movimiento tiene preparación y contacto propios, seguidos de recuperación. Los proyectiles se presentan a la altura de manos o pies según el ataque.
 
-## Verificación
+Los encuadres se calculan por la silueta completa de cada pose. Las imágenes de objetos conservan su proporción y dejan un margen transparente. Las pruebas inspeccionan sus bordes para detectar anatomía o mobiliario cortados. Los panoramas son paños continuos que ocupan la anchura de su módulo; sus extremos son uniones arquitectónicas deliberadas.
 
-31 pruebas de sistemas y 27 comprobaciones de navegador cubren la selección y reinicio de combos, el daño por contacto, los fotogramas distintos en cuatro direcciones, los bordes de los recursos, las proporciones, la marcha, el agua, el viento, las rutas, el guardado y el capítulo completo. No hubo errores de página. La prueba opcional con `file://` continúa omitida por la política del navegador administrado.
+Los personajes narrativos conservan poses ilustradas y respiración sencilla, con el nuevo apoyo de pies y luz de escena. No se añaden ciclos completos de actuación o sincronización labial.
 
-El clip usa los controles reales. La colocación de los encuentros y el acceso a Diamante se preparan explícitamente para mostrar las cuatro formas sin recorrer de nuevo todo el capítulo. Los fondos estáticos y los escalados se reutilizan en caché. La simulación sigue a 60 Hz; la frecuencia de dibujo depende del equipo.
+![Prólogo del extractor](lateral-intro.png)
+
+## Validación
+
+Pasaron 34 pruebas de sistemas y 31 comprobaciones en Chromium, incluyendo la secuencia completa hasta recuperar Diamante y terminar el escape. Se probaron encuadres, marcha, golpes según profundidad, límites del suelo, accesibilidad de rutas y secretos, cámara horizontal, luz ambiental, desplazamiento de panoramas, guardado y pausa. No hubo errores de página. La modalidad opcional con `file://` se omitió por la política del navegador administrado.
+
+El vídeo utiliza controles reales; los encuentros y cambios de zona se colocan explícitamente para mostrar el capítulo en un clip breve. Los fondos estáticos, escalados, sombras y versiones iluminadas se reutilizan en caché. La simulación mantiene pasos de 60 Hz; no se garantiza la misma frecuencia de dibujo en todos los equipos.

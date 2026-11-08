@@ -8,8 +8,8 @@ from PIL import Image
 
 root = Path(__file__).resolve().parents[1]
 frames = {}
-for name in ('ben', 'four', 'heat', 'diamond'):
-    im = Image.open(root / 'assets/characters' / (name + '-combat.png')).convert('RGBA')
+for name, kind, rows, cols in [(n, 'combat', 4, 8) for n in ('ben','four','heat','diamond')] + [(n, 'side', 2, 8) for n in ('ben','four','heat','diamond','knight')] + [('props', 'stage', 2, 4)]:
+    im = Image.open(root / ('assets/stages/props.png' if kind == 'stage' else 'assets/characters/' + name + '-' + kind + '.png')).convert('RGBA')
     width, height = im.size
     alpha = im.getchannel('A').tobytes()
     seen = bytearray(width * height)
@@ -37,9 +37,9 @@ for name in ('ben', 'four', 'heat', 'diamond'):
         if count > 1200:
             components.append((count, sx / count, sy / count, left, top, right, bottom))
     boxes = []
-    for row in range(4):
-        for col in range(8):
-            candidates = [v for v in components if int(v[1] * 8 / width) == col and int(v[2] * 4 / height) == row]
+    for row in range(rows):
+        for col in range(cols):
+            candidates = [v for v in components if int(v[1] * cols / width) == col and int(v[2] * rows / height) == row]
             if not candidates:
                 raise ValueError(f'{name}: no full silhouette at row {row} col {col}')
             comp = max(candidates)
@@ -47,10 +47,10 @@ for name in ('ben', 'four', 'heat', 'diamond'):
             left, top = max(0, left - 4), max(0, top - 4)
             right, bottom = min(width - 1, right + 4), min(height - 1, bottom + 4)
             boxes.append([left, top, right - left + 1, bottom - top + 1])
-    if len(components) != 32:
-        raise ValueError(f'{name}: expected 32 complete bodies, found {len(components)}')
-    frames[name + 'Combat'] = boxes
-    print(name, '32 complete silhouettes registered')
+    if len(components) != rows * cols:
+        raise ValueError(f'{name}: expected {rows * cols} complete bodies, found {len(components)}')
+    frames['sideProps' if kind == 'stage' else name + ('Combat' if kind == 'combat' else 'Side')] = boxes
+    print(name, kind, rows * cols, 'complete silhouettes registered')
 (root / 'js/atlas-frames.js').write_text(
     '/* Explicit complete combat silhouettes, including poses that cross nominal grid lines.\n'
     '   Regenerate with scripts/register-combat-atlas.py when replacing combat art. */\n'

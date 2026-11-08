@@ -1,18 +1,20 @@
 # BEN 10: El Omnitrix Fracturado
 
-Videojuego fan de acción y aventura top-down, en español, inspirado en Ben 10 clásico. Ben tiene diez años. Esta entrega contiene un capítulo compacto con principio, desarrollo y final. Canvas 2D, personajes ilustrados con atlas de fotogramas y audio sintetizado; incluye todas las imágenes en el repositorio y no depende de recursos de terceros durante la partida.
+Aventura fan en español, ahora reconstruida como **beat ’em up lateral**. Ben tiene diez años. Incluye un capítulo completo: prólogo, calles de Bellwood, mercado, fortaleza, Rey Eterno, recuperación de Diamante y evacuación. Se ejecuta en Canvas 2D con teclado y mouse.
 
-## Revisión 2.2: escenario renovado y ataques diferentes
+## Versión 3.0 — reconstrucción lateral
 
-Ben, Fuego, Cuatro Brazos y Diamante conservan sus diseños y sus ciclos de marcha. Cada uno tiene ahora tres ataques ligeros y un ataque fuerte con poses propias en las cuatro direcciones: el combo recorre J1 → J2 → J3, y K usa otro movimiento. Ben combina puños con una patada; Cuatro Brazos alterna brazos, eleva el puño y remata contra el suelo; Fuego añade una patada con llama y un golpe al suelo; Diamante combina cuchilla, revés, uppercut y cristales. Cada ataque incluye preparación, contacto y recuperación.
+[Ver una partida de la nueva versión](docs/lateral-gameplay.mp4) · [Ver las cinco zonas y la dirección visual](docs/art-direction.md) · [Referencias consultadas](docs/references.md)
 
-Se renovaron edificios, objetos, césped, asfalto, piedra y jardinería. El motor conserva la proporción de cada objeto y lo apoya por su base, en lugar de deformarlo para llenar una caja de colisión. Los fotogramas de combate se delimitan por su silueta completa, incluso cuando un puño sobrepasa la cuadrícula nominal del atlas. Las pruebas comprueban que no haya cuerpos u objetos cortados en los bordes del recurso.
+![Bellwood lateral](docs/lateral-city.png)
 
-Calles y aceras tienen bordillos interrumpidos en los cruces; la fuente está integrada en una plaza con sendero, flores y jardineras. Se ajustaron las escalas de los vehículos y se renovaron los suelos interiores y los muros. El agua, el viento, la hierba y las luces de la revisión anterior siguen animados. [Ver capturas y detalles](docs/art-direction.md) · [Ver el clip de escenario y combos](docs/revision-v22.mp4).
+El mundo se reconstruyó para la nueva perspectiva. Los niveles son recorridos horizontales con una banda de suelo transitable: A/D avanzan y W/S cambian la profundidad. La cámara acompaña el avance horizontal y mantiene su altura al acercarte o alejarte del fondo. Los pies, las colisiones y el orden de dibujo comparten el mismo plano.
 
-La cámara centra el cuerpo del jugador incluso en los bordes. Bellwood y el distrito comercial tienen 2600 × 1900 unidades, calles conectadas por el norte y el sur, jardín, patios y accesos laterales. **M abre el mapa** sin avanzar la simulación.
+Las fachadas forman panoramas continuos, con cielo y siluetas lejanas, arquitectura intermedia, suelo, personajes y elementos de primer plano. Las capas se desplazan a velocidades distintas. Cada zona tiene su paleta, materiales e iluminación. Hay lámparas suspendidas que oscilan, luces que varían, agua animada, humo, hojas o motas, polvo en las pisadas y reflejos suaves en los interiores. El tiempo ambiental se detiene al abrir el mapa o pausar.
 
-Los golpes tienen preparación, contacto y recuperación. El daño, los proyectiles y los efectos se activan en el contacto; esquivar antes lo cancela. La dirección del golpe se fija al iniciarlo, la marcha sigue la dirección de desplazamiento y los pies dejan de animarse al chocar. La simulación usa pasos fijos de 60 Hz para conservar la misma velocidad cuando baja la frecuencia de renderizado.
+Ben, Fuego, Cuatro Brazos, Diamante y los caballeros tienen nuevas hojas de marcha lateral. Se mantienen los tres ataques ligeros y el fuerte de cada forma, con preparación, contacto y recuperación, mirando a izquierda o derecha. Los puños y las armas se encuadran mediante la silueta completa, incluso cuando sobresalen de la cuadrícula nominal de una hoja.
+
+Los golpes cuerpo a cuerpo requieren una profundidad similar. Caminar hacia el fondo permite salir del alcance de un puño; los enemigos también buscan alinearse antes de atacar. Los proyectiles viajan por el plano de sus pies. La altura a la que se dibujan corresponde a manos o pies según el ataque. Los desplazamientos de impacto y las esquivas respetan las colisiones.
 
 ## Ejecutar
 
@@ -22,110 +24,98 @@ Desde la carpeta del proyecto:
 python3 -m http.server 8000
 ```
 
-Abre el servidor en tu navegador de PC, en el puerto 8000. También puedes usar `npm start` si tienes Node.js. No hace falta instalar paquetes, compilar ni configurar credenciales. Se recomienda Chrome, Chromium, Edge o Firefox recientes.
+Abre el servidor en tu navegador de PC, en el puerto 8000. También puedes usar `npm start`. El juego no necesita instalar dependencias, compilar ni configurar credenciales. Todas las imágenes están incluidas y se sirven localmente; el sonido usa Web Audio.
 
-Los scripts son clásicos y no usan `fetch` ni módulos, para permitir abrir `index.html` directamente cuando el navegador lo permita. **Esa modalidad no pudo verificarse aquí**: Chromium administrado bloquea `file://`. Usa el servidor para tener un origen estable y conservar la partida en `localStorage`.
-
-## Contenido implementado
-
-- Menú animado, nueva partida con confirmación si existe un guardado, continuar, pausa, opciones, controles reasignables, volumen, dificultad Historia/Normal y ajuste de sacudidas.
-- Prólogo del extractor con los siete villanos, fractura del reloj y discusión cómica. Diálogos con retratos, nombres, expresiones, efecto de escritura, historial, cámara y opción de omitir escenas.
-- Cinco zonas conectadas: calles de Bellwood, distrito comercial, fortaleza, sala del trono y ruta de evacuación. Colisiones, vehículos, edificios, tienda accesible, callejones, cajas destructibles, iluminación y secretos. Se puede regresar a zonas anteriores por las flechas del oeste.
-- Ben humano, Fuego, Cuatro Brazos y, tras vencer al jefe, Diamante. Tienen siluetas y animaciones propias. Fuego combina proyectiles y áreas; Cuatro Brazos usa golpes, empujes, derribos, parry y onda de choque; Diamante usa esquirlas, resistencia y estructuras.
-- Ataques dirigidos al cursor, combinaciones de tres ataques, ventana de combo, entrada anticipada, remates, esquiva con invulnerabilidad y cancelación de recuperación, bloqueo direccional y parry. Mantener J encadena ataques ligeros.
-- Cinco clases de caballeros: básico, escudo, pesado, energía y comandante. Preparan sus ataques, se reposicionan, guardan distancias, defienden o evaden según su clase. Un máximo de dos ataques se preparan simultáneamente. Los comandantes fortalecen a sus aliados.
-- Omnitrix con consumo, agotamiento, recuperación, conservación de energía al cancelar y salud compartida. Rueda de diez espacios, tres favoritos configurables y selección preparada al intentar cambiar directamente de alienígena.
-- Árboles de seis mejoras para cada uno de los tres alienígenas de esta entrega: tres técnicas nuevas y tres maestrías dependientes. Las técnicas cambian el combate; no son botones decorativos. Cada 100 XP otorgan un punto.
-- Compuerta térmica y levantamiento sostenido; conductos cristalinos que requieren calor y fuerza; puzle opcional con núcleo de energía; mejoras permanentes de salud y energía.
-- Ejecutor Eterno con escudo y segunda etapa agresiva. Rey Eterno con dos placas térmicas, transición a espada y retirada con refuerzos limitados. El calor no caduca mientras cambias de forma.
-- Recuperación de Diamante, anuncio de desbloqueo, asignación al tercer favorito y escape construyendo un puente y cristalizando un cierre. Reunión con Gwen y Max, pantalla de capítulo completado y regreso a la exploración.
-- Guardado automático en transiciones, descansos, puzles, mejoras, favoritos y compras de habilidades. Conserva historia, ADN, XP, técnicas, mejoras permanentes, secretos y puntos de control. Al morir reapareces en la zona del último guardado con vida y energía restauradas. El guardado es local a ese navegador y origen.
+Los scripts clásicos permiten abrir `index.html` directamente en navegadores que lo admitan, pero esa modalidad no pudo verificarse aquí: el navegador administrado bloquea `file://`. Usa el servidor para mantener un origen estable y conservar el guardado en `localStorage`.
 
 ## Controles
 
-| Acción                        | Tecla inicial                            |
-| ----------------------------- | ---------------------------------------- |
-| Moverse                       | WASD                                     |
-| Apuntar                       | Mouse                                    |
-| Ataque ligero                 | J / clic izquierdo                       |
-| Ataque fuerte                 | K / clic derecho                         |
-| Esquiva                       | Espacio                                  |
-| Bloqueo y parry               | Shift, mirando al ataque                 |
-| Especial                      | F; consume 10 de energía y tiene recarga |
-| Interactuar / avanzar diálogo | E; Enter también avanza diálogos         |
-| Rueda del Omnitrix            | Mantener Q, apuntar, soltar Q            |
-| Favoritos                     | 1, 2, 3                                  |
-| Volver a Ben                  | X                                        |
-| Usar ADN preparado            | E, estando como Ben                      |
-| Árbol de habilidades          | Tab                                      |
-| Mapa de la zona               | M                                        |
-| Pausa                         | Esc                                      |
+| Acción                                      | Control inicial                   |
+| ------------------------------------------- | --------------------------------- |
+| Avanzar a izquierda / derecha               | A / D                             |
+| Caminar hacia el fondo / acercarse a cámara | W / S                             |
+| Mirar a izquierda o derecha                 | Desplazamiento horizontal o mouse |
+| Ataque ligero, combo de tres movimientos    | J / clic izquierdo                |
+| Ataque fuerte                               | K / clic derecho                  |
+| Esquiva                                     | Espacio                           |
+| Bloqueo y parry                             | Shift, mirando al ataque          |
+| Especial                                    | F                                 |
+| Interactuar / avanzar diálogo               | E; Enter también avanza diálogos  |
+| Rueda del Omnitrix                          | Mantener Q, apuntar y soltar      |
+| Favoritos                                   | 1, 2, 3                           |
+| Volver a Ben                                | X                                 |
+| Activar ADN preparado, estando como Ben     | E                                 |
+| Habilidades                                 | Tab                               |
+| Mapa de la ruta                             | M                                 |
+| Pausa                                       | Esc                               |
 
-Los controles se pueden cambiar desde Opciones → Controles o desde el menú principal. Los favoritos 1/2/3 están reservados. Durante un diálogo, la primera pulsación revela la frase y la siguiente continúa. La acción y el movimiento se pausan durante conversaciones y menús. La rueda ralentiza el mundo: no lo detiene por completo.
+Los controles son reasignables desde Opciones → Controles. Los favoritos 1/2/3 están reservados. Durante un diálogo, la primera pulsación revela la frase y la siguiente continúa. La rueda ralentiza el mundo. Los diálogos mantienen el ambiente animado mientras detienen la IA y el combate.
 
-**El Control Maestro no está desbloqueado.** Para cambiar de Fuego a Cuatro Brazos: X, después 1. Elegir otra forma mientras estás transformado solamente la prepara; vuelve a Ben y pulsa E para activarla.
+**El Control Maestro sigue bloqueado.** Para cambiar de Fuego a Cuatro Brazos: X y después 1. Elegir otro ADN mientras estás transformado lo prepara para activarlo al volver a Ben. La salud es compartida y cancelar conserva la energía.
+
+## Capítulo jugable
+
+- Menú, continuar partida, pausa, dificultad, volumen, controles reasignables y opciones persistentes.
+- Prólogo con los siete villanos, extractor y fractura del Omnitrix; diálogos con retratos, expresiones, historial y opción de omitir escenas.
+- Cinco niveles laterales con identidad propia: calle comercial al atardecer, mercado al anochecer, taller subterráneo, sala del trono y corredor de evacuación.
+- Ben, Fuego, Cuatro Brazos y Diamante jugables. Combos, remates, bloqueo, parry, esquiva, técnicas comprables y tres árboles de seis mejoras.
+- Caballeros básicos, escudos, pesados, energía y comandante. Preparaciones visibles, alineación de profundidad, separación entre enemigos y un máximo de dos ataques preparados simultáneamente.
+- Ejecutor Eterno con segunda etapa; Rey Eterno con placas térmicas, espada y retirada con refuerzos limitados. En el prólogo, Driscoll conserva su armadura original.
+- Mecanismos de calor y fuerza, conducto opcional, alijos, mejoras permanentes, descansos y cajas destructibles. Los secretos se recolocaron en la nueva banda transitable.
+- Recuperación de Diamante, favorito 3, puente cristalino y cierre de seguridad para escapar. Final del capítulo y regreso a explorar.
+- Guardado automático de ADN, XP, técnicas, mejoras, secretos, historia y puntos de control. Morir permite reintentar desde la zona guardada. Los guardados de versión 1 siguen siendo legibles: la posición se reconstruye en la entrada de la zona nueva.
 
 <details>
-<summary>Guía breve del capítulo (incluye soluciones)</summary>
+<summary>Guía del capítulo (incluye soluciones)</summary>
 
-1. Derrota las patrullas. Apunta con Fuego al motor de la compuerta del este hasta llenar su indicador. Vuelve a Ben y selecciona Cuatro Brazos; mantén E junto al motor hasta levantarla.
-2. Explora el distrito. Entra en Archivos por su puerta para encontrar vida permanente. El conducto del callejón del sur esconde un núcleo del Omnitrix: fúndelo con Fuego y recoge la recompensa con E.
-3. En la plaza, esquiva las preparaciones del Ejecutor. Los golpes fuertes rompen su defensa; los proyectiles también sirven si aprovechas su recuperación o atacas sus flancos.
-4. En la fortaleza, calienta ambos conductos cristalinos. Rompe cada uno con dos golpes fuertes de Cuatro Brazos. La puerta principal se abre.
-5. Rey Eterno: llena el calor con Fuego, vuelve a Ben, selecciona Cuatro Brazos y da dos golpes fuertes. Repite una vez para la segunda placa. Después puede recibir daño de cualquiera de las dos formas. En su última fase, persíguelo y esquiva los disparos; los refuerzos simultáneos están limitados a dos.
-6. Con Diamante en el favorito 3, ataca el mecanismo antes del abismo para formar un puente. Haz lo mismo con el cierre del este. Cruza hasta la salida y completa la conversación final.
+1. Bellwood: derrota a las patrullas y avanza a la derecha. Calienta el motor de la compuerta con Fuego; vuelve a Ben, activa Cuatro Brazos y mantén E para levantarla.
+2. Mercado: explora los bordes del recorrido para encontrar la mejora de vida y el conducto opcional. Derrótale al Ejecutor; su segunda fase es más rápida.
+3. Fortaleza: calienta los dos soportes, después rompe cada uno con dos golpes fuertes de Cuatro Brazos. Cruza la puerta del trono.
+4. Rey Eterno: aplica calor y dos golpes fuertes para romper una placa; repite con la segunda. Tras la espada y la retirada, derrota al rey y completa la conversación de recuperación.
+5. Diamante: golpea el mecanismo antes del abismo para construir el puente. El puente permite cruzar por su parte central; los bordes siguen siendo un abismo. Cristaliza el cierre del final y llega a la salida.
 
-Los puntos seguros restauran vida y energía fuera del combate. Si se agota el reloj durante un puzle, espera como Ben: los mecanismos conservan el calor durante esa visita.
+El calor no se pierde por volver a Ben. Los puntos seguros restauran vida y energía fuera del combate.
 
 </details>
 
-## Ampliación y límites de esta entrega
+## Alcance
 
-La rueda contiene **exactamente diez** ADN. Los otros siete permanecen bloqueados: XLR8, Fantasmático, Blitzwolfer, Ultra T, Cannonbolt, Wildvine y Snare-oh. Tienen perfiles, siluetas e información de procedencia; **sus sistemas de combate y misiones aún no están implementados**. No hay capítulos falsos seleccionables, ni misión parcial de Blitzwolfer, ni orden inventado para las próximas misiones.
+La rueda contiene exactamente diez ADN. XLR8, Fantasmático, Blitzwolfer, Ultra T, Cannonbolt, Wildvine y Snare-oh tienen perfiles y permanecen bloqueados; sus misiones y sistemas de combate todavía no están implementados. `futureMissions` conserva sus asociaciones narrativas como datos para futuras entregas.
 
-`B10.futureMissions` registra las asociaciones de ADN con sus villanos y la obtención de Blitzwolfer mediante escaneo independiente. Sirve como registro extensible, no como campaña ya desarrollada. El cambio directo de forma admite una futura bandera de Control Maestro, pero ninguna acción de este capítulo la activa.
+La presentación conserva la ilustración elegida por el usuario. Cosmic Invasion se usó como referencia de encuadre lateral, profundidad y composición; no se reutilizan sus imágenes dentro del juego. La procedencia del arte está en [assets/README.md](assets/README.md).
 
-Las cinemáticas son escenas dentro del motor, con actuaciones y cámara sencillas; no son videos ni tienen doblaje. El arte usa sprites ilustrados locales generados para esta entrega; su procedencia se explica en `assets/README.md`. El sonido usa Web Audio. No se incluyen recursos oficiales de la serie. La interfaz se adapta a ventanas pequeñas, pero el juego requiere teclado y mouse: no tiene controles táctiles ni soporte de mando.
+Las cinemáticas son escenas sencillas dentro del motor, sin doblaje. Los personajes narrativos conservan sus poses ilustradas con respiración e iluminación; no tienen animación completa de actuación. Se requiere teclado y mouse; no se incluyen controles táctiles ni soporte de mando.
 
 ## Arquitectura
 
-| Archivo              | Responsabilidad                                                         |
-| -------------------- | ----------------------------------------------------------------------- |
-| `js/data.js`         | ADN, controles, árboles, guiones y futuras misiones                     |
-| `js/game.js`         | Bucle, entrada, cámara, transiciones, almacenamiento y coordinación     |
-| `js/actors.js`       | Jugador, colisiones, movimiento, defensa y transformaciones             |
-| `js/world.js`        | Zonas, encuentros, objetos, puzles, secretos y navegación               |
-| `js/combat.js`       | Combos, daño, IA, jefes, proyectiles y áreas persistentes               |
-| `js/scenery.js`      | Composición de calles, jardines e interiores, materiales y proporciones |
-| `js/atlas-frames.js` | Rectángulos completos de los nuevos fotogramas de combate               |
-| `js/assets.js`       | Carga de imágenes locales, selección de fotogramas, anclajes y retratos |
-| `js/world-life.js`   | Pisadas, viento, agua, vegetación, luces y ambiente                     |
-| `js/render.js`       | Personajes, escenarios, efectos y presentación del menú                 |
-| `js/ui.js`           | HUD, rueda, narrativa, opciones, habilidades y favoritos                |
-| `js/audio.js`        | Efectos sintetizados con Web Audio                                      |
+| Archivo              | Responsabilidad                                                              |
+| -------------------- | ---------------------------------------------------------------------------- |
+| `js/data.js`         | ADN, controles, mejoras y guiones                                            |
+| `js/world.js`        | Niveles laterales, encuentros, mecanismos y transiciones                     |
+| `js/actors.js`       | Movimiento, colisiones de los pies, defensa y transformaciones               |
+| `js/combat.js`       | Contactos, combos, alineación de profundidad, IA, jefes y proyectiles        |
+| `js/scenery.js`      | Capas del escenario, materiales, luces, mobiliario y presentación de actores |
+| `js/assets.js`       | Imágenes, encuadres completos, orientación lateral, sombras y luz de escena  |
+| `js/atlas-frames.js` | Metadatos de siluetas de combate, marcha lateral y objetos                   |
+| `js/world-life.js`   | Contactos del suelo, pisadas, polvo, viento y caducidad de efectos           |
+| `js/render.js`       | Orden por profundidad, efectos, menú y escenas                               |
+| `js/game.js`         | Simulación, entrada, cámara, guardado y coordinación                         |
+| `js/ui.js`           | HUD, mapa de ruta, narrativa, opciones y habilidades                         |
+| `js/audio.js`        | Sonidos sintetizados y pisadas                                               |
 
-Las nuevas misiones se añaden con datos de zona, encuentros, objetos y guiones; se reutilizan el guardado, las transformaciones, los diálogos y los disparadores. No se necesita un worktree: cada tarea en la nube ya usa un entorno aislado.
+La simulación usa pasos de 60 Hz. Las versiones escaladas e iluminadas, las sombras y los suelos se guardan en caché. La frecuencia de dibujo depende del equipo.
 
-## Pruebas
-
-Pruebas de sistemas sin dependencias (Node.js 18+):
+## Verificar
 
 ```sh
 npm test
-```
-
-31 pruebas cubren combate, parry, coordinación, consumo, agotamiento, conservación, colisiones, ambos jefes, puzles, mejoras y técnicas.
-
-Pruebas de navegador opcionales, con Playwright y Chromium disponibles:
-
-```sh
-# Solo si Playwright no está instalado en el entorno:
-npm install --no-save --package-lock=false playwright
 npm run test:browser
 ```
 
-El ejecutable predeterminado es `/usr/bin/chromium`; usa `CHROMIUM_PATH` para indicar otro Chromium instalado. El runner levanta y cierra su propio servidor en el puerto 8765. Genera capturas en `artifacts/`, ignoradas por Git.
+Las pruebas de sistemas no necesitan dependencias. Para las pruebas de navegador se necesitan Playwright y Chromium; el ejecutable predeterminado es `/usr/bin/chromium`, configurable mediante `CHROMIUM_PATH`. Si Playwright no está disponible, instala la dependencia de desarrollo con `npm install --no-save --package-lock=false playwright`.
 
-Resultado en este entorno: **31 pruebas de sistemas y 27 comprobaciones de integración aprobadas**, sin errores de página. Se comprobaron teclado, daño de IA, opciones, favoritos, diálogos, guardado, muerte, puzles y la secuencia de finalización. Las pruebas de encuentros usan colocación explícita y reinicio de recuperaciones para hacer reproducibles las situaciones; no equivalen a una partida humana completa ni a una evaluación exhaustiva del equilibrio. La prueba opcional de `file://` se omitió por la política del navegador administrado.
+Resultado: **34 pruebas de sistemas y 31 comprobaciones de navegador aprobadas**, sin errores de página. Incluyen geometría de la nueva banda, rutas y secretos accesibles, encuadres sin anatomía cortada, marcha lateral, golpes según profundidad, cámara, ambiente, pausa, guardado y la secuencia completa del capítulo. La prueba opcional con `file://` se omitió por la política del navegador administrado.
 
-Proyecto fan no oficial, sin fines comerciales. Ben 10 y sus personajes pertenecen a sus respectivos titulares.
+Las pruebas lejanas colocan explícitamente personajes y reinician recuperaciones para comprobar los encuentros de forma reproducible. No sustituyen una evaluación humana del equilibrio del juego. Las capturas de prueba se guardan en `artifacts/`, ignorado por Git.
+
+Proyecto fan no oficial. Ben 10 y sus personajes pertenecen a sus respectivos titulares.

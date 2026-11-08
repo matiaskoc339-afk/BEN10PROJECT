@@ -3,6 +3,17 @@
   const sheets = {},
     specs = {
       ben: ["assets/characters/ben-atlas.png", 6, 4],
+      benSide: ["assets/characters/ben-side.png", 8, 2],
+      fourSide: ["assets/characters/four-side.png", 8, 2],
+      heatSide: ["assets/characters/heat-side.png", 8, 2],
+      diamondSide: ["assets/characters/diamond-side.png", 8, 2],
+      knightSide: ["assets/characters/knight-side.png", 8, 2],
+      sideProps: ["assets/stages/props.png", 4, 2],
+      scene_city: ["assets/stages/city.png", 1, 1],
+      scene_market: ["assets/stages/market.png", 1, 1],
+      scene_fort: ["assets/stages/fort.png", 1, 1],
+      scene_throne: ["assets/stages/throne.png", 1, 1],
+      scene_escape: ["assets/stages/escape.png", 1, 1],
       four: ["assets/characters/four-atlas.png", 6, 4],
       heat: ["assets/characters/heat-atlas.png", 6, 4],
       diamond: ["assets/characters/diamond-atlas.png", 6, 4],
@@ -91,7 +102,7 @@
                   w: fw,
                   h: fh,
                   b:
-                    key === "terrain"
+                    key === "terrain" || key.startsWith("scene_")
                       ? { x: 0, y: 0, w: sw, h: sh }
                       : bounds(img, x, y, fw, fh),
                 });
@@ -103,7 +114,9 @@
                 .map((f) => f.b.h)
                 .sort((a, b) => a - b);
               rowHeights.push(
-                key.endsWith("Walk") || key.endsWith("Combat")
+                key.endsWith("Walk") ||
+                  key.endsWith("Combat") ||
+                  key.endsWith("Side")
                   ? hs[Math.floor(hs.length / 2)]
                   : frames[row * cols].b.h,
               );
@@ -195,8 +208,26 @@
               ? 2
               : 0;
     }
+    if (opts.lateral) row = Math.cos(opts.facing ?? 0) >= 0 ? 1 : 3;
     let col = 0;
     const action = opts.attack || opts.special;
+    if (
+      opts.lateral &&
+      !action &&
+      !opts.hurtTime &&
+      !opts.dodging &&
+      sheets[key + "Side"]
+    ) {
+      const sideRow = row === 1 ? 0 : 1;
+      const moving = opts.moving || (opts.walk && opts.moving !== false);
+      const phase = ((opts.walk || 0) / B.TAU) % 1;
+      col = moving
+        ? 2 + Math.floor(((phase + 1) % 1) * 6)
+        : opts.combatReady || opts.blocking
+          ? 1
+          : 0;
+      return { key: key + "Side", index: sideRow * 8 + col, row: sideRow };
+    }
     if (action) {
       const elapsed = action.total - action.time,
         contact = action.hitAt ?? action.total * 0.3;
@@ -307,7 +338,12 @@
     c.filter = "blur(2px)";
     const sheet = sheets[key],
       f = sheet.frames[index];
-    if (key === "props" || key === "buildings" || key === "flora") {
+    if (
+      key === "props" ||
+      key === "buildings" ||
+      key === "flora" ||
+      key === "sideProps"
+    ) {
       const b = f.b;
       c.drawImage(
         silhouette(key, index),
@@ -364,7 +400,12 @@
     c.imageSmoothingQuality = "high";
     const sheet = sheets[key],
       f = sheet.frames[index];
-    if (key === "props" || key === "buildings" || key === "flora") {
+    if (
+      key === "props" ||
+      key === "buildings" ||
+      key === "flora" ||
+      key === "sideProps"
+    ) {
       const b = f.b;
       c.drawImage(
         sheet.img,
@@ -380,6 +421,30 @@
     } else
       c.drawImage(sheet.img, f.x, f.y, f.w, f.h, 0, 0, cv.width, cv.height);
     prepared.set(id, cv);
+    return cv;
+  }
+  const lighting = new WeakMap();
+  function litPaint(paint, color) {
+    if (!color) return paint;
+    let colors = lighting.get(paint);
+    if (!colors) {
+      colors = new Map();
+      lighting.set(paint, colors);
+    }
+    if (colors.has(color)) return colors.get(color);
+    const cv = document.createElement("canvas");
+    cv.width = paint.width;
+    cv.height = paint.height;
+    const c = cv.getContext("2d");
+    c.drawImage(paint, 0, 0);
+    c.globalCompositeOperation = "multiply";
+    c.globalAlpha = 0.18;
+    c.fillStyle = color;
+    c.fillRect(0, 0, cv.width, cv.height);
+    c.globalCompositeOperation = "destination-in";
+    c.globalAlpha = 1;
+    c.drawImage(paint, 0, 0);
+    colors.set(color, cv);
     return cv;
   }
   function drawBody(c, sheet, f, left, top, width, height, opts, scale, paint) {
@@ -490,7 +555,7 @@
       h,
       opts,
       s,
-      preparedImage(chosen.key, chosen.index, width, h),
+      litPaint(preparedImage(chosen.key, chosen.index, width, h), opts.light),
     );
     c.restore();
   };
@@ -527,6 +592,7 @@
     );
   };
   function propSource(index) {
+    if (index >= 20) return { key: "sideProps", index: index - 20 };
     if (index >= 16) return { key: "flora", index: index - 16 };
     return [0, 1, 2, 7].includes(index)
       ? { key: "buildings", index: index === 7 ? 3 : index }

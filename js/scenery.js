@@ -1,55 +1,52 @@
 "use strict";
 (function (B) {
-  const xs = [520, 1100, 1700, 2250],
-    ys = [430, 930, 1460];
-  const town = (w) => ["city", "market"].includes(w.zone);
-  const random = (seed) => () => {
-    seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
-    return seed / 4294967296;
+  const palettes = {
+    city: {
+      sky: ["#c6c5b9", "#f3cf9a"],
+      floor: ["#687a78", "#374b52"],
+      trim: "#b9a18c",
+      light: "#ffd39a",
+      ink: "#223e47",
+    },
+    market: {
+      sky: ["#192a4a", "#b28186"],
+      floor: ["#566274", "#283b50"],
+      trim: "#b29c96",
+      light: "#ffd29a",
+      ink: "#1c3044",
+    },
+    fort: {
+      sky: ["#121e31", "#304c58"],
+      floor: ["#526b73", "#263c4a"],
+      trim: "#849a97",
+      light: "#79ece1",
+      ink: "#162e40",
+    },
+    throne: {
+      sky: ["#1c1730", "#4a3a4d"],
+      floor: ["#665666", "#2d3044"],
+      trim: "#a28d7d",
+      light: "#f5c185",
+      ink: "#211e34",
+    },
+    escape: {
+      sky: ["#162b39", "#75968e"],
+      floor: ["#486767", "#263c48"],
+      trim: "#809c8c",
+      light: "#a6f0ca",
+      ink: "#17313c",
+    },
   };
-  function roads(w) {
-    return [
-      ...ys.map((y) => ({ x: 0, y, w: w.w, h: 150 })),
-      ...xs.map((x, i) => ({ x, y: i < 2 ? 430 : 0, w: 160, h: w.h })),
-    ];
-  }
-  B.surfaceAt = (w, x, y) => {
-    if (!town(w)) return "stone";
-    if (w.zone === "market" && x >= 950 && x <= 1430 && y >= 130 && y <= 365)
-      return "paving";
-    const r = roads(w);
-    if (r.some((a) => x >= a.x && x <= a.x + a.w && y >= a.y && y <= a.y + a.h))
-      return "asphalt";
-    if (
-      r.some(
-        (a) =>
-          x >= a.x - 58 &&
-          x <= a.x + a.w + 58 &&
-          y >= a.y - 58 &&
-          y <= a.y + a.h + 58,
-      )
-    )
-      return "paving";
-    if (((x - 1375) / 112) ** 2 + ((y - 1366) / 82) ** 2 < 1) return "paving";
-    return "grass";
-  };
-  B.buildingBox = (o) => {
-    const width = Math.min(o.w - 16, o.h * 1.43);
-    return {
-      index: o.label?.includes("CAFÉ")
-        ? 7
-        : o.palette === 1
-          ? 1
-          : o.palette === 2
-            ? 2
-            : 0,
-      x: o.x + (o.w - width) / 2,
-      y: o.y + o.h - width * 0.9,
-      w: width,
-      h: width * 0.9,
+  const palette = (w) =>
+    palettes[w.zone === "intro" ? "fort" : w.zone] || palettes.city;
+  const floors = new WeakMap();
+  function rng(seed) {
+    return () => {
+      seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+      return seed / 4294967296;
     };
-  };
-  function round(c, x, y, w, h, r, color) {
+  }
+  function box(c, x, y, w, h, color, r = 0) {
     c.fillStyle = color;
     c.beginPath();
     c.roundRect(x, y, w, h, r);
@@ -63,282 +60,456 @@
     c.lineTo(xx, yy);
     c.stroke();
   }
-  function planting(c, x, y, size, seed) {
-    const index = 16 + (seed % 4);
-    B.drawPropShadow(
-      c,
-      index,
-      x - size * 1.2,
-      y - size,
-      size * 2.4,
-      size * 1.3,
-      0.13,
-    );
-    B.drawProp(c, index, x - size * 1.2, y - size, size * 2.4, size * 1.3);
-  }
-  function texture(c, index, x, y, w, h, opacity = 0.45) {
-    c.save();
-    c.globalAlpha = opacity;
-    c.fillStyle = B.groundPattern(c, index);
-    c.fillRect(x, y, w, h);
-    c.restore();
-  }
-  B.vehicleBox = (o) => {
-    const rv = o.kind === "rv",
-      knight = o.kind === "knightcar",
-      width = rv ? 250 : knight ? 210 : 175,
-      height = rv ? 190 : knight ? 170 : 145;
-    return {
-      index: rv ? 3 : knight ? 6 : o.palette ? 5 : 4,
-      x: o.x + o.w / 2 - width / 2,
-      y: o.y + o.h - height,
-      w: width,
-      h: height,
-    };
-  };
-  function townGround(c, w) {
-    const rand = random(70419),
-      r = roads(w);
-    c.fillStyle = "#739365";
-    c.fillRect(0, 0, w.w, w.h);
-    texture(c, 0, 0, 0, w.w, w.h, 0.65);
-    // Quiet broad lawn shapes sit under material detail.
-    for (let j = 0; j < 90; j++) {
-      c.fillStyle = j % 2 ? "#8ba46d14" : "#507c5414";
-      c.beginPath();
-      c.ellipse(
-        rand() * w.w,
-        rand() * w.h,
-        25 + rand() * 100,
-        12 + rand() * 35,
-        rand(),
-        0,
-        B.TAU,
-      );
-      c.fill();
-    }
-    for (const a of r)
-      round(c, a.x - 58, a.y - 58, a.w + 116, a.h + 116, 22, "#c6b99c");
-    // Material and paving joints precede asphalt so they never run across the road.
-    c.save();
+  function ellipse(c, x, y, rx, ry, color) {
+    c.fillStyle = color;
     c.beginPath();
-    for (const a of r) c.rect(a.x - 56, a.y - 56, a.w + 112, a.h + 112);
-    c.clip();
-    texture(c, 1, 0, 0, w.w, w.h, 0.45);
-    for (let y = 0; y < w.h; y += 48) {
-      line(c, 0, y, w.w, y, "#a69d8517");
-      for (let x = (y / 48) % 2 ? 24 : 0; x < w.w; x += 64)
-        line(c, x, y, x, y + 48, "#a69d8517");
-    }
-    c.restore();
-    c.fillStyle = "#607578";
-    for (const a of r) {
-      c.fillRect(a.x, a.y, a.w, a.h);
-      texture(c, 2, a.x, a.y, a.w, a.h, 0.55);
-    }
-    // Segment curbs at intersections, with a narrow stone lip and an inner edge.
-    for (const y of ys)
-      for (const edge of [y, y + 150]) {
-        let start = 0;
-        for (const end of [...xs, w.w]) {
-          line(c, start, edge, end, edge, "#394f5144", 6);
-          line(c, start, edge - 2, end, edge - 2, "#e3d6b5", 3);
-          start = end + 160;
-        }
-      }
-    for (let i = 0; i < xs.length; i++)
-      for (const edge of [xs[i], xs[i] + 160]) {
-        let start = i < 2 ? 430 : 0;
-        for (const end of [...ys.filter((y) => y >= start), w.h]) {
-          if (end > start) {
-            line(c, edge, start, edge, end, "#394f5144", 6);
-            line(c, edge - 2, start, edge - 2, end, "#e3d6b5", 3);
-          }
-          start = end + 150;
-        }
-      }
+    c.ellipse(x, y, rx, ry, 0, 0, B.TAU);
+    c.fill();
+  }
+  function glow(c, x, y, r, color, alpha = 0.16) {
     c.save();
-    c.setLineDash([25, 33]);
-    for (const y of ys) {
-      let start = 0;
-      for (const end of [...xs, w.w]) {
-        line(c, start + 15, y + 75, end - 15, y + 75, "#d9cd9b77", 2);
-        start = end + 160;
+    c.globalAlpha = alpha;
+    const g = c.createRadialGradient(x, y, 0, x, y, r);
+    g.addColorStop(0, color);
+    g.addColorStop(1, color + "00");
+    c.fillStyle = g;
+    c.fillRect(x - r, y - r, r * 2, r * 2);
+    c.restore();
+  }
+  B.surfaceAt = (w, x, y) =>
+    ["city", "market"].includes(w.zone)
+      ? w.zone === "market"
+        ? "paving"
+        : "asphalt"
+      : "stone";
+  function floor(c, g) {
+    const w = g.world,
+      p = palette(w);
+    let cv = floors.get(w);
+    if (!cv) {
+      cv = document.createElement("canvas");
+      cv.width = w.w;
+      cv.height = 420;
+      const ctx = cv.getContext("2d"),
+        rand = rng(w.w);
+      const grad = ctx.createLinearGradient(0, 0, 0, 420);
+      grad.addColorStop(0, p.floor[0]);
+      grad.addColorStop(1, p.floor[1]);
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, w.w, 420);
+      for (let n = 0; n < w.w * 1.3; n++) {
+        const x = rand() * w.w,
+          y = rand() * 420;
+        ctx.fillStyle = n % 2 ? "#e9ddd50b" : "#0b263214";
+        ctx.fillRect(x, y, 1 + rand() * 5, 1 + rand() * 1.3);
+      }
+      if (w.zone !== "city")
+        for (const y of [20, 62, 127, 218, 342]) {
+          line(ctx, 0, y, w.w, y, "#101d2b44", 2);
+          line(ctx, 0, y + 2, w.w, y + 2, "#e4d5bd10");
+          const stride = 120 + y * 0.7;
+          for (let x = (y % 3) * 47; x < w.w; x += stride)
+            line(ctx, x, y, x + 15, y + 30 + y * 0.12, "#182c3844", 1);
+        }
+      else {
+        for (let x = 150; x < w.w; x += 310)
+          box(ctx, x, 290, 130, 5, "#d6c39b88", 2);
+        for (let n = 0; n < 45; n++) {
+          const x = rand() * w.w,
+            y = rand() * 270;
+          ellipse(ctx, x, y, 20 + rand() * 50, 3 + rand() * 7, "#1d394215");
+        }
+      }
+      if (w.zone === "throne") {
+        box(ctx, 480, 60, w.w - 800, 165, "#6b3e56", 4);
+        line(ctx, 485, 68, w.w - 330, 68, "#b99c70", 2);
+        line(ctx, 485, 216, w.w - 330, 216, "#b99c70", 2);
+      }
+      for (let x = 450; x < w.w; x += 950) {
+        box(ctx, x, 350, 170, 48, "#172a35", 5);
+        for (let a = 8; a < 165; a += 12)
+          line(ctx, x + a, 355, x + a, 392, "#566d6e", 2);
+      }
+      floors.set(w, cv);
+    }
+    c.drawImage(cv, 0, 480);
+    box(c, 0, 477, w.w, 10, p.trim);
+    line(c, 0, 488, w.w, 488, p.ink, 4);
+    line(c, 0, 490, w.w, 490, "#efd8af44");
+    const fade = c.createLinearGradient(0, 480, 0, 530);
+    fade.addColorStop(0, "#14253555");
+    fade.addColorStop(1, "#14253500");
+    c.fillStyle = fade;
+    c.fillRect(0, 480, w.w, 50);
+    box(c, 0, 754, w.w, 16, p.ink);
+    line(c, 0, 753, w.w, 753, p.trim, 3);
+  }
+  function background(c, g) {
+    const w = g.world,
+      p = palette(w),
+      half = g.view.w / g.camera.zoom / 2,
+      left = g.camera.x - half,
+      wide = half * 2;
+    const sky = c.createLinearGradient(0, -140, 0, 490);
+    sky.addColorStop(0, p.sky[0]);
+    sky.addColorStop(1, p.sky[1]);
+    c.fillStyle = sky;
+    c.fillRect(left - 20, -400, wide + 40, 1400);
+    if (["city", "market"].includes(w.zone)) {
+      ellipse(
+        c,
+        g.camera.x * 0.87 + 400,
+        105,
+        62,
+        62,
+        w.zone === "city" ? "#fbe1b26b" : "#e1dbcb44",
+      );
+      for (
+        let j = Math.floor((left - g.camera.x * 0.74) / 250) - 1;
+        j < (left + wide - g.camera.x * 0.74) / 250 + 1;
+        j++
+      ) {
+        const x = j * 250 + g.camera.x * 0.74,
+          h = 90 + (Math.abs(j * 57) % 110);
+        box(c, x, 315 - h, 195, h + 130, "#4e667d44");
+        for (let a = 20; a < 175; a += 32)
+          for (let b = 25; b < h; b += 38)
+            box(c, x + a, 330 - h + b, 10, 16, "#f2d29b20");
       }
     }
-    c.restore();
-    for (let j = 0; j < 2400; j++) {
-      const x = rand() * w.w,
-        y = rand() * w.h;
-      if (B.surfaceAt(w, x, y) !== "asphalt") continue;
-      c.fillStyle = j % 2 ? "#d8dfd515" : "#263f4115";
-      c.fillRect(x, y, 1.2, 1.2);
+    const id = w.zone === "intro" ? "fort" : w.zone,
+      img = B.sheets["scene_" + id]?.img;
+    if (img) {
+      const height = 610,
+        tw = (img.width / img.height) * height,
+        offset = g.camera.x * 0.08;
+      const first = Math.floor((left - offset) / tw) - 1,
+        last = Math.ceil((left + wide - offset) / tw) + 1;
+      for (let n = first; n <= last; n++) {
+        const x = n * tw + offset;
+        // The painted masonry at each end joins the next bay. A small overlap
+        // closes subpixel seams without adding a visible frame to the panorama.
+        c.drawImage(img, x - 0.5, -105, tw + 1, height);
+      }
     }
-    for (const [x, y] of [
-      [520, 430],
-      [1100, 930],
-      [1700, 430],
-      [2250, 1460],
-    ]) {
-      for (let j = 0; j < 6; j++)
-        round(c, x + 17, y + 8 + j * 23, 125, 9, 2, "#e1d8b4b3");
+    floor(c, g);
+  }
+  function lamp(c, x, y, t, p, wind = 0) {
+    const sway = wind * 0.6;
+    line(c, x, 180, x + sway, y - 24, p.ink, 2);
+    B.drawProp(
+      c,
+      p === palettes.city || p === palettes.market || p === palettes.throne
+        ? 25
+        : 26,
+      x + sway - 17,
+      y - 55,
+      34,
+      70,
+    );
+    glow(c, x + sway, y, 90, p.light, 0.1 + Math.sin(t * 1.3 + x) * 0.015);
+  }
+  function ambient(c, g) {
+    const w = g.world,
+      p = palette(w),
+      t = w.time,
+      left = g.camera.x - g.view.w / g.camera.zoom / 2,
+      right = g.camera.x + g.view.w / g.camera.zoom / 2;
+    for (let x = Math.floor(left / 540) * 540 + 260; x < right + 300; x += 540)
+      lamp(c, x, 320, t, p, g.life.wind(w, x, 320));
+    if (w.zone === "city") {
+      water(c, 3320, 497, t);
     }
-    for (const o of w.obstacles.filter((o) => o.kind === "building")) {
-      round(c, o.x - 8, o.y + o.h - 36, o.w + 16, 49, 8, "#bcaf9180");
+    if (w.zone === "fort" || w.zone === "intro" || w.zone === "escape") {
+      for (
+        let x = Math.floor(left / 500) * 500 + 240;
+        x < right + 400;
+        x += 500
+      ) {
+        glow(c, x, 412, 110, p.light, 0.045 + Math.sin(t * 1.6 + x) * 0.012);
+        for (let n = 0; n < 3; n++) {
+          const phase = (t * 0.21 + n / 3) % 1;
+          ellipse(
+            c,
+            x + Math.sin(phase * 5 + n) * 18,
+            465 - phase * 60,
+            8 + phase * 22,
+            3 + phase * 7,
+            "#bce6df09",
+          );
+        }
+      }
+    }
+    if (g.player.form === "heat") {
+      glow(
+        c,
+        g.player.x,
+        g.player.y - 95,
+        110,
+        "#ffd181",
+        0.1 + Math.sin(t * 8) * 0.02,
+      );
+      ellipse(c, g.player.x, g.player.y, 40, 9, "#f5b76d16");
+      for (let i = 0; i < 3; i++) {
+        const q = (t * 0.9 + i / 3) % 1;
+        ellipse(
+          c,
+          g.player.x + Math.sin(t * 3 + i) * 10,
+          g.player.y - 142 - q * 23,
+          1.4,
+          2,
+          "#ffd19b88",
+        );
+      }
+    }
+    for (let i = 0; i < 24; i++) {
+      const x =
+          ((i * 193.4 + t * (w.zone === "city" ? 9 : 3)) % (w.w + 200)) - 100,
+        y = 260 + ((i * 37.1) % 470) + Math.sin(t * 0.7 + i) * 12;
+      if (x < left - 30 || x > right + 30) continue;
+      c.save();
+      c.globalAlpha = 0.24;
+      c.translate(x, y);
+      c.rotate(Math.sin(t + i));
+      ellipse(
+        c,
+        0,
+        0,
+        w.zone === "city" ? 3 : 1.3,
+        1,
+        w.zone === "city" ? "#e5cc8f" : "#abddd2",
+      );
+      c.restore();
+    }
+  }
+  function water(c, x, y, t) {
+    B.drawProp(c, 27, x - 95, y - 170, 190, 170);
+    for (let i = 0; i < 5; i++) {
+      const phase = (t * 0.8 + i * 0.2) % 1;
+      c.strokeStyle = "#d3eee9aa";
+      c.lineWidth = 1;
+      c.beginPath();
+      c.ellipse(x, y - 36, phase * 69, phase * 7, 0, 0, B.TAU);
+      c.stroke();
       line(
         c,
-        o.x + 8,
-        o.y + o.h + 13,
-        o.x + o.w - 8,
-        o.y + o.h + 13,
-        "#e4d5ae99",
-        2,
+        x - 41 + i * 20,
+        y - 91,
+        x - 41 + i * 20 + Math.sin(t * 5 + i) * 2,
+        y - 39,
+        "#bfe3df77",
       );
-      for (const side of [o.x + 12, o.x + o.w - 14])
-        planting(c, side, o.y + o.h + 2, 13, Math.round(side + o.y));
-    }
-    // A small designed public garden, with paths leading to the fountain and seats.
-    c.strokeStyle = "#d7c6a4";
-    c.lineWidth = 38;
-    c.lineCap = "round";
-    c.beginPath();
-    c.moveTo(1290, 1190);
-    c.bezierCurveTo(1420, 1195, 1280, 1280, 1375, 1366);
-    c.quadraticCurveTo(1405, 1420, 1505, 1425);
-    c.stroke();
-    c.lineCap = "butt";
-    c.fillStyle = "#d7c6a4";
-    c.beginPath();
-    c.ellipse(1375, 1366, 109, 78, 0, 0, B.TAU);
-    c.fill();
-    c.strokeStyle = "#eee1bd";
-    c.lineWidth = 3;
-    c.stroke();
-    c.strokeStyle = "#b3a58766";
-    c.lineWidth = 1;
-    c.beginPath();
-    c.ellipse(1375, 1366, 98, 69, 0, 0, B.TAU);
-    c.stroke();
-    for (const [x, y, size] of [
-      [1338, 1260, 23],
-      [1493, 1320, 28],
-      [1510, 1410, 20],
-      [1320, 1440, 22],
-      [1450, 1190, 22],
-    ])
-      planting(c, x, y, size, x + y);
-    if (w.zone === "market") {
-      // The enterable archive has its own floor and open facade, rather than
-      // compressing an entire building into its narrow back-wall collision box.
-      round(c, 950, 130, 480, 235, 5, "#bdb49c");
-      texture(c, 1, 950, 130, 480, 235, 0.6);
-      round(c, 1195, 395, 400, 400, 48, "#c5b592");
-      c.strokeStyle = "#dfd1ad";
-      c.lineWidth = 4;
-      c.beginPath();
-      c.ellipse(1400, 585, 150, 100, 0, 0, B.TAU);
-      c.stroke();
-      for (const [x, y] of [
-        [1220, 425],
-        [1565, 425],
-        [1230, 760],
-        [1560, 760],
-      ])
-        planting(c, x, y, 24, x + y);
     }
   }
-  function interior(c, w) {
-    const throne = w.zone === "throne",
-      intro = w.zone === "intro";
-    c.fillStyle = throne ? "#444c51" : "#40565c";
-    c.fillRect(0, 0, w.w, w.h);
-    for (let y = 0; y < w.h; y += 80)
-      for (let x = 0; x < w.w; x += 120) {
-        c.fillStyle = (x / 120 + y / 80) % 3 ? "#607478" : "#657a7e";
-        c.fillRect(x + 2, y + 2, 116, 76);
-        line(c, x + 3, y + 3, x + 117, y + 3, "#a1b0a12b");
-      }
-    texture(c, 3, 0, 0, w.w, w.h, 0.32);
-    round(c, 90, 350, w.w - 180, 400, 16, throne ? "#716b6480" : "#82959440");
-    if (throne) {
-      round(c, 370, 390, 1180, 320, 5, "#643c4d");
-      c.strokeStyle = "#c4a573";
-      c.lineWidth = 3;
-      c.strokeRect(385, 405, 1150, 290);
-      c.strokeStyle = "#ad8e6a55";
-      c.lineWidth = 2;
-      c.beginPath();
-      c.ellipse(1180, 550, 125, 90, 0, 0, B.TAU);
-      c.stroke();
-    } else {
-      for (const y of [345, 750]) line(c, 90, y, w.w - 90, y, "#9dc1b36b", 3);
-      if (intro) {
-        c.fillStyle = "#334b55";
-        c.beginPath();
-        c.ellipse(700, 500, 260, 175, 0, 0, B.TAU);
-        c.fill();
-        c.strokeStyle = "#78b9ad";
-        c.lineWidth = 5;
-        c.stroke();
-      }
-    }
-  }
-  B.paintScenery = (c, w) => {
-    c.save();
-    if (town(w)) townGround(c, w);
-    else interior(c, w);
-    c.restore();
-  };
-  B.drawWall = (c, o) => {
-    const { x, y, w, h } = o;
-    const shop = o.kind === "shopwall";
-    c.save();
-    round(c, x + 4, y + 7, w, h, 4, "#20353c80");
-    round(c, x, y, w, h, 4, shop ? "#a7a08b" : "#697c7d");
-    c.save();
-    c.beginPath();
-    c.rect(x + 2, y + 2, w - 4, h - 4);
-    c.clip();
-    for (let yy = y + 30; yy < y + h; yy += 34) {
-      line(c, x, yy, x + w, yy, "#40565c", 2);
-      for (let xx = x + ((yy - y) % 68 ? 42 : 0); xx < x + w; xx += 84)
-        line(c, xx, yy - 32, xx, yy, "#40565c", 2);
-    }
-    c.restore();
-    round(
+  function shadow(c, o, rx) {
+    ellipse(
       c,
-      x - 2,
-      y - 3,
-      w + 4,
-      Math.min(13, h * 0.25),
-      3,
-      shop ? "#d5c7a5" : "#a0aaa0",
+      o.x + o.w / 2 + 12,
+      o.y + o.h + 2,
+      rx || o.w * 0.66,
+      8,
+      "#102e3d44",
     );
-    line(c, x, y + h - 4, x + w, y + h - 4, "#334a50", 6);
-    if (o.label) {
-      round(c, x + w / 2 - 100, y + 19, 200, 35, 4, "#304c48");
-      c.fillStyle = "#e6d8af";
-      c.font = "bold 12px Arial";
-      c.textAlign = "center";
-      c.fillText(o.label, x + w / 2, y + 41);
-    }
-    c.restore();
-  };
-  B.drawBookcase = (c, o) => {
-    const { x, y, w, h } = o;
+  }
+  function crate(c, o) {
+    shadow(c, o);
+    B.drawProp(c, 21, o.x, o.y + o.h - 76, o.w, 76);
+  }
+  function pillar(c, o) {
+    shadow(c, o);
+    B.drawProp(c, 22, o.x - 12, o.y + o.h - 200, o.w + 24, 200);
+  }
+  function machine(c, o, g) {
+    shadow(c, o);
+    B.drawProp(c, 23, o.x - 16, o.y + o.h - 190, o.w + 32, 190);
+    glow(c, o.x + o.w / 2, o.y + o.h - 90, 65, palette(g.world).light, 0.1);
+  }
+  function gate(c, g, o) {
+    const { x, y, w, h } = o,
+      progress =
+        o.kind === "gate"
+          ? g.world.objects.find((a) => a.id === "gate")?.progress || 0
+          : 0,
+      p = palette(g.world);
     c.save();
-    round(c, x + 5, y + h - 4, w, 10, 3, "#263e3738");
-    round(c, x, y - 29, w, h + 29, 2, "#66553f");
-    round(c, x + 5, y - 23, w - 10, h + 17, 1, "#403f32");
-    for (let row = 0; row < 2; row++) {
-      for (let col = 0; col < 12; col++) {
-        const height = 15 + ((col * 3 + row) % 5);
-        c.fillStyle = ["#b77a60", "#76907b", "#c5ab74", "#718b91"][col % 4];
-        c.fillRect(x + 8 + col * 7, y - 19 + row * 25 + 20 - height, 5, height);
-      }
-      round(c, x + 3, y + row * 25, w - 6, 4, 1, "#ae9368");
+    c.globalAlpha = 1 - progress;
+    const back = y + 20,
+      front = y + h;
+    for (const [xx, yy] of [
+      [x + 8, back],
+      [x + w - 8, front],
+    ]) {
+      box(c, xx - 9, yy - 225, 18, 225, p.ink, 3);
+      box(c, xx - 4, yy - 213, 4, 200, p.trim, 2);
+      ellipse(c, xx, yy, 17, 5, p.ink);
     }
-    round(c, x - 2, y - 31, w + 4, 6, 2, "#b4a07a");
+    c.fillStyle = o.kind === "gate" ? "#e5b46d55" : "#70dbde44";
+    c.beginPath();
+    c.moveTo(x + 10, back - 205);
+    c.lineTo(x + w - 10, front - 205);
+    c.lineTo(x + w - 10, front);
+    c.lineTo(x + 10, back);
+    c.fill();
+    for (let i = 0; i < 7; i++) {
+      const yy = back - 190 + i * 29;
+      line(c, x + 10, yy, x + w - 10, yy + front - back, "#e9d6ad88", 2);
+    }
     c.restore();
+  }
+  function rv(c, o, g) {
+    const b = o.y + o.h,
+      x = o.x - 40;
+    shadow(c, { x, y: o.y, w: 300, h: o.h }, 170);
+    B.drawProp(c, 20, x, b - 210, 300, 210);
+    for (let n = 0; n < 3; n++) {
+      const q = (g.world.time * 0.3 + n / 3) % 1;
+      ellipse(
+        c,
+        x - 4 - q * 18,
+        b - 31 - q * 16,
+        4 + q * 8,
+        2 + q * 3,
+        "#a0b4ac13",
+      );
+    }
+  }
+  function obstacle(c, g, o) {
+    if (o.kind === "crate") crate(c, o);
+    else if (o.kind === "pillar" || o.kind === "crystal") pillar(c, o);
+    else if (o.kind === "machine") machine(c, o, g);
+    else if (o.kind === "gate" || o.kind === "security") gate(c, g, o);
+    else if (o.kind === "rv") rv(c, o, g);
+    else if (o.kind === "chasm") {
+      const { x, y, w, h } = o;
+      if (o.open) {
+        box(c, x, y, w, h, "#639f9c");
+        for (let xx = x + 8; xx < x + w; xx += 22) {
+          line(c, xx, y + 4, xx + 12, y + h - 4, "#d0f6dc99", 3);
+        }
+        line(c, x, y, x + w, y, "#a4e6cf", 4);
+        line(c, x, y + h, x + w, y + h, "#a4e6cf", 4);
+      } else {
+        const deep = c.createLinearGradient(0, 500, 0, 730);
+        deep.addColorStop(0, "#101e2d");
+        deep.addColorStop(1, "#203c48");
+        c.fillStyle = deep;
+        c.fillRect(x, y, w, h);
+        c.fillStyle = "#43565c";
+        c.beginPath();
+        c.moveTo(x, y);
+        c.lineTo(x + 14, y + 10);
+        c.lineTo(x + 14, y + h);
+        c.lineTo(x, y + h);
+        c.fill();
+        c.fillStyle = "#2c454f";
+        c.beginPath();
+        c.moveTo(x + w, y);
+        c.lineTo(x + w - 13, y + 10);
+        c.lineTo(x + w - 13, y + h);
+        c.lineTo(x + w, y + h);
+        c.fill();
+        for (let yy = y + 8; yy < y + h; yy += 28) {
+          line(c, x + 1, yy, x + 13, yy + 8, "#81958d", 2);
+          line(c, x + w - 1, yy, x + w - 12, yy + 8, "#5d7880", 2);
+        }
+        line(c, x, y, x, y + h, "#96a69a", 3);
+        line(c, x + w, y, x + w, y + h, "#96a69a", 3);
+        if (y + h >= 730) {
+          line(c, x, 730, x + w, 730, "#88968c", 4);
+          for (let xx = x + 9; xx < x + w; xx += 37)
+            box(c, xx, 724, 20, 8, "#718480", 2);
+        }
+      }
+    }
+  }
+  function object(c, g, o) {
+    if (g.save.items.includes(o.id) || o.broken) return;
+    const { x, y, type } = o,
+      t = g.world.time,
+      p = palette(g.world);
+    if (type === "safe") {
+      ellipse(c, x, y, 33, 8, "#a6e8a733");
+      line(c, x - 22, y + 13, x + 22, y + 13, "#abdcae55", 2);
+      return;
+    }
+    if (["gate", "support", "heater", "socket", "bridge"].includes(type)) {
+      if (o.progress >= 1) return;
+      const color =
+        o.heat >= 100
+          ? "#f6c587"
+          : type === "bridge" || type === "socket"
+            ? "#a8ecdc"
+            : "#82cfcb";
+      ellipse(c, x + 7, y + 3, 30, 7, "#152d3b66");
+      B.drawProp(c, 24, x - 34, y - 126, 68, 126);
+      glow(c, x, y - 74, 50, color, 0.14);
+      if (o.heat > 0) {
+        box(c, x - 23, y + 10, 46, 4, "#263b43");
+        box(c, x - 23, y + 10, o.heat * 0.46, 4, color);
+      }
+      return;
+    }
+    const color =
+      type === "health" ? "#e8b1a0" : type === "energy" ? "#bfe486" : "#d9bc85";
+    ellipse(c, x, y, 18, 5, "#152e3b33");
+    const yy = y - 27 - Math.sin(t * 2.8 + x) * 3;
+    glow(c, x, yy, 35, color, 0.12);
+    c.fillStyle = color;
+    c.strokeStyle = "#3d5e62";
+    c.lineWidth = 2;
+    c.beginPath();
+    c.moveTo(x, yy - 17);
+    c.lineTo(x + 11, yy);
+    c.lineTo(x, yy + 12);
+    c.lineTo(x - 11, yy);
+    c.closePath();
+    c.fill();
+    c.stroke();
+  }
+  function foreground(c, g) {
+    const p = palette(g.world),
+      left = g.camera.x - g.view.w / g.camera.zoom / 2;
+    for (
+      let j = Math.floor((left + g.camera.x * 0.12) / 1150) - 1;
+      j < (left + g.view.w / g.camera.zoom + g.camera.x * 0.12) / 1150 + 1;
+      j++
+    ) {
+      const x = j * 1150 - g.camera.x * 0.12;
+      c.save();
+      c.globalAlpha = 0.6;
+      box(c, x, 825, 280, 40, p.ink, 5);
+      for (let a = 12; a < 275; a += 36)
+        line(c, x + a, 835, x + a + 15, 825, p.trim, 2);
+      c.restore();
+    }
+  }
+  B.SideScene = {
+    palette,
+    background,
+    ambient,
+    foreground,
+    obstacle,
+    object,
+    water,
+    glow,
+  };
+  B.drawStageActor = (c, g, id, x, y, scale = 1, opts = {}) => {
+    const p = palette(g.world),
+      depth = B.clamp((y - 500) / 230, 0, 1),
+      size = scale * (1.2 + depth * 0.07);
+    if (["market", "fort", "throne"].includes(g.world.zone)) {
+      c.save();
+      c.translate(x, y + 4);
+      c.scale(1, -0.18);
+      c.globalAlpha = 0.055;
+      B.drawActor(c, id, 0, 0, size, {
+        ...opts,
+        lateral: true,
+        shadow: false,
+        light: p.light,
+      });
+      c.restore();
+    }
+    B.drawActor(c, id, x, y, size, { ...opts, lateral: true, light: p.light });
   };
 })(window.B10);

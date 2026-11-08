@@ -46,16 +46,6 @@
       document.querySelector(".brand").onclick = (e) => {
         e.preventDefault();
         if (g.mode === "menu") return;
-        this.hudAge = (this.hudAge || 0) + dt;
-        if (
-          this.hudAge < 0.05 &&
-          this.lastHudForm === p.form &&
-          this.lastHudHealth === p.hp
-        )
-          return;
-        this.hudAge = 0;
-        this.lastHudForm = p.form;
-        this.lastHudHealth = p.hp;
         this.panel("pause");
       };
       $("end-menu").onclick = () => g.toMenu();
@@ -541,53 +531,66 @@
         });
       } else if (type === "map") {
         paragraph(
-          "Las calles se conectan por el norte y el sur. Puedes explorar el jardín, los patios y los comercios antes de seguir la misión.",
+          "Avanza por el nivel con A/D. W/S te acercan o alejan del fondo. Para golpear, sitúate a la misma profundidad que el enemigo. Los descansos y secretos están marcados en la ruta.",
         );
         const canvas = document.createElement("canvas");
         canvas.width = 740;
-        canvas.height = 500;
+        canvas.height = 280;
         canvas.style.width = "100%";
         body.append(canvas);
         const c = canvas.getContext("2d"),
           w = g.world,
-          s = Math.min(700 / w.w, 440 / w.h);
-        c.fillStyle = "#172b29";
-        c.fillRect(0, 0, 740, 500);
-        c.save();
-        c.translate(20, 20);
-        c.scale(s, s);
-        c.fillStyle = "#566b50";
-        c.fillRect(0, 0, w.w, w.h);
+          sx = 700 / w.w,
+          sy = 130 / (w.lane.bottom - w.lane.top);
+        const mx = (x) => 20 + x * sx,
+          my = (y) => 55 + (y - w.lane.top) * sy;
+        c.fillStyle = "#172b35";
+        c.fillRect(0, 0, 740, 280);
+        c.fillStyle = "#53686b";
+        c.fillRect(20, 55, 700, 130);
+        c.strokeStyle = "#9dbaad44";
+        c.setLineDash([8, 8]);
+        for (const y of [w.lane.top + 76, w.lane.top + 152]) {
+          c.beginPath();
+          c.moveTo(20, my(y));
+          c.lineTo(720, my(y));
+          c.stroke();
+        }
+        c.setLineDash([]);
         for (const o of w.obstacles) {
           if (o.open) continue;
           c.fillStyle =
-            o.kind === "building"
-              ? "#b3a288"
-              : o.kind === "fence" || o.kind === "gate"
-                ? "#a99f74"
-                : "#324c42";
-          c.fillRect(o.x, o.y, o.w, o.h);
+            o.kind === "chasm"
+              ? "#122534"
+              : o.kind === "gate" || o.kind === "security"
+                ? "#c6a36f"
+                : "#8b9386";
+          c.fillRect(mx(o.x), my(o.y), Math.max(4, o.w * sx), o.h * sy);
         }
         for (const o of w.objects) {
-          if (g.save.items.includes(o.id)) continue;
+          if (g.save.items.includes(o.id) || o.broken) continue;
           c.fillStyle = o.type === "safe" ? "#a4ee65" : "#dfb876";
           c.beginPath();
-          c.arc(o.x, o.y, 15, 0, B.TAU);
+          c.arc(mx(o.x), my(o.y), 4, 0, B.TAU);
           c.fill();
         }
         c.fillStyle = "#e8ffd0";
         c.beginPath();
-        c.arc(g.player.x, g.player.y, 20, 0, B.TAU);
+        c.arc(mx(g.player.x), my(g.player.y), 5, 0, B.TAU);
         c.fill();
         if (w.exit) {
           c.fillStyle = "#b8f873";
-          c.fillRect(w.exit.x - 25, w.exit.y - 25, 50, 50);
+          c.fillRect(mx(w.exit.x) - 4, my(w.exit.y) - 5, 8, 10);
         }
-        c.restore();
-        for (const place of w.places || []) {
-          c.fillStyle = "#e9eed8";
-          c.font = "11px Arial";
-          c.fillText(place.name, 20 + place.x * s, 42 + place.y * s);
+        c.font = "10px Arial";
+        c.textAlign = "center";
+        for (const [i, place] of (w.places || []).entries()) {
+          c.fillStyle = "#d4dbcb";
+          c.fillText(
+            place.name,
+            B.clamp(mx(place.x), 65, 675),
+            215 + (i % 2) * 23,
+          );
         }
         paragraph(
           "Blanco: tú · Verde: salida y descansos · Ámbar: mecanismos y recompensas. Esc o M para cerrar.",

@@ -10,10 +10,20 @@
   });
   const foe = (type, x, y, id) => B.makeEnemy(type, x, y, id);
   B.createWorld = (zone, save) => {
+    const widths = {
+      intro: 1400,
+      city: 5200,
+      market: 4800,
+      fort: 4200,
+      throne: 2600,
+      escape: 3600,
+    };
     const w = {
       zone,
-      w: 1800,
-      h: 1100,
+      lateral: true,
+      w: widths[zone] || 4200,
+      h: 900,
+      lane: { top: 500, bottom: 730 },
       obstacles: [],
       enemies: [],
       objects: [],
@@ -21,9 +31,9 @@
       particles: [],
       fields: [],
       shots: [],
-      exit: { x: 1730, y: 550, r: 65 },
       time: 0,
     };
+    w.exit = { x: w.w - 150, y: 620, r: 65 };
     const o = (...a) => w.obstacles.push(rect(...a));
     const obj = (type, x, y, id, extra = {}) =>
       w.objects.push({
@@ -37,213 +47,136 @@
         broken: false,
         ...extra,
       });
-    const add = (t, x, y, id) => {
-      if (!save.flags["dead:" + id]) w.enemies.push(foe(t, x, y, id));
+    const add = (type, x, y, id, extra = {}) => {
+      if (!save.flags["dead:" + id])
+        w.enemies.push({ ...foe(type, x, y, id), ...extra });
     };
     if (zone === "intro") {
-      w.w = 1400;
-      w.h = 900;
-      o(0, 0, 1400, 130, "labwall");
-      o(0, 770, 1400, 130, "labwall");
       w.exit = null;
       return w;
     }
-    if (zone === "city" || zone === "market") {
-      w.w = 2600;
-      w.h = 1900;
-      w.exit = { x: 2510, y: 550, r: 65 };
+    if (zone === "city") {
       w.places = [
-        { name: "La Rustbucket", x: 200, y: 540 },
-        { name: "Jardín municipal", x: 1320, y: 1320 },
-        { name: "Mercado", x: 820, y: 200 },
-        {
-          name: zone === "city" ? "Compuerta" : "Plaza del Ejecutor",
-          x: zone === "city" ? 1580 : 1400,
-          y: 550,
-        },
+        { name: "La Rustbucket", x: 350, y: 610 },
+        { name: "Paseo de Bellwood", x: 1900, y: 620 },
+        { name: "Jardín municipal", x: 3250, y: 620 },
+        { name: "Compuerta", x: 4300, y: 620 },
       ];
-      o(40, 65, 410, 280, "building", {
-        label: zone === "city" ? "BELLWOOD AUTO" : "RÉCORDS",
-        palette: 0,
+      o(140, 535, 210, 55, "rv");
+      obj("safe", 430, 650, "max");
+      o(1260, 654, 54, 40, "crate", { destructible: true, hp: 35 });
+      o(2510, 526, 60, 45, "crate", { destructible: true, hp: 35 });
+      obj("crate", 2670, 700, "cache-city");
+      obj("gate", 4210, 620, "gate", {
+        thermal: true,
+        required: "four",
+        heat: save.flags.gate ? 100 : 0,
+        progress: save.flags.gate ? 1 : 0,
       });
-      o(510, 65, 350, 275, "building", {
-        label: zone === "city" ? "MERCADO" : "CAFÉ GALAXIA",
-        palette: 1,
+      o(4300, 500, 70, 230, "gate", { id: "gate", open: !!save.flags.gate });
+      add("basic", 930, 615, "c1");
+      add("basic", 1390, 665, "c2");
+      add("shield", 2300, 565, "c3");
+      add("energy", 3090, 650, "c4");
+      add("basic", 3530, 695, "park-patrol", { optional: true });
+      w.decor.push({ kind: "fountain", x: 3320, y: 503 });
+    } else if (zone === "market") {
+      w.places = [
+        { name: "Arcadas del mercado", x: 900, y: 620 },
+        { name: "Archivos", x: 1530, y: 530 },
+        { name: "Conducto", x: 2100, y: 700 },
+        { name: "Plaza del Ejecutor", x: 3540, y: 620 },
+      ];
+      obj("safe", 300, 650, "rest-market");
+      obj("health", 1530, 530, "hp-shop");
+      obj("heater", 2100, 700, "optional-heat", {
+        heat: save.flags.optional ? 100 : 0,
       });
-      if (zone === "city") {
-        o(920, 60, 540, 285, "building", {
-          label: "BELLWOOD / ESTACIÓN",
-          palette: 2,
-        });
-      } else {
-        // A traversable shop, with a doorway facing the sidewalk.
-        o(930, 65, 520, 85, "shopwall", {
-          label: "ARCHIVOS · ABIERTO",
-        });
-        o(930, 150, 35, 220, "shopwall");
-        o(1415, 150, 35, 220, "shopwall");
-        o(965, 345, 175, 25, "shopwall");
-        o(1230, 345, 185, 25, "shopwall");
-        o(990, 170, 100, 30, "bookcase");
-        o(1280, 170, 100, 30, "bookcase");
-        obj("health", 1150, 245, "hp-shop");
-      }
-      // Smaller blocks separated by crossings, side streets and a public garden.
-      o(80, 650, 350, 180, "building", { label: "TALLER", palette: 0 });
-      o(610, 1120, 320, 220, "building", { label: "CAFÉ", palette: 1 });
-      o(90, 1670, 350, 170, "building", { label: "DEPÓSITO", palette: 0 });
-      o(1930, 90, 240, 250, "building", { label: "MUSEO", palette: 2 });
-      o(1930, 650, 250, 180, "building", { label: "BIBLIOTECA", palette: 2 });
-      o(1930, 1150, 250, 190, "building", { label: "ESTACIÓN", palette: 2 });
-      o(1320, 1310, 110, 75, "fountain");
-      o(1000, 1400, 80, 24, "bench");
-      o(1350, 1410, 80, 24, "bench");
+      obj("energy", 2240, 700, "energy-market", { requires: "optional" });
+      o(1760, 655, 56, 42, "crate", { destructible: true, hp: 35 });
+      add("shield", 880, 575, "m1");
+      add("heavy", 1990, 620, "m2");
+      add("energy", 2650, 690, "m3");
+      add("commander", 2940, 560, "m4");
+      if (!save.flags.executor) add("executor", 3540, 620, "executor");
+    } else if (zone === "fort") {
+      w.places = [
+        { name: "Reactores", x: 1600, y: 620 },
+        { name: "Soportes", x: 3300, y: 620 },
+        { name: "Puerta del trono", x: 3650, y: 620 },
+      ];
       for (const [x, y] of [
-        [770, 1510],
-        [1320, 1140],
-        [1460, 1680],
-        [1880, 1450],
-        [2330, 850],
-        [2180, 1660],
+        [1200, 520],
+        [2100, 657],
       ])
-        o(x, y, 38, 38, "tree");
-      w.decor.push({ kind: "sign", x: 660, y: 965, text: "JARDÍN ↓" });
-      o(455, 378, 115, 48, "car", { palette: 0 });
-      o(1000, 776, 125, 50, "car", { palette: 1 });
-      o(720, 710, 50, 50, "crate", { destructible: true, hp: 35 });
-      o(780, 720, 45, 45, "crate", { destructible: true, hp: 35 });
-      o(1350, 385, 110, 60, "knightcar");
-      for (const [x, y] of [
-        [80, 400],
-        [860, 390],
-        [1500, 820],
-        [600, 850],
+        o(x, y, 85, 50, "machine");
+      obj("safe", 300, 650, "rest-fort");
+      obj("crate", 2360, 700, "cache-fort");
+      for (const [id, y] of [
+        ["support-a", 550],
+        ["support-b", 680],
       ])
-        o(x, y, 40, 40, "tree");
-      for (let j = 0; j < 4; j++)
-        w.decor.push({ kind: "lamp", x: 330 + j * 370, y: 365 });
-      w.decor.push({
-        kind: "sign",
-        x: 1490,
-        y: 385,
-        text: zone === "city" ? "DISTRITO →" : "PLAZA →",
-      });
-      if (zone === "city") {
-        o(70, 490, 165, 78, "rv");
-        obj("safe", 360, 485, "max");
-        obj("gate", 1580, 550, "gate", {
-          thermal: true,
-          required: "four",
-          heat: save.flags.gate ? 100 : 0,
-          progress: save.flags.gate ? 1 : 0,
-        });
-        o(1570, 0, 45, 475, "fence");
-        o(1570, 625, 45, w.h - 625, "fence");
-        o(1570, 475, 45, 150, "gate", { id: "gate", open: !!save.flags.gate });
-        add("basic", 620, 510, "c1");
-        add("basic", 730, 610, "c2");
-        add("shield", 1050, 540, "c3");
-        add("energy", 1200, 700, "c4");
-        obj("crate", 920, 840, "cache-city");
-        if (!save.flags["dead:park-patrol"]) {
-          const patrol = foe("basic", 1390, 1550, "park-patrol");
-          patrol.optional = true;
-          w.enemies.push(patrol);
-        }
-      } else {
-        obj("safe", 215, 510, "rest-market");
-        obj("heater", 590, 825, "optional-heat", {
-          heat: save.flags.optional ? 100 : 0,
-        });
-        obj("energy", 585, 925, "energy-market", { requires: "optional" });
-        add("shield", 650, 550, "m1");
-        add("heavy", 850, 630, "m2");
-        add("energy", 1010, 470, "m3");
-        add("commander", 1130, 680, "m4");
-        if (!save.flags.executor) add("executor", 1400, 550, "executor");
-      }
-    } else {
-      o(0, 0, 1800, 100, "labwall");
-      o(0, 1000, 1800, 100, "labwall");
-      o(0, 100, 50, 350, "labwall");
-      o(0, 650, 50, 350, "labwall");
-      if (zone === "fort") {
-        for (const x of [390, 900, 1410]) {
-          o(x, 150, 160, 240, "machine");
-          o(x, 810, 160, 150, "machine");
-        }
-        for (const x of [650, 1180]) o(x, 420, 45, 110, "crystal");
-        obj("support", 1430, 580, "support-a", {
+        obj("support", 3300, y, id, {
           thermal: true,
           heat: save.flags.supports ? 100 : 0,
           broken: !!save.flags.supports,
         });
-        obj("support", 1430, 720, "support-b", {
-          thermal: true,
-          heat: save.flags.supports ? 100 : 0,
-          broken: !!save.flags.supports,
-        });
-        o(1610, 100, 40, 900, "security", {
-          id: "supports",
-          open: !!save.flags.supports,
-        });
-        add("heavy", 650, 620, "f1");
-        add("energy", 900, 550, "f2");
-        add("shield", 1120, 700, "f3");
-        add("commander", 1250, 550, "f4");
-        obj("safe", 210, 525, "rest-fort");
-        obj("crate", 970, 925, "cache-fort");
-      } else if (zone === "throne") {
-        w.exit = null;
-        for (const [x, y] of [
-          [230, 220],
-          [230, 860],
-          [1510, 220],
-          [1510, 860],
-        ])
-          o(x, y, 80, 90, "pillar");
-        w.decor.push({ kind: "throne", x: 1470, y: 550 });
-        obj("safe", 165, 550, "rest-throne");
-        if (!save.flags.king) add("king", 1180, 550, "king");
-        else w.exit = { x: 1730, y: 550, r: 65 };
-      } else if (zone === "escape") {
-        for (const x of [400, 1100]) {
-          o(x, 100, 120, 270, "machine");
-          o(x, 840, 120, 160, "machine");
-        }
-        o(710, 100, 150, 370, "chasm");
-        o(710, 625, 150, 375, "chasm");
-        o(710, 470, 150, 155, "chasm", {
-          id: "bridge",
-          open: !!save.flags.bridge,
-        });
-        obj("bridge", 660, 550, "bridge", {
-          progress: save.flags.bridge ? 1 : 0,
-        });
-        o(1450, 100, 40, 900, "security", {
-          id: "exit-crystal",
-          open: !!save.flags["exit-crystal"],
-        });
-        obj("socket", 1390, 550, "exit-crystal", {
-          progress: save.flags["exit-crystal"] ? 1 : 0,
-        });
-        add("basic", 1050, 550, "e1");
-        add("energy", 1240, 670, "e2");
-        obj("energy", 1030, 820, "energy-escape");
-      }
+      o(3650, 500, 55, 230, "security", {
+        id: "supports",
+        open: !!save.flags.supports,
+      });
+      add("heavy", 1080, 610, "f1");
+      add("energy", 1720, 570, "f2");
+      add("shield", 2530, 675, "f3");
+      add("commander", 2850, 570, "f4");
+    } else if (zone === "throne") {
+      w.exit = save.flags.king ? { x: w.w - 150, y: 620, r: 65 } : null;
+      obj("safe", 280, 650, "rest-throne");
+      for (const [x, y] of [
+        [790, 520],
+        [2240, 520],
+        [2240, 682],
+      ])
+        o(x, y, 50, 35, "pillar");
+      if (!save.flags.king) add("king", 1790, 620, "king");
+    } else if (zone === "escape") {
+      w.places = [
+        { name: "Abismo", x: 1400, y: 620 },
+        { name: "Cierre cristalino", x: 2860, y: 620 },
+        { name: "Salida", x: 3450, y: 620 },
+      ];
+      o(1300, 500, 200, 60, "chasm");
+      o(1300, 680, 200, 50, "chasm");
+      o(1300, 560, 200, 120, "chasm", {
+        id: "bridge",
+        open: !!save.flags.bridge,
+      });
+      obj("bridge", 1220, 620, "bridge", {
+        progress: save.flags.bridge ? 1 : 0,
+      });
+      o(2860, 500, 55, 230, "security", {
+        id: "exit-crystal",
+        open: !!save.flags["exit-crystal"],
+      });
+      obj("socket", 2780, 620, "exit-crystal", {
+        progress: save.flags["exit-crystal"] ? 1 : 0,
+      });
+      add("basic", 1970, 590, "e1");
+      add("energy", 2360, 685, "e2");
+      obj("energy", 2490, 700, "energy-escape");
     }
     return w;
   };
   B.loadZone = (g, zone, withScene = true) => {
     g.world = B.createWorld(zone, g.save);
     g.player.x = zone === "throne" ? 340 : 280;
-    g.player.y = 570;
+    g.player.y = 630;
     g.player.attack = null;
     g.player.invuln = 1;
     g.player.combo = "";
     g.buffer = null;
     g.camera.x = g.player.x;
-    g.camera.y = g.player.y - 28;
+    g.camera.y = 430;
     g.save.zone = zone;
     g.save.checkpoint = zone;
     g.player.hp = g.player.maxHp;
@@ -268,7 +201,7 @@
         g.audio.play("puzzle");
         if (o.heat >= 100 && o.type === "heater") {
           g.save.flags.optional = true;
-          g.ui.toast("Conducto fundido · el callejón del sur está abierto");
+          g.ui.toast("Conducto fundido · el pasaje del mercado está abierto");
           g.persist();
         }
       }
@@ -355,7 +288,9 @@
       !g.save.items.includes(near.id)
     ) {
       if (near.requires && !g.save.flags[near.requires]) {
-        g.ui.toast("El conducto de arriba bloquea el escondite · usa Fuego");
+        g.ui.toast(
+          "Activa el conducto cercano con Fuego para abrir el escondite",
+        );
         return;
       }
       g.save.items.push(near.id);
@@ -449,7 +384,7 @@
         B.form(p.queued).name.toUpperCase();
     g.ui.hint(hint);
     const alive = w.enemies.filter((e) => !e.dead && !e.optional);
-    if (w.zone !== "city" && p.x < 100 && Math.abs(p.y - 550) < 75) {
+    if (w.zone !== "city" && p.x < 100 && Math.abs(p.y - 620) < 100) {
       const previous = {
         market: "city",
         fort: "market",
@@ -459,7 +394,7 @@
       if (previous) {
         B.loadZone(g, previous, false);
         g.player.x = g.world.exit ? g.world.exit.x - 80 : g.world.w - 120;
-        g.player.y = 550;
+        g.player.y = 630;
         return;
       }
     }
@@ -467,7 +402,7 @@
       g.save.flags.gateHint = true;
       g.ui.scene("gate");
     }
-    if (w.zone === "market" && !g.save.flags.executorIntro && p.x > 1120) {
+    if (w.zone === "market" && !g.save.flags.executorIntro && p.x > 3100) {
       g.save.flags.executorIntro = true;
       g.ui.scene("executor");
     }

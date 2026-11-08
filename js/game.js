@@ -214,7 +214,10 @@
       };
       this.canvas.width = Math.floor(this.view.w * this.view.dpr);
       this.canvas.height = Math.floor(this.view.h * this.view.dpr);
-      this.camera.zoom = Math.min(1.5, Math.max(1.15, this.view.w / 1080));
+      this.camera.zoom = Math.min(
+        1.4,
+        Math.max(0.55, Math.min(this.view.w / 1280, this.view.h / 800)),
+      );
     }
     keyLabel(action) {
       const key = this.bindings[action] || "";
@@ -414,6 +417,12 @@
         team,
         r,
         life,
+        height:
+          team === "player" &&
+          this.player.form === "heat" &&
+          this.player.attack?.variant >= 2
+            ? 18
+            : 62,
         touched: new Set(),
       });
     }
@@ -490,6 +499,7 @@
       )
         return;
       if (this.mode === "dialogue") {
+        this.world.time += dt;
         for (const a of this.particles) {
           a.life -= dt;
           a.x += a.vx * dt;
@@ -504,7 +514,7 @@
               }
             : this.player;
         this.camera.x += (target.x - this.camera.x) * Math.min(1, dt * 5);
-        this.camera.y += (target.y - 28 - this.camera.y) * Math.min(1, dt * 5);
+        this.camera.y += (430 - this.camera.y) * Math.min(1, dt * 5);
         return;
       }
       const slow = this.mode === "wheel" ? 0.06 : 1;
@@ -533,8 +543,9 @@
       this.life.update(this, dt);
       const p = this.player;
       // Center on the body, not the feet. Map edges do not pin the camera.
-      this.camera.x = p.x;
-      this.camera.y = p.y - 28;
+      const half = this.view.w / this.camera.zoom / 2;
+      this.camera.x = B.clamp(p.x, half, Math.max(half, this.world.w - half));
+      this.camera.y = 430;
     }
     frame(t) {
       const elapsed = Math.min(0.2, Math.max(0, (t - this.last) / 1000));

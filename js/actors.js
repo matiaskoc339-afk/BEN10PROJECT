@@ -122,7 +122,11 @@
     const steps = Math.max(1, Math.ceil(Math.hypot(dx, dy) / 8));
     for (let step = 0; step < steps; step++) {
       const nx = B.clamp(a.x + dx / steps, a.r, g.world.w - a.r);
-      const ny = B.clamp(a.y + dy / steps, a.r, g.world.h - a.r);
+      const ny = B.clamp(
+        a.y + dy / steps,
+        (g.world.lane?.top || 0) + a.r,
+        (g.world.lane?.bottom || g.world.h) - a.r,
+      );
       if (!obs.some((o) => B.circleRect(nx, a.y, a.r, o))) a.x = nx;
       if (!obs.some((o) => B.circleRect(a.x, ny, a.r, o))) a.y = ny;
     }
@@ -224,7 +228,14 @@
     }
     const target = g.screenToWorld(i.mouse.x, i.mouse.y);
     target.y += 28;
-    p.facing = p.attack ? p.attack.angle : B.angle(p, target);
+    if (g.world.lateral) {
+      if (g.clock - (i.lastAimAt ?? -10) < 0.35)
+        p.sideFacing = target.x < p.x ? Math.PI : 0;
+      else if (dx) p.sideFacing = dx < 0 ? Math.PI : 0;
+      p.sideFacing ??= 0;
+      p.facing = p.attack ? p.attack.angle : p.sideFacing;
+      dy *= 0.62;
+    } else p.facing = p.attack ? p.attack.angle : B.angle(p, target);
     const oldX = p.x,
       oldY = p.y;
     if (Math.hypot(p.knockVX || 0, p.knockVY || 0) > 1) {
@@ -254,7 +265,7 @@
       p.moveFacing = Math.atan2(p.vy, p.vx);
     }
     if (p.moving && !p.attack && !p.blocking && !p.specialPose)
-      p.renderFacing = p.moveFacing;
+      p.renderFacing = g.world.lateral ? p.sideFacing : p.moveFacing;
     else if (p.attack || p.blocking || g.clock - (i.lastAimAt ?? -10) < 0.2)
       p.renderFacing = p.facing;
     B.advanceAttack(g, dt);

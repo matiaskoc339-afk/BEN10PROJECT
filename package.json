@@ -1,6 +1,6 @@
 {
   "name": "ben10-el-omnitrix-fracturado",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "private": true,
   "description": "Aventura fan de Ben 10 clásico, con un capítulo jugable en Canvas 2D.",
   "scripts": {
