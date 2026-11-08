@@ -17,6 +17,7 @@
     constructor(g) {
       this.g = g;
       this.c = g.canvas.getContext("2d");
+      this.backdrops = new WeakMap();
     }
     draw() {
       const g = this.g,
@@ -49,30 +50,23 @@
         c.fillRect(0, 0, v.w, v.h);
       }
     }
-    ground() {
+    paintGround() {
       const g = this.g,
         c = this.c,
         w = g.world,
         city = ["city", "market"].includes(w.zone);
-      const left = g.camera.x - g.view.w / g.camera.zoom / 2 - 300,
-        top = g.camera.y - g.view.h / g.camera.zoom / 2 - 300;
       c.fillStyle = B.groundPattern(c, city ? 0 : 3);
-      c.fillRect(
-        left,
-        top,
-        g.view.w / g.camera.zoom + 600,
-        g.view.h / g.camera.zoom + 600,
-      );
+      c.fillRect(0, 0, w.w, w.h);
       if (city) {
         // Interconnected streets with a north/south loop, rather than one corridor.
         c.fillStyle = B.groundPattern(c, 1);
         for (const y of [340, 840, 1370]) c.fillRect(-100, y, w.w + 200, 300);
         for (const x of [450, 1030, 1630, 2180])
-          c.fillRect(x, -100, 300, w.h + 200);
+          c.fillRect(x, x === 450 || x === 1030 ? 340 : -100, 300, w.h + 200);
         c.fillStyle = B.groundPattern(c, 2);
         for (const y of [430, 930, 1460]) c.fillRect(-100, y, w.w + 200, 150);
         for (const x of [520, 1100, 1700, 2250])
-          c.fillRect(x, -100, 160, w.h + 200);
+          c.fillRect(x, x === 520 || x === 1100 ? 430 : -100, 160, w.h + 200);
         c.strokeStyle = "#dfd4a777";
         c.lineWidth = 3;
         c.setLineDash([28, 35]);
@@ -105,6 +99,46 @@
         }
       }
     }
+    ground() {
+      const g = this.g,
+        c = this.c,
+        w = g.world;
+      let cached = this.backdrops.get(w);
+      if (!cached) {
+        cached = document.createElement("canvas");
+        cached.width = w.w;
+        cached.height = w.h;
+        this.c = cached.getContext("2d");
+        this.paintGround();
+        g.life.shadows(this.c, g, true);
+        this.c = c;
+        this.backdrops.set(w, cached);
+      }
+      const left = g.camera.x - g.view.w / g.camera.zoom / 2,
+        top = g.camera.y - g.view.h / g.camera.zoom / 2,
+        right = left + g.view.w / g.camera.zoom,
+        bottom = top + g.view.h / g.camera.zoom;
+      c.fillStyle = B.groundPattern(
+        c,
+        ["city", "market"].includes(w.zone) ? 0 : 3,
+      );
+      if (left < 0) c.fillRect(left, top, -left, bottom - top);
+      if (top < 0)
+        c.fillRect(Math.max(0, left), top, right - Math.max(0, left), -top);
+      if (right > w.w) c.fillRect(w.w, top, right - w.w, bottom - top);
+      if (bottom > w.h)
+        c.fillRect(
+          Math.max(0, left),
+          w.h,
+          Math.min(right, w.w) - Math.max(0, left),
+          bottom - w.h,
+        );
+      const sx = Math.max(0, left),
+        sy = Math.max(0, top),
+        sw = Math.min(w.w, right) - sx,
+        sh = Math.min(w.h, bottom) - sy;
+      if (sw > 0 && sh > 0) c.drawImage(cached, sx, sy, sw, sh, sx, sy, sw, sh);
+    }
     world() {
       const g = this.g,
         c = this.c,
@@ -122,7 +156,7 @@
             y > g.camera.y + halfH
           )
             return;
-          B.drawProp(c, 8, x, y, 210, 220);
+          B.drawProp(c, 8, x, y, 210, 220, { wind: g.life.wind(w, x, y) });
         };
         // The physical limit reads as a wooded edge, not an invisible wall in grass.
         for (let x = -170; x < w.w + 170; x += 155) {
@@ -134,6 +168,8 @@
           borderTree(w.w - 15, y);
         }
       }
+      g.life.ground(c, g);
+
       for (const o of w.obstacles) if (o.kind === "chasm") this.obstacle(o);
       for (const f of w.fields) {
         const color =
@@ -182,12 +218,23 @@
         }
       const items = [];
       for (const o of w.obstacles)
-        if (o.kind !== "chasm" && !o.open)
+        if (
+          o.kind !== "chasm" &&
+          !o.open &&
+          g.life.visible(
+            g,
+            o.x + o.w / 2,
+            o.y + o.h / 2,
+            Math.max(o.w, o.h) / 2 + 145,
+          )
+        )
           items.push({ y: o.y + o.h, draw: () => this.obstacle(o) });
       for (const o of w.objects)
-        items.push({ y: o.y, draw: () => this.object(o) });
+        if (g.life.visible(g, o.x, o.y, 110))
+          items.push({ y: o.y, draw: () => this.object(o) });
       for (const e of w.enemies)
-        if (!e.dead) items.push({ y: e.y, draw: () => this.enemy(e) });
+        if (!e.dead && g.life.visible(g, e.x, e.y, 180))
+          items.push({ y: e.y, draw: () => this.enemy(e) });
       if (w.zone === "intro") this.intro(items);
       else {
         items.push({ y: g.player.y, draw: () => this.player() });
@@ -242,6 +289,8 @@
         label(c, a.text, a.x, a.y, 12, a.color);
       }
       c.globalAlpha = 1;
+      g.life.fixtures(c, g);
+      g.life.air(c, g);
       for (const d of w.decor) {
         if (d.kind === "sign") {
           c.fillStyle = "#283f35ee";
@@ -279,8 +328,10 @@
       }
       if (kind === "tree") {
         c.save();
-        if (g.player.y < y + h + 30 && Math.abs(g.player.x - (x + w / 2)) < 65)
-          c.globalAlpha = 0.4;
+        const underCanopy =
+          g.player.y < y + h + 10 &&
+          g.player.y > y + h - 135 &&
+          Math.abs(g.player.x - (x + w / 2)) < 58;
         B.drawProp(
           c,
           (x + y) % 3 ? 8 : 9,
@@ -288,6 +339,7 @@
           y + h - 145,
           130,
           145,
+          { wind: g.life.wind(g.world, x, y), fadeCanopy: underCanopy },
         );
         c.restore();
         return;
@@ -305,6 +357,7 @@
       }
       if (kind === "fountain") {
         B.drawProp(c, 10, x - 20, y - 70, w + 40, h + 70);
+        g.life.fountain(c, o, g.world.time);
         return;
       }
       if (kind === "bench") {
@@ -344,12 +397,65 @@
         return;
       }
       if (kind === "fence" || kind === "security") {
-        c.fillStyle = kind === "security" ? "#486d75" : "#6f7e69";
-        c.fillRect(x, y, w, h);
-        for (let yy = y + 8; yy < y + h; yy += 24) {
-          c.fillStyle = "#bbc2a2";
-          c.fillRect(x + 4, yy, w - 8, 3);
+        // A transparent mesh rises from the ground line, with posts rooted in it.
+        const base = x + w * 0.68,
+          top = base - 15,
+          rise = 38;
+        c.save();
+        c.fillStyle = "#172b3024";
+        c.beginPath();
+        c.moveTo(base, y);
+        c.lineTo(base + 18, y + 7);
+        c.lineTo(base + 18, y + h + 7);
+        c.lineTo(base, y + h);
+        c.fill();
+        c.save();
+        c.beginPath();
+        c.moveTo(base, y);
+        c.lineTo(base, y + h);
+        c.lineTo(top, y + h - rise);
+        c.lineTo(top, y - rise);
+        c.closePath();
+        c.clip();
+        c.fillStyle = "#6c879b12";
+        c.fillRect(top, y - rise, base - top, h + rise);
+        c.strokeStyle = kind === "security" ? "#8ca9b1aa" : "#92a19c99";
+        c.lineWidth = 0.8;
+        c.beginPath();
+        for (let yy = y - rise - 32; yy < y + h + 32; yy += 9) {
+          c.moveTo(top, yy);
+          c.lineTo(base, yy + 21);
+          c.moveTo(top, yy + 21);
+          c.lineTo(base, yy);
         }
+        c.stroke();
+        c.restore();
+        c.strokeStyle = "#465e61";
+        c.lineWidth = 2;
+        c.beginPath();
+        c.moveTo(top, y - rise);
+        c.lineTo(top, y + h - rise);
+        c.moveTo(base, y);
+        c.lineTo(base, y + h);
+        c.stroke();
+        const posts = Math.ceil(h / 96);
+        for (let i = 0; i <= posts; i++) {
+          const yy = y + (h * i) / posts;
+          c.fillStyle = "#57696a";
+          c.beginPath();
+          c.ellipse(base, yy, 5, 2.5, 0, 0, B.TAU);
+          c.fill();
+          c.strokeStyle = "#3e5357";
+          c.lineWidth = 4;
+          c.beginPath();
+          c.moveTo(base, yy);
+          c.lineTo(top, yy - rise);
+          c.stroke();
+          c.strokeStyle = "#b7c3b5";
+          c.lineWidth = 1;
+          c.stroke();
+        }
+        c.restore();
         return;
       }
       if (kind === "labwall" || kind === "shopwall") {
@@ -423,14 +529,17 @@
         p = g.player,
         c = this.c;
       B.drawActor(c, p.form, p.x, p.y, 1, {
-        time: g.clock,
+        time: g.world.time,
         walk: p.walk,
         moving: p.moving,
+        combatReady: g.world.enemies.some((e) => !e.dead && B.dist(e, p) < 330),
         facing: p.attack?.angle ?? p.renderFacing ?? p.facing,
         attack: p.attack,
         special: p.specialPose,
         blocking: p.blocking,
         dodging: p.dodgeTime > 0,
+        dodgeTime: p.dodgeTime,
+        hurtTime: p.hurtTime,
         invuln: p.invuln,
       });
       if (
@@ -471,10 +580,12 @@
               : e.type;
       const scale = e.type === "heavy" ? 1.17 : 1;
       B.drawActor(c, id, e.x, e.y, scale, {
-        time: g.clock,
+        time: g.world.time,
         walk: e.walk,
         moving: e.moving,
-        facing: e.facing,
+        combatReady: B.dist(e, g.player) < 350,
+        facing: e.moving ? (e.moveFacing ?? e.facing) : e.facing,
+        hurtTime: e.flash,
         armor: e.armor,
         scene: g.world.zone,
         phase: e.phase,

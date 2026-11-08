@@ -169,6 +169,107 @@ async function check(name, fn) {
     );
     assert.equal(new Set(frames).size, 3);
   });
+  await check(
+    "walking uses six consecutive gait poses without interleaving idle",
+    async () => {
+      const poses = await page.evaluate(() =>
+        ["ben", "four", "heat", "diamond", "basic"].map((id) => {
+          const frames = Array.from({ length: 6 }, (_, n) =>
+            B10.spriteFrame(id, {
+              moving: true,
+              walk: ((n + 0.15) * B10.TAU) / 6,
+              facing: Math.PI / 2,
+            }),
+          );
+          return {
+            frames,
+            idle: B10.spriteFrame(id, {
+              moving: false,
+              walk: 4,
+              facing: Math.PI / 2,
+            }),
+          };
+        }),
+      );
+      for (const p of poses) {
+        assert.equal(new Set(p.frames.map((f) => f.index)).size, 6);
+        assert.ok(p.frames.every((f) => f.key.endsWith("Walk")));
+        assert.ok(!p.idle.key.endsWith("Walk"));
+      }
+    },
+  );
+  await check(
+    "the fountain animates water over the same approved scenery model",
+    async () => {
+      const frames = await page.evaluate(() =>
+        [0, 1.2].map((t) => {
+          const cv = document.createElement("canvas");
+          cv.width = 150;
+          cv.height = 145;
+          const c = cv.getContext("2d");
+          B10.drawProp(c, 10, 0, 0, 150, 145);
+          game.life.fountain(c, { x: 20, y: 70, w: 110, h: 75 }, t);
+          return cv.toDataURL();
+        }),
+      );
+      assert.notEqual(frames[0], frames[1]);
+    },
+  );
+  await check(
+    "wind moves foliage while the base of the trunk stays planted",
+    async () => {
+      const result = await page.evaluate(() => {
+        const frames = [-3, 3].map((wind) => {
+          const cv = document.createElement("canvas");
+          cv.width = 130;
+          cv.height = 145;
+          const c = cv.getContext("2d");
+          B10.drawProp(c, 8, 0, 0, 130, 145, { wind });
+          return c.getImageData(0, 0, 130, 145).data;
+        });
+        const root = (bytes) => {
+          let sum = 0,
+            mass = 0;
+          for (let y = 138; y < 145; y++)
+            for (let x = 0; x < 130; x++) {
+              const alpha = bytes[(y * 130 + x) * 4 + 3];
+              sum += x * alpha;
+              mass += alpha;
+            }
+          return sum / mass;
+        };
+        let changed = 0;
+        for (let i = 0; i < frames[0].length; i += 4)
+          if (frames[0][i + 3] !== frames[1][i + 3]) changed++;
+        return {
+          rootShift: Math.abs(root(frames[0]) - root(frames[1])),
+          changed,
+        };
+      });
+      assert.ok(result.rootShift < 0.4);
+      assert.ok(result.changed > 50);
+    },
+  );
+  await check(
+    "actor shadows project onto the ground below the planted feet",
+    async () => {
+      const changed = await page.evaluate(() => {
+        const frames = [false, true].map((shadow) => {
+          const cv = document.createElement("canvas");
+          cv.width = 300;
+          cv.height = 300;
+          const c = cv.getContext("2d");
+          B10.drawActor(c, "four", 150, 230, 1, { time: 0, shadow });
+          return c.getImageData(0, 230, 300, 60).data;
+        });
+        let count = 0;
+        for (let i = 3; i < frames[0].length; i += 4)
+          if (frames[1][i] > frames[0][i]) count++;
+        return count;
+      });
+      assert.ok(changed > 100);
+    },
+  );
   await check("options persist and controls can be remapped", async () => {
     await page.click("[data-panel=settings]");
     await page.locator("input[type=range]").fill("20");
@@ -292,6 +393,8 @@ async function check(name, fn) {
   });
   await check("transform cancel, queuing and wheel locks", async () => {
     await page.evaluate(() => {
+      game.world.enemies = [];
+      game.save.flags.gateHint = true;
       game.player.energy = 65;
       game.player.hp = 80;
       game.player.form = "ben";
@@ -301,12 +404,24 @@ async function check(name, fn) {
     await page.keyboard.press("Digit2");
     assert.equal(await page.evaluate(() => game.player.form), "four");
     assert.equal(await page.evaluate(() => game.player.queued), "heat");
-    const energy = await page.evaluate(() => game.player.energy);
+    await page.evaluate(() => {
+      addEventListener(
+        "keydown",
+        () => {
+          window.cancelBefore = game.player.energy;
+          queueMicrotask(() => {
+            window.cancelAfter = game.player.energy;
+          });
+        },
+        { once: true, capture: true },
+      );
+    });
     await page.keyboard.press("KeyX");
     assert.equal(await page.evaluate(() => game.player.form), "ben");
-    assert.ok(
-      Math.abs((await page.evaluate(() => game.player.energy)) - energy) < 2,
+    const preserved = await page.evaluate(() =>
+      Math.abs(window.cancelAfter - window.cancelBefore),
     );
+    assert.ok(preserved < 0.0001);
     await page.keyboard.press("KeyE");
     assert.equal(await page.evaluate(() => game.player.form), "heat");
     assert.equal(await page.evaluate(() => game.player.hp), 80);

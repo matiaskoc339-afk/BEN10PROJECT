@@ -48,7 +48,17 @@
     const p = g.player,
       a = p.attack;
     if (!a) return;
+    const before = a.total - a.time;
     a.time -= dt;
+    if ((p.form === "ben" || p.form === "four") && a.hitAt !== undefined) {
+      const distance = a.kind === "K" ? 20 : 8;
+      const drive =
+        distance *
+        (B.clamp((a.total - a.time - a.hitAt) / 0.09, 0, 1) -
+          B.clamp((before - a.hitAt) / 0.09, 0, 1));
+      if (drive > 0)
+        B.move(g, p, Math.cos(a.angle) * drive, Math.sin(a.angle) * drive);
+    }
     if (!a.fired && a.total - a.time >= a.hitAt) {
       a.fired = true;
       B.resolveAttack(g, a);
@@ -281,17 +291,30 @@
       e.hp = Math.max(720, e.hp);
     e.flash = 0.16;
     if (!blocked) {
+      if (
+        e.type !== "king" &&
+        e.type !== "executor" &&
+        (hit.heavy || e.type === "basic" || e.type === "energy")
+      ) {
+        e.state = "recover";
+        e.timer = 0.35;
+      }
       e.stun = Math.max(
         e.stun,
         e.type === "king" ? 0.08 : e.type === "executor" ? 0.12 : 0.2,
       );
-      if (hit.knock && e.type !== "king" && e.type !== "executor")
-        B.move(
-          g,
-          e,
-          Math.cos(hit.angle ?? 0) * hit.knock,
-          Math.sin(hit.angle ?? 0) * hit.knock,
+      if (hit.knock && e.type !== "king" && e.type !== "executor") {
+        e.knockVX = B.clamp(
+          (e.knockVX || 0) + Math.cos(hit.angle ?? 0) * hit.knock * 10,
+          -750,
+          750,
         );
+        e.knockVY = B.clamp(
+          (e.knockVY || 0) + Math.sin(hit.angle ?? 0) * hit.knock * 10,
+          -750,
+          750,
+        );
+      }
     }
     g.burst(
       e.x,
@@ -304,7 +327,7 @@
       g.player.hitCount++;
       g.player.hitTimer = 2.8;
       g.shake = Math.max(g.shake, hit.heavy ? 5 : 2);
-      g.hitstop = Math.max(g.hitstop, hit.heavy ? 0.045 : 0.02);
+      g.hitstop = Math.max(g.hitstop, hit.heavy ? 0.025 : 0.008);
     }
     g.floatText(
       e.x,
@@ -383,7 +406,9 @@
     g.burst(p.x, p.y, blocked ? "#b3f868" : "#ed8868", 12);
     if (!blocked && source) {
       const a = B.angle(source, p);
-      B.move(g, p, Math.cos(a) * 28, Math.sin(a) * 28);
+      p.hurtTime = 0.18;
+      p.knockVX = Math.cos(a) * 280;
+      p.knockVY = Math.sin(a) * 280;
     }
     if (p.hp <= 0) {
       p.hp = 0;
@@ -403,6 +428,11 @@
     for (const e of w.enemies) {
       if (e.dead) continue;
       e.moving = false;
+      if (Math.hypot(e.knockVX || 0, e.knockVY || 0) > 1) {
+        B.move(g, e, (e.knockVX || 0) * dt, (e.knockVY || 0) * dt);
+        e.knockVX *= Math.exp(-10 * dt);
+        e.knockVY *= Math.exp(-10 * dt);
+      }
       for (const k of ["cd", "stun", "flash", "vulnerable"])
         e[k] = Math.max(0, e[k] - dt);
       const dist = B.dist(e, p);
@@ -584,7 +614,10 @@
       B.move(g, e, dx, dy);
       const moved = Math.hypot(e.x - beforeX, e.y - beforeY);
       e.moving = moved > 0.01;
-      if (e.moving) e.walk += moved / 18;
+      if (e.moving) {
+        e.walk += moved / 18;
+        e.moveFacing = Math.atan2(e.y - beforeY, e.x - beforeX);
+      }
     }
   };
   B.updateEffects = (g, dt) => {

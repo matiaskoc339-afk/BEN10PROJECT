@@ -192,8 +192,9 @@
       "dodgeCD",
       "dodgeTime",
       "hitTimer",
+      "hurtTime",
     ])
-      p[k] = Math.max(0, p[k] - dt);
+      p[k] = Math.max(0, (p[k] || 0) - dt);
     if (p.comboTimer > 0) {
       p.comboTimer -= dt;
       if (p.comboTimer <= 0) p.combo = "";
@@ -226,6 +227,11 @@
     p.facing = p.attack ? p.attack.angle : B.angle(p, target);
     const oldX = p.x,
       oldY = p.y;
+    if (Math.hypot(p.knockVX || 0, p.knockVY || 0) > 1) {
+      B.move(g, p, (p.knockVX || 0) * dt, (p.knockVY || 0) * dt);
+      p.knockVX *= Math.exp(-10 * dt);
+      p.knockVY *= Math.exp(-10 * dt);
+    }
     if (p.dodgeTime > 0) {
       dx = Math.cos(p.dodgeAngle);
       dy = Math.sin(p.dodgeAngle);

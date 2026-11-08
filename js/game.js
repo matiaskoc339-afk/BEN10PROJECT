@@ -187,6 +187,7 @@
       this.pending = null;
       this.ui = new B.UI(this);
       this.input = new Input(this);
+      this.life = new B.WorldLife();
       this.renderer = new B.Renderer(this);
       this.resize();
       window.addEventListener("resize", () => this.resize());
@@ -529,6 +530,7 @@
       B.updateEffects(this, dt);
       if (this.mode === "panel") return;
       B.updateWorld(this, dt);
+      this.life.update(this, dt);
       const p = this.player;
       // Center on the body, not the feet. Map edges do not pin the camera.
       this.camera.x = p.x;

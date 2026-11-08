@@ -46,6 +46,16 @@
       document.querySelector(".brand").onclick = (e) => {
         e.preventDefault();
         if (g.mode === "menu") return;
+        this.hudAge = (this.hudAge || 0) + dt;
+        if (
+          this.hudAge < 0.05 &&
+          this.lastHudForm === p.form &&
+          this.lastHudHealth === p.hp
+        )
+          return;
+        this.hudAge = 0;
+        this.lastHudForm = p.form;
+        this.lastHudHealth = p.hp;
         this.panel("pause");
       };
       $("end-menu").onclick = () => g.toMenu();
@@ -657,6 +667,16 @@
         if (this.comboLabel.time <= 0) this.comboLabel = null;
       }
       if (g.mode === "menu") return;
+      this.hudAge = (this.hudAge || 0) + dt;
+      if (
+        this.hudAge < 0.05 &&
+        this.lastHudForm === p.form &&
+        this.lastHudHealth === p.hp
+      )
+        return;
+      this.hudAge = 0;
+      this.lastHudForm = p.form;
+      this.lastHudHealth = p.hp;
       $("form-name").textContent = B.form(p.form).name.toUpperCase();
       $("health-number").textContent =
         Math.ceil(Math.max(0, p.hp)) + " / " + p.maxHp;

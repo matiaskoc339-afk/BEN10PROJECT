@@ -2,9 +2,11 @@
 
 Videojuego fan de acción y aventura top-down, en español, inspirado en Ben 10 clásico. Ben tiene diez años. Esta entrega contiene un capítulo compacto con principio, desarrollo y final. Canvas 2D, personajes ilustrados con atlas de fotogramas y audio sintetizado; incluye todas las imágenes en el repositorio y no depende de recursos de terceros durante la partida.
 
-## Revisión 2.0: cámara, mapa e ilustración
+## Revisión 2.1: movimiento, profundidad y escenario vivo
 
-La gráfica anterior se retiró. Esta versión usa ilustración 2D y animación por fotogramas, conforme al estilo elegido: cinco atlas de 24 fotogramas, un reparto narrativo y escenarios ilustrados locales. [Ver los criterios de la revisión y una captura del juego](docs/art-direction.md). [Clip real de movimiento y combate](docs/gameplay-v2.mp4).
+Se conservan los modelos aprobados de la versión 2.0. La marcha utiliza ahora seis fotogramas consecutivos por dirección sin intercalar la pose de reposo. Se añadieron respiración, guardia al acercarse enemigos, apoyo de los pies, sombras proyectadas y pasos con polvo o hierba. Los golpes avanzan y los impactos desplazan gradualmente, en lugar de teletransportar los sprites.
+
+El agua de la fuente circula y forma ondas, las copas se mueven con el viento manteniendo el tronco fijo, la hierba reacciona al paso y hay hojas, aves, farolas, humo tenue y luces de los mecanismos. Se recolocaron edificios y bancos que invadían calzadas. [Ver una captura y el detalle de la integración](docs/art-direction.md) · [Ver el clip de marcha, combate y jardín](docs/integration-v21.mp4).
 
 La cámara centra el cuerpo del jugador incluso en los bordes. Bellwood y el distrito comercial tienen 2600 × 1900 unidades, calles conectadas por el norte y el sur, jardín, patios y accesos laterales. **M abre el mapa** sin avanzar la simulación.
 
@@ -85,17 +87,18 @@ Las cinemáticas son escenas dentro del motor, con actuaciones y cámara sencill
 
 ## Arquitectura
 
-| Archivo        | Responsabilidad                                                         |
-| -------------- | ----------------------------------------------------------------------- |
-| `js/data.js`   | ADN, controles, árboles, guiones y futuras misiones                     |
-| `js/game.js`   | Bucle, entrada, cámara, transiciones, almacenamiento y coordinación     |
-| `js/actors.js` | Jugador, colisiones, movimiento, defensa y transformaciones             |
-| `js/world.js`  | Zonas, encuentros, objetos, puzles, secretos y navegación               |
-| `js/combat.js` | Combos, daño, IA, jefes, proyectiles y áreas persistentes               |
-| `js/assets.js` | Carga de imágenes locales, selección de fotogramas, anclajes y retratos |
-| `js/render.js` | Personajes, escenarios, efectos y presentación del menú                 |
-| `js/ui.js`     | HUD, rueda, narrativa, opciones, habilidades y favoritos                |
-| `js/audio.js`  | Efectos sintetizados con Web Audio                                      |
+| Archivo            | Responsabilidad                                                         |
+| ------------------ | ----------------------------------------------------------------------- |
+| `js/data.js`       | ADN, controles, árboles, guiones y futuras misiones                     |
+| `js/game.js`       | Bucle, entrada, cámara, transiciones, almacenamiento y coordinación     |
+| `js/actors.js`     | Jugador, colisiones, movimiento, defensa y transformaciones             |
+| `js/world.js`      | Zonas, encuentros, objetos, puzles, secretos y navegación               |
+| `js/combat.js`     | Combos, daño, IA, jefes, proyectiles y áreas persistentes               |
+| `js/assets.js`     | Carga de imágenes locales, selección de fotogramas, anclajes y retratos |
+| `js/world-life.js` | Pisadas, viento, agua, vegetación, luces y ambiente                     |
+| `js/render.js`     | Personajes, escenarios, efectos y presentación del menú                 |
+| `js/ui.js`         | HUD, rueda, narrativa, opciones, habilidades y favoritos                |
+| `js/audio.js`      | Efectos sintetizados con Web Audio                                      |
 
 Las nuevas misiones se añaden con datos de zona, encuentros, objetos y guiones; se reutilizan el guardado, las transformaciones, los diálogos y los disparadores. No se necesita un worktree: cada tarea en la nube ya usa un entorno aislado.
 
@@ -107,7 +110,7 @@ Pruebas de sistemas sin dependencias (Node.js 18+):
 npm test
 ```
 
-25 pruebas cubren combate, parry, coordinación, consumo, agotamiento, conservación, colisiones, ambos jefes, puzles, mejoras y técnicas.
+29 pruebas cubren combate, parry, coordinación, consumo, agotamiento, conservación, colisiones, ambos jefes, puzles, mejoras y técnicas.
 
 Pruebas de navegador opcionales, con Playwright y Chromium disponibles:
 
@@ -119,6 +122,6 @@ npm run test:browser
 
 El ejecutable predeterminado es `/usr/bin/chromium`; usa `CHROMIUM_PATH` para indicar otro Chromium instalado. El runner levanta y cierra su propio servidor en el puerto 8765. Genera capturas en `artifacts/`, ignoradas por Git.
 
-Resultado en este entorno: **25 pruebas de sistemas y 20 comprobaciones de integración aprobadas**, sin errores de página. Se comprobaron teclado, daño de IA, opciones, favoritos, diálogos, guardado, muerte, puzles y la secuencia de finalización. Las pruebas de encuentros usan colocación explícita y reinicio de recuperaciones para hacer reproducibles las situaciones; no equivalen a una partida humana completa ni a una evaluación exhaustiva del equilibrio. La prueba opcional de `file://` se omitió por la política del navegador administrado.
+Resultado en este entorno: **29 pruebas de sistemas y 24 comprobaciones de integración aprobadas**, sin errores de página. Se comprobaron teclado, daño de IA, opciones, favoritos, diálogos, guardado, muerte, puzles y la secuencia de finalización. Las pruebas de encuentros usan colocación explícita y reinicio de recuperaciones para hacer reproducibles las situaciones; no equivalen a una partida humana completa ni a una evaluación exhaustiva del equilibrio. La prueba opcional de `file://` se omitió por la política del navegador administrado.
 
 Proyecto fan no oficial, sin fines comerciales. Ben 10 y sus personajes pertenecen a sus respectivos titulares.

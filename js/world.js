@@ -54,7 +54,7 @@
       w.exit = { x: 2510, y: 550, r: 65 };
       w.places = [
         { name: "La Rustbucket", x: 200, y: 540 },
-        { name: "Jardín municipal", x: 1120, y: 1320 },
+        { name: "Jardín municipal", x: 1320, y: 1320 },
         { name: "Mercado", x: 820, y: 200 },
         {
           name: zone === "city" ? "Compuerta" : "Plaza del Ejecutor",
@@ -88,15 +88,15 @@
         obj("health", 1150, 245, "hp-shop");
       }
       // Smaller blocks separated by crossings, side streets and a public garden.
-      o(80, 980, 350, 230, "building", { label: "TALLER", palette: 2 });
+      o(80, 650, 350, 180, "building", { label: "TALLER", palette: 2 });
       o(610, 1120, 320, 220, "building", { label: "CAFÉ", palette: 1 });
-      o(90, 1510, 400, 230, "building", { label: "DEPÓSITO", palette: 0 });
-      o(1780, 100, 390, 240, "building", { label: "MUSEO", palette: 1 });
-      o(1780, 980, 310, 250, "building", { label: "BIBLIOTECA", palette: 2 });
-      o(2250, 1330, 230, 260, "building", { label: "ESTACIÓN", palette: 0 });
-      o(1130, 1310, 110, 75, "fountain");
-      o(1020, 1470, 80, 24, "bench");
-      o(1360, 1470, 80, 24, "bench");
+      o(90, 1670, 350, 170, "building", { label: "DEPÓSITO", palette: 0 });
+      o(1930, 90, 240, 250, "building", { label: "MUSEO", palette: 1 });
+      o(1930, 650, 250, 180, "building", { label: "BIBLIOTECA", palette: 2 });
+      o(1930, 1150, 250, 190, "building", { label: "ESTACIÓN", palette: 0 });
+      o(1320, 1310, 110, 75, "fountain");
+      o(1000, 1400, 80, 24, "bench");
+      o(1350, 1410, 80, 24, "bench");
       for (const [x, y] of [
         [770, 1510],
         [1320, 1140],

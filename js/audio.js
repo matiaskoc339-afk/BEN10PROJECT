@@ -12,6 +12,31 @@
         if (this.ctx.state === "suspended") this.ctx.resume().catch(() => {});
       } catch {}
     }
+    footstep(surface) {
+      if (!this.ctx || this.muted || !this.volume) return;
+      const c = this.ctx,
+        t = c.currentTime,
+        buffer = c.createBuffer(
+          1,
+          Math.floor(c.sampleRate * 0.045),
+          c.sampleRate,
+        ),
+        data = buffer.getChannelData(0);
+      for (let i = 0; i < data.length; i++)
+        data[i] = (Math.random() * 2 - 1) * (1 - i / data.length);
+      const source = c.createBufferSource(),
+        filter = c.createBiquadFilter(),
+        gain = c.createGain();
+      source.buffer = buffer;
+      filter.type = "lowpass";
+      filter.frequency.value = surface === "grass" ? 650 : 1250;
+      gain.gain.setValueAtTime(this.volume * 0.075, t);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.04);
+      source.connect(filter);
+      filter.connect(gain);
+      gain.connect(c.destination);
+      source.start(t);
+    }
     play(type) {
       if (!this.ctx || this.muted || !this.volume) return;
       const c = this.ctx,

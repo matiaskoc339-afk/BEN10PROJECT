@@ -4,7 +4,7 @@ const fs = require("node:fs"),
   vm = require("node:vm"),
   path = require("node:path");
 global.window = global;
-for (const file of ["data", "actors", "world", "combat"])
+for (const file of ["data", "actors", "world", "combat", "world-life"])
   vm.runInThisContext(
     fs.readFileSync(path.join(__dirname, "../js", file + ".js"), "utf8"),
     { filename: file + ".js" },
@@ -456,4 +456,64 @@ test("the expanded town connects north streets, southern paths and garden before
       visited.has(Math.round(y / step) * cols + Math.round(x / step)),
       `reachable ${x},${y}`,
     );
+});
+
+test("melee weight transfer is gradual and never lunges through a wall", () => {
+  const g = fixture();
+  g.player.x = 320;
+  g.player.y = 550;
+  g.player.form = "four";
+  g.player.facing = 0;
+  g.world.obstacles = [{ x: 342, y: 0, w: 35, h: 1000 }];
+  g.world.enemies = [];
+  B.attack(g, "K");
+  const x = g.player.x;
+  B.advanceAttack(g, 0.12);
+  assert.equal(g.player.x, x);
+  B.advanceAttack(g, 0.02);
+  assert.ok(g.player.x - x < 4);
+  B.advanceAttack(g, 0.09);
+  assert.ok(g.player.x + g.player.r <= 342);
+});
+test("an enemy recoils over multiple updates instead of teleporting at the hit", () => {
+  const g = fixture();
+  const e = B.makeEnemy("basic", 500, 550, "recoil");
+  g.world.enemies = [e];
+  B.hitEnemy(g, e, 10, { power: "four", angle: 0, knock: 85 });
+  assert.equal(e.x, 500);
+  assert.ok(e.knockVX > 0);
+  B.updateEnemies(g, 1 / 60);
+  assert.ok(e.x > 500 && e.x < 515);
+  const speed = e.knockVX;
+  B.updateEnemies(g, 1 / 60);
+  assert.ok(e.knockVX < speed);
+});
+test("foot contacts appear only on a moving stride and expire without touching save data", () => {
+  const g = fixture();
+  const life = new B.WorldLife(),
+    save = JSON.stringify(g.save);
+  life.update(g, 0.01);
+  assert.equal(life.state(g.world).steps.length, 0);
+  g.player.moving = true;
+  g.player.moveFacing = 0;
+  g.player.walk = Math.PI + 0.1;
+  life.update(g, 0.01);
+  assert.equal(life.state(g.world).steps.length, 1);
+  g.player.moving = false;
+  life.update(g, 2);
+  assert.equal(life.state(g.world).steps.length, 0);
+  assert.equal(JSON.stringify(g.save), save);
+});
+test("environment motion is deterministic, surface-aware and changes with world time", () => {
+  const g = fixture(),
+    a = new B.WorldLife(),
+    b = new B.WorldLife();
+  assert.deepEqual(a.state(g.world).leaves, b.state(g.world).leaves);
+  assert.equal(B.surfaceAt(g.world, 600, 505), "asphalt");
+  assert.equal(B.surfaceAt(g.world, 300, 370), "paving");
+  assert.equal(B.surfaceAt(g.world, 960, 1280), "grass");
+  assert.equal(B.surfaceAt(B.createWorld("fort", g.save), 600, 505), "stone");
+  const wind = a.wind(g.world, 600, 800);
+  g.world.time += 1;
+  assert.notEqual(a.wind(g.world, 600, 800), wind);
 });
