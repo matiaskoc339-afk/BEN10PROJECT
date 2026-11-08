@@ -336,3 +336,20 @@ test("a constructed bridge leaves the rest of the chasm impassable", () => {
   B.move(g, g.player, 80, 0);
   assert.equal(g.player.x, 760);
 });
+
+test("special action animation expires and cannot leak into the next transformation", () => {
+  const g = fixture();
+  B.transform(g, "four");
+  B.special(g);
+  assert.equal(g.player.specialPose.total, 0.7);
+  B.updatePlayer(g, 0.2);
+  assert.ok(g.player.specialPose.time > 0);
+  B.updatePlayer(g, 0.6);
+  assert.equal(g.player.specialPose, null);
+  g.player.specialCD = 0;
+  B.special(g);
+  B.revert(g);
+  assert.equal(g.player.specialPose, null);
+  B.transform(g, "heat");
+  assert.equal(g.player.specialPose, null);
+});

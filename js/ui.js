@@ -90,66 +90,14 @@
       $("interaction").style.opacity = text ? "1" : "0";
     }
     portrait(id, who, expression = "") {
-      const canvas = $(id),
-        c = canvas.getContext("2d");
-      c.clearRect(0, 0, canvas.width, canvas.height);
       const name = who === "Ben" ? "ben" : who;
-      const tall = ["Driscoll", "Hex", "heat", "four", "diamond"].includes(
-        name,
-      );
-      B.drawActor(
-        c,
-        name,
-        canvas.width / 2,
-        canvas.height * 1.27,
-        canvas.width / (tall ? 68 : 55),
-        { time: this.g.clock, shadow: false },
-      );
-      if (["ben", "Gwen", "Max"].includes(name)) {
-        if (/ALARM|SORPREND|PREOCUP|URGENTE/.test(expression)) {
-          B.art.ellipse(
-            c,
-            canvas.width * 0.51,
-            canvas.height * 0.55,
-            canvas.width * 0.025,
-            canvas.height * 0.035,
-            "#8c5744",
-          );
-        } else if (/SONRI|FELIZ|ORGULLOS|EMOCION/.test(expression)) {
-          B.art.poly(
-            c,
-            [
-              [canvas.width * 0.43, canvas.height * 0.53],
-              [canvas.width * 0.58, canvas.height * 0.53],
-              [canvas.width * 0.54, canvas.height * 0.57],
-              [canvas.width * 0.48, canvas.height * 0.57],
-            ],
-            "#fff1d3",
-            "#9b614d",
-            1,
-          );
-        }
-      }
-      if (expression.includes("FURIOS") || expression.includes("AMENAZ")) {
-        B.art.line(
-          c,
-          [
-            [canvas.width * 0.38, canvas.height * 0.45],
-            [canvas.width * 0.46, canvas.height * 0.49],
-          ],
-          "#4a3c30",
-          3,
-        );
-        B.art.line(
-          c,
-          [
-            [canvas.width * 0.54, canvas.height * 0.49],
-            [canvas.width * 0.62, canvas.height * 0.45],
-          ],
-          "#4a3c30",
-          3,
-        );
-      }
+      const king = this.g.world.enemies.find((e) => e.type === "king");
+      B.drawCharacterPortrait($(id), name, {
+        time: this.g.clock,
+        expression,
+        scene: this.g.world.zone,
+        armor: king?.armor || 0,
+      });
     }
     scene(id, done = () => {}) {
       const scene = B.scenes[id];
@@ -258,7 +206,7 @@
           c.globalAlpha = 0.25;
           c.filter = "brightness(.4) saturate(0)";
         }
-        B.drawActor(c, f.id, 45, 85, 0.95, { time: 0, shadow: false });
+        B.drawActor(c, f.id, 45, 87, 0.68, { time: 0, shadow: false });
         slot.append(cv);
         if (!this.g.save.unlocked.includes(f.id)) {
           const lock = document.createElement("span");
@@ -312,7 +260,7 @@
         if (id) {
           const cv = document.createElement("canvas");
           cv.width = cv.height = 90;
-          B.drawActor(cv.getContext("2d"), id, 45, 88, 0.95, { shadow: false });
+          B.drawActor(cv.getContext("2d"), id, 45, 88, 0.68, { shadow: false });
           b.append(cv);
         } else {
           const s = document.createElement("span");

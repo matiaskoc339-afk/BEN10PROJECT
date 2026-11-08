@@ -119,6 +119,7 @@
     }
     if (p.specialCD > 0 || p.energy < 10) return;
     p.specialCD = (p.form === "four" ? 7 : 6) * (g.has(p.form, 5) ? 0.7 : 1);
+    p.specialPose = { time: 0.7, total: 0.7 };
     p.energy -= 10;
     p.attackCD = 0.45;
     p.invuln = 0.35;

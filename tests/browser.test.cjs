@@ -6,6 +6,7 @@ const http = require("node:http"),
   fs = require("node:fs"),
   path = require("node:path");
 const root = path.resolve(__dirname, "..");
+fs.mkdirSync(path.join(root, "artifacts"), { recursive: true });
 const server = http.createServer((req, res) => {
   const file = path.join(
     root,
@@ -65,6 +66,106 @@ async function check(name, fn) {
     assert.ok(await page.locator("#menu").isVisible());
     assert.ok(await page.locator("#continue").isDisabled());
     await page.screenshot({ path: path.join(root, "artifacts/menu.png") });
+  });
+  await check(
+    "every story character and every DNA silhouette renders",
+    async () => {
+      const counts = await page.evaluate(() => {
+        const names = [
+          "ben",
+          "Kevin",
+          "Vilgax",
+          "Malware",
+          "Hex",
+          "Zombozo",
+          "Dr. Ánimo",
+          "Driscoll",
+          "Gwen",
+          "Max",
+          "Comandante",
+          "Ejecutor",
+          ...B10.forms.map((form) => form.id),
+        ];
+        return names.map((name) => {
+          const canvas = document.createElement("canvas");
+          canvas.width = canvas.height = 180;
+          B10.drawCharacterPortrait(canvas, name, { scene: "intro", time: 0 });
+          const pixels = canvas
+            .getContext("2d")
+            .getImageData(0, 0, 180, 180).data;
+          let painted = 0;
+          for (let i = 3; i < pixels.length; i += 4) if (pixels[i]) painted++;
+          return { name, painted };
+        });
+      });
+      assert.equal(counts.length, 22);
+      for (const { name, painted } of counts) assert.ok(painted > 1000, name);
+    },
+  );
+  await check(
+    "Driscoll has original armor in the prologue and crystal only in the boss encounter",
+    async () => {
+      const result = await page.evaluate(() => {
+        function render(scene, armor) {
+          const c = document.createElement("canvas");
+          c.width = 240;
+          c.height = 280;
+          B10.drawActor(c.getContext("2d"), "Driscoll", 120, 265, 2, {
+            time: 0,
+            scene,
+            armor,
+          });
+          return c.toDataURL();
+        }
+        return {
+          intro: render("intro", 2),
+          original: render("intro", 0),
+          crystal: render("throne", 2),
+          shattered: render("throne", 0),
+        };
+      });
+      assert.equal(result.intro, result.original);
+      assert.equal(result.intro, result.shattered);
+      assert.notEqual(result.crystal, result.intro);
+    },
+  );
+  await check(
+    "walking, blocking, striking and slam poses have distinct animation frames",
+    async () => {
+      const frames = await page.evaluate(() => {
+        const states = [
+          {},
+          { walk: 0.5 },
+          { walk: 2.7 },
+          { blocking: true },
+          { attack: { time: 0.2, total: 0.38, pattern: "JJK" } },
+          { special: { time: 0.5, total: 0.7 } },
+          { special: { time: 0.1, total: 0.7 } },
+        ];
+        return states.map((state) => {
+          const c = document.createElement("canvas");
+          c.width = 300;
+          c.height = 300;
+          B10.drawActor(c.getContext("2d"), "four", 150, 280, 2, {
+            time: 0,
+            ...state,
+          });
+          return c.toDataURL();
+        });
+      });
+      assert.equal(new Set(frames).size, frames.length);
+    },
+  );
+  await check("Ben's dialogue expressions change the face itself", async () => {
+    const frames = await page.evaluate(() =>
+      ["DECIDIDO", "ALARMADO", "SONRIENTE"].map((expression) => {
+        const c = document.createElement("canvas");
+        c.width = c.height = 180;
+        B10.drawCharacterPortrait(c, "ben", { expression, time: 0 });
+        return c.toDataURL();
+      }),
+    );
+    assert.equal(new Set(frames).size, 3);
   });
   await check("options persist and controls can be remapped", async () => {
     await page.click("[data-panel=settings]");

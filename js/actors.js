@@ -146,6 +146,7 @@
       }
       return false;
     }
+    p.specialPose = null;
     p.form = id;
     p.queued = null;
     p.attack = null;
@@ -161,6 +162,7 @@
   B.revert = (g, empty = false) => {
     const p = g.player;
     if (p.form === "ben") return;
+    p.specialPose = null;
     p.form = "ben";
     p.attack = null;
     p.combo = "";
@@ -191,6 +193,10 @@
     if (p.comboTimer > 0) {
       p.comboTimer -= dt;
       if (p.comboTimer <= 0) p.combo = "";
+    }
+    if (p.specialPose) {
+      p.specialPose.time -= dt;
+      if (p.specialPose.time <= 0) p.specialPose = null;
     }
     if (p.hitTimer <= 0) p.hitCount = 0;
     if (p.form !== "ben") {

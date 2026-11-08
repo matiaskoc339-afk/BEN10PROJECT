@@ -80,1271 +80,6 @@
     line(c, pts, color, width);
   }
   B.art = { poly, ellipse, line, box, label, badge };
-  B.drawActor = (c, id, x, y, scale = 1, opts = {}) => {
-    c.save();
-    c.translate(x, y);
-    c.scale(scale, scale);
-    if (opts.facing !== undefined && Math.cos(opts.facing) < -0.25)
-      c.scale(-1, 1);
-    const t = opts.time || 0,
-      walk = opts.walk || 0,
-      step = Math.sin(walk) * 4,
-      atk = opts.attack,
-      pose = atk ? Math.sin((1 - atk.time / atk.total) * Math.PI) * 12 : 0;
-    if (opts.shadow !== false)
-      ellipse(c, 0, 3, id === "four" ? 31 : 22, 8, "#04120e5c");
-    if (opts.invuln && Math.floor(t * 16) % 2 === 0) c.globalAlpha *= 0.55;
-    const flash = opts.flash > 0;
-    if (id === "ben" || id === "Gwen" || id === "Max" || id === "Kevin") {
-      const ben = id === "ben",
-        gwen = id === "Gwen",
-        max = id === "Max",
-        kevin = id === "Kevin";
-      const skin = flash ? "#fff1cd" : "#efbd8e";
-      if (max) {
-        limb(
-          c,
-          [
-            [-8, -16],
-            [-12, -2],
-          ],
-          "#788666",
-          13,
-        );
-        limb(
-          c,
-          [
-            [8, -16],
-            [12, -2],
-          ],
-          "#788666",
-          13,
-        );
-      } else {
-        limb(
-          c,
-          [
-            [-7, -17],
-            [-9, -3 - step * 0.6],
-          ],
-          gwen ? "#316c8d" : kevin ? "#52576a" : "#668249",
-          9,
-        );
-        limb(
-          c,
-          [
-            [7, -17],
-            [10, -3 + step * 0.6],
-          ],
-          gwen ? "#316c8d" : kevin ? "#52576a" : "#668249",
-          9,
-        );
-      }
-      ellipse(c, -10, -1 - step * 0.6, 8, 4, "#e7e7c9", C);
-      ellipse(c, 11, -1 + step * 0.6, 8, 4, "#e7e7c9", C);
-      const shirt = gwen
-        ? "#5c9ed2"
-        : max
-          ? "#d98061"
-          : kevin
-            ? "#252a32"
-            : "#edeedc";
-      poly(
-        c,
-        [
-          [-11, -44],
-          [11, -44],
-          [max ? 18 : 14, -19],
-          [8, -14],
-          [-10, -14],
-          [max ? -18 : -14, -19],
-        ],
-        shirt,
-      );
-      if (ben) {
-        poly(
-          c,
-          [
-            [-3, -44],
-            [4, -44],
-            [6, -16],
-            [-3, -16],
-          ],
-          "#263234",
-          null,
-        );
-        line(
-          c,
-          [
-            [-12, -37],
-            [-10, -23],
-          ],
-          "#263234",
-          3,
-        );
-      }
-      if (gwen) {
-        label(c, "▰", 0, -26, 13, "#f2f1c7");
-      }
-      if (max) {
-        poly(
-          c,
-          [
-            [-9, -43],
-            [-1, -36],
-            [-4, -44],
-          ],
-          "#f4d7aa",
-          null,
-        );
-        for (const [xx, yy] of [
-          [-10, -30],
-          [8, -37],
-          [10, -22],
-        ]) {
-          line(
-            c,
-            [
-              [xx - 3, yy - 2],
-              [xx + 3, yy + 2],
-            ],
-            "#ebb393",
-            2,
-          );
-          line(
-            c,
-            [
-              [xx - 2, yy + 3],
-              [xx + 2, yy - 3],
-            ],
-            "#ebb393",
-            2,
-          );
-        }
-      }
-      limb(
-        c,
-        [
-          [-12, -39],
-          [-18 - pose * 0.4, -28],
-          [-20 - pose, -19],
-        ],
-        shirt,
-        8,
-      );
-      ellipse(c, -20 - pose, -18, 5, 6, skin, C);
-      limb(
-        c,
-        [
-          [12, -39],
-          [20 + pose * 0.3, -31],
-          [22 + pose, -24 - pose * 0.4],
-        ],
-        shirt,
-        8,
-      );
-      ellipse(c, 22 + pose, -23 - pose * 0.4, 5, 6, skin, C);
-      if (ben) {
-        box(c, -25 - pose, -23, 10, 6, "#272e2b");
-        badge(c, -20 - pose, -20, 3.2);
-      }
-      ellipse(c, 0, -49, max ? 15 : 13, max ? 14 : 15, skin, C, 2);
-      if (gwen) {
-        poly(
-          c,
-          [
-            [-14, -47],
-            [-15, -61],
-            [0, -68],
-            [14, -60],
-            [17, -43],
-            [11, -46],
-            [7, -58],
-            [-7, -57],
-            [-12, -42],
-          ],
-          "#bb6242",
-        );
-        poly(
-          c,
-          [
-            [13, -55],
-            [22, -35],
-            [14, -36],
-          ],
-          "#a95737",
-        );
-      } else if (max) {
-        poly(
-          c,
-          [
-            [-15, -48],
-            [-16, -59],
-            [-7, -66],
-            [7, -66],
-            [16, -60],
-            [15, -50],
-            [9, -57],
-            [-9, -57],
-          ],
-          "#dadace",
-        );
-      } else {
-        poly(
-          c,
-          [
-            [-13, -47],
-            [-17, -58],
-            [-9, -59],
-            [-12, -65],
-            [-2, -63],
-            [4, -70],
-            [8, -65],
-            [17, -63],
-            [13, -56],
-            [10, -46],
-            [6, -56],
-            [-4, -57],
-            [-10, -52],
-          ],
-          kevin ? "#202a30" : "#70482e",
-        );
-      }
-      line(
-        c,
-        [
-          [-8, -49],
-          [-4, -50],
-        ],
-        "#553f2e",
-        1.7,
-      );
-      line(
-        c,
-        [
-          [4, -50],
-          [8, -49],
-        ],
-        "#553f2e",
-        1.7,
-      );
-      ellipse(c, -5, -47, 1.7, 2.2, ben ? "#527c35" : "#4784a2");
-      ellipse(c, 6, -47, 1.7, 2.2, ben ? "#527c35" : "#4784a2");
-      line(
-        c,
-        [
-          [-3, -40],
-          [3, -40],
-          [5, -42],
-        ],
-        "#9f634e",
-        1.2,
-      );
-    } else if (id === "four") {
-      const red = flash ? "#ffdbb2" : "#cc5946";
-      limb(
-        c,
-        [
-          [-12, -20],
-          [-17, -4 - step * 0.6],
-        ],
-        "#313a36",
-        13,
-      );
-      limb(
-        c,
-        [
-          [12, -20],
-          [17, -4 + step * 0.6],
-        ],
-        "#313a36",
-        13,
-      );
-      ellipse(c, -18, -1 - step * 0.6, 12, 6, "#393d35", C);
-      ellipse(c, 18, -1 + step * 0.6, 12, 6, "#393d35", C);
-      poly(
-        c,
-        [
-          [-22, -62],
-          [20, -62],
-          [25, -44],
-          [13, -15],
-          [-14, -15],
-          [-25, -43],
-        ],
-        "#edebd6",
-      );
-      poly(
-        c,
-        [
-          [-15, -60],
-          [15, -60],
-          [12, -19],
-          [-12, -19],
-        ],
-        "#222e2c",
-        null,
-      );
-      for (const side of [-1, 1]) {
-        const a = pose * side;
-        limb(
-          c,
-          [
-            [side * 22, -56],
-            [side * 36 + a * 0.5, -48],
-            [side * 41 + a, -34 - pose],
-          ],
-          red,
-          15,
-        );
-        ellipse(c, side * 42 + a, -33 - pose, 10, 10, red, C);
-        limb(
-          c,
-          [
-            [side * 20, -39],
-            [side * 30 + a * 0.2, -26],
-            [side * 37 + a * 0.5, -19],
-          ],
-          red,
-          12,
-        );
-        ellipse(c, side * 38 + a * 0.5, -18, 8, 8, red, C);
-        line(
-          c,
-          [
-            [side * 28, -53],
-            [side * 32, -46],
-          ],
-          "#1c2c29",
-          5,
-        );
-      }
-      ellipse(c, 0, -64, 13, 16, red, C);
-      poly(
-        c,
-        [
-          [-11, -75],
-          [10, -75],
-          [8, -65],
-          [-8, -65],
-        ],
-        red,
-        null,
-      );
-      for (const yy of [-67, -60]) {
-        ellipse(c, -5, yy, 2, 1.7, "#f6dc7e");
-        ellipse(c, 5, yy, 2, 1.7, "#f6dc7e");
-      }
-      line(
-        c,
-        [
-          [-6, -54],
-          [5, -54],
-        ],
-        "#342923",
-        1.5,
-      );
-      badge(c, 14, -49, 5);
-    } else if (id === "heat") {
-      const orange = flash ? "#ffefb0" : "#e96b2f";
-      for (const s of [-1, 1]) {
-        limb(
-          c,
-          [
-            [s * 6, -21],
-            [s * 11, -3 + s * step * 0.5],
-          ],
-          "#4a3730",
-          9,
-        );
-        poly(
-          c,
-          [
-            [s * 6, -20],
-            [s * 14, -20],
-            [s * 16, -2 + s * step * 0.5],
-            [s * 5, 1 + s * step * 0.5],
-          ],
-          orange,
-        );
-        limb(
-          c,
-          [
-            [s * 12, -44],
-            [s * 20, -32],
-            [s * (25 + pose), -21 - pose * 0.4],
-          ],
-          orange,
-          9,
-        );
-        ellipse(c, s * (25 + pose), -20 - pose * 0.4, 6, 6, "#ffd863", C);
-      }
-      poly(
-        c,
-        [
-          [-11, -48],
-          [11, -48],
-          [15, -30],
-          [8, -17],
-          [-9, -17],
-          [-15, -32],
-        ],
-        "#3c3430",
-      );
-      for (const pts of [
-        [
-          [-9, -46],
-          [-4, -34],
-          [-10, -25],
-        ],
-        [
-          [3, -47],
-          [1, -34],
-          [8, -26],
-        ],
-        [
-          [-5, -20],
-          [0, -30],
-          [6, -20],
-        ],
-      ])
-        line(c, pts, "#ffbd4c", 2.2);
-      poly(
-        c,
-        [
-          [-12, -45],
-          [-15, -57],
-          [-9, -68],
-          [-12 + Math.sin(t * 8) * 3, -79],
-          [-1, -71],
-          [5, -86 + Math.sin(t * 10) * 3],
-          [12, -68],
-          [14, -58],
-          [9, -45],
-        ],
-        "#fcb638",
-      );
-      poly(
-        c,
-        [
-          [-7, -49],
-          [-9, -61],
-          [0, -76],
-          [2, -65],
-          [8, -60],
-          [6, -48],
-        ],
-        "#fff0a0",
-        null,
-      );
-      poly(
-        c,
-        [
-          [-9, -54],
-          [-5, -65],
-          [7, -65],
-          [10, -54],
-          [4, -46],
-          [-5, -46],
-        ],
-        orange,
-      );
-      line(
-        c,
-        [
-          [-6, -57],
-          [-2, -56],
-        ],
-        "#eaffb9",
-        2.5,
-      );
-      line(
-        c,
-        [
-          [3, -56],
-          [7, -58],
-        ],
-        "#eaffb9",
-        2.5,
-      );
-      badge(c, 0, -36, 5);
-    } else if (id === "diamond") {
-      for (const s of [-1, 1]) {
-        poly(
-          c,
-          [
-            [s * 3, -22],
-            [s * 13, -22],
-            [s * 17, -2 + s * step * 0.5],
-            [s * 4, 1 + s * step * 0.5],
-          ],
-          "#80bea9",
-        );
-        poly(
-          c,
-          [
-            [s * 10, -49],
-            [s * 25, -42],
-            [s * (27 + pose), -20],
-            [s * 17, -17],
-            [s * 15, -34],
-          ],
-          "#b1edda",
-        );
-        poly(
-          c,
-          [
-            [s * 18, -43],
-            [s * 32, -51],
-            [s * 27, -34],
-          ],
-          "#c4f6e6",
-        );
-      }
-      poly(
-        c,
-        [
-          [-12, -50],
-          [13, -50],
-          [20, -28],
-          [11, -17],
-          [-10, -17],
-          [-20, -30],
-        ],
-        "#99d8c6",
-      );
-      poly(
-        c,
-        [
-          [-10, -49],
-          [1, -38],
-          [12, -49],
-          [8, -22],
-          [-8, -22],
-        ],
-        "#1d3c34",
-      );
-      poly(
-        c,
-        [
-          [-13, -53],
-          [-14, -69],
-          [0, -80],
-          [14, -68],
-          [11, -52],
-          [2, -47],
-        ],
-        "#bbefdb",
-      );
-      poly(
-        c,
-        [
-          [0, -80],
-          [0, -56],
-          [11, -52],
-          [14, -68],
-        ],
-        "#6cb79f",
-      );
-      poly(
-        c,
-        [
-          [-10, -64],
-          [-3, -61],
-          [-7, -59],
-        ],
-        "#e9fda4",
-        null,
-      );
-      poly(
-        c,
-        [
-          [3, -61],
-          [10, -65],
-          [8, -59],
-        ],
-        "#e9fda4",
-        null,
-      );
-      badge(c, 9, -39, 5);
-    } else if (
-      ["xlr8", "ghost", "blitz", "upgrade", "cannon", "vine", "snare"].includes(
-        id,
-      )
-    ) {
-      const color = B.form(id).color;
-      if (id === "ghost") {
-        poly(
-          c,
-          [
-            [-16, -50],
-            [0, -70],
-            [17, -55],
-            [12, -25],
-            [19, -8],
-            [2, -14],
-            [-12, -4],
-            [-17, -21],
-          ],
-          color,
-        );
-        line(
-          c,
-          [
-            [0, -60],
-            [-4, -41],
-            [3, -21],
-          ],
-          "#535269",
-          2,
-        );
-        ellipse(c, 6, -53, 4, 3, "#9c82c2");
-      }
-      if (id === "cannon") {
-        ellipse(c, 0, -30, 27, 30, color, C);
-        ellipse(c, 0, -38, 14, 13, "#e6e2cb", C);
-        for (const s of [-1, 1]) {
-          ellipse(c, s * 19, -28, 10, 18, "#e4b24d", C);
-          ellipse(c, s * 13, -3, 10, 7, "#e9ddbf", C);
-        }
-        badge(c, 0, -30);
-      }
-      if (id === "upgrade") {
-        poly(
-          c,
-          [
-            [-14, -54],
-            [0, -67],
-            [14, -54],
-            [18, -32],
-            [24, -11],
-            [7, -15],
-            [0, -3],
-            [-8, -15],
-            [-23, -10],
-            [-18, -35],
-          ],
-          "#242a29",
-        );
-        line(
-          c,
-          [
-            [0, -59],
-            [0, -42],
-            [-12, -34],
-            [-14, -15],
-          ],
-          color,
-          3,
-        );
-        line(
-          c,
-          [
-            [0, -42],
-            [13, -34],
-            [16, -17],
-          ],
-          color,
-          3,
-        );
-        ellipse(c, 0, -54, 5, 3, color);
-      }
-      if (id === "xlr8") {
-        poly(
-          c,
-          [
-            [-12, -43],
-            [-13, -59],
-            [0, -71],
-            [19, -57],
-            [11, -45],
-            [11, -24],
-            [18, -8],
-            [5, -8],
-            [0, -26],
-            [-8, -7],
-            [-18, -7],
-            [-12, -25],
-          ],
-          color,
-        );
-        poly(
-          c,
-          [
-            [-10, -58],
-            [14, -57],
-            [5, -49],
-          ],
-          "#263a43",
-        );
-        for (const s of [-1, 1]) {
-          limb(
-            c,
-            [
-              [s * 8, -40],
-              [s * 25, -20],
-            ],
-            color,
-            7,
-          );
-          ellipse(c, s * 13, -4, 7, 6, "#263a43");
-        }
-        line(
-          c,
-          [
-            [0, -25],
-            [-22, -14],
-            [-29, -26],
-          ],
-          color,
-          6,
-        );
-      }
-      if (id === "blitz") {
-        poly(
-          c,
-          [
-            [-18, -38],
-            [-10, -55],
-            [-14, -70],
-            [-2, -62],
-            [10, -70],
-            [12, -53],
-            [19, -39],
-            [12, -19],
-            [-12, -19],
-          ],
-          color,
-        );
-        for (const s of [-1, 1]) {
-          limb(
-            c,
-            [
-              [s * 12, -39],
-              [s * 28, -18],
-            ],
-            color,
-            10,
-          );
-          limb(
-            c,
-            [
-              [s * 7, -20],
-              [s * 14, -2],
-            ],
-            "#4d4c5e",
-            10,
-          );
-          line(
-            c,
-            [
-              [s * 25, -22],
-              [s * 31, -20],
-              [s * 29, -16],
-            ],
-            "#ede5cf",
-            3,
-          );
-        }
-        ellipse(c, 0, -51, 9, 6, "#3f3d51");
-      }
-      if (id === "vine") {
-        poly(
-          c,
-          [
-            [-12, -49],
-            [0, -64],
-            [13, -49],
-            [7, -16],
-            [-7, -16],
-          ],
-          color,
-        );
-        for (const s of [-1, 1]) {
-          limb(
-            c,
-            [
-              [s * 9, -41],
-              [s * 23, -27],
-              [s * 27, -16],
-            ],
-            color,
-            7,
-          );
-          limb(
-            c,
-            [
-              [s * 5, -18],
-              [s * 11, -1],
-            ],
-            color,
-            7,
-          );
-          poly(
-            c,
-            [
-              [s * 6, -47],
-              [s * 24, -55],
-              [s * 16, -33],
-            ],
-            "#508151",
-          );
-        }
-        ellipse(c, 0, -49, 5, 4, "#dfeb77");
-      }
-      if (id === "snare") {
-        poly(
-          c,
-          [
-            [-13, -55],
-            [0, -67],
-            [13, -55],
-            [10, -20],
-            [-10, -20],
-          ],
-          color,
-        );
-        for (const s of [-1, 1]) {
-          limb(
-            c,
-            [
-              [s * 10, -45],
-              [s * 25, -23],
-            ],
-            color,
-            8,
-          );
-          limb(
-            c,
-            [
-              [s * 6, -20],
-              [s * 12, -2],
-            ],
-            color,
-            9,
-          );
-        }
-        for (let yy = -58; yy < -18; yy += 6)
-          line(
-            c,
-            [
-              [-10, yy],
-              [10, yy - 3],
-            ],
-            "#806f55",
-            1,
-          );
-        line(
-          c,
-          [
-            [-8, -52],
-            [8, -52],
-          ],
-          "#3c4443",
-          5,
-        );
-        ellipse(c, -4, -52, 2, 1, "#ace66a");
-        ellipse(c, 4, -52, 2, 1, "#ace66a");
-      }
-    } else if (
-      ["Vilgax", "Zombozo", "Hex", "Dr. Ánimo", "Malware"].includes(id)
-    ) {
-      const colors = {
-        Vilgax: "#667d6b",
-        Zombozo: "#d6c9b2",
-        Hex: "#b6a09a",
-        "Dr. Ánimo": "#9fa98a",
-        Malware: "#252c28",
-      };
-      const color = colors[id];
-      poly(
-        c,
-        [
-          [-22, -41],
-          [-10, -55],
-          [11, -55],
-          [23, -41],
-          [18, -5],
-          [-18, -5],
-        ],
-        id === "Hex"
-          ? "#733a48"
-          : id === "Zombozo"
-            ? "#633456"
-            : id === "Dr. Ánimo"
-              ? "#a0a99a"
-              : "#333d3b",
-      );
-      ellipse(c, 0, -55, 17, 20, color, C);
-      for (const s of [-1, 1])
-        limb(
-          c,
-          [
-            [s * 17, -39],
-            [s * 26, -15],
-          ],
-          color,
-          11,
-        );
-      if (id === "Vilgax") {
-        for (let j = -2; j <= 2; j++)
-          limb(
-            c,
-            [
-              [j * 5, -51],
-              [j * 5 + Math.sin(j + t) * 2, -30],
-            ],
-            color,
-            5,
-          );
-        line(
-          c,
-          [
-            [-10, -60],
-            [-3, -61],
-          ],
-          "#e88a6a",
-          2,
-        );
-        line(
-          c,
-          [
-            [3, -61],
-            [10, -60],
-          ],
-          "#e88a6a",
-          2,
-        );
-      }
-      if (id === "Zombozo") {
-        ellipse(c, 0, -54, 5, 5, "#b94253");
-        ellipse(c, -15, -61, 7, 8, "#88a34d");
-        ellipse(c, 15, -61, 7, 8, "#88a34d");
-        line(
-          c,
-          [
-            [-10, -47],
-            [0, -41],
-            [10, -47],
-          ],
-          "#613749",
-          3,
-        );
-      }
-      if (id === "Hex") {
-        poly(
-          c,
-          [
-            [-24, -67],
-            [0, -90],
-            [21, -63],
-          ],
-          "#762f41",
-        );
-        poly(
-          c,
-          [
-            [-10, -57],
-            [10, -57],
-            [8, -49],
-            [-8, -49],
-          ],
-          "#30262d",
-        );
-        ellipse(c, -5, -54, 2, 2, "#eab687");
-        ellipse(c, 5, -54, 2, 2, "#eab687");
-      }
-      if (id === "Dr. Ánimo") {
-        poly(
-          c,
-          [
-            [-18, -67],
-            [-12, -79],
-            [12, -79],
-            [19, -67],
-          ],
-          "#dbd8b5",
-        );
-        line(
-          c,
-          [
-            [-16, -59],
-            [16, -59],
-          ],
-          "#28383a",
-          6,
-        );
-        ellipse(c, -7, -59, 4, 3, "#ed7957");
-        ellipse(c, 7, -59, 4, 3, "#ed7957");
-      }
-      if (id === "Malware") {
-        line(
-          c,
-          [
-            [-10, -71],
-            [0, -57],
-            [-6, -42],
-            [12, -28],
-            [5, -7],
-          ],
-          "#d95c3a",
-          4,
-        );
-        ellipse(c, -6, -58, 3, 2, "#ffb85b");
-        ellipse(c, 7, -58, 3, 2, "#ffb85b");
-      }
-    } else {
-      // The Order shares a heraldic silhouette, but each class has its own equipment.
-      const type =
-        id === "Driscoll"
-          ? "king"
-          : id === "Ejecutor"
-            ? "executor"
-            : id === "Comandante"
-              ? "commander"
-              : id;
-      const king = type === "king",
-        big = king || type === "executor";
-      const metal = flash ? "#f6f3cf" : B.enemyTypes[type]?.color || "#a2aea5";
-      limb(
-        c,
-        [
-          [-9, -18],
-          [-13, -2 - step * 0.5],
-        ],
-        "#59645d",
-        big ? 13 : 10,
-      );
-      limb(
-        c,
-        [
-          [9, -18],
-          [13, -2 + step * 0.5],
-        ],
-        "#59645d",
-        big ? 13 : 10,
-      );
-      ellipse(c, -14, -1 - step * 0.5, 10, 5, "#687168", C);
-      ellipse(c, 14, -1 + step * 0.5, 10, 5, "#687168", C);
-      if (type === "commander" || king)
-        poly(
-          c,
-          [
-            [-15, -48],
-            [15, -48],
-            [25, 0],
-            [0, -7],
-            [-24, 0],
-          ],
-          king ? "#604b63" : "#8a4a45",
-        );
-      poly(
-        c,
-        [
-          [-17, -45],
-          [17, -45],
-          [19, -27],
-          [10, -14],
-          [-10, -14],
-          [-19, -27],
-        ],
-        metal,
-      );
-      poly(
-        c,
-        [
-          [-12, -42],
-          [0, -37],
-          [12, -42],
-          [8, -24],
-          [0, -19],
-          [-9, -24],
-        ],
-        king && opts.armor ? "#b6efdc" : "#71877e",
-      );
-      line(
-        c,
-        [
-          [0, -39],
-          [0, -22],
-        ],
-        "#c7d0b3",
-        2,
-      );
-      for (const s of [-1, 1]) {
-        limb(
-          c,
-          [
-            [s * 18, -42],
-            [s * 25, -30],
-            [s * (27 + pose * 0.5), -20],
-          ],
-          metal,
-          10,
-        );
-        poly(
-          c,
-          [
-            [s * 9, -44],
-            [s * 18, -53],
-            [s * 28, -45],
-            [s * 21, -36],
-          ],
-          metal,
-        );
-      }
-      if (type === "shield" || type === "executor" || (king && opts.armor)) {
-        poly(
-          c,
-          [
-            [-25, -44],
-            [-41, -38],
-            [-39, -15],
-            [-25, -5],
-            [-13, -18],
-            [-14, -38],
-          ],
-          king ? "#8bd4c4" : "#526858",
-        );
-        poly(
-          c,
-          [
-            [-25, -37],
-            [-33, -33],
-            [-31, -20],
-            [-25, -15],
-            [-19, -22],
-            [-19, -33],
-          ],
-          "#b1bba1",
-        );
-      }
-      const ex = 27 + pose * 0.5;
-      if (type === "energy") {
-        box(c, ex - 5, -36, 12, 29, "#435356", C);
-        ellipse(c, ex + 1, -40, 7, 5, "#bc7ed8", C);
-      } else if (type === "heavy" || type === "executor") {
-        line(
-          c,
-          [
-            [ex, -19],
-            [ex + 8, -63],
-          ],
-          "#8c7758",
-          5,
-        );
-        poly(
-          c,
-          [
-            [ex - 4, -73],
-            [ex + 20, -68],
-            [ex + 18, -53],
-            [ex - 7, -57],
-          ],
-          "#9ba89a",
-        );
-      } else {
-        poly(
-          c,
-          [
-            [ex - 3, -24],
-            [ex + 2, -24],
-            [ex + 14, -67],
-            [ex + 8, -64],
-          ],
-          king ? "#bdf8d9" : "#d3dac1",
-        );
-        line(
-          c,
-          [
-            [ex - 8, -25],
-            [ex + 9, -21],
-          ],
-          "#d3ba76",
-          4,
-        );
-      }
-      poly(
-        c,
-        [
-          [-12, -58],
-          [0, -66],
-          [13, -58],
-          [12, -42],
-          [-11, -42],
-        ],
-        metal,
-      );
-      poly(
-        c,
-        [
-          [-11, -55],
-          [11, -55],
-          [9, -49],
-          [-10, -49],
-        ],
-        "#26342f",
-      );
-      line(
-        c,
-        [
-          [-6, -52],
-          [6, -52],
-        ],
-        king ? "#a7ffe2" : "#ecbb74",
-        1.5,
-      );
-      line(
-        c,
-        [
-          [0, -65],
-          [0, -44],
-        ],
-        "#c0cab8",
-        2,
-      );
-      if (king) {
-        poly(
-          c,
-          [
-            [-14, -61],
-            [-18, -75],
-            [-7, -69],
-            [0, -80],
-            [7, -69],
-            [17, -75],
-            [13, -60],
-          ],
-          "#c6eede",
-        );
-        if (opts.armor) {
-          for (const s of [-1, 1])
-            poly(
-              c,
-              [
-                [s * 10, -47],
-                [s * 19, -63],
-                [s * 31, -51],
-                [s * 20, -33],
-              ],
-              "#a5e8d6",
-            );
-        }
-      }
-      if (type === "commander")
-        poly(
-          c,
-          [
-            [-2, -66],
-            [-4, -80],
-            [7, -74],
-            [2, -66],
-          ],
-          "#d7b26f",
-        );
-    }
-    c.restore();
-  };
   class Renderer {
     constructor(g) {
       this.g = g;
@@ -1453,28 +188,32 @@
       const s = Math.min(w / 1400, h / 900);
       c.save();
       c.globalAlpha = 0.28;
-      B.drawActor(c, "heat", w * 0.54, h * 0.68, s * 6.3, {
+      B.drawActor(c, "heat", w * 0.54, h * 0.68, s * 4.4, {
         time: t,
         shadow: false,
       });
       c.globalAlpha = 0.22;
-      B.drawActor(c, "four", w * 0.87, h * 0.66, s * 7.2, {
+      B.drawActor(c, "four", w * 0.87, h * 0.66, s * 5.1, {
         time: t,
         shadow: false,
       });
       c.restore();
       c.save();
-      c.translate(w * 0.722, h * 0.78);
+      c.translate(w * 0.722, h * 0.86);
       c.rotate(-0.055);
-      const ss = s * 7.5;
+      const ss = s * 5.9;
       c.shadowColor = "#b2fa5c33";
       c.shadowBlur = 40;
-      B.drawActor(c, "ben", 0, Math.sin(t) * 2, ss, { time: t, shadow: false });
+      B.drawActor(c, "ben", 0, Math.sin(t) * 2, ss, {
+        time: t,
+        shadow: false,
+        pose: "hero",
+      });
       c.shadowBlur = 0;
       c.restore();
       // Green pulse radiates from the wrist, with restrained sparks.
-      const bx = w * 0.722 - 150 * s,
-        by = h * 0.78 - 150 * s;
+      const bx = w * 0.722 - 5 * 0.82 * ss,
+        by = h * 0.86 - 58 * 0.82 * ss;
       const wrist = c.createRadialGradient(bx, by, 0, bx, by, 75 * s);
       wrist.addColorStop(0, "#d5ffad70");
       wrist.addColorStop(0.2, "#aaff6333");
@@ -1508,10 +247,10 @@
         w = g.world,
         t = g.clock,
         city = ["city", "market"].includes(w.zone);
-      box(c, 0, 0, w.w, w.h, city ? "#45514b" : "#273c37");
+      box(c, 0, 0, w.w, w.h, city ? "#4f6162" : "#263d43");
       if (city) {
-        box(c, 0, 355, 1800, 485, "#858c78");
-        box(c, 0, 440, 1800, 330, "#444c48");
+        box(c, 0, 355, 1800, 485, "#a1a490");
+        box(c, 0, 440, 1800, 330, "#485b63");
         box(c, 0, 427, 1800, 10, "#c3bca0");
         box(c, 0, 775, 1800, 12, "#c3bca0");
         for (let x = 0; x < 1800; x += 120) box(c, x, 600, 55, 3, "#c2be8c55");
@@ -1565,7 +304,7 @@
       } else {
         for (let x = 0; x < 1800; x += 80)
           for (let y = 100; y < 1000; y += 80) {
-            box(c, x + 2, y + 2, 76, 76, (x + y) % 160 ? "#2b403a" : "#30463e");
+            box(c, x + 2, y + 2, 76, 76, (x + y) % 160 ? "#2c4248" : "#314950");
             line(
               c,
               [
@@ -1587,7 +326,7 @@
           2,
         );
         if (w.zone === "throne") {
-          box(c, 390, 380, 1120, 345, "#514446");
+          box(c, 390, 380, 1120, 345, "#583e4d");
           for (let x = 410; x < 1480; x += 80)
             poly(
               c,
@@ -1608,6 +347,7 @@
           c.restore();
         }
       }
+      B.environmentArt.ground(c, w);
       for (const d of w.decor) this.decor(d);
       // Floor portions of mechanisms and hazards remain behind all characters.
       for (const o of w.obstacles) if (o.kind === "chasm") this.obstacle(o);
@@ -1746,7 +486,8 @@
         label(c, String(a.text), a.x, a.y, 12, a.color);
       }
       c.globalAlpha = 1;
-      if (w.zone !== "city") {
+      B.environmentArt.atmosphere(c, w, t);
+      if (w.zone !== "city" && w.zone !== "intro") {
         line(
           c,
           [
@@ -1822,67 +563,7 @@
       }
       if (o.open) return;
       if (kind === "building") {
-        const p = [
-          ["#6f7f72", "#9d9d80", "#485e50"],
-          ["#927964", "#b6a889", "#6a584c"],
-          ["#6b7c80", "#a2a596", "#455f61"],
-        ][o.palette || 0];
-        box(c, x + 12, y + 20, w, h, "#0a1e1559");
-        box(c, x, y, w, h, p[0]);
-        box(c, x + 7, y + 8, w - 14, h - 14, p[2]);
-        box(c, x + 12, y + 13, w - 24, h - 30, p[0]);
-        box(c, x, y + h - 54, w, 54, p[1]);
-        line(
-          c,
-          [
-            [x, y + h - 56],
-            [x + w, y + h - 56],
-          ],
-          "#c8c7a4",
-          3,
-        );
-        for (let xx = x + 22; xx < x + w - 28; xx += 65) {
-          box(c, xx, y + h - 43, 42, 29, "#304b48");
-          line(
-            c,
-            [
-              [xx + 21, y + h - 42],
-              [xx + 21, y + h - 15],
-            ],
-            "#7a9380",
-            2,
-          );
-          box(c, xx + 3, y + h - 40, 17, 4, "#c7cf9d55");
-        }
-        box(c, x + w * 0.32, y + h - 73, w * 0.36, 26, "#263f34");
-        label(c, o.label || "BELLWOOD", x + w * 0.5, y + h - 56, 10, "#d5dbb9");
-        // Rooftop units and conduits are shaded and separated from traversable street.
-        box(c, x + 30, y + 25, 75, 55, p[2], "#8a9b7c");
-        ellipse(c, x + 67, y + 52, 20, 20, "#5b7065", "#3a5144", 3);
-        for (let a = 0; a < 4; a++)
-          line(
-            c,
-            [
-              [x + 67, y + 52],
-              [
-                x + 67 + Math.cos(a * 1.57) * 17,
-                y + 52 + Math.sin(a * 1.57) * 17,
-              ],
-            ],
-            "#3a5144",
-            4,
-          );
-        line(
-          c,
-          [
-            [x + 135, y + 30],
-            [x + 135, y + 75],
-            [x + w - 35, y + 75],
-          ],
-          p[2],
-          7,
-        );
-        box(c, x + w - 90, y + 25, 52, 32, p[1]);
+        B.environmentArt.building(c, o);
       } else if (["labwall", "shopwall"].includes(kind)) {
         box(c, x + 8, y + 8, w, h, "#09181166");
         box(c, x, y, w, h, "#506357");
@@ -2330,6 +1011,9 @@
       B.drawActor(c, p.form, p.x, p.y, p.form === "four" ? 1.08 : 1, {
         time: g.clock,
         walk: p.walk,
+        special: p.specialPose,
+        dodging: p.dodgeTime > 0,
+        blocking: p.blocking,
         attack: p.attack,
         invuln: p.invuln,
         facing: p.facing,
@@ -2424,19 +1108,121 @@
         ["Malware", 1000, 670],
         ["Driscoll", 800, 720],
       ];
-      box(c, 620, 340, 150, 260, "#3d544a", "#99b485");
-      ellipse(c, 695, 465, 60, 95, "#172f2b", "#93b395", 4);
-      for (let j = 0; j < 4; j++) {
-        box(c, 600, 360 + j * 65, 18, 12, fractured ? "#f0ae6c" : "#a4e593");
-        box(c, 777, 360 + j * 65, 18, 12, fractured ? "#f0ae6c" : "#a4e593");
+      // The extractor has actual restraint points and an energy feed into the watch.
+      const metal = c.createLinearGradient(620, 0, 780, 0);
+      metal.addColorStop(0, "#354b55");
+      metal.addColorStop(0.45, "#78918a");
+      metal.addColorStop(0.55, "#243c48");
+      metal.addColorStop(1, "#4e6870");
+      box(c, 625, 350, 155, 270, "#071a2b55");
+      box(c, 615, 338, 160, 270, metal, "#182d39");
+      box(c, 628, 351, 134, 243, "#142b35");
+      ellipse(c, 695, 472, 60, 107, "#213e49", "#85aba4", 3);
+      ellipse(
+        c,
+        695,
+        472,
+        54,
+        101,
+        "#182f3b",
+        fractured ? "#b68364" : "#85c3ad",
+        1,
+      );
+      for (let j = 0; j < 5; j++) {
+        box(c, 607, 353 + j * 50, 16, 23, "#182c39");
+        box(c, 767, 353 + j * 50, 16, 23, "#182c39");
+        box(c, 610, 356 + j * 50, 10, 16, fractured ? "#d78457" : "#9fcda4");
+        box(c, 770, 356 + j * 50, 10, 16, fractured ? "#d78457" : "#9fcda4");
+      }
+      for (const [x, y] of [
+        [622, 345],
+        [767, 345],
+        [622, 599],
+        [767, 599],
+      ]) {
+        ellipse(c, x, y, 3, 3, "#a4b6a0", "#20363e", 1);
+      }
+      line(
+        c,
+        [
+          [615, 406],
+          [569, 406],
+          [569, 559],
+          [613, 559],
+        ],
+        "#0b2433",
+        9,
+      );
+      line(
+        c,
+        [
+          [615, 406],
+          [569, 406],
+          [569, 559],
+          [613, 559],
+        ],
+        fractured ? "#994d3c" : "#b38664",
+        3,
+      );
+      if (fractured) {
+        line(
+          c,
+          [
+            [628, 358],
+            [650, 375],
+            [637, 397],
+            [660, 413],
+          ],
+          "#c8b49a",
+          1.5,
+        );
+        poly(
+          c,
+          [
+            [756, 529],
+            [777, 546],
+            [773, 576],
+            [758, 563],
+          ],
+          "#6d7a75",
+        );
       }
       list.push({
         y: 500,
-        draw: () =>
+        draw: () => {
           B.drawActor(c, "ben", escaped ? 350 : 695, escaped ? 690 : 500, 1.2, {
             time: t,
             walk: escaped ? t * 12 : 0,
-          }),
+            pose: escaped ? "run" : "captured",
+            expression: fractured ? "ALARMADO" : "DESAFIANTE",
+          });
+          if (!escaped) {
+            for (const side of [-1, 1]) {
+              const wrist = 695 + side * 23;
+              const rail = side < 0 ? 628 : 762;
+              line(
+                c,
+                [
+                  [rail, 447],
+                  [wrist, 447],
+                ],
+                "#1b2d37",
+                9,
+              );
+              line(
+                c,
+                [
+                  [rail, 445],
+                  [wrist, 445],
+                ],
+                "#8a9c94",
+                4,
+              );
+              box(c, wrist - 5, 441, 10, 10, "#304951", "#a4bba3");
+            }
+            ellipse(c, 672, 447, 3, 3, fractured ? "#f0aa75" : "#bded92");
+          }
+        },
       });
       for (const [id, x, y] of spots)
         list.push({
@@ -2447,8 +1233,13 @@
               id,
               x + (g.cine.brawl ? Math.sin(t * 5 + x) * 14 : 0),
               y,
-              1.15,
-              { time: t, walk: g.cine.brawl ? t * 15 : 0 },
+              id === "Vilgax" ? 1.3 : id === "Kevin" ? 1.05 : 1.15,
+              {
+                time: t,
+                walk: g.cine.brawl ? t * 15 : 0,
+                scene: "intro",
+                expression: g.cine.brawl ? "FURIOSO" : "AMENAZANTE",
+              },
             ),
         });
       label(
