@@ -74,7 +74,7 @@ const close = (a, b) => assert.ok(Math.abs(a - b) < 0.01, `${a} != ${b}`);
       assert.equal(await page.locator("#healthText").textContent(), "62 / 100");
       close(
         Number(await page.locator("#healthFill").getAttribute("width")),
-        392 * 0.62,
+        412 * 0.62,
       );
       assert.equal(
         await page.locator("#healthGauge").getAttribute("aria-valuenow"),
@@ -116,7 +116,7 @@ const close = (a, b) => assert.ok(Math.abs(a - b) < 0.01, `${a} != ${b}`);
       assert.equal(await page.locator("#xpText").textContent(), "20 / 150");
       close(
         Number(await page.locator("#xpFill").getAttribute("width")),
-        (392 * 20) / 150,
+        (412 * 20) / 150,
       );
       assert.equal(await page.evaluate(() => __demo.stats.totalXP), 120);
       await tick(0.5);

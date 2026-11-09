@@ -70,8 +70,10 @@ kbd { display:inline-grid; place-items:center; min-height:23px; min-width:23px; 
    <radialGradient id="hudLens"><stop stop-color="#193a27"/><stop offset="1" stop-color="#07140f"/></radialGradient>
    <clipPath id="hudHourglass"><path d="M74 64 Q110 50 146 64 L122 105 L146 147 Q110 160 74 147 L98 105Z"/></clipPath>
    <clipPath id="hudEnergyLiquidClip"><rect id="energyLiquidMask" x="68" y="52" width="84" height="107"/></clipPath>
-   <clipPath id="hudHealthClip"><rect id="healthClipWidth" x="225" y="65" width="392" height="29" rx="2"/></clipPath>
-   <clipPath id="hudXPClip"><rect id="xpClipWidth" x="225" y="131" width="0" height="29" rx="2"/></clipPath>
+   <clipPath id="hudHealthWindow"><path d="M221 62H619L626 69V91L619 98H221L214 91V69Z"/></clipPath>
+   <clipPath id="hudHealthClip"><rect id="healthClipWidth" x="214" y="62" width="412" height="36"/></clipPath>
+   <clipPath id="hudXPWindow"><path d="M221 128H619L626 135V157L619 164H221L214 157V135Z"/></clipPath>
+   <clipPath id="hudXPClip"><rect id="xpClipWidth" x="214" y="128" width="0" height="36"/></clipPath>
    <filter id="hudShadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="3" stdDeviation="2" flood-color="#000" flood-opacity=".85"/></filter>
    <g id="hudAntenna"><path d="M-10-3-9-60-5-65H5L9-60 10-3Z" fill="url(#hudMetal)" stroke="#081a14" stroke-width="3"/><path class="hud-rod" d="M-4-9-4-54 0-58 4-54 4-9Z" fill="url(#hudRod)" stroke="#5c9a43" stroke-width="1.5"/><path d="M-1-12V-53" stroke="#dcffb7" stroke-width="2" opacity=".7"/></g>
   </defs>
@@ -93,12 +95,12 @@ kbd { display:inline-grid; place-items:center; min-height:23px; min-width:23px; 
    <path d="M76 66Q94 58 108 61" fill="none" stroke="#d0f4ad" stroke-width="3" opacity=".2"/>
    <g fill="#9adb69" stroke="#314d2b" stroke-width="3"><circle cx="110" cy="33" r="7"/><circle cx="38" cy="105" r="7"/><circle cx="182" cy="105" r="7"/><circle cx="110" cy="177" r="7"/></g>
    <g fill="#d3ff9f" opacity=".8"><circle cx="108" cy="31" r="2"/><circle cx="36" cy="103" r="2"/><circle cx="180" cy="103" r="2"/><circle cx="108" cy="175" r="2"/></g>
-   <g><path d="M215 54H625L635 64V95L625 105H215L205 95V64Z" fill="url(#hudMetal)" stroke="#071510" stroke-width="4"/><path d="M221 62H619L626 69V91L619 98H221L214 91V69Z" fill="#2b0b17" stroke="#902a37" stroke-width="2"/><rect id="healthFill" x="225" y="65" width="392" height="29" rx="2" fill="url(#hudRed)"/>
-    <g clip-path="url(#hudHealthClip)"><path class="hud-electric" d="M226 84 248 80 254 69 268 84 282 79 293 91 306 80 322 82 339 72 351 81 368 78 384 89 401 80 419 83 432 73 447 82 469 76 480 87 501 79 524 82 535 73 553 82 574 77 594 83 619 79" fill="none" stroke="#ffb5a2" stroke-width="1.4" opacity=".5"/><path d="M226 67H616" stroke="#ffb9ac" opacity=".5"/></g>
+   <g><path d="M215 54H625L635 64V95L625 105H215L205 95V64Z" fill="url(#hudMetal)" stroke="#071510" stroke-width="4"/><path d="M221 62H619L626 69V91L619 98H221L214 91V69Z" fill="#2b0b17" stroke="#902a37" stroke-width="2"/><g clip-path="url(#hudHealthWindow)"><rect id="healthFill" x="214" y="62" width="412" height="36" fill="url(#hudRed)"/>
+    <g clip-path="url(#hudHealthClip)"><path class="hud-electric" d="M226 84 248 80 254 69 268 84 282 79 293 91 306 80 322 82 339 72 351 81 368 78 384 89 401 80 419 83 432 73 447 82 469 76 480 87 501 79 524 82 535 73 553 82 574 77 594 83 619 79" fill="none" stroke="#ffb5a2" stroke-width="1.4" opacity=".5"/><path d="M226 67H616" stroke="#ffb9ac" opacity=".5"/></g></g>
     <path d="M215 56H625L633 64M208 66V94L216 102" fill="none" stroke="#becab5" stroke-width="1.5" opacity=".65"/>
    </g>
-   <g><path d="M215 120H625L635 130V161L625 171H215L205 161V130Z" fill="url(#hudMetal)" stroke="#071510" stroke-width="4"/><path d="M221 128H619L626 135V157L619 164H221L214 157V135Z" fill="#291b09" stroke="#a87a35" stroke-width="2"/><rect id="xpFill" x="225" y="131" width="0" height="29" rx="2" fill="url(#hudAmber)"/>
-    <g clip-path="url(#hudXPClip)"><path class="hud-xp-swirl" d="M209 148Q247 131 281 147T351 144T421 148T491 143T563 146T640 143M215 155Q251 143 290 155T374 153T458 154T548 151T640 154" fill="none" stroke="#ffeb9b" stroke-width="2" opacity=".5"/><path class="hud-xp-stars" d="M254 139V147M250 143H258M324 150V156M321 153H327M420 136V144M416 140H424M535 148V156M531 152H539M587 136V142M584 139H590" stroke="#fff1bc" stroke-width="1.5"/></g>
+   <g><path d="M215 120H625L635 130V161L625 171H215L205 161V130Z" fill="url(#hudMetal)" stroke="#071510" stroke-width="4"/><path d="M221 128H619L626 135V157L619 164H221L214 157V135Z" fill="#291b09" stroke="#a87a35" stroke-width="2"/><g clip-path="url(#hudXPWindow)"><rect id="xpFill" x="214" y="128" width="0" height="36" fill="url(#hudAmber)"/>
+    <g clip-path="url(#hudXPClip)"><path class="hud-xp-swirl" d="M209 148Q247 131 281 147T351 144T421 148T491 143T563 146T640 143M215 155Q251 143 290 155T374 153T458 154T548 151T640 154" fill="none" stroke="#ffeb9b" stroke-width="2" opacity=".5"/><path class="hud-xp-stars" d="M254 139V147M250 143H258M324 150V156M321 153H327M420 136V144M416 140H424M535 148V156M531 152H539M587 136V142M584 139H590" stroke="#fff1bc" stroke-width="1.5"/></g></g>
     <path d="M215 122H625L633 130M208 132V160L216 168" fill="none" stroke="#becab5" stroke-width="1.5" opacity=".65"/>
    </g>
   </g>
@@ -327,7 +329,7 @@ function syncHud(){
  const full=energy>=1-1e-8,low=energy<=.2;
  const signature=[s.health,s.maxHealth,Math.round(energy*1000),full,low,s.form?.id||'',s.xp,s.xpNeeded,s.level,s.form?.name||'BEN',hudLevelFlash>0,hudHitFlash>0].join('|');
  if(signature===hudSignature)return;hudSignature=signature;
- const width=392*life,xpWidth=392*xp,liquidHeight=107*energy,surface=159-liquidHeight;
+ const width=412*life,xpWidth=412*xp,liquidHeight=107*energy,surface=159-liquidHeight;
  hudElements.healthFill.setAttribute('width',width);hudElements.healthClipWidth.setAttribute('width',width);
  hudElements.healthText.textContent=Math.ceil(s.health)+' / '+s.maxHealth;
  hudElements.healthGauge.setAttribute('aria-valuenow',s.health);hudElements.healthGauge.setAttribute('aria-valuemax',s.maxHealth);
