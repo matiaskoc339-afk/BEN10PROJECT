@@ -67,6 +67,8 @@ kbd { display:inline-grid; place-items:center; min-height:23px; min-width:23px; 
    <linearGradient id="hudGreen" x2=".5" y2="1"><stop stop-color="#a0e958"/><stop offset=".5" stop-color="#70d139"/><stop offset="1" stop-color="#244e1e"/></linearGradient>
    <linearGradient id="hudRed" x2="0" y2="1"><stop stop-color="#ff5363"/><stop offset=".24" stop-color="#d12445"/><stop offset=".65" stop-color="#860f30"/><stop offset="1" stop-color="#e63148"/></linearGradient>
    <linearGradient id="hudAmber" x2="0" y2="1"><stop stop-color="#ffda77"/><stop offset=".3" stop-color="#eea527"/><stop offset=".7" stop-color="#a85d10"/><stop offset="1" stop-color="#f5b848"/></linearGradient>
+   <linearGradient id="hudGreenTop" href="#hudGreen" gradientUnits="userSpaceOnUse" gradientTransform="matrix(84 0 0 107 68 52)"/>
+   <clipPath id="hudHourglassTop"><path d="M74 60.8072 A57 57 0 0 1 146 60.8072 L146 64H74Z"/></clipPath>
    <radialGradient id="hudLens"><stop stop-color="#193a27"/><stop offset="1" stop-color="#07140f"/></radialGradient>
    <clipPath id="hudHourglass"><path d="M74 64 Q110 50 146 64 L122 105 L146 147 Q110 160 74 147 L98 105Z"/></clipPath>
    <clipPath id="hudEnergyLiquidClip"><rect id="energyLiquidMask" x="68" y="52" width="84" height="107"/></clipPath>
@@ -86,6 +88,11 @@ kbd { display:inline-grid; place-items:center; min-height:23px; min-width:23px; 
    <circle cx="110" cy="105" r="64" fill="#0a1b13" stroke="#132d1c" stroke-width="4"/>
    <circle cx="110" cy="105" r="58" fill="url(#hudLens)" stroke="#6c9656" stroke-width="2"/>
    <path d="M74 64 Q110 50 146 64 L122 105 L146 147 Q110 160 74 147 L98 105Z" fill="#294c32" stroke="#07120d" stroke-width="4"/>
+   <g clip-path="url(#hudHourglassTop)">
+    <path d="M74 60.8072 A57 57 0 0 1 146 60.8072 L146 64H74Z" fill="#294c32"/>
+    <rect id="energyTopFill" x="68" y="48" width="84" height="16" fill="url(#hudGreenTop)"/>
+    <path id="energyTopSurface" class="hud-energy-wave" d="M45 48Q65 44 85 48T125 48T165 48" fill="none" stroke="#caff82" stroke-width="3"/>
+   </g>
    <g clip-path="url(#hudHourglass)">
     <rect id="energyFill" x="68" y="52" width="84" height="107" fill="url(#hudGreen)"/>
     <path id="energySurface" class="hud-energy-wave" d="M45 52Q65 47 85 52T125 52T165 52" fill="none" stroke="#caff82" stroke-width="3"/>
@@ -322,14 +329,14 @@ let cam={x:0,y:0,zoom:1.11},t=0,lastTime=performance.now(),shake=0,flash=0;
 const player={x:1210,y:915,vx:0,vy:0,dir:'down',faceX:0,faceY:1,speed:247,health:100,mode:'idle',modeTime:0,modeDur:0,runClock:0,lightN:0,heavyN:0,lastLight:-5,lastHeavy:-5,lastDash:-5,hit:false,selectedAlien:-1,specialQueued:false,moving:false,idleClock:0,actionDir:'down',actionX:0,actionY:1};
 const stats=new Ben10Stats.PlayerStats();
 Object.defineProperty(player,'health',{get:()=>stats.health,set:value=>stats.setHealth(value),enumerable:true,configurable:true});
-const hudElements=Object.fromEntries(['hud','healthFill','healthClipWidth','healthText','healthGauge','xpFill','xpClipWidth','xpText','xpGauge','levelText','formName','energyFill','energyLiquidMask','energySurface','energyText','energyGauge'].map(id=>[id,document.getElementById(id)]));
+const hudElements=Object.fromEntries(['hud','healthFill','healthClipWidth','healthText','healthGauge','xpFill','xpClipWidth','xpText','xpGauge','levelText','formName','energyFill','energyTopFill','energyTopSurface','hudGreenTop','energyLiquidMask','energySurface','energyText','energyGauge'].map(id=>[id,document.getElementById(id)]));
 let hudSignature='',hudLevelFlash=0,hudHitFlash=0,hudLastHealth=stats.health;
 function syncHud(){
  const s=stats.snapshot(),energy=clamp(s.energy/s.maxEnergy,0,1),life=clamp(s.health/s.maxHealth,0,1),xp=clamp(s.xp/s.xpNeeded,0,1);
  const full=energy>=1-1e-8,low=energy<=.2;
  const signature=[s.health,s.maxHealth,Math.round(energy*1000),full,low,s.form?.id||'',s.xp,s.xpNeeded,s.level,s.form?.name||'BEN',hudLevelFlash>0,hudHitFlash>0].join('|');
  if(signature===hudSignature)return;hudSignature=signature;
- const width=412*life,xpWidth=412*xp,liquidHeight=107*energy,surface=159-liquidHeight;
+ const width=412*life,xpWidth=412*xp,liquidHeight=107*energy,surface=159-liquidHeight,topExtension=4*clamp((energy-.9)/.1,0,1),topSurface=surface-topExtension;
  hudElements.healthFill.setAttribute('width',width);hudElements.healthClipWidth.setAttribute('width',width);
  hudElements.healthText.textContent=Math.ceil(s.health)+' / '+s.maxHealth;
  hudElements.healthGauge.setAttribute('aria-valuenow',s.health);hudElements.healthGauge.setAttribute('aria-valuemax',s.maxHealth);
@@ -338,7 +345,8 @@ function syncHud(){
  hudElements.xpGauge.setAttribute('aria-valuenow',s.xp);hudElements.xpGauge.setAttribute('aria-valuemax',s.xpNeeded);hudElements.xpGauge.setAttribute('aria-valuetext',s.xp+' de '+s.xpNeeded+' XP. Nivel '+s.level);
  hudElements.formName.textContent=(s.form?.name||'BEN').toUpperCase();
  hudElements.energyFill.setAttribute('y',surface);hudElements.energyFill.setAttribute('height',liquidHeight);hudElements.energyLiquidMask.setAttribute('y',surface);hudElements.energyLiquidMask.setAttribute('height',liquidHeight);
- hudElements.energySurface.setAttribute('d',`M45 ${surface}Q65 ${surface-4} 85 ${surface}T125 ${surface}T165 ${surface}`);
+ hudElements.energyTopFill.setAttribute('y',topSurface);hudElements.energyTopFill.setAttribute('height',Math.max(0,64-topSurface));hudElements.hudGreenTop.setAttribute('gradientTransform',`matrix(84 0 0 ${liquidHeight||1} 68 ${surface})`);
+ hudElements.energySurface.setAttribute('d',`M45 ${topSurface}Q65 ${topSurface-4} 85 ${topSurface}T125 ${topSurface}T165 ${topSurface}`);hudElements.energyTopSurface.setAttribute('d',hudElements.energySurface.getAttribute('d'));
  const percent=Math.ceil(energy*100),status=s.form?'ACTIVO':full?'LISTO':'RECARGANDO';
  hudElements.energyText.textContent='ENERGÍA '+percent+'% · '+status;
  hudElements.energyGauge.setAttribute('aria-valuenow',Math.round(s.energy*10)/10);hudElements.energyGauge.setAttribute('aria-valuemax',s.maxEnergy);hudElements.energyGauge.setAttribute('aria-valuetext',percent+' por ciento. '+status.toLowerCase());
