@@ -1,11 +1,15 @@
 {
-  "name": "ben10-el-omnitrix-fracturado",
-  "version": "4.0.0",
+  "name": "ben10-demo",
+  "version": "0.8.0",
   "private": true,
-  "description": "Aventura fan de Ben 10 clásico, con un capítulo jugable en Canvas 2D.",
+  "description": "Demo v0.8 de Ben 10, con Omnitrix clásico y animaciones por fotogramas.",
   "scripts": {
     "start": "python3 -m http.server 8000 --bind 0.0.0.0",
-    "test": "node --test tests/systems.test.cjs",
-    "test:browser": "node tests/browser.test.cjs"
+    "test": "node tests/character.test.cjs",
+    "test:browser": "node tests/character.test.cjs",
+    "build:omnitrix": "node scripts/bake-omnitrix.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
   }
 }

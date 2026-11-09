@@ -4,10 +4,10 @@ const { chromium } = require("playwright");
 const fs = require("node:fs");
 const path = require("node:path");
 
-const demos = path.resolve(__dirname, "..");
-const source = path.join(demos, "assets/omnitrix-classic-source.png");
-const atlasPath = path.join(demos, "assets/omnitrix-classic-atlas.png");
-const demoPath = path.join(demos, "Ben10_Demo_PixelPerfect_v08.html");
+const projectRoot = path.resolve(__dirname, "..");
+const source = path.join(projectRoot, "assets/omnitrix-classic-source.png");
+const atlasPath = path.join(projectRoot, "assets/omnitrix-classic-atlas.png");
+const demoPath = path.join(projectRoot, "index.html");
 
 // Source rectangles retain the face, gray side armor and green side button.
 // The long strap tips are omitted where the fitted cuff meets Ben's wrist.
@@ -20,7 +20,9 @@ const views = [
 
 (async () => {
   const browser = await chromium.launch({
-    executablePath: process.env.CHROMIUM_PATH || "/usr/bin/chromium",
+    executablePath:
+      process.env.CHROMIUM_PATH ||
+      (fs.existsSync("/usr/bin/chromium") ? "/usr/bin/chromium" : undefined),
     args: ["--no-sandbox"],
   });
   try {

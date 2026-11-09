@@ -5,12 +5,9 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 const http = require("node:http");
-const root = path.resolve(__dirname, "../..");
-const html = fs.readFileSync(
-  path.join(root, "demos/Ben10_Demo_PixelPerfect_v05.html"),
-  "utf8",
-);
-const hook = `\nwindow.__demo={player,keys,touchMove,cam,ROW,FRAMES,readyPromise,framePlayer,paintPlayerSprite,lightAttack,heavyAttack,dodge,toggleWheel,selectSlot,update,render,startMode,get mainAtlas(){return mainAtlas},get verticalAtlas(){return verticalAtlas},get state(){return state},get time(){return t},get props(){return props},get dummies(){return dummyList},reset(){keys.clear();touchMove.x=0;touchMove.y=0;props=[];dummyList=[];pieces=[];state.wheel=false;document.getElementById('wheelLayer').classList.remove('open');Object.assign(player,{x:1210,y:915,vx:0,vy:0,dir:'down',faceX:0,faceY:1,health:100,mode:'idle',modeTime:0,modeDur:0,runClock:0,lightN:0,heavyN:0,lastLight:-5,lastHeavy:-5,lastDash:-5,hit:false,moving:false,idleClock:0,actionDir:'down',actionX:0,actionY:1});t=0;shake=0;flash=0;},tick(seconds){for(let left=seconds;left>0;left-=1/60)update(Math.min(left,1/60));render();}};\n`;
+const root = path.resolve(__dirname, "..");
+const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
+const hook = `\nwindow.__demo={player,keys,touchMove,cam,ROW,FRAMES,readyPromise,framePlayer,paintPlayerSprite,lightAttack,heavyAttack,dodge,toggleWheel,selectSlot,update,render,startMode,paintOmnitrix,get watchIcon(){return watchIcon},get mainAtlas(){return mainAtlas},get verticalAtlas(){return verticalAtlas},get state(){return state},get time(){return t},get props(){return props},get dummies(){return dummyList},reset(){keys.clear();touchMove.x=0;touchMove.y=0;props=[];dummyList=[];pieces=[];state.wheel=false;document.getElementById('wheelLayer').classList.remove('open');Object.assign(player,{x:1210,y:915,vx:0,vy:0,dir:'down',faceX:0,faceY:1,health:100,mode:'idle',modeTime:0,modeDur:0,runClock:0,lightN:0,heavyN:0,lastLight:-5,lastHeavy:-5,lastDash:-5,hit:false,moving:false,idleClock:0,actionDir:'down',actionX:0,actionY:1});t=0;shake=0;flash=0;},tick(seconds){for(let left=seconds;left>0;left-=1/60)update(Math.min(left,1/60));render();}};\n`;
 const at = html.lastIndexOf("\n})();");
 assert.ok(at > 0, "Demo IIFE available for read-only test instrumentation");
 const instrumented = html.slice(0, at) + hook + html.slice(at);
@@ -28,7 +25,9 @@ async function check(name, test) {
 (async () => {
   await new Promise((r) => server.listen(8776, "127.0.0.1", r));
   browser = await chromium.launch({
-    executablePath: process.env.CHROMIUM_PATH || "/usr/bin/chromium",
+    executablePath:
+      process.env.CHROMIUM_PATH ||
+      (fs.existsSync("/usr/bin/chromium") ? "/usr/bin/chromium" : undefined),
     args: ["--no-sandbox"],
   });
   const page = await browser.newPage({
@@ -221,7 +220,7 @@ async function check(name, test) {
     },
   );
   await check(
-    "mirrored attacks are actual pixel mirrors around the registered body pivot",
+    "combat bodies mirror around their pivot while the watch stays on the left arm",
     async () => {
       const difference = await page.evaluate(() => {
         const frame = {
@@ -245,11 +244,21 @@ async function check(name, test) {
         const a = render(false),
           b = render(true);
         let difference = 0;
+        const sprite = __demo.mainAtlas.rows[4][2];
         for (let y = 0; y < 260; y++)
-          for (let x = 0; x < 320; x++)
+          for (let x = 0; x < 320; x++) {
+            if (
+              sprite.watch.some(
+                (w) =>
+                  Math.abs(x - (160 + (w.x - sprite.anchorX) * 2)) <= 11 &&
+                  Math.abs(y - (220 + (w.y - sprite.anchorY) * 2)) <= 11,
+              )
+            )
+              continue;
             for (let ch = 0; ch < 4; ch++)
               if (a[(y * 320 + x) * 4 + ch] !== b[(y * 320 + 319 - x) * 4 + ch])
                 difference++;
+          }
         return difference;
       });
       assert.equal(difference, 0);
@@ -428,6 +437,338 @@ async function check(name, test) {
       assert.equal(await page.evaluate(() => __demo.framePlayer().idle), true);
     },
   );
+  await check(
+    "dash held during running travels farther in all four directions",
+    async () => {
+      for (const [key, axis, sign] of [
+        ["d", "x", 1],
+        ["a", "x", -1],
+        ["w", "y", -1],
+        ["s", "y", 1],
+      ]) {
+        await reset();
+        await page.keyboard.down(key);
+        const beforeRun = await page.evaluate(
+          (axis) => __demo.player[axis],
+          axis,
+        );
+        await tick(0.4);
+        const run =
+          sign *
+          ((await page.evaluate((axis) => __demo.player[axis], axis)) -
+            beforeRun);
+        await page.keyboard.up(key);
+        await reset();
+        await page.keyboard.down(key);
+        await tick(0.04);
+        await page.keyboard.press("Space");
+        const before = await page.evaluate((axis) => __demo.player[axis], axis);
+        await tick(0.4);
+        const dash =
+          sign *
+          ((await page.evaluate((axis) => __demo.player[axis], axis)) - before);
+        await page.keyboard.up(key);
+        assert.ok(
+          dash > run * 1.7 && dash < run * 1.9,
+          JSON.stringify({ key, run, dash }),
+        );
+        assert.ok(Math.abs(dash - 176) < 0.2);
+      }
+    },
+  );
+  await check(
+    "diagonal dash follows movement without gaining extra distance",
+    async () => {
+      for (const [a, b, sx, sy] of [
+        ["d", "s", 1, 1],
+        ["a", "s", -1, 1],
+        ["d", "w", 1, -1],
+        ["a", "w", -1, -1],
+      ]) {
+        await reset();
+        await page.keyboard.down(a);
+        await page.keyboard.down(b);
+        await page.keyboard.press("Space");
+        const start = await page.evaluate(() => [
+          __demo.player.x,
+          __demo.player.y,
+        ]);
+        await tick(0.4);
+        const end = await page.evaluate(() => [
+          __demo.player.x,
+          __demo.player.y,
+        ]);
+        const dx = end[0] - start[0],
+          dy = end[1] - start[1];
+        assert.ok(Math.abs(Math.hypot(dx, dy) - 176) < 0.2);
+        assert.ok(dx * sx > 0 && dy * sy > 0);
+        assert.ok(Math.abs(Math.abs(dx) - Math.abs(dy)) < 0.01);
+        await page.keyboard.up(a);
+        await page.keyboard.up(b);
+      }
+    },
+  );
+  await check(
+    "dash distance is stable at 30, 60 and 120 simulation steps per second",
+    async () => {
+      for (const fps of [30, 60, 120]) {
+        await reset();
+        const distance = await page.evaluate((fps) => {
+          __demo.player.dir = "right";
+          __demo.player.faceX = 1;
+          __demo.player.faceY = 0;
+          const x = __demo.player.x;
+          __demo.dodge();
+          for (let i = 0; i < fps * 0.4; i++) __demo.update(1 / fps);
+          return __demo.player.x - x;
+        }, fps);
+        assert.ok(
+          Math.abs(distance - 176) < 0.2,
+          JSON.stringify({ fps, distance }),
+        );
+      }
+    },
+  );
+  await check(
+    "dash locks its travel direction and eases out rather than turning mid-roll",
+    async () => {
+      await reset();
+      await page.keyboard.down("d");
+      await page.keyboard.press("Space");
+      const start = await page.evaluate(() => __demo.player.x);
+      await tick(0.1);
+      const first = await page.evaluate(() => __demo.player.x);
+      await page.keyboard.up("d");
+      await page.keyboard.down("a");
+      await tick(0.2);
+      const beforeLast = await page.evaluate(() => __demo.player.x);
+      await tick(0.1);
+      const last = await page.evaluate(() => __demo.player.x);
+      assert.ok(first - start > last - beforeLast);
+      assert.ok(last > beforeLast);
+      await page.keyboard.up("a");
+    },
+  );
+  await check(
+    "longer dash respects solid props and world boundaries",
+    async () => {
+      for (const wall of [false, true]) {
+        await reset();
+        const result = await page.evaluate((wall) => {
+          const p = __demo.player;
+          p.dir = "left";
+          p.faceX = -1;
+          p.faceY = 0;
+          if (wall) p.x = 170;
+          else __demo.props.push({ x: p.x - 95, y: p.y, r: 19, block: true });
+          const start = p.x;
+          __demo.dodge();
+          __demo.tick(0.4);
+          return { start, x: p.x };
+        }, wall);
+        assert.ok(result.x >= 120);
+        assert.ok(wall || result.x >= result.start - 57);
+      }
+    },
+  );
+  await check(
+    "dash cooldown still prevents chaining without a recovery",
+    async () => {
+      await reset();
+      await page.keyboard.press("Space");
+      await tick(0.4);
+      await page.keyboard.press("Space");
+      assert.equal(await page.evaluate(() => __demo.player.mode), "idle");
+      await tick(0.31);
+      await page.keyboard.press("Space");
+      assert.equal(await page.evaluate(() => __demo.player.mode), "dash");
+    },
+  );
+  await check(
+    "visible cuffs remain at the hand end of every registered forearm",
+    async () => {
+      const bad = await page.evaluate(() => {
+        const bad = [];
+        for (const atlas of [__demo.mainAtlas, __demo.verticalAtlas])
+          for (const f of atlas.rows.flat())
+            for (const [hand, w] of f.watch.entries()) {
+              if (w.hidden) continue;
+              const toPalm = Math.hypot(w.x - w.palm.x, w.y - w.palm.y),
+                toElbow = Math.hypot(w.x - w.elbow.x, w.y - w.elbow.y);
+              if (
+                !Number.isFinite(toPalm) ||
+                toPalm > w.offset + 0.75 ||
+                toPalm > toElbow + 0.5 ||
+                w.view < 0 ||
+                w.view > 3 ||
+                w.turn < 0 ||
+                w.turn > 7
+              )
+                bad.push({ row: f.row, col: f.col, hand, w, toPalm, toElbow });
+            }
+        return bad;
+      });
+      assert.deepEqual(bad, []);
+    },
+  );
+  await check(
+    "regression poses put the cuff by the hand, clear of the former elbow and face positions",
+    async () => {
+      const points = await page.evaluate(() =>
+        [
+          ["main", 7, 3, [31, 32, 35, 36]],
+          ["main", 13, 4, [18, 8, 21, 12]],
+          ["main", 13, 5, [25, 18, 29, 23]],
+          ["main", 6, 1, [24, 22, 28, 26]],
+          ["vertical", 2, 6, [4, 26, 8, 30]],
+        ].map(([kind, r, col, box]) => {
+          const w = (kind === "main" ? __demo.mainAtlas : __demo.verticalAtlas)
+            .rows[r][col].watch[0];
+          return { kind, r, col, w, box };
+        }),
+      );
+      for (const {
+        kind,
+        r,
+        col,
+        w,
+        box: [left, top, right, bottom],
+      } of points)
+        assert.ok(
+          w.x >= left && w.x <= right && w.y >= top && w.y <= bottom,
+          JSON.stringify({ kind, r, col, w }),
+        );
+    },
+  );
+  await check(
+    "visible cuff landmarks meet their hand silhouette instead of empty space",
+    async () => {
+      const bad = await page.evaluate(() => {
+        const bad = [];
+        for (const atlas of [__demo.mainAtlas, __demo.verticalAtlas])
+          for (const f of atlas.rows.flat())
+            for (const [hand, w] of f.watch.entries()) {
+              if (w.hidden) continue;
+              const a = f.canvas
+                .getContext("2d")
+                .getImageData(0, 0, f.w, f.h).data;
+              let touches = false;
+              for (
+                let y = Math.max(0, w.palm.y - 2);
+                y <= Math.min(f.h - 1, w.palm.y + 2);
+                y++
+              )
+                for (
+                  let x = Math.max(0, w.palm.x - 2);
+                  x <= Math.min(f.w - 1, w.palm.x + 2);
+                  x++
+                )
+                  if (a[(y * f.w + x) * 4 + 3] > 128) touches = true;
+              if (!touches) bad.push({ row: f.row, col: f.col, hand, w });
+            }
+        return bad;
+      });
+      assert.deepEqual(bad, []);
+    },
+  );
+  await check(
+    "all perspective and rotation tiles have complete crisp pixels with no clipped border",
+    async () => {
+      const bad = await page.evaluate(() => {
+        const cv = document.createElement("canvas");
+        cv.width = 88;
+        cv.height = 44;
+        const c = cv.getContext("2d");
+        c.drawImage(__demo.watchIcon, 0, 0);
+        const bad = [];
+        for (let view = 0; view < 4; view++)
+          for (let turn = 0; turn < 8; turn++) {
+            const a = c.getImageData(turn * 11, view * 11, 11, 11).data;
+            let opaque = 0,
+              green = 0,
+              edge = 0,
+              soft = 0;
+            for (let y = 0; y < 11; y++)
+              for (let x = 0; x < 11; x++) {
+                const i = (y * 11 + x) * 4;
+                if (a[i + 3]) {
+                  opaque++;
+                  if (a[i + 3] !== 255) soft++;
+                  if (x === 0 || y === 0 || x === 10 || y === 10) edge++;
+                  if (
+                    a[i + 1] > 150 &&
+                    a[i + 1] > a[i] * 1.2 &&
+                    a[i + 1] > a[i + 2] * 1.4
+                  )
+                    green++;
+                }
+              }
+            if (
+              opaque < 4 ||
+              edge ||
+              soft ||
+              (view === 3 ? green !== 0 : green < 1)
+            )
+              bad.push({ view, turn, opaque, edge, soft, green });
+          }
+        return bad;
+      });
+      assert.deepEqual(bad, []);
+    },
+  );
+  await check(
+    "hidden wrists are occluded while back views show the strap instead of a front dial",
+    async () => {
+      const result = await page.evaluate(() => {
+        let hidden = 0,
+          back = 0,
+          wrong = 0;
+        for (const atlas of [__demo.mainAtlas, __demo.verticalAtlas])
+          for (const f of atlas.rows.flat())
+            for (const flip of [false, true]) {
+              const w = f.watch[flip ? 1 : 0],
+                cv = document.createElement("canvas");
+              cv.width = cv.height = 200;
+              const c = cv.getContext("2d");
+              __demo.paintOmnitrix(
+                c,
+                f,
+                { flip, idle: false },
+                80 - w.x * 2,
+                80 - w.y * 2,
+                2,
+                0,
+                0,
+              );
+              const a = c.getImageData(0, 0, 200, 200).data;
+              let opaque = 0,
+                green = 0;
+              for (let i = 0; i < a.length; i += 4)
+                if (a[i + 3] > 128) {
+                  opaque++;
+                  if (
+                    a[i + 1] > 150 &&
+                    a[i + 1] > a[i] * 1.2 &&
+                    a[i + 1] > a[i + 2] * 1.4
+                  )
+                    green++;
+                }
+              if (w.hidden) {
+                hidden++;
+                if (opaque) wrong++;
+              } else if (w.view === 3) {
+                back++;
+                if (!opaque || green) wrong++;
+              }
+            }
+        return { hidden, back, wrong };
+      });
+      assert.ok(result.hidden > 0);
+      assert.ok(result.back > 0);
+      assert.equal(result.wrong, 0);
+    },
+  );
+
   assert.deepEqual(errors, []);
   console.log(`${count} demo checks passed; no page errors.`);
 })()
