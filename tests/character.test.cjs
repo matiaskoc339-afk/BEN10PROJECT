@@ -7,10 +7,8 @@ const path = require("node:path");
 const http = require("node:http");
 const root = path.resolve(__dirname, "..");
 const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
-const hook = `\nwindow.__demo={player,keys,touchMove,cam,ROW,FRAMES,readyPromise,framePlayer,paintPlayerSprite,lightAttack,heavyAttack,dodge,toggleWheel,selectSlot,update,render,startMode,paintOmnitrix,get watchIcon(){return watchIcon},get mainAtlas(){return mainAtlas},get verticalAtlas(){return verticalAtlas},get state(){return state},get time(){return t},get props(){return props},get dummies(){return dummyList},reset(){keys.clear();touchMove.x=0;touchMove.y=0;props=[];dummyList=[];pieces=[];state.wheel=false;document.getElementById('wheelLayer').classList.remove('open');Object.assign(player,{x:1210,y:915,vx:0,vy:0,dir:'down',faceX:0,faceY:1,health:100,mode:'idle',modeTime:0,modeDur:0,runClock:0,lightN:0,heavyN:0,lastLight:-5,lastHeavy:-5,lastDash:-5,hit:false,moving:false,idleClock:0,actionDir:'down',actionX:0,actionY:1});t=0;shake=0;flash=0;},tick(seconds){for(let left=seconds;left>0;left-=1/60)update(Math.min(left,1/60));render();}};\n`;
-const at = html.lastIndexOf("\n})();");
-assert.ok(at > 0, "Demo IIFE available for read-only test instrumentation");
-const instrumented = html.slice(0, at) + hook + html.slice(at);
+const { instrument } = require("./demo-fixture.cjs");
+const instrumented = instrument(html);
 const server = http.createServer((req, res) => {
   res.setHeader("Content-Type", "text/html; charset=utf-8");
   res.end(instrumented);

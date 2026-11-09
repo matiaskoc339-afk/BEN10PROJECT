@@ -12,24 +12,27 @@ html,body { width:100%; height:100%; margin:0; overflow:hidden; background:#0c16
 button { font-family:inherit; cursor:pointer; }
 #game { display:block; width:100vw; height:100dvh; image-rendering:pixelated; cursor:crosshair; touch-action:none; }
 #vignette { position:fixed; inset:0; pointer-events:none; background:radial-gradient(ellipse at 50% 42%,transparent 46%,rgba(3,11,9,.28) 100%); }
-#hud { position:absolute; top:20px; left:20px; width:min(380px,calc(100vw - 40px)); pointer-events:none; }
-.hud-card { background:linear-gradient(135deg,rgba(10,25,21,.94),rgba(22,41,30,.88)); border:1px solid rgba(146,246,80,.49); box-shadow:0 12px 32px #0006,inset 0 1px #ffffff13; border-radius:9px; padding:12px 14px 11px; border-left:4px solid var(--green); }
-.eyebrow { color:#a4c8ae; font:700 10px/1.4 Consolas,monospace; letter-spacing:2.2px; }
-.brand { font-size:22px; line-height:1.25; font-weight:1000; font-style:italic; letter-spacing:1px; color:#f3fff0; text-shadow:2px 2px #000; margin:3px 0 10px; }
-.brand b { color:#a7f764; }
-.bar-line { display:flex; align-items:center; justify-content:space-between; font:700 11px/1.4 Consolas,monospace; color:#dcebcf; margin-bottom:5px; }
-.bar-shell { height:11px; padding:2px; border:1px solid #799f78; background:#10251a; box-shadow:inset 0 2px 4px #0008; border-radius:2px; }
-.bar-fill { height:100%; width:100%; background:linear-gradient(90deg,#76c94b,#c4ff61); box-shadow:0 0 8px #9bee5b75; transition:width .15s; }
+#hud { position:fixed; top:12px; left:14px; width:min(590px,calc(100vw - 28px)); z-index:5; pointer-events:none; }
+#hudArtwork { display:block; width:100%; height:auto; overflow:visible; }
+#watchShortcut { position:absolute; inset:0 auto 0 0; width:31%; border:0; padding:0; background:transparent; border-radius:48%; pointer-events:auto; cursor:pointer; }
+#watchShortcut:focus-visible { outline:2px solid #ceff93; outline-offset:-5px; background:#c2ff7510; }
+#hud:has(#watchShortcut:hover) #hudArtwork { filter:brightness(1.08); }
+.sr-only { position:absolute!important; width:1px; height:1px; padding:0; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+.hud-type { font:700 17px Consolas,monospace; letter-spacing:.8px; paint-order:stroke; stroke:#07110c; stroke-width:3px; stroke-linejoin:round; }
+.hud-label { font-size:15px; letter-spacing:2px; }.hud-name { font-size:21px; font-weight:900; }.hud-level { font-size:18px; }.hud-energy-label { font-size:13px; letter-spacing:1px; }.hud-key { font-size:14px; }
+.hud-electric { stroke-dasharray:78 13; animation:hudElectric 2.8s linear infinite; }.hud-energy-wave { animation:hudWave 3s ease-in-out infinite; }.hud-bubbles { animation:hudBubble 3.8s ease-in-out infinite; transform-origin:110px 138px; }.hud-xp-swirl { animation:hudWave 4.2s ease-in-out infinite; }.hud-xp-stars { animation:hudTwinkle 2s ease-in-out infinite alternate; }
+#hud.is-low .hud-rod { fill:#cf693d; stroke:#ffb172; animation:hudTwinkle .8s ease-in-out infinite alternate; }#hud.is-low #energyText { fill:#ffc58b; }
+#hud.is-level-up #xpFill { filter:brightness(1.5); }#hud.is-level-up .hud-level { fill:#fff3c5; }
+#hud.is-hit #healthFill { filter:brightness(1.6); }
+@keyframes hudElectric { to {stroke-dashoffset:-182;} }@keyframes hudWave { 0%,100% {transform:translateX(-5px);} 50% {transform:translateX(5px);} }@keyframes hudBubble { 0%,100% {opacity:.18;transform:translateY(1px);} 50% {opacity:.5;transform:translateY(-3px);} }@keyframes hudTwinkle { from {opacity:.45;} to {opacity:1;} }
+@media(prefers-reduced-motion:reduce) { #hud * {animation:none!important;transition:none!important;} }
+
 #hud-bottom { position:fixed; bottom:18px; left:50%; transform:translateX(-50%); display:flex; gap:10px; align-items:center; padding:10px 14px; background:#0a1512e8; border:1px solid #466b48; border-radius:9px; box-shadow:0 9px 25px #0007; white-space:nowrap; pointer-events:none; }
 .hint { font:700 11px Consolas, monospace; color:#b4c7b7; display:flex; align-items:center; gap:6px; }
 kbd { display:inline-grid; place-items:center; min-height:23px; min-width:23px; padding:3px 5px; color:#d7ff9b; background:#1b3828; border:1px solid #5e915a; border-bottom:3px solid #426d3c; border-radius:3px; font:bold 12px Consolas,monospace; }
-#watchShortcut { position:fixed; top:20px; right:20px; border:1px solid #91ed62; background:linear-gradient(160deg,#1d3427,#0b1612); color:#e5fdd5; border-radius:10px; padding:8px 12px; display:flex; align-items:center; gap:12px; box-shadow:0 8px 25px #0008; }
-.watch-symbol { width:37px; height:37px; display:grid; place-items:center; background:#a5fa51; color:#112b16; border:5px solid #253d2c; outline:2px solid #84cc4e; border-radius:50%; font-weight:1000; font-size:22px; line-height:1; transform:rotate(-6deg); }
-.watch-label { text-align:left; font:bold 11px Consolas,monospace; line-height:1.6; letter-spacing:.8px; }
-.watch-label strong { font-size:13px; display:block; color:#c2ff82; }
 #toast { position:fixed; left:50%; top:17%; transform:translate(-50%,-9px); padding:13px 20px; background:#0f241bee; border:1px solid #85e456; color:#f1ffe7; font:800 13px Consolas,monospace; text-shadow:1px 1px #111; letter-spacing:1px; box-shadow:0 5px 40px #000a; border-radius:5px; opacity:0; pointer-events:none; transition:opacity .17s, transform .17s; white-space:nowrap; max-width:90vw; overflow:hidden; text-overflow:ellipsis; }
 #toast.show { opacity:1; transform:translate(-50%,0); }
-#enemyCount { position:fixed; right:20px; top:91px; font:700 11px Consolas,monospace; color:#c3dcbd; background:#0a1811a8; padding:8px 11px; border:1px solid #3b6242; border-radius:6px; pointer-events:none; }
+#enemyCount { position:fixed; right:20px; top:20px; font:700 11px Consolas,monospace; color:#c3dcbd; background:#0a1811a8; padding:8px 11px; border:1px solid #3b6242; border-radius:6px; pointer-events:none; }
 #combo { position:fixed; bottom:83px; right:22px; font:1000 18px Consolas,monospace; letter-spacing:1px; color:#d5f9a0; text-shadow:2px 3px #000; opacity:0; transition:opacity .12s; pointer-events:none; }
 #combo.show { opacity:1; }
 #wheelLayer { position:fixed; inset:0; background:radial-gradient(circle at center,#0c1f1980,#010704dd); display:none; justify-content:center; align-items:center; z-index:15; backdrop-filter:blur(3px); touch-action:none; }
@@ -47,18 +50,67 @@ kbd { display:inline-grid; place-items:center; min-height:23px; min-width:23px; 
 #stick { position:absolute; left:35px; top:35px; width:52px; height:52px; border:2px solid #94e755; background:radial-gradient(#639f40,#233f29); border-radius:50%; box-shadow:0 2px 20px #0008; pointer-events:none; }
 .touch-btn { position:absolute; width:69px; height:69px; display:grid; place-items:center; border-radius:50%; border:2px solid #8ade62; background:#113322df; color:#dfffbc; font:900 12px Consolas,monospace; box-shadow:0 5px 15px #0009; pointer-events:auto; touch-action:none; text-align:center; }
 #btnLight {right:104px; bottom:35px;} #btnHeavy {right:20px;bottom:95px;border-color:#ffca75;color:#ffe0af;} #btnDash {right:22px;bottom:18px;width:64px;height:64px;} #btnWatch {right:26px;bottom:194px;width:60px;height:60px;}
-@media (pointer:coarse) { #touchUI {display:block;} #hud-bottom {display:none;} #help {bottom:179px;font-size:10px;} #hud {top:9px;left:9px;width:min(255px,calc(100vw - 95px));} .hud-card {padding:8px 9px;} .brand{font-size:16px; margin-bottom:5px;} .eyebrow {font-size:8px;} #watchShortcut {top:9px;right:9px;padding:5px;} .watch-symbol{width:26px;height:26px;font-size:14px;border-width:3px;} .watch-label{display:none;} #enemyCount{right:9px;top:65px;font-size:9px} #combo {bottom:161px;right:10px;font-size:13px} #wheelTitle{top:6dvh;font-size:20px} .wheel-caption{font-size:9px;bottom:-35px} #wheelClose{top:10px;right:10px} }
-@media (max-height:540px) { #hud-bottom{bottom:6px;padding:6px 8px;} #help{bottom:54px;} .wheel-wrap {height:min(69dvh,450px);width:min(69dvh,450px);} #wheelTitle{top:10px;font-size:18px;} }
+@media (pointer:coarse) { .hud-type{font-size:20px;} .hud-label{font-size:17px;} .hud-level{font-size:19px;} .hud-energy-label{font-size:15px;} #healthLabel{transform:translate(8px,39px);} #healthText{transform:translate(-8px,39px);} #xpLabel{transform:translate(8px,38px);} #xpText{transform:translate(-8px,38px);} #touchUI{display:block;} #hud-bottom{display:none;} #help{top:calc(min(540px,100vw - 12px) * .354 + 44px);bottom:auto;width:calc(100vw - 24px);font-size:10px;} #hud{top:5px;left:6px;width:min(540px,calc(100vw - 12px));} #enemyCount{right:10px;top:calc(min(540px,100vw - 12px) * .354 + 12px);font-size:9px;padding:5px 8px;} #combo{bottom:161px;right:10px;font-size:13px;} #wheelTitle{top:6dvh;font-size:20px;} .wheel-caption{font-size:9px;bottom:-35px;} #wheelClose{top:10px;right:10px;} }
+@media (max-height:600px) and (min-width:620px) { #hud{width:min(420px,45vw);top:5px;left:6px;} #enemyCount{top:10px;right:10px;} #help{top:auto;bottom:54px;width:min(440px,calc(100vw - 340px));font-size:10px;} }
+@media (max-height:540px) { #hud-bottom{bottom:6px;padding:6px 8px;} #help{top:auto;bottom:54px;} .wheel-wrap{height:min(69dvh,450px);width:min(69dvh,450px);} #wheelTitle{top:10px;font-size:18px;} }
 </style>
 </head>
 <body>
 <canvas id="game" aria-label="Campo de pruebas jugable"></canvas>
 <div id="vignette"></div>
-<div id="hud">
- <div class="hud-card"><div class="eyebrow">CAMPO DE PRUEBAS · VERSIÓN 0.8 · OMNITRIX CLÁSICO</div><div class="brand">BEN <b>10</b> <span style="font-size:11px;font-style:normal;color:#cee6c1">// MODO HUMANO</span></div><div class="bar-line"><span>● VIDA</span><span id="healthText">100 / 100</span></div><div class="bar-shell"><div id="healthFill" class="bar-fill"></div></div></div>
+<div id="hud" aria-label="Estado del jugador">
+ <svg id="hudArtwork" viewBox="0 0 650 230" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+   <linearGradient id="hudMetal" x2=".1" y2="1"><stop stop-color="#ccd4bd"/><stop offset=".22" stop-color="#697c70"/><stop offset=".5" stop-color="#233832"/><stop offset=".8" stop-color="#172321"/><stop offset="1" stop-color="#7f9580"/></linearGradient>
+   <linearGradient id="hudRim" x2=".8" y2="1"><stop stop-color="#a5bba1"/><stop offset=".3" stop-color="#405e47"/><stop offset=".7" stop-color="#11271d"/><stop offset="1" stop-color="#789575"/></linearGradient>
+   <linearGradient id="hudRod" x2="1" y2="0"><stop stop-color="#24482b"/><stop offset=".5" stop-color="#9eec65"/><stop offset=".7" stop-color="#d6ffa3"/><stop offset="1" stop-color="#375d34"/></linearGradient>
+   <linearGradient id="hudGreen" x2=".5" y2="1"><stop stop-color="#a0e958"/><stop offset=".5" stop-color="#70d139"/><stop offset="1" stop-color="#244e1e"/></linearGradient>
+   <linearGradient id="hudRed" x2="0" y2="1"><stop stop-color="#ff5363"/><stop offset=".24" stop-color="#d12445"/><stop offset=".65" stop-color="#860f30"/><stop offset="1" stop-color="#e63148"/></linearGradient>
+   <linearGradient id="hudAmber" x2="0" y2="1"><stop stop-color="#ffda77"/><stop offset=".3" stop-color="#eea527"/><stop offset=".7" stop-color="#a85d10"/><stop offset="1" stop-color="#f5b848"/></linearGradient>
+   <radialGradient id="hudLens"><stop stop-color="#193a27"/><stop offset="1" stop-color="#07140f"/></radialGradient>
+   <clipPath id="hudHourglass"><path d="M74 64 Q110 50 146 64 L122 105 L146 147 Q110 160 74 147 L98 105Z"/></clipPath>
+   <clipPath id="hudEnergyLiquidClip"><rect id="energyLiquidMask" x="68" y="52" width="84" height="107"/></clipPath>
+   <clipPath id="hudHealthClip"><rect id="healthClipWidth" x="225" y="65" width="392" height="29" rx="2"/></clipPath>
+   <clipPath id="hudXPClip"><rect id="xpClipWidth" x="225" y="131" width="0" height="29" rx="2"/></clipPath>
+   <filter id="hudShadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="3" stdDeviation="2" flood-color="#000" flood-opacity=".85"/></filter>
+   <g id="hudAntenna"><path d="M-10-3-9-60-5-65H5L9-60 10-3Z" fill="url(#hudMetal)" stroke="#081a14" stroke-width="3"/><path class="hud-rod" d="M-4-9-4-54 0-58 4-54 4-9Z" fill="url(#hudRod)" stroke="#5c9a43" stroke-width="1.5"/><path d="M-1-12V-53" stroke="#dcffb7" stroke-width="2" opacity=".7"/></g>
+  </defs>
+  <g filter="url(#hudShadow)">
+   <g stroke="#0a1814" stroke-width="3" fill="none"><path d="M179 82H189L203 75H216" stroke-width="16"/><path d="M179 132H190L205 145H216" stroke-width="16"/><path d="M179 82H189L203 75H216" stroke="url(#hudRim)" stroke-width="10"/><path d="M179 132H190L205 145H216" stroke="url(#hudRim)" stroke-width="10"/><path d="M179 81H189L203 74H216M179 131H190L205 144H216" stroke="#8abe61" stroke-width="2"/></g>
+   <use href="#hudAntenna" transform="translate(63 57) rotate(-43)"/><use href="#hudAntenna" transform="translate(157 57) rotate(43)"/><use href="#hudAntenna" transform="translate(63 154) rotate(-137)"/><use href="#hudAntenna" transform="translate(157 154) rotate(137)"/>
+   <path d="M70 29 87 22H133L150 29 170 46 184 69 192 94V122L183 146 165 167 143 182 122 188H97L73 181 52 166 36 145 28 122V94L35 70 50 47Z" fill="url(#hudMetal)" stroke="#06150f" stroke-width="4"/>
+   <circle cx="110" cy="105" r="77" fill="url(#hudRim)" stroke="#6ba350" stroke-width="3"/>
+   <path d="M45 69A75 75 0 0 1 72 40M148 40A75 75 0 0 1 177 73M177 139A75 75 0 0 1 149 171M70 171A75 75 0 0 1 42 139" fill="none" stroke="#b9c6ad" stroke-width="7"/>
+   <circle cx="110" cy="105" r="64" fill="#0a1b13" stroke="#132d1c" stroke-width="4"/>
+   <circle cx="110" cy="105" r="58" fill="url(#hudLens)" stroke="#6c9656" stroke-width="2"/>
+   <path d="M74 64 Q110 50 146 64 L122 105 L146 147 Q110 160 74 147 L98 105Z" fill="#294c32" stroke="#07120d" stroke-width="4"/>
+   <g clip-path="url(#hudHourglass)">
+    <rect id="energyFill" x="68" y="52" width="84" height="107" fill="url(#hudGreen)"/>
+    <path id="energySurface" class="hud-energy-wave" d="M45 52Q65 47 85 52T125 52T165 52" fill="none" stroke="#caff82" stroke-width="3"/>
+    <path d="M78 139Q108 150 141 139" fill="none" stroke="#d9ff9b" stroke-width="1.5" opacity=".28"/>
+    <g clip-path="url(#hudEnergyLiquidClip)"><g class="hud-bubbles" fill="#d5ff9a" opacity=".4"><circle cx="89" cy="138" r="1.5"/><circle cx="124" cy="130" r="1"/><circle cx="114" cy="145" r="1.6"/></g></g>
+   </g>
+   <path d="M76 66Q94 58 108 61" fill="none" stroke="#d0f4ad" stroke-width="3" opacity=".2"/>
+   <g fill="#9adb69" stroke="#314d2b" stroke-width="3"><circle cx="110" cy="33" r="7"/><circle cx="38" cy="105" r="7"/><circle cx="182" cy="105" r="7"/><circle cx="110" cy="177" r="7"/></g>
+   <g fill="#d3ff9f" opacity=".8"><circle cx="108" cy="31" r="2"/><circle cx="36" cy="103" r="2"/><circle cx="180" cy="103" r="2"/><circle cx="108" cy="175" r="2"/></g>
+   <g><path d="M215 54H625L635 64V95L625 105H215L205 95V64Z" fill="url(#hudMetal)" stroke="#071510" stroke-width="4"/><path d="M221 62H619L626 69V91L619 98H221L214 91V69Z" fill="#2b0b17" stroke="#902a37" stroke-width="2"/><rect id="healthFill" x="225" y="65" width="392" height="29" rx="2" fill="url(#hudRed)"/>
+    <g clip-path="url(#hudHealthClip)"><path class="hud-electric" d="M226 84 248 80 254 69 268 84 282 79 293 91 306 80 322 82 339 72 351 81 368 78 384 89 401 80 419 83 432 73 447 82 469 76 480 87 501 79 524 82 535 73 553 82 574 77 594 83 619 79" fill="none" stroke="#ffb5a2" stroke-width="1.4" opacity=".5"/><path d="M226 67H616" stroke="#ffb9ac" opacity=".5"/></g>
+    <path d="M215 56H625L633 64M208 66V94L216 102" fill="none" stroke="#becab5" stroke-width="1.5" opacity=".65"/>
+   </g>
+   <g><path d="M215 120H625L635 130V161L625 171H215L205 161V130Z" fill="url(#hudMetal)" stroke="#071510" stroke-width="4"/><path d="M221 128H619L626 135V157L619 164H221L214 157V135Z" fill="#291b09" stroke="#a87a35" stroke-width="2"/><rect id="xpFill" x="225" y="131" width="0" height="29" rx="2" fill="url(#hudAmber)"/>
+    <g clip-path="url(#hudXPClip)"><path class="hud-xp-swirl" d="M209 148Q247 131 281 147T351 144T421 148T491 143T563 146T640 143M215 155Q251 143 290 155T374 153T458 154T548 151T640 154" fill="none" stroke="#ffeb9b" stroke-width="2" opacity=".5"/><path class="hud-xp-stars" d="M254 139V147M250 143H258M324 150V156M321 153H327M420 136V144M416 140H424M535 148V156M531 152H539M587 136V142M584 139H590" stroke="#fff1bc" stroke-width="1.5"/></g>
+    <path d="M215 122H625L633 130M208 132V160L216 168" fill="none" stroke="#becab5" stroke-width="1.5" opacity=".65"/>
+   </g>
+  </g>
+  <g class="hud-type"><text id="healthLabel" x="222" y="46" class="hud-label" fill="#ffa2a8">VIDA</text><text id="healthText" x="620" y="46" text-anchor="end" fill="#ffe3de">100 / 100</text><text id="xpLabel" x="222" y="113" class="hud-label" fill="#efba63">XP</text><text id="xpText" x="620" y="113" text-anchor="end" fill="#ffe3a5">0 / 100</text><text id="formName" x="221" y="194" class="hud-name" fill="#d5f6bb">BEN</text><text id="levelText" x="620" y="194" text-anchor="end" class="hud-level" fill="#f5d089">NIVEL 1</text><text id="energyText" x="221" y="216" class="hud-energy-label" fill="#92c777">ENERGÍA 100% · LISTO</text><text x="110" y="211" text-anchor="middle" class="hud-key" fill="#bbdb9c">[R]</text></g>
+ </svg>
+ <button id="watchShortcut" aria-label="Abrir Omnitrix" aria-describedby="energyText"><span class="sr-only">Abrir Omnitrix · R</span></button>
+ <div id="energyGauge" class="sr-only" role="progressbar" aria-label="Energía del Omnitrix" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"></div>
+ <div id="healthGauge" class="sr-only" role="progressbar" aria-label="Vida" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"></div>
+ <div id="xpGauge" class="sr-only" role="progressbar" aria-label="Experiencia para el siguiente nivel" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
 </div>
-<button id="watchShortcut" aria-label="Abrir Omnitrix"><span class="watch-symbol">⌛</span><span class="watch-label"><strong>OMNITRIX</strong>R · ELEGIR ALIEN</span></button>
-<div id="enemyCount">OBJETIVOS DE ENTRENAMIENTO: <span id="count">0/5</span></div>
+
+<div id="enemyCount">ENTRENAMIENTO · OBJETIVOS: <span id="count">0</span></div>
 <div id="combo"></div>
 <div id="hud-bottom"><div class="hint"><kbd>WASD</kbd> Mover / mirar</div><div class="hint"><kbd>CLIC IZQ.</kbd> Leve</div><div class="hint"><kbd>CLIC DER.</kbd> Fuerte</div><div class="hint"><kbd>ESPACIO</kbd> Giro</div><div class="hint"><kbd>R</kbd> Omnitrix</div></div>
 <div id="help">Orienta a Ben con WASD o las flechas. Los golpes siguen esa dirección. Pulsa <b style="color:#b8fa79">R</b> para abrir el Omnitrix.</div>
@@ -69,6 +121,188 @@ kbd { display:inline-grid; place-items:center; min-height:23px; min-width:23px; 
  <button id="wheelClose">CERRAR ✕</button>
 </div>
 <div id="touchUI"><div id="joystick"><div id="stick"></div></div><button class="touch-btn" id="btnLight">LEVE</button><button class="touch-btn" id="btnHeavy">FUERTE</button><button class="touch-btn" id="btnDash">GIRO</button><button class="touch-btn" id="btnWatch">R</button></div>
+<!-- PLAYER_STATS_START -->
+<script>
+/* Shared by the standalone demo and the Node tests. Alien graphics are added
+   separately; transform() is the integration point for a future playable form. */
+(function (root, factory) {
+  const api = factory();
+  if (typeof module === "object" && module.exports) module.exports = api;
+  else root.Ben10Stats = api;
+})(typeof globalThis !== "undefined" ? globalThis : this, function () {
+  "use strict";
+  const DEFAULTS = Object.freeze({
+    maxHealth: 100,
+    maxEnergy: 100,
+    passiveDrain: 1.5,
+    rechargeRate: 8,
+    rechargeDelay: 3,
+    specialCost: 20,
+    comboWindow: 1.35,
+    xpBase: 100,
+    xpStep: 50,
+    targetXP: 40,
+  });
+  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+  class PlayerStats {
+    constructor(config = {}) {
+      this.config = Object.freeze({ ...DEFAULTS, ...config });
+      this.reset();
+    }
+    reset() {
+      this.health = this.config.maxHealth;
+      this.energy = this.config.maxEnergy;
+      this.form = null;
+      this.level = 1;
+      this.xp = 0;
+      this.totalXP = 0;
+      this.comboHits = 0;
+      this.comboLeft = 0;
+      this.rechargeLeft = 0;
+      this.events = [];
+    }
+    get xpNeeded() {
+      return this.config.xpBase + (this.level - 1) * this.config.xpStep;
+    }
+    get transformed() {
+      return this.form !== null;
+    }
+    get specialReady() {
+      return (
+        this.transformed &&
+        this.health > 0 &&
+        this.comboHits >= 2 &&
+        this.comboLeft > 0 &&
+        this.energy >= this.config.specialCost
+      );
+    }
+    setHealth(value) {
+      if (Number.isFinite(value))
+        this.health = clamp(value, 0, this.config.maxHealth);
+      return this.health;
+    }
+    damage(amount) {
+      if (!Number.isFinite(amount) || amount <= 0) return 0;
+      const before = this.health;
+      this.setHealth(this.health - amount);
+      if (before > 0 && this.health === 0) {
+        this.clearCombo();
+        this.returnToBen("defeat");
+        this.events.push({ type: "defeated" });
+      }
+      return before - this.health;
+    }
+    transform(form) {
+      if (
+        !form ||
+        typeof form.id !== "string" ||
+        !form.id.trim() ||
+        form.id === "ben" ||
+        this.energy <= 0 ||
+        this.health <= 0
+      )
+        return false;
+      this.form = { id: form.id, name: String(form.name || form.id) };
+      this.clearCombo();
+      this.rechargeLeft = 0;
+      this.events.push({ type: "form-started", form: { ...this.form } });
+      return true;
+    }
+    returnToBen(reason = "manual") {
+      if (!this.transformed) return false;
+      const previous = this.form;
+      this.form = null;
+      this.clearCombo();
+      this.rechargeLeft = this.config.rechargeDelay;
+      this.events.push({ type: "form-ended", reason, previous });
+      return true;
+    }
+    clearCombo() {
+      this.comboHits = 0;
+      this.comboLeft = 0;
+    }
+    recordLightHit() {
+      if (this.health <= 0) return;
+      this.comboHits = Math.min(2, this.comboHits + 1);
+      this.comboLeft = this.config.comboWindow;
+    }
+    useComboSpecial() {
+      if (!this.specialReady) return false;
+      const form = { ...this.form },
+        cost = this.config.specialCost;
+      this.energy = Math.max(0, this.energy - cost);
+      this.clearCombo();
+      this.events.push({ type: "special-used", form, cost });
+      if (this.energy === 0) this.returnToBen("empty");
+      return { form, cost };
+    }
+    awardXP(amount) {
+      if (!Number.isFinite(amount) || amount <= 0) return 0;
+      const earned = Math.floor(amount);
+      this.xp += earned;
+      this.totalXP += earned;
+      while (this.xp >= this.xpNeeded) {
+        this.xp -= this.xpNeeded;
+        this.level++;
+        this.events.push({ type: "level-up", level: this.level });
+      }
+      return earned;
+    }
+    tick(dt) {
+      if (!Number.isFinite(dt) || dt <= 0) return;
+      this.comboLeft = Math.max(0, this.comboLeft - dt);
+      if (this.comboLeft === 0) this.comboHits = 0;
+      let remaining = dt;
+      if (this.transformed) {
+        const active =
+          this.config.passiveDrain > 0
+            ? Math.min(dt, this.energy / this.config.passiveDrain)
+            : dt;
+        this.energy = Math.max(
+          0,
+          this.energy - active * this.config.passiveDrain,
+        );
+        remaining -= active;
+        if (this.energy < 1e-8) {
+          this.energy = 0;
+          this.returnToBen("empty");
+        }
+      }
+      if (!this.transformed && this.health > 0 && remaining > 0) {
+        const waiting = Math.min(remaining, this.rechargeLeft);
+        this.rechargeLeft -= waiting;
+        remaining -= waiting;
+        this.energy = clamp(
+          this.energy + remaining * this.config.rechargeRate,
+          0,
+          this.config.maxEnergy,
+        );
+      }
+    }
+    drainEvents() {
+      return this.events.splice(0);
+    }
+    snapshot() {
+      return {
+        health: this.health,
+        maxHealth: this.config.maxHealth,
+        energy: this.energy,
+        maxEnergy: this.config.maxEnergy,
+        form: this.form ? { ...this.form } : null,
+        level: this.level,
+        xp: this.xp,
+        xpNeeded: this.xpNeeded,
+        totalXP: this.totalXP,
+        comboHits: this.comboHits,
+        specialReady: this.specialReady,
+      };
+    }
+  }
+  return { PlayerStats, DEFAULTS };
+});
+
+</script>
+<!-- PLAYER_STATS_END -->
 <script>
 
 (()=>{'use strict';
@@ -83,7 +317,41 @@ const CW=64,CH=64,ROW={down:0,up:1,right:2,left:3,light1:4,light2:5,light3:6,hea
 const FRAMES={down:8,up:8,right:8,left:8,light1:4,light2:4,light3:4,heavy1:6,heavy2:6,dash:8,omnitrix:8,hurt:4,defeat:6};
 const WORLD={w:2400,h:1800}, TILE=48;let screenW=window.innerWidth,screenH=window.innerHeight,dpr=1;
 let cam={x:0,y:0,zoom:1.11},t=0,lastTime=performance.now(),shake=0,flash=0;
-const player={x:1210,y:915,vx:0,vy:0,dir:'down',faceX:0,faceY:1,speed:247,health:100,mode:'idle',modeTime:0,modeDur:0,runClock:0,lightN:0,heavyN:0,lastLight:-5,lastHeavy:-5,lastDash:-5,hit:false,selectedAlien:-1,moving:false,idleClock:0,actionDir:'down',actionX:0,actionY:1};
+const player={x:1210,y:915,vx:0,vy:0,dir:'down',faceX:0,faceY:1,speed:247,health:100,mode:'idle',modeTime:0,modeDur:0,runClock:0,lightN:0,heavyN:0,lastLight:-5,lastHeavy:-5,lastDash:-5,hit:false,selectedAlien:-1,specialQueued:false,moving:false,idleClock:0,actionDir:'down',actionX:0,actionY:1};
+const stats=new Ben10Stats.PlayerStats();
+Object.defineProperty(player,'health',{get:()=>stats.health,set:value=>stats.setHealth(value),enumerable:true,configurable:true});
+const hudElements=Object.fromEntries(['hud','healthFill','healthClipWidth','healthText','healthGauge','xpFill','xpClipWidth','xpText','xpGauge','levelText','formName','energyFill','energyLiquidMask','energySurface','energyText','energyGauge'].map(id=>[id,document.getElementById(id)]));
+let hudSignature='',hudLevelFlash=0,hudHitFlash=0,hudLastHealth=stats.health;
+function syncHud(){
+ const s=stats.snapshot(),energy=clamp(s.energy/s.maxEnergy,0,1),life=clamp(s.health/s.maxHealth,0,1),xp=clamp(s.xp/s.xpNeeded,0,1);
+ const full=energy>=1-1e-8,low=energy<=.2;
+ const signature=[s.health,s.maxHealth,Math.round(energy*1000),full,low,s.form?.id||'',s.xp,s.xpNeeded,s.level,s.form?.name||'BEN',hudLevelFlash>0,hudHitFlash>0].join('|');
+ if(signature===hudSignature)return;hudSignature=signature;
+ const width=392*life,xpWidth=392*xp,liquidHeight=107*energy,surface=159-liquidHeight;
+ hudElements.healthFill.setAttribute('width',width);hudElements.healthClipWidth.setAttribute('width',width);
+ hudElements.healthText.textContent=Math.ceil(s.health)+' / '+s.maxHealth;
+ hudElements.healthGauge.setAttribute('aria-valuenow',s.health);hudElements.healthGauge.setAttribute('aria-valuemax',s.maxHealth);
+ hudElements.xpFill.setAttribute('width',xpWidth);hudElements.xpClipWidth.setAttribute('width',xpWidth);
+ hudElements.xpText.textContent=s.xp+' / '+s.xpNeeded;hudElements.levelText.textContent='NIVEL '+s.level;
+ hudElements.xpGauge.setAttribute('aria-valuenow',s.xp);hudElements.xpGauge.setAttribute('aria-valuemax',s.xpNeeded);hudElements.xpGauge.setAttribute('aria-valuetext',s.xp+' de '+s.xpNeeded+' XP. Nivel '+s.level);
+ hudElements.formName.textContent=(s.form?.name||'BEN').toUpperCase();
+ hudElements.energyFill.setAttribute('y',surface);hudElements.energyFill.setAttribute('height',liquidHeight);hudElements.energyLiquidMask.setAttribute('y',surface);hudElements.energyLiquidMask.setAttribute('height',liquidHeight);
+ hudElements.energySurface.setAttribute('d',`M45 ${surface}Q65 ${surface-4} 85 ${surface}T125 ${surface}T165 ${surface}`);
+ const percent=Math.ceil(energy*100),status=s.form?'ACTIVO':full?'LISTO':'RECARGANDO';
+ hudElements.energyText.textContent='ENERGÍA '+percent+'% · '+status;
+ hudElements.energyGauge.setAttribute('aria-valuenow',Math.round(s.energy*10)/10);hudElements.energyGauge.setAttribute('aria-valuemax',s.maxEnergy);hudElements.energyGauge.setAttribute('aria-valuetext',percent+' por ciento. '+status.toLowerCase());
+ hudElements.hud.classList.toggle('is-low',low);hudElements.hud.classList.toggle('is-level-up',hudLevelFlash>0);hudElements.hud.classList.toggle('is-hit',hudHitFlash>0);
+}
+function updateStats(dt){
+ stats.tick(dt);hudLevelFlash=Math.max(0,hudLevelFlash-dt);hudHitFlash=Math.max(0,hudHitFlash-dt);
+ if(stats.health<hudLastHealth)hudHitFlash=.28;hudLastHealth=stats.health;
+ for(const event of stats.drainEvents()){
+  if(event.type==='level-up'){hudLevelFlash=1.1;floatText(player.x,player.y-140,'¡NIVEL '+event.level+'!','#ffd586');showToast('NIVEL '+event.level+' · SIGUE ENTRENANDO');}
+  if(event.type==='form-ended'){player.selectedAlien=-1;player.specialQueued=false;flash=.65;if(event.reason==='empty')showToast('ENERGÍA AGOTADA · VUELVES A BEN');}
+ }
+ syncHud();
+}
+
 const keys=new Set(),pointer={x:0,y:0,active:false},touchMove={x:0,y:0};
 const state={wheel:false,wheelHover:-1,down:0,toastTimer:0,comboTimer:0,kills:0};
 let pieces=[],dummyList=[],props=[];
@@ -286,19 +554,20 @@ function floatText(x,y,str,color){pieces.push({type:'text',x,y,vx:0,vy:-45,life:
 function updateParticles(dt){pieces=pieces.filter(p=>p.life>0);for(const p of pieces){p.x+=p.vx*dt;p.y+=p.vy*dt;p.life-=dt;if(p.type==='dust'){p.vx*=.95;p.vy*=.95}}}
 function drawParticles(){for(const p of pieces){ctx.globalAlpha=clamp(p.life/p.max,0,1);if(p.type==='text'){ctx.textAlign='center';ctx.font='900 18px Consolas,monospace';ctx.fillStyle='#172219';ctx.fillText(p.txt,p.x+2,p.y+2);ctx.fillStyle=p.color;ctx.fillText(p.txt,p.x,p.y)}else{ctx.fillStyle=p.color;ctx.fillRect(Math.floor(p.x-p.size/2),Math.floor(p.y-p.size/2),Math.ceil(p.size),Math.ceil(p.size))}}ctx.globalAlpha=1}
 function collide(x,y){if(x<120||y<100||x>WORLD.w-110||y>WORLD.h-110)return true;for(const p of props)if(p.block&&dist(x,y,p.x,p.y)<p.r+19)return true;for(const d of dummyList)if(d.alive&&dist(x,y,d.x,d.y-2)<35)return true;return false}
-function startMode(mode,duration){player.mode=mode;player.modeTime=0;player.modeDur=duration;player.hit=false;player.idleClock=0;player.actionDir=player.dir;player.actionX=player.faceX;player.actionY=player.faceY}
+function startMode(mode,duration){if(!mode.startsWith('heavy'))player.specialQueued=false;player.mode=mode;player.modeTime=0;player.modeDur=duration;player.hit=false;player.idleClock=0;player.actionDir=player.dir;player.actionX=player.faceX;player.actionY=player.faceY}
 function faceForAction(){const input=moveInput();if(input.x||input.y)faceFrom(input.x,input.y)}
 function moveInput(){let x=(keys.has('d')||keys.has('arrowright')?1:0)-(keys.has('a')||keys.has('arrowleft')?1:0);let y=(keys.has('s')||keys.has('arrowdown')?1:0)-(keys.has('w')||keys.has('arrowup')?1:0);x+=touchMove.x;y+=touchMove.y;let l=Math.hypot(x,y);return l?{x:x/Math.max(1,l),y:y/Math.max(1,l)}:{x:0,y:0}}
 function faceFrom(dx,dy){if(Math.abs(dx)>Math.abs(dy)){player.dir=dx<0?'left':'right';player.faceX=dx<0?-1:1;player.faceY=0;}else{player.dir=dy<0?'up':'down';player.faceX=0;player.faceY=dy<0?-1:1}}
 function lightAttack(){if(state.wheel||player.mode==='omnitrix'||player.mode==='dash'||player.mode==='hurt'||t-player.lastLight<.24||player.mode.startsWith('heavy'))return;faceForAction();player.lightN=t-player.lastLight<.8?player.lightN%3+1:1;player.lastLight=t;startMode('light'+player.lightN,.29);showCombo('COMBO LEVE '+player.lightN+' / 3');}
-function heavyAttack(){if(state.wheel||player.mode==='omnitrix'||player.mode==='dash'||player.mode==='hurt'||t-player.lastHeavy<.89)return;faceForAction();player.heavyN=player.heavyN%2+1;player.lastHeavy=t;startMode('heavy'+player.heavyN,.88);showCombo('COMBO FUERTE '+player.heavyN+' / 2')}
+function heavyAttack(){if(state.wheel||player.mode==='omnitrix'||player.mode==='dash'||player.mode==='hurt'||t-player.lastHeavy<.89)return;faceForAction();player.specialQueued=stats.specialReady;player.heavyN=player.heavyN%2+1;player.lastHeavy=t;startMode('heavy'+player.heavyN,.88);showCombo(player.specialQueued?'COMBO · ESPECIAL PREPARADO':'COMBO FUERTE '+player.heavyN+' / 2')}
 function dodge(){if(state.wheel||player.mode==='omnitrix'||player.mode==='dash'||t-player.lastDash<DASH.cooldown)return;let inp=moveInput();if(inp.x||inp.y)faceFrom(inp.x,inp.y);player.lastDash=t;startMode('dash',DASH.duration);if(inp.x||inp.y){const length=Math.hypot(inp.x,inp.y);player.actionX=inp.x/length;player.actionY=inp.y/length}spawnDust(player.x,player.y,8,'#b5aea1')}
 function attackContactTime(){const vertical=player.actionDir==='up'||player.actionDir==='down';return player.modeDur*(player.mode.startsWith('heavy')?(vertical?5/8:3/6):(vertical?3/8:2/4))}
-function calculateHit(){let heavy=player.mode.startsWith('heavy'),damage=heavy?45:player.lightN===3?25:17;let reach=heavy?125:105;let fx=player.actionX,fy=player.actionY;let got=false;
- for(const d of dummyList){if(!d.alive||dist(player.x,player.y,d.x,d.y)>reach)continue;let dx=d.x-player.x,dy=d.y-player.y;let dot=(dx*fx+dy*fy)/(Math.hypot(dx,dy)||1);if(dot<.35)continue;got=true;d.health=Math.max(0,d.health-damage);d.hit=.28;d.shake=heavy?2:1;spawnHit(d.x,d.y-48,heavy);floatText(d.x,d.y-125,'-'+damage,heavy?'#ffe2a2':'#d8fbaa');if(d.health<=0){d.alive=false;d.respawn=4.2;state.kills++;document.getElementById('count').textContent=state.kills+' / 6';spawnDust(d.x,d.y-25,20,'#ac9572')}}
+function calculateHit(){const special=player.specialQueued&&stats.specialReady;let heavy=player.mode.startsWith('heavy'),damage=special?75:heavy?45:player.lightN===3?25:17;let reach=special?165:heavy?125:105;let fx=player.actionX,fy=player.actionY;let got=false;
+ for(const d of dummyList){if(!d.alive||dist(player.x,player.y,d.x,d.y)>reach)continue;let dx=d.x-player.x,dy=d.y-player.y;let dot=(dx*fx+dy*fy)/(Math.hypot(dx,dy)||1);if(dot<.35)continue;got=true;d.health=Math.max(0,d.health-damage);d.hit=.28;d.shake=heavy?2:1;spawnHit(d.x,d.y-48,heavy);floatText(d.x,d.y-125,'-'+damage,heavy?'#ffe2a2':'#d8fbaa');if(d.health<=0){d.alive=false;d.respawn=4.2;state.kills++;document.getElementById('count').textContent=String(state.kills);stats.awardXP(stats.config.targetXP);floatText(d.x,d.y-145,'+'+stats.config.targetXP+' XP','#ffc56f');spawnDust(d.x,d.y-25,20,'#ac9572')}}
+ if(special){stats.useComboSpecial();spawnHit(player.x+fx*58,player.y-38+fy*30,true);flash=.4;showCombo('ESPECIAL · −'+stats.config.specialCost+' ENERGÍA');}else if(!heavy&&got){stats.recordLightHit();if(stats.specialReady)showCombo('ESPECIAL LISTO · GOLPE FUERTE');}else if(heavy||!got){stats.clearCombo();}player.specialQueued=false;
  if(got)shake=Math.max(shake,heavy?8:4);else spawnDust(player.x+fx*28,player.y+fy*15,heavy?5:2,'#d1d9c5')
 }
-function update(dt){if(state.wheel||!assetsReady)return;t+=dt;let input=moveInput(),moving=(input.x!==0||input.y!==0);const mode=player.mode,dashStart=player.modeTime,dashDt=Math.min(dt,Math.max(0,DASH.duration-dashStart));
+function update(dt){if(state.wheel||!assetsReady){syncHud();return;}updateStats(dt);t+=dt;let input=moveInput(),moving=(input.x!==0||input.y!==0);const mode=player.mode,dashStart=player.modeTime,dashDt=Math.min(dt,Math.max(0,DASH.duration-dashStart));
  if(mode!=='idle'){player.modeTime+=dt;if((mode.startsWith('light')||mode.startsWith('heavy'))&&!player.hit&&player.modeTime>attackContactTime()){calculateHit();player.hit=true}if(player.modeTime>=player.modeDur){player.mode='idle';player.modeTime=0;player.modeDur=0;player.hit=false;player.idleClock=0}}
  if(moving&&player.mode==='idle')faceFrom(input.x,input.y)
  const rolling=mode==='dash',locked=player.mode==='omnitrix';
@@ -311,7 +580,7 @@ function update(dt){if(state.wheel||!assetsReady)return;t+=dt;let input=moveInpu
  const moved=dist(beforeX,beforeY,player.x,player.y);player.moving=moved>.001&&(player.mode!=='idle'||moving);if(player.mode==='idle'&&player.moving){player.runClock+=moved/player.speed*1.1;player.idleClock=0;if(rng()<dt*7)spawnDust(player.x,player.y-1,1,'#8c9386')}else if(player.mode==='idle'){player.runClock=0;player.idleClock+=dt}
  if(rolling&&rng()<dt*38)spawnDust(player.x,player.y-3,1);
  for(const d of dummyList){if(d.shake>0)d.shake=Math.max(0,d.shake-dt*8);if(d.hit>0)d.hit-=dt;if(!d.alive){d.respawn-=dt;if(d.respawn<=0){d.alive=true;d.health=100;showToast('OBJETIVO REPARADO')}}}
- updateParticles(dt);flash=Math.max(0,flash-dt*1.8);shake=Math.max(0,shake-dt*23);
+ updateParticles(dt);flash=Math.max(0,flash-dt*1.8);shake=Math.max(0,shake-dt*23);updateStats(0);
 }
 function framePlayer(){
  if(player.mode!=='idle'){
@@ -361,7 +630,7 @@ function pointerPos(ev){const r=game.getBoundingClientRect();pointer.x=(ev.clien
 game.addEventListener('pointermove',pointerPos);
 game.addEventListener('pointerdown',e=>{e.preventDefault();pointerPos(e);if(e.button===0)lightAttack();else if(e.button===2)heavyAttack()});
 game.addEventListener('contextmenu',e=>e.preventDefault());document.addEventListener('contextmenu',e=>e.preventDefault());
-window.addEventListener('keydown',e=>{let k=e.key.toLowerCase();if([' ','arrowup','arrowdown','arrowleft','arrowright'].includes(k))e.preventDefault();if(k==='r'&&!e.repeat){toggleWheel();return}if(state.wheel){if(k==='escape'){toggleWheel(false)}else if(/^[0-9]$/.test(k)){selectSlot(k==='0'?9:Number(k)-1)}return}keys.add(k);if(k===' '&&!e.repeat)dodge();});
+window.addEventListener('keydown',e=>{let k=e.key.toLowerCase();if(k===' '&&e.target.closest?.('button')?.matches(':focus-visible'))return;if([' ','arrowup','arrowdown','arrowleft','arrowright'].includes(k))e.preventDefault();if(k==='r'&&!e.repeat){toggleWheel();return}if(state.wheel){if(k==='escape'){toggleWheel(false)}else if(/^[0-9]$/.test(k)){selectSlot(k==='0'?9:Number(k)-1)}return}keys.add(k);if(k===' '&&!e.repeat)dodge();});
 window.addEventListener('keyup',e=>{keys.delete(e.key.toLowerCase());if(player.mode==='idle'){const input=moveInput();if(!input.x&&!input.y){player.moving=false;player.runClock=0;player.idleClock=0}}});window.addEventListener('blur',()=>{keys.clear();touchMove.x=0;touchMove.y=0;player.moving=false;player.runClock=0;player.idleClock=0});
 // Omnitrix selection: 10 empty placeholders, only the activation animation exists so far.
 const layer=document.getElementById('wheelLayer'),wc=document.getElementById('wheelCanvas'),wctx=wc.getContext('2d');
@@ -390,7 +659,7 @@ const readyPromise=Promise.all([loadImage(sheet),loadImage(verticalSheet),loadIm
  mainAtlas=prepareAtlas(sheet,8,14,[8,8,8,8,4,4,4,6,6,5,8,4,6,8]);
  verticalAtlas=prepareAtlas(verticalSheet,8,4,[8,8,8,8]);
  const up=mainAtlas.rows[ROW.up][0].bodyHeight,down=mainAtlas.rows[ROW.down][0].bodyHeight;
- normalizeAtlas(verticalAtlas,[up,down,up,down]);registerWatchRig(mainAtlas,WATCH_LIMBS.main);registerWatchRig(verticalAtlas,WATCH_LIMBS.vertical);watchIcon=watchSheet;assetsReady=true;showToast('DEMO LISTA · GOLPES SEGÚN TU DIRECCIÓN');
+ normalizeAtlas(verticalAtlas,[up,down,up,down]);registerWatchRig(mainAtlas,WATCH_LIMBS.main);registerWatchRig(verticalAtlas,WATCH_LIMBS.vertical);watchIcon=watchSheet;assetsReady=true;syncHud();showToast('DEMO LISTA · GOLPES SEGÚN TU DIRECCIÓN');
 }).catch(error=>showToast(error.message));
 })();
 

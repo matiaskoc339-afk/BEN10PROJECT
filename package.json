@@ -2,12 +2,14 @@
   "name": "ben10-demo",
   "version": "0.8.0",
   "private": true,
-  "description": "Demo v0.8 de Ben 10, con Omnitrix clásico y animaciones por fotogramas.",
+  "description": "Demo v0.8 de Ben 10, con HUD del Omnitrix, vida y progresión de XP.",
   "scripts": {
     "start": "python3 -m http.server 8000 --bind 0.0.0.0",
-    "test": "node tests/character.test.cjs",
-    "test:browser": "node tests/character.test.cjs",
-    "build:omnitrix": "node scripts/bake-omnitrix.cjs"
+    "test": "npm run test:stats && npm run test:browser",
+    "test:stats": "node --test tests/stats.test.cjs",
+    "test:browser": "node tests/character.test.cjs && node tests/hud.test.cjs",
+    "build:omnitrix": "node scripts/bake-omnitrix.cjs",
+    "build:stats": "node scripts/embed-stats.cjs"
   },
   "devDependencies": {
     "playwright": "1.62.1"
