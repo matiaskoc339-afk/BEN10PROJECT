@@ -13,9 +13,16 @@ const dir = path.join(root, 'assets/aliens');
     const start=html.indexOf('function prepareAtlas('),end=html.indexOf('\nfunction normalizeAtlas(',start);
     await page.setContent('<html><body></body></html>');
     await page.addScriptTag({content:html.slice(start,end)+';window.__compile={prepareAtlas};'});
-    const sources = ['heatblast-source.png','heatblast-combat-source.png'].map((name,index)=>({
-      src:'data:image/png;base64,'+fs.readFileSync(path.join(dir,name)).toString('base64'),rows:12,keep:index?12:8
-    }));
+    const layouts=[
+      {name:'heatblast-source.png',rows:12,select:[0,1,2,3],allGuards:true,pivot:'chest'},
+      {name:'heatblast-run-source.png',rows:4,select:[0,1,2,3],pivot:'hips'},
+      {name:'heatblast-combat-source.png',rows:12,select:[8,9,10,11],pivot:'chest'},
+      {name:'heatblast-melee-source.png',rows:12,select:Array.from({length:12},(_,i)=>i),pivot:'hips'},
+      {name:'heatblast-front-melee-source.png',rows:4,select:[0,1,2,3],replace:[12,13,16,17],pivot:'hips'},
+      {name:'heatblast-cast-source.png',rows:8,select:Array.from({length:8},(_,i)=>i),pivot:'hips'},
+      {name:'heatblast-front-cast-source.png',rows:2,select:[0,1],replace:[24,25],pivot:'hips'}
+    ];
+    const sources=layouts.map(layout=>({...layout,src:'data:image/png;base64,'+fs.readFileSync(path.join(dir,layout.name)).toString('base64')}));
     const result = await page.evaluate(async sources => {
       const frames=[];let rows=0;
       for(const [index,source] of sources.entries()){
@@ -29,11 +36,12 @@ const dir = path.join(root, 'assets/aliens');
         cleanContext.putImageData(pixels,0,0);
         const image=new Image();image.src=clean.toDataURL('image/png');await image.decode();
         const atlas=__compile.prepareAtlas(image,8,source.rows,Array(source.rows).fill(8));
-        const guards=(index?atlas.rows.slice(0,4).map(row=>row[0]):atlas.rows.slice(0,4).flat()).map(f=>f.bodyHeight).sort((a,b)=>a-b);
+        const guards=(source.allGuards?atlas.rows.slice(0,4).flat():atlas.rows.slice(0,4).map(row=>row[0])).map(f=>f.bodyHeight).sort((a,b)=>a-b);
         const scale=80/guards[Math.floor(guards.length/2)];
-        const selected=index?[...atlas.rows.slice(8,12),...atlas.rows.slice(0,8)]:atlas.rows.slice(0,8);
-        selected.forEach((row,r)=>row.forEach(frame=>{frame.scale=scale;frame.row=rows+r;frames.push(frame);}));
-        rows+=source.keep;
+        const selected=source.select.map(row=>atlas.rows[row]);
+        if(source.replace)for(let i=frames.length-1;i>=0;i--)if(source.replace.includes(frames[i].row))frames.splice(i,1);
+        selected.forEach((row,r)=>row.forEach(frame=>{frame.scale=scale;frame.pivot=source.pivot;frame.row=source.replace?source.replace[r]:rows+r;frames.push(frame);}));
+        if(!source.replace)rows+=selected.length;
       }
       let extentX=0, extentUp=0, extentDown=0;
       for (const frame of frames) {
@@ -49,6 +57,16 @@ const dir = path.join(root, 'assets/aliens');
         }
         if(!badgePixels&&!rockPixels)throw new Error('Cannot register Heatblast '+frame.row+':'+frame.col);
         frame.anchorX=badgePixels?badgeX/badgePixels:rockX/rockPixels;
+        if(frame.pivot==='hips'){
+          // Keep the pelvis over the collider while letting shoulders, chest and
+          // the casting arm rotate and lean through the action.
+          const chest=frame.anchorX;let hipsX=0,hipsPixels=0;
+          for(let y=Math.floor(top+frame.bodyHeight*.58);y<top+frame.bodyHeight*.78;y++)for(let x=Math.max(0,Math.floor(chest-frame.bodyHeight*.2));x<Math.min(frame.w,chest+frame.bodyHeight*.2);x++){
+            if(y<0||y>=frame.h)continue;const i=(y*frame.w+x)*4,r=p[i],g=p[i+1],b=p[i+2];
+            if(p[i+3]>160&&r>55&&r>g*1.5&&r>b*1.6){hipsX+=x;hipsPixels++;}
+          }
+          if(hipsPixels>=8)frame.anchorX=hipsX/hipsPixels;
+        }
         extentX=Math.max(extentX,frame.anchorX*scale,(frame.w-frame.anchorX)*scale);
         extentUp=Math.max(extentUp,frame.anchorY*scale);
         extentDown=Math.max(extentDown,(frame.h-frame.anchorY)*scale);
@@ -66,7 +84,7 @@ const dir = path.join(root, 'assets/aliens');
         for(let y=0;y<cellHeight;y++)for(let x=0;x<cellWidth;x++)if(pixels[(y*cellWidth+x)*4+3]>100)bottom=Math.max(bottom,y);
         c.drawImage(cell,frame.col*cellWidth,frame.row*cellHeight+anchorY-bottom-1);
       }
-      return {png:canvas.toDataURL('image/png').split(',')[1],spec:{cols:8,rows,cellWidth,cellHeight,anchorX,anchorY,bodyHeight:80,registration:'chest-and-ground'}};
+      return {png:canvas.toDataURL('image/png').split(',')[1],spec:{cols:8,rows,cellWidth,cellHeight,anchorX,anchorY,bodyHeight:80,registration:'pelvis-for-motion-chest-for-guard'}};
     }, sources);
     fs.writeFileSync(path.join(dir,'heatblast-atlas.png'), Buffer.from(result.png,'base64'));
     fs.writeFileSync(path.join(dir,'heatblast-atlas.json'), JSON.stringify(result.spec,null,2)+'\n');

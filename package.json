@@ -7,7 +7,7 @@
     "start": "python3 -m http.server 8000 --bind 0.0.0.0",
     "test": "npm run test:stats && npm run test:fire && npm run test:browser",
     "test:stats": "node --test tests/stats.test.cjs",
-    "test:browser": "node tests/character.test.cjs && node tests/hud.test.cjs && node tests/alien.test.cjs && node tests/heatblast.test.cjs",
+    "test:browser": "node tests/character.test.cjs && node tests/hud.test.cjs && node tests/alien.test.cjs && node tests/heatblast.test.cjs && node tests/heatblast-motion.test.cjs",
     "build:omnitrix": "node scripts/bake-omnitrix.cjs",
     "build:stats": "node scripts/embed-stats.cjs",
     "build:four-arms": "node scripts/bake-four-arms.cjs",

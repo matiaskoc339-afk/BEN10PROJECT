@@ -19,14 +19,14 @@ const close=(a,b)=>assert.ok(Math.abs(a-b)<.01,`${a} != ${b}`);
     await page.mouse.click(900,300,{button:'right'});await tick(1);
     assert.equal(await page.evaluate(()=>__demo.dummies[0].health),452);
   });
-  await check('160 Heatblast poses retain complete flames, transparent margins and ground registration',async()=>{
+  await check('256 Heatblast poses retain complete flames, transparent margins and ground registration',async()=>{
     const report=await page.evaluate(()=>{
       const frames=__demo.heatblastAtlas.rows.flat(),bad=[];
       for(const f of frames){const p=f.canvas.getContext('2d').getImageData(0,0,f.w,f.h).data;let mass=0,edge=0,bottom=0;
         for(let y=0;y<f.h;y++)for(let x=0;x<f.w;x++)if(p[(y*f.w+x)*4+3]>100){mass++;bottom=Math.max(bottom,y);if(x<2||y<2||x>=f.w-2||y>=f.h-2)edge++;}
         if(mass<400||edge||Math.abs(bottom+1-f.anchorY)>2)bad.push({row:f.row,col:f.col,mass,edge,bottom});
       }return {count:frames.length,bad};
-    });assert.equal(report.count,160);assert.deepEqual(report.bad,[]);
+    });assert.equal(report.count,256);assert.deepEqual(report.bad,[]);
   });
   await check('R then 2 selects real Heatblast and updates the HUD and fire button',async()=>{
     await reset();await transform();
@@ -43,8 +43,8 @@ const close=(a,b)=>assert.ok(Math.abs(a-b)<.01,`${a} != ${b}`);
       {x:p.x+p.faceX*85,y:p.y+p.faceY*85,health:100,alive:true},
       {x:p.x-p.faceX*85,y:p.y-p.faceY*85,health:100,alive:true},
       {x:p.x+p.faceX*220,y:p.y+p.faceY*220,health:100,alive:true});});
-    await page.mouse.click(900,300);await tick(.08);assert.deepEqual(await page.evaluate(()=>__demo.dummies.map(d=>d.health)),[100,100,100]);
-    await tick(.05);assert.equal(await page.evaluate(()=>__demo.framePlayer().direction),dir);
+    await page.mouse.click(900,300);await tick(.12);assert.deepEqual(await page.evaluate(()=>__demo.dummies.map(d=>d.health)),[100,100,100]);
+    await tick(.04);assert.equal(await page.evaluate(()=>__demo.framePlayer().direction),dir);
     assert.deepEqual(await page.evaluate(()=>__demo.dummies.map(d=>d.health)),[86,100,100]);assert.equal(await page.evaluate(()=>__demo.projectiles.length),0);
   });
   await check('a heavy shot travels toward the locked facing direction and deals 32 damage once on impact',async()=>{
@@ -56,7 +56,7 @@ const close=(a,b)=>assert.ok(Math.abs(a-b)<.01,`${a} != ${b}`);
   });
   await check('two melee hits unlock one explosive fireball costing 20 energy at emission, with one splash hit',async()=>{
     await reset();await transform();await face('d');await page.evaluate(()=>{const p=__demo.player;__demo.dummies.push({x:p.x+85,y:p.y,health:500,alive:true});});
-    for(let i=0;i<2;i++){await page.mouse.click(900,300);await tick(.3);}
+    for(let i=0;i<2;i++){await page.mouse.click(900,300);await tick(.36);}
     assert.equal(await page.evaluate(()=>__demo.stats.specialReady),true);
     await page.evaluate(()=>{const p=__demo.player;__demo.dummies[0].x=p.x+260;__demo.dummies.push({x:p.x+285,y:p.y+20,health:100,alive:true});});
     const energy=await page.evaluate(()=>__demo.stats.energy);await page.mouse.click(900,300,{button:'right'});await tick(.31);close(await page.evaluate(()=>__demo.stats.energy),energy-.465);

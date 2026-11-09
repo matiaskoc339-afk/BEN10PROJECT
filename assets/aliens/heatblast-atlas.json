@@ -1,10 +1,10 @@
 {
   "cols": 8,
-  "rows": 20,
+  "rows": 32,
   "cellWidth": 136,
-  "cellHeight": 104,
+  "cellHeight": 100,
   "anchorX": 68,
-  "anchorY": 96,
+  "anchorY": 92,
   "bodyHeight": 80,
-  "registration": "chest-and-ground"
+  "registration": "pelvis-for-motion-chest-for-guard"
 }
