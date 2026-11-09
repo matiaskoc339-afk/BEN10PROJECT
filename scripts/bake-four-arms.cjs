@@ -1,5 +1,5 @@
-// Register whole silhouettes at their feet, retaining attack overshoot and a
-// single pixel scale across all poses. The playable HTML remains standalone.
+// Register whole silhouettes on the torso centre and ground plane. Swinging
+// feet must not pull the whole body sideways between animation frames.
 const fs = require('node:fs');
 const path = require('node:path');
 const { chromium } = require('playwright');
@@ -38,13 +38,15 @@ const dir = path.join(root, 'assets/aliens');
       for (const frame of frames) {
         const scale=frame.scale;
         const c = frame.canvas.getContext('2d'), p = c.getImageData(0,0,frame.w,frame.h).data;
-        let left=frame.w,right=0;
-        // Feet, not the outstretched fists, define the horizontal body pivot.
-        for(let y=Math.floor(frame.anchorY-frame.bodyHeight*.22);y<frame.anchorY;y++)for(let x=0;x<frame.w;x++){
+        let shirtX=0,shirtPixels=0;
+        for(let y=0;y<frame.h;y++)for(let x=0;x<frame.w;x++){
           const i=(y*frame.w+x)*4;
-          if(p[i+3]>160 && p[i]<75 && p[i+1]<75 && p[i+2]<75){left=Math.min(left,x);right=Math.max(right,x);}
+          if(p[i+3]>160&&p[i]>175&&p[i+1]>175&&p[i+2]>175){shirtX+=x;shirtPixels++;}
         }
-        if(right>left)frame.anchorX=(left+right)/2;
+        if(shirtPixels<20)throw new Error('Cannot register torso '+frame.row+':'+frame.col);
+        const right=[2,6,8,12,13].includes(frame.row),left=[3,7,9].includes(frame.row);
+        const lean=frame.row===13?8:right?3:left?-3:0;
+        frame.anchorX=shirtX/shirtPixels-lean/scale;
         extentX=Math.max(extentX,frame.anchorX*scale,(frame.w-frame.anchorX)*scale);
         extentUp=Math.max(extentUp,frame.anchorY*scale);
         extentDown=Math.max(extentDown,(frame.h-frame.anchorY)*scale);
@@ -62,7 +64,7 @@ const dir = path.join(root, 'assets/aliens');
         for(let y=0;y<cellHeight;y++)for(let x=0;x<cellWidth;x++)if(pixels[(y*cellWidth+x)*4+3]>100)bottom=Math.max(bottom,y);
         c.drawImage(cell,frame.col*cellWidth,frame.row*cellHeight+anchorY-bottom-1);
       }
-      return {png:canvas.toDataURL('image/png').split(',')[1],spec:{cols:8,rows,cellWidth,cellHeight,anchorX,anchorY,bodyHeight:80}};
+      return {png:canvas.toDataURL('image/png').split(',')[1],spec:{cols:8,rows,cellWidth,cellHeight,anchorX,anchorY,bodyHeight:80,registration:'torso-centre-and-ground'}};
     }, sources);
     fs.writeFileSync(path.join(dir,'four-arms-atlas.png'), Buffer.from(result.png,'base64'));
     fs.writeFileSync(path.join(dir,'four-arms-atlas.json'), JSON.stringify(result.spec,null,2)+'\n');

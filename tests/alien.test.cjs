@@ -28,6 +28,74 @@ async function check(name,fn){await fn();checks++;console.log('PASS',name);}
       return {count:frames.length,bad};
     });assert.equal(result.count,176);assert.deepEqual(result.bad,[]);
   });
+  await check('the torso stays registered while feet and fists move, without sideways frame jumps',async()=>{
+    const bad=await page.evaluate(()=>{
+      const bad=[];
+      for(const row of [0,1,2,3,4,5,6,7,8,9,13]){
+        const centres=__demo.fourArmsAtlas.rows[row].map(f=>{
+          const p=f.canvas.getContext('2d').getImageData(0,0,f.w,f.h).data;let xSum=0,n=0;
+          for(let y=0;y<f.h;y++)for(let x=0;x<f.w;x++){
+            const i=(y*f.w+x)*4;
+            if(p[i+3]>160&&p[i]>175&&p[i+1]>175&&p[i+2]>175){xSum+=x;n++;}
+          }
+          return xSum/n-f.anchorX;
+        });
+        if(Math.max(...centres)-Math.min(...centres)>2)bad.push({row,centres});
+      }
+      return bad;
+    });assert.deepEqual(bad,[]);
+  });
+  await check('every attack and dash starts and ends on the same guard, with no cut to another body',async()=>{
+    await reset();await transform();
+    const bad=await page.evaluate(()=>{
+      const bad=[],p=__demo.player;
+      const pixels=()=>{
+        const cv=document.createElement('canvas');cv.width=300;cv.height=240;
+        __demo.paintPlayerSprite(cv.getContext('2d'),__demo.framePlayer(),150,210);
+        return cv.getContext('2d').getImageData(0,0,300,240).data;
+      };
+      for(const dir of ['down','up','right','left']){
+        Object.assign(p,{dir,actionDir:dir,mode:'idle',moving:false,idleClock:0});const guard=pixels();
+        for(const mode of ['light1','light2','light3','heavy1','heavy2','dash'])for(const progress of [0,.999]){
+          Object.assign(p,{mode,modeDur:1,modeTime:progress});const pose=pixels();
+          if(pose.some((v,i)=>v!==guard[i]))bad.push({dir,mode,progress});
+        }
+      }
+      return bad;
+    });assert.deepEqual(bad,[]);
+  });
+  await check('rapid follow-up input waits for recovery instead of restarting or stacking an attack',async()=>{
+    await reset();await transform();
+    await page.evaluate(()=>{const p=__demo.player;p.dir='right';p.faceX=1;p.faceY=0;__demo.dummies.push({x:p.x+90,y:p.y,health:1000,alive:true});});
+    await page.mouse.click(900,300);await tick(.26);
+    const before=await page.evaluate(()=>__demo.player.modeTime);
+    await page.mouse.click(900,300);
+    assert.equal(await page.evaluate(()=>__demo.player.modeTime),before);
+    assert.equal(await page.evaluate(()=>__demo.player.lightN),1);
+    await tick(.22);
+    assert.equal(await page.evaluate(()=>__demo.player.mode),'light2');
+    await tick(.4);
+    assert.equal(await page.evaluate(()=>__demo.dummies[0].health),944);
+    assert.equal(await page.evaluate(()=>__demo.player.mode),'idle');
+    await reset();await transform();await page.mouse.click(900,300,{button:'right'});await tick(.7);
+    await page.mouse.click(900,300,{button:'right'});await tick(.3);
+    assert.equal(await page.evaluate(()=>__demo.player.mode),'heavy2');
+  });
+  await check('seismic attack keeps its side or back view through windup, impact and recovery',async()=>{
+    await reset();await transform();
+    const bad=await page.evaluate(()=>{
+      const p=__demo.player,bad=[];
+      for(const [dir,guard,combat] of [['down',0,20],['up',1,21],['right',2,12],['left',3,12]]){
+        Object.assign(p,{mode:'idle',dir,actionDir:dir});__demo.stats.recordLightHit();__demo.stats.recordLightHit();__demo.heavyAttack();
+        p.mode='heavy1';p.specialAnimation=true;p.actionDir=dir;p.modeDur=.92;
+        for(const progress of [0,.15,.35,.52,.75,.999]){
+          p.modeTime=p.modeDur*progress;const pose=__demo.framePlayer();
+          if(pose.direction!==dir||![guard,combat].includes(pose.row)||pose.flip!==(dir==='left'&&pose.row===combat))bad.push({dir,progress,row:pose.row,flip:pose.flip});
+        }
+      }
+      return bad;
+    });assert.deepEqual(bad,[]);
+  });
   await check('real keyboard selection finishes the Ben activation before changing form and HUD',async()=>{
     await reset();await page.keyboard.press('r');await page.keyboard.press('1');await tick(.45);
     assert.equal(await page.evaluate(()=>__demo.stats.form),null);
@@ -37,11 +105,13 @@ async function check(name,fn){await fn();checks++;console.log('PASS',name);}
     assert.equal(await page.locator('#formName').textContent(),'CUATRO BRAZOS');
     assert.equal(await page.evaluate(()=>__demo.framePlayer().alien),true);
   });
-  await check('Ben is child sized and Four Arms is over twice his height, with slower movement',async()=>{
+  await check('Four Arms has a measured moderate height relative to Ben and moves more slowly',async()=>{
     await reset();const human=await page.evaluate(()=>({...__demo.actorMetrics(),sourceHeight:__demo.mainAtlas.rows[0][0].bodyHeight}));
     assert.equal(human.scale,1.25);
     await transform();const alien=await page.evaluate(()=>__demo.actorMetrics());
-    assert.ok(alien.height>human.sourceHeight*human.scale*2);
+    const ratio=alien.height/(human.sourceHeight*human.scale);
+    assert.ok(ratio>=1.5&&ratio<=1.7,JSON.stringify({ratio,alien,human}));
+    assert.equal(alien.zoom,human.zoom);
     assert.ok(alien.speed<human.speed);
     const x=await page.evaluate(()=>__demo.player.x);await page.keyboard.down('d');await tick(1);await page.keyboard.up('d');
     assert.ok(Math.abs((await page.evaluate(()=>__demo.player.x))-x-190)<.01);
@@ -79,8 +149,8 @@ async function check(name,fn){await fn();checks++;console.log('PASS',name);}
     assert.equal(await page.evaluate(()=>__demo.stats.specialReady),true);
     const before=await page.evaluate(()=>__demo.stats.energy);
     await page.mouse.click(900,300,{button:'right'});await tick(.5);
-    assert.equal(await page.evaluate(()=>__demo.framePlayer().row),20);
-    await tick(.22);assert.equal(await page.evaluate(()=>__demo.framePlayer().row),20);
+    assert.equal(await page.evaluate(()=>__demo.framePlayer().row),12);
+    await tick(.22);assert.equal(await page.evaluate(()=>__demo.framePlayer().row),12);
     await tick(.28);
     const result=await page.evaluate(()=>({energy:__demo.stats.energy,hp:__demo.dummies.map(d=>d.health),ready:__demo.stats.specialReady}));
     assert.ok(Math.abs(result.energy-(before-20-1.5))<.001);
@@ -115,9 +185,9 @@ async function check(name,fn){await fn();checks++;console.log('PASS',name);}
     await page.keyboard.down('d');await tick(1);await page.keyboard.up('d');
     assert.equal(await page.evaluate(()=>__demo.collide(__demo.player.x,__demo.player.y)),false);
   });
-  await check('camera centres each full body and widens smoothly for the larger alien',async()=>{
+  await check('camera stays close and keeps the same perspective for both forms',async()=>{
     await reset();await transform();const result=await page.evaluate(()=>{for(let i=0;i<180;i++)__demo.render(1/60);const a=__demo.actorMetrics();return {zoom:__demo.cam.zoom,centre:(__demo.player.y-a.height*.5-__demo.cam.y)*__demo.cam.zoom};});
-    assert.ok(Math.abs(result.zoom-.9)<.001);assert.ok(Math.abs(result.centre-400)<30);
+    assert.ok(Math.abs(result.zoom-1.125)<.001);assert.ok(Math.abs(result.centre-400)<30);
   });
   await check('centre of the Omnitrix returns to Ben using touch without a keyboard',async()=>{
     const touch=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
