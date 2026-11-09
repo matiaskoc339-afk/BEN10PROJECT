@@ -248,8 +248,8 @@ async function check(name, test) {
             if (
               sprite.watch.some(
                 (w) =>
-                  Math.abs(x - (160 + (w.x - sprite.anchorX) * 2)) <= 11 &&
-                  Math.abs(y - (220 + (w.y - sprite.anchorY) * 2)) <= 11,
+                  Math.abs(x - (160 + (w.x - sprite.anchorX) * __demo.actorMetrics().scale)) <= 11 &&
+                  Math.abs(y - (220 + (w.y - sprite.anchorY) * __demo.actorMetrics().scale)) <= 11,
               )
             )
               continue;
@@ -422,7 +422,7 @@ async function check(name, test) {
     },
   );
   await check(
-    "Omnitrix still pauses and resumes with its ten placeholder slots",
+    "Omnitrix pauses and resumes with the first playable alien",
     async () => {
       await reset();
       await page.keyboard.press("r");
@@ -562,10 +562,10 @@ async function check(name, test) {
           const start = p.x;
           __demo.dodge();
           __demo.tick(0.4);
-          return { start, x: p.x };
+          return { start, x: p.x, radius: __demo.actorMetrics().radius };
         }, wall);
         assert.ok(result.x >= 120);
-        assert.ok(wall || result.x >= result.start - 57);
+        assert.ok(wall || result.x >= result.start - 95 + 19 + result.radius);
       }
     },
   );

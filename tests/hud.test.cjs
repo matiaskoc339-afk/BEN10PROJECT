@@ -239,11 +239,11 @@ const close = (a, b) => assert.ok(Math.abs(a - b) < 0.01, `${a} != ${b}`);
     close(await page.evaluate(() => __demo.stats.energy), 100 - 0.45 * 1.5);
   });
   await check(
-    "placeholder slots stay placeholders and never pretend to transform Ben",
+    "locked aliens stay locked and never pretend to transform Ben",
     async () => {
       await reset();
       await page.keyboard.press("r");
-      await page.keyboard.press("1");
+      await page.keyboard.press("2");
       await tick(2);
       assert.equal(await page.evaluate(() => __demo.stats.transformed), false);
       assert.equal(await page.locator("#formName").textContent(), "BEN");

@@ -1,6 +1,6 @@
 # Ben 10 · Demo v0.8
 
-La demo v0.8 es la única versión jugable de este repositorio. La entrada principal es [index.html](index.html), un archivo autónomo que incluye los sprites, el escenario, el Omnitrix clásico y el HUD.
+La demo v0.8 es la única versión jugable de este repositorio. La entrada principal es [index.html](index.html), un archivo autónomo que incluye los sprites de Ben y Cuatro Brazos, el escenario, el Omnitrix clásico y el HUD. Se puede jugar sin conexión.
 
 ![Demo v0.8](docs/preview.png)
 
@@ -21,8 +21,18 @@ Visita [http://localhost:8000](http://localhost:8000). Para jugar no hace falta 
 | Golpe fuerte         | Clic derecho   |
 | Dash                 | Espacio        |
 | Abrir el Omnitrix    | R              |
+| Elegir Cuatro Brazos | 1, dentro de la rueda |
+| Volver a Ben        | T, o el centro de la rueda |
 
-En pantallas táctiles están disponibles el joystick y los botones. El Omnitrix conserva diez ranuras pendientes de aliens jugables.
+En pantallas táctiles están disponibles el joystick y los botones. Toca el reloj, elige el retrato de Cuatro Brazos y toca el centro de la rueda para volver a Ben. Las otras nueve ranuras se reservan para aliens de la serie clásica y están bloqueadas.
+
+## Primer alien: Cuatro Brazos
+
+Cuatro Brazos utiliza sus propios sprites de guardia, marcha, puñetazos alternados, golpes pesados y carga. Sus cuatro brazos y el emblema del Omnitrix en el hombro siguen el diseño clásico. Ben tiene una escala de niño: se redujo su tamaño un 37,5 % respecto a la demo anterior. Cuatro Brazos supera el doble de su altura, con una sombra y colisión mayores. Camina a 190 unidades por segundo frente a las 247 de Ben; sus golpes tienen más daño y alcance.
+
+La cámara centra el cuerpo completo y abre ligeramente el encuadre al transformarse. Los fotogramas se registran por los pies, con margen para los brazos extendidos. Si hace falta espacio para el cuerpo del alien, la transformación busca suelo libre cercano.
+
+![Cuatro Brazos en la demo](docs/four-arms.png)
 
 ## HUD y progresión
 
@@ -30,7 +40,7 @@ En pantallas táctiles están disponibles el joystick y los botones. El Omnitrix
 - La barra roja muestra la vida; la naranja muestra el XP necesario para el siguiente nivel.
 - Cada objetivo derrotado otorga 40 XP. El primer nivel requiere 100 XP y cada siguiente umbral aumenta en 50. El sobrante se conserva al subir de nivel.
 
-El sistema de transformaciones está preparado para los futuros aliens, que todavía no son jugables en esta entrega. Una forma activa consume 1,5 puntos de energía por segundo. Dos golpes leves que conecten, seguidos de un fuerte, pueden activar un especial de 20 puntos. El gasto ocurre al salir el especial, incluso si falla; cancelar la animación con un dash antes del contacto evita el gasto.
+Cuatro Brazos consume 1,5 puntos de energía por segundo. Dos golpes leves que conecten, seguidos de un fuerte, activan el impacto sísmico: un golpe al suelo con alcance radial y un coste de 20 puntos. El gasto ocurre al salir el especial, incluso si falla; cancelar la animación con un dash antes del contacto evita el gasto.
 
 Al agotarse la energía, el sistema vuelve a Ben conservando vida, XP y nivel. En forma humana, el reloj comienza a recargarse tras 3 segundos, a 8 puntos por segundo. La rueda pausa la simulación. El XP y el nivel se mantienen durante la sesión; recargar la página inicia una sesión nueva.
 
@@ -42,7 +52,7 @@ npx playwright install chromium
 npm test
 ```
 
-Las 51 comprobaciones verifican los fotogramas, la guardia, los golpes, el dash, el anclaje del reloj, la energía, los especiales, el XP y el HUD en escritorio y móvil. Las formas utilizadas para probar el consumo son fixtures de prueba; no se añaden aliens ficticios a la selección. Si Chromium está instalado en `/usr/bin/chromium`, se utiliza ese ejecutable; también puede indicarse otro mediante `CHROMIUM_PATH`.
+Las 66 comprobaciones verifican los fotogramas, la guardia, los golpes, el dash, el anclaje del reloj, la energía, los especiales, el XP y el HUD en escritorio y móvil. También prueban la transformación real a Cuatro Brazos, sus cuatro direcciones de ataque, las escalas, su colisión, la cámara y la vuelta a Ben por teclado, por pantalla táctil y por energía agotada. Si Chromium está instalado en `/usr/bin/chromium`, se utiliza ese ejecutable; también puede indicarse otro mediante `CHROMIUM_PATH`.
 
 El diseño fuente y el atlas del reloj están en [assets](assets). Para recompilarlo e incrustarlo en `index.html`:
 
@@ -57,3 +67,9 @@ npm run build:stats
 ```
 
 `tests` contiene únicamente las pruebas de esta demo. `docs/preview.png` muestra el HUD actual.
+
+Las fuentes de Cuatro Brazos y su atlas están en [assets/aliens](assets/aliens). Este comando vuelve a registrar los fotogramas con un pivote común en los pies, conserva los brazos completos e incrusta el atlas en el único HTML jugable:
+
+```sh
+npm run build:four-arms
+```
