@@ -14,9 +14,9 @@ const dir = path.join(root, 'assets/aliens');
     await page.setContent('<html><body></body></html>');
     await page.addScriptTag({content:html.slice(start,end)+';window.__compile={prepareAtlas};'});
     const layouts=[
-      {name:'heatblast-source.png',rows:12,select:[0,1,2,3],allGuards:true,pivot:'chest'},
+      {name:'heatblast-hd-guard.png',cols:4,rows:8,paired:true,select:[0,1,2,3],pivot:'chest'},
       {name:'heatblast-run-source.png',rows:4,select:[0,1,2,3],pivot:'hips'},
-      {name:'heatblast-combat-source.png',rows:12,select:[8,9,10,11],pivot:'chest'},
+      {name:'heatblast-hd-dash.png',cols:4,rows:8,paired:true,select:[0,1,2,3],pivot:'hips'},
       {name:'heatblast-melee-source.png',rows:12,select:Array.from({length:12},(_,i)=>i),pivot:'hips'},
       {name:'heatblast-front-melee-source.png',rows:4,select:[0,1,2,3],replace:[12,13,16,17],pivot:'hips'},
       {name:'heatblast-cast-source.png',rows:8,select:Array.from({length:8},(_,i)=>i),pivot:'hips'},
@@ -35,12 +35,11 @@ const dir = path.join(root, 'assets/aliens');
         for(let i=3;i<pixels.data.length;i+=4)pixels.data[i]=pixels.data[i]>=128?255:0;
         cleanContext.putImageData(pixels,0,0);
         const image=new Image();image.src=clean.toDataURL('image/png');await image.decode();
-        const atlas=__compile.prepareAtlas(image,8,source.rows,Array(source.rows).fill(8));
-        const guards=(source.allGuards?atlas.rows.slice(0,4).flat():atlas.rows.slice(0,4).map(row=>row[0])).map(f=>f.bodyHeight).sort((a,b)=>a-b);
-        const scale=80/guards[Math.floor(guards.length/2)];
+        const cols=source.cols||8,raw=__compile.prepareAtlas(image,cols,source.rows,Array(source.rows).fill(cols));
+        const atlas={rows:source.paired?Array.from({length:source.rows/2},(_,row)=>[...raw.rows[row*2],...raw.rows[row*2+1]]):raw.rows};
         const selected=source.select.map(row=>atlas.rows[row]);
         if(source.replace)for(let i=frames.length-1;i>=0;i--)if(source.replace.includes(frames[i].row))frames.splice(i,1);
-        selected.forEach((row,r)=>row.forEach(frame=>{frame.scale=scale;frame.pivot=source.pivot;frame.row=source.replace?source.replace[r]:rows+r;frames.push(frame);}));
+        selected.forEach((row,r)=>row.forEach((frame,col)=>{frame.col=col;frame.scale=160/row[0].bodyHeight;frame.pivot=source.pivot;frame.row=source.replace?source.replace[r]:rows+r;frames.push(frame);}));
         if(!source.replace)rows+=selected.length;
       }
       let extentX=0, extentUp=0, extentDown=0;
@@ -78,13 +77,13 @@ const dir = path.join(root, 'assets/aliens');
       for(const frame of frames){
         const scale=frame.scale;
         const cell=document.createElement('canvas');cell.width=cellWidth;cell.height=cellHeight;
-        const cc=cell.getContext('2d',{willReadFrequently:true});cc.imageSmoothingEnabled=false;
+        const cc=cell.getContext('2d',{willReadFrequently:true});cc.imageSmoothingEnabled=true;cc.imageSmoothingQuality='high';
         cc.drawImage(frame.canvas,anchorX-Math.round(frame.anchorX*scale),anchorY-Math.round(frame.anchorY*scale),Math.round(frame.w*scale),Math.round(frame.h*scale));
         const pixels=cc.getImageData(0,0,cellWidth,cellHeight).data;let bottom=0;
         for(let y=0;y<cellHeight;y++)for(let x=0;x<cellWidth;x++)if(pixels[(y*cellWidth+x)*4+3]>100)bottom=Math.max(bottom,y);
         c.drawImage(cell,frame.col*cellWidth,frame.row*cellHeight+anchorY-bottom-1);
       }
-      return {png:canvas.toDataURL('image/png').split(',')[1],spec:{cols:8,rows,cellWidth,cellHeight,anchorX,anchorY,bodyHeight:80,registration:'pelvis-for-motion-chest-for-guard'}};
+      return {png:canvas.toDataURL('image/png').split(',')[1],spec:{cols:8,rows,cellWidth,cellHeight,anchorX,anchorY,bodyHeight:160,resolutionScale:2,quality:'HD',registration:'pelvis-for-motion-chest-for-guard'}};
     }, sources);
     fs.writeFileSync(path.join(dir,'heatblast-atlas.png'), Buffer.from(result.png,'base64'));
     fs.writeFileSync(path.join(dir,'heatblast-atlas.json'), JSON.stringify(result.spec,null,2)+'\n');
