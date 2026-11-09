@@ -214,7 +214,7 @@ async function check(name, test) {
       }));
       assert.equal(state.dir, "left");
       assert.equal(state.flip, true);
-      assert.deepEqual(state.hp, [83, 100]);
+      assert.deepEqual(state.hp, [92, 100]);
     },
   );
   await check(
@@ -299,7 +299,7 @@ async function check(name, test) {
             };
           });
           assert.equal(result.dir, dir);
-          assert.deepEqual(result.hp, heavy ? [55, 100] : [83, 100]);
+          assert.deepEqual(result.hp, heavy ? [80, 100] : [92, 100]);
           assert.equal(result.vertical, dir === "up" || dir === "down");
           if (result.vertical)
             assert.equal(
@@ -333,7 +333,7 @@ async function check(name, test) {
           __demo.player.actionDir,
           ...__demo.dummies.map((d) => d.health),
         ]),
-        ["right", "right", 83, 100],
+        ["right", "right", 92, 100],
       );
       await tick(0.2);
       assert.equal(await page.evaluate(() => __demo.player.dir), "left");
@@ -372,7 +372,7 @@ async function check(name, test) {
           );
           await tick(0.03);
           const hp = await page.evaluate(() => __demo.dummies[0].health);
-          assert.equal(hp, heavy ? 55 : 83, key);
+          assert.equal(hp, heavy ? 80 : 92, key);
           await tick(0.04);
           assert.equal(
             await page.evaluate(() => __demo.dummies[0].health),
