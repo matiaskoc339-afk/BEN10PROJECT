@@ -20,7 +20,10 @@ const dir = path.join(root, 'assets/aliens');
       {name:'heatblast-melee-source.png',rows:12,select:Array.from({length:12},(_,i)=>i),pivot:'hips'},
       {name:'heatblast-front-melee-source.png',rows:4,select:[0,1,2,3],replace:[12,13,16,17],pivot:'hips'},
       {name:'heatblast-cast-source.png',rows:8,select:Array.from({length:8},(_,i)=>i),pivot:'hips'},
-      {name:'heatblast-front-cast-source.png',rows:2,select:[0,1],replace:[24,25],pivot:'hips'}
+      {name:'heatblast-front-cast-source.png',rows:2,select:[0,1],replace:[24,25],pivot:'hips'},
+      // One corrected drawing replaces the malformed three-arm casting pose.
+      // Match its original height so the rest of the clip keeps its scale.
+      {name:'heatblast-cast-windup-fixed.png',cols:1,rows:1,select:[0],replaceFrames:[{row:30,col:3}],pivot:'hips'}
     ];
     const sources=layouts.map(layout=>({...layout,src:'data:image/png;base64,'+fs.readFileSync(path.join(dir,layout.name)).toString('base64')}));
     const result = await page.evaluate(async sources => {
@@ -38,6 +41,17 @@ const dir = path.join(root, 'assets/aliens');
         const cols=source.cols||8,raw=__compile.prepareAtlas(image,cols,source.rows,Array(source.rows).fill(cols));
         const atlas={rows:source.paired?Array.from({length:source.rows/2},(_,row)=>[...raw.rows[row*2],...raw.rows[row*2+1]]):raw.rows};
         const selected=source.select.map(row=>atlas.rows[row]);
+        if(source.replaceFrames){
+          for(const [i,target] of source.replaceFrames.entries()){
+            const at=frames.findIndex(f=>f.row===target.row&&f.col===target.col);
+            if(at<0)throw new Error('Missing corrected pose target '+JSON.stringify(target));
+            const original=frames[at],frame=selected.flat()[i];
+            frame.scale=original.scale*original.bodyHeight/frame.bodyHeight;
+            frame.pivot=source.pivot;frame.row=target.row;frame.col=target.col;
+            frames[at]=frame;
+          }
+          continue;
+        }
         if(source.replace)for(let i=frames.length-1;i>=0;i--)if(source.replace.includes(frames[i].row))frames.splice(i,1);
         selected.forEach((row,r)=>row.forEach((frame,col)=>{frame.col=col;frame.scale=160/row[0].bodyHeight;frame.pivot=source.pivot;frame.row=source.replace?source.replace[r]:rows+r;frames.push(frame);}));
         if(!source.replace)rows+=selected.length;

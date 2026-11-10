@@ -139,9 +139,46 @@ async function check(name,fn){await fn();checks++;console.log('PASS',name);}
     assert.notEqual(await page.evaluate(()=>__demo.framePlayer().frame),first);
     await page.keyboard.down('d');await tick(.01);await page.keyboard.up('d');
     const poses=[];
-    for(let i=0;i<3;i++){await page.mouse.click(900,300);await tick(.2);poses.push(await page.evaluate(()=>{const p=__demo.framePlayer();return [p.row,p.frame];}));await tick(.22);}
+    for(let i=0;i<3;i++){await page.mouse.click(900,300);await tick(.2);poses.push(await page.evaluate(()=>{const p=__demo.framePlayer();return [p.row,p.frame];}));await tick(await page.evaluate(()=>Math.max(0,__demo.player.modeDur-__demo.player.modeTime)+.05));}
     assert.notDeepEqual(poses[0],poses[1]);assert.notDeepEqual(poses[1],poses[2]);
     assert.equal(await page.evaluate(()=>__demo.framePlayer().idle),true);
+  });
+  await check('only the third light attack is slower, with the raised fists and held smash visible on both sides',async()=>{
+    for(const [key,dir] of [['d','right'],['a','left'],['s','down'],['w','up']]){
+      await reset();await transform();await page.keyboard.down(key);await tick(.01);await page.keyboard.up(key);
+      const durations=[];
+      for(let i=0;i<3;i++){
+        await page.mouse.click(900,300);durations.push(await page.evaluate(()=>__demo.player.modeDur));
+        if(i<2)await tick(.43);
+      }
+      assert.deepEqual(durations,[.38,.38,.5]);
+      if(dir==='right'||dir==='left'){
+        const clip=await page.evaluate(()=>__demo.fourArmsActionClip());
+        assert.deepEqual(clip.poses.slice(1,-1).map(p=>p[1]),[0,1,2,3,4,4,5,6,7]);
+        assert.ok(clip.poses.slice(1,-1).every(p=>p[0]===12&&p[2]===(dir==='left')));
+        assert.ok(Math.abs((await page.evaluate(()=>__demo.attackContactTime()))-5/11*.5)<.00001);
+      }
+      await tick(.56);assert.equal(await page.evaluate(()=>__demo.player.mode),'idle');
+      await page.mouse.click(900,300,{button:'right'});
+      assert.equal(await page.evaluate(()=>__demo.player.modeDur),.92);
+    }
+  });
+  await check('the held smash damages once at contact and finishes before the buffered next punch at 30, 60 and 120 Hz',async()=>{
+    for(const fps of [30,60,120]){
+      const result=await page.evaluate(fps=>{
+        __demo.reset();__demo.stats.transform({id:'four-arms'});
+        const p=__demo.player;p.dir='right';p.faceX=1;p.faceY=0;
+        __demo.dummies.push({x:p.x+90,y:p.y,health:1000,alive:true});
+        function step(seconds){for(let left=seconds;left>1e-10;){const dt=Math.min(left,1/fps);__demo.update(dt);left-=dt;}}
+        for(let i=0;i<2;i++){__demo.lightAttack();step(.45);}
+        __demo.lightAttack();step(.21);const before=__demo.dummies[0].health;
+        step(.12);const contact=__demo.dummies[0].health;
+        __demo.lightAttack();const buffered=p.mode;
+        step(.25);const next=p.mode,after=__demo.dummies[0].health;
+        step(.5);return {before,contact,after,buffered,next,end:p.mode,hp:__demo.dummies[0].health};
+      },fps);
+      assert.deepEqual(result,{before:944,contact:906,after:906,buffered:'light3',next:'light1',end:'idle',hp:880});
+    }
   });
   await check('two connected punches unlock one radial seismic special, spending exactly 20 energy',async()=>{
     await reset();await transform();await page.evaluate(()=>{const p=__demo.player;p.dir='right';p.faceX=1;p.faceY=0;__demo.dummies.push({x:p.x+105,y:p.y,health:500,alive:true},{x:p.x-150,y:p.y,health:100,alive:true});});
