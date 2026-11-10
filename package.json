@@ -2,12 +2,12 @@
   "name": "ben10-demo",
   "version": "0.8.0",
   "private": true,
-  "description": "Demo v0.8 de Ben 10 cl\u00e1sico, con nueve aliens jugables, Omnitrix y XP.",
+  "description": "Demo v0.8 de Ben 10 cl\u00e1sico, con diez aliens jugables, Omnitrix y XP.",
   "scripts": {
     "start": "python3 -m http.server 8000 --bind 0.0.0.0",
-    "test": "npm run test:stats && npm run test:fire && npm run test:speed && npm run test:cannon && npm run test:ghost && npm run test:stink && npm run test:wild && npm run test:wolf && npm run test:browser",
+    "test": "npm run test:stats && npm run test:fire && npm run test:speed && npm run test:cannon && npm run test:ghost && npm run test:stink && npm run test:wild && npm run test:wolf && npm run test:upgrade && npm run test:browser",
     "test:stats": "node --test tests/stats.test.cjs",
-    "test:browser": "node tests/character.test.cjs && node tests/hud.test.cjs && node tests/alien.test.cjs && node tests/heatblast.test.cjs && node tests/heatblast-motion.test.cjs && node tests/alien-hd.test.cjs && node tests/diamondhead.test.cjs && node tests/xlr8.test.cjs && node tests/cannonbolt.test.cjs && node tests/ghostfreak.test.cjs && node tests/ghostfreak-combo.test.cjs && node tests/stinkfly.test.cjs && node tests/wildvine.test.cjs && node tests/blitzwolfer.test.cjs",
+    "test:browser": "node tests/character.test.cjs && node tests/hud.test.cjs && node tests/alien.test.cjs && node tests/heatblast.test.cjs && node tests/heatblast-motion.test.cjs && node tests/alien-hd.test.cjs && node tests/diamondhead.test.cjs && node tests/xlr8.test.cjs && node tests/cannonbolt.test.cjs && node tests/ghostfreak.test.cjs && node tests/ghostfreak-combo.test.cjs && node tests/stinkfly.test.cjs && node tests/wildvine.test.cjs && node tests/blitzwolfer.test.cjs && node tests/upgrade.test.cjs",
     "test:cannon": "node --test tests/cannonbolt-physics.test.cjs",
     "build:cannonbolt": "node scripts/bake-cannonbolt.cjs",
     "build:cannon": "node scripts/embed-cannonbolt.cjs",
@@ -32,7 +32,10 @@
     "build:wild": "node scripts/embed-wildvine.cjs",
     "test:wolf": "node --test tests/blitzwolfer-abilities.test.cjs",
     "build:blitzwolfer": "node scripts/bake-blitzwolfer.cjs",
-    "build:wolf": "node scripts/embed-blitzwolfer.cjs"
+    "build:wolf": "node scripts/embed-blitzwolfer.cjs",
+    "test:upgrade": "node --test tests/upgrade-abilities.test.cjs",
+    "build:upgrade": "node scripts/bake-upgrade.cjs",
+    "build:ultrat": "node scripts/embed-upgrade.cjs"
   },
   "devDependencies": {
     "playwright": "1.62.1"

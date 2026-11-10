@@ -1,12 +1,12 @@
 # Ben 10 · Demo v0.8
 
-La demo v0.8 es la única versión jugable de este repositorio. La entrada principal es [index.html](index.html), un archivo autónomo que incluye los sprites de Ben, Cuatro Brazos, Fuego, XLR8, Diamante, Cannonbolt, Fantasmático, Insectoide, Wildvine y Blitzwolfer, el escenario, el Omnitrix clásico y el HUD. Se puede jugar sin conexión.
+La demo v0.8 es la única versión jugable de este repositorio. La entrada principal es [index.html](index.html), un archivo autónomo que incluye los sprites de Ben, Cuatro Brazos, Fuego, XLR8, Diamante, Cannonbolt, Fantasmático, Insectoide, Wildvine, Blitzwolfer y Ultra T, el escenario, el Omnitrix clásico y el HUD. Se puede jugar sin conexión.
 
 ![Demo v0.8](docs/preview.png)
 
 ## Sprites HD
 
-Cuatro Brazos, Fuego, XLR8, Diamante, Cannonbolt, Fantasmático, Insectoide, Wildvine y Blitzwolfer usan atlas de 160 píxeles de altura base por pose. Las nuevas hojas de referencia mantienen el diseño clásico, las proporciones y el anclaje anatómico; la guardia, el movimiento y los ataques se calibran desde la pose neutra de cada vista. El renderizado conserva el tamaño de los personajes y añade un filtrado de mayor calidad para los contornos.
+Cuatro Brazos, Fuego, XLR8, Diamante, Cannonbolt, Fantasmático, Insectoide, Wildvine, Blitzwolfer y Ultra T usan atlas de 160 píxeles de altura base por pose. Las nuevas hojas de referencia mantienen el diseño clásico, las proporciones y el anclaje anatómico; la guardia, el movimiento y los ataques se calibran desde la pose neutra de cada vista. El renderizado conserva el tamaño de los personajes y añade un filtrado de mayor calidad para los contornos.
 
 Los fotogramas se dibujan desde una textura compartida para evitar copiar cientos de imágenes HD al iniciar la demo. El reloj de selección utiliza una escala propia para que los retratos sigan dentro de sus ranuras.
 
@@ -38,15 +38,16 @@ Visita [http://localhost:8000](http://localhost:8000). Para jugar no hace falta 
 | Elegir Insectoide    | 7, dentro de la rueda |
 | Elegir Wildvine      | 8, dentro de la rueda |
 | Elegir Blitzwolfer   | 9, dentro de la rueda |
+| Elegir Ultra T       | 0, dentro de la rueda |
 | Volver a Ben        | T, o el centro de la rueda |
 
-En pantallas táctiles están disponibles el joystick y los botones. Toca el reloj, elige el retrato del alien y toca el centro de la rueda para volver a Ben. Las otras cuatro ranuras se reservan para aliens de la serie clásica y están bloqueadas. XLR8 ocupa la ranura 3, Diamante la 4, Cannonbolt la 5, Fantasmático la 6, Insectoide la 7, Wildvine la 8 y Blitzwolfer la 9. La rueda incorpora trece formas clásicas; las cuatro restantes siguen bloqueadas.
+En pantallas táctiles están disponibles el joystick y los botones. Toca el reloj, elige el retrato del alien y toca el centro de la rueda para volver a Ben. Las otras tres ranuras se reservan para aliens de la serie clásica y están bloqueadas. XLR8 ocupa la ranura 3, Diamante la 4, Cannonbolt la 5, Fantasmático la 6, Insectoide la 7, Wildvine la 8 Blitzwolfer la 9 y Ultra T la 0. La rueda incorpora trece formas clásicas; las tres restantes siguen bloqueadas.
 
 ## Primer alien: Cuatro Brazos
 
 Cuatro Brazos utiliza sus propios sprites de guardia, marcha, puñetazos alternados, golpes pesados y carga. Sus cuatro brazos y el emblema del Omnitrix en el hombro siguen el diseño clásico. Ben tiene una escala de niño: se redujo su tamaño un 37,5 % respecto a la demo anterior. Cuatro Brazos mide aproximadamente 1,6 veces la altura de Ben; su escala se redujo un 30 % respecto a la primera entrega del alien. La sombra y la colisión acompañan ese tamaño. Camina a 190 unidades por segundo frente a las 247 de Ben; sus golpes tienen más daño y alcance.
 
-La cámara centra el cuerpo completo con un encuadre más cercano, idéntico para Ben y los nueve aliens: transformarse no aleja la vista. Los fotogramas se registran por el centro del torso y el suelo, con margen para los brazos extendidos. Así, las piernas en movimiento no desplazan todo el cuerpo de un lado a otro. Cada ataque incluye preparación, contacto y recuperación hasta la misma guardia; una pulsación rápida queda en espera sin reiniciar el golpe actual. El impacto sísmico conserva la orientación del personaje. Si hace falta espacio para el cuerpo del alien, la transformación busca suelo libre cercano.
+La cámara centra el cuerpo completo con un encuadre más cercano, idéntico para Ben y los diez aliens: transformarse no aleja la vista. Los fotogramas se registran por el centro del torso y el suelo, con margen para los brazos extendidos. Así, las piernas en movimiento no desplazan todo el cuerpo de un lado a otro. Cada ataque incluye preparación, contacto y recuperación hasta la misma guardia; una pulsación rápida queda en espera sin reiniciar el golpe actual. El impacto sísmico conserva la orientación del personaje. Si hace falta espacio para el cuerpo del alien, la transformación busca suelo libre cercano.
 
 El tercer golpe leve dura 0,50 segundos, frente a los 0,38 de los dos primeros. Su smash lateral incluye la pose de puños levantados y sostiene brevemente el impacto para que se lea mejor. El contacto permanece sincronizado con el dibujo y causa daño una sola vez.
 
@@ -76,8 +77,9 @@ La preparación lateral de la descarga utiliza una pose corregida con dos brazos
 | Insectoide | 4 × 5 por ráfaga | 42, aguijonazo | 250, sobre sus patas |
 | Wildvine | 18 / 22 / 28 | 56, giro de brazos | 240, sobre sus raíces |
 | Blitzwolfer | 20 / 24 / 32 | 52, embestida con garras | 280, sobre cuatro patas |
+| Ultra T | 18 / 22 / 36 | 34, láser ocular | 245 |
 
-Ben hace menos daño que antes: los dos primeros leves bajan de 17 a 8; el tercero, de 25 a 12; el fuerte, de 45 a 20. Fuego tiene un dash más rápido y puede atacar a distancia. Cambiar entre los nueve aliens conserva la vida, el XP y la energía restante.
+Ben hace menos daño que antes: los dos primeros leves bajan de 17 a 8; el tercero, de 25 a 12; el fuerte, de 45 a 20. Fuego tiene un dash más rápido y puede atacar a distancia. Cambiar entre los diez aliens conserva la vida, el XP y la energía restante.
 
 ![Fuego en la demo](docs/heatblast.png)
 
@@ -242,13 +244,36 @@ El especial consume 20 de energía al emitirse. Cancelarlo antes evita el gasto;
 
 [Ver las animaciones de Blitzwolfer](docs/blitzwolfer.mp4).
 
+## Ultra T clásico
+
+Ultra T (Upgrade) sigue la referencia clásica: cuerpo blanco y negro, líneas verdes de circuito, un único ojo circular verde en la cabeza y Omnitrix en el pecho. La superficie y los miembros se deforman como una masa moldeable. Sus 256 poses HD cubren reposo, caminata, dash, dos puñetazos, golpe con brazos fusionados, láser y transformación completa en cuchilla, en cuatro direcciones. Mide 102 unidades y conserva el encuadre de los demás personajes.
+
+- **Movimiento y dash:** camina sobre dos piernas con apoyos alternados y oscilación de los brazos. El dash comprime y alarga el cuerpo antes de recuperar la postura normal, conservando el contacto con el suelo y las colisiones.
+- **Clic izquierdo:** puñetazo izquierdo, derecho y golpe con ambos brazos fusionados en una sola masa. Causan 18, 22 y 36 de daño. Los puños se ensanchan al impactar; el tercer golpe combina, comprime y vuelve a separar los brazos. Cada contacto causa daño una sola vez.
+- **Clic derecho:** prepara la cabeza y dispara un láser desde el ojo. El rayo alcanza hasta 480 unidades, causa 34 de daño al primer enemigo de su trayectoria y termina al tocarlo o chocar con el escenario. El origen visual se registra sobre el ojo de cada pose, separado del emblema del pecho.
+- **Dos leves conectados + fuerte:** absorbe sus extremidades y transforma todo el cuerpo en una cuchilla blanca, negra y verde. Embiste 320 unidades hacia delante a 1120 unidades por segundo. Causa 82 de daño una vez por enemigo atravesado, respeta obstáculos y límites y vuelve a formar su cuerpo al frenar.
+
+La embestida especial consume 20 de energía al terminar la transformación en cuchilla. Cancelar antes evita el gasto. Cancelarla durante el recorrido detiene el ataque y coloca al personaje sobre suelo libre; terminar encima de un enemigo vivo también busca espacio para recuperar el cuerpo. Si la reserva pierde la energía necesaria antes de salir, el fuerte utiliza el láser normal. Los KO conceden XP una sola vez y las estadísticas se conservan al cambiar de forma.
+
+Ultra T ocupa la tecla `0`, después de Blitzwolfer. La rueda mantiene las diez formas jugables y tres ranuras futuras bloqueadas. Sus instrucciones se ajustan al ancho de la pantalla. En móvil, los botones muestran `PUÑO`, `LÁSER` y `CUCHILLA` cuando el combo está listo.
+
+![Ultra T en reposo](docs/upgrade.png)
+
+![Golpe con los brazos fusionados](docs/upgrade-mass.png)
+
+![Láser desde el ojo](docs/upgrade-laser.png)
+
+![Cuerpo convertido en cuchilla](docs/upgrade-blade.png)
+
+[Ver las animaciones de Ultra T](docs/upgrade.mp4).
+
 ## HUD y progresión
 
 - El líquido verde del reloj representa la energía del Omnitrix. El propio reloj abre la rueda de selección.
 - La barra roja muestra la vida; la naranja muestra el XP necesario para el siguiente nivel.
 - Cada objetivo derrotado otorga 40 XP. El primer nivel requiere 100 XP y cada siguiente umbral aumenta en 50. El sobrante se conserva al subir de nivel.
 
-Cada alien consume 1,5 puntos de energía por segundo. Dos leves conectados y un fuerte activan un especial de 20 puntos: impacto sísmico con Cuatro Brazos, bola ígnea explosiva con Fuego, estallido de cristales con Diamante, carrera potenciada con XLR8, embestida de ida y vuelta con Cannonbolt, captura con tentáculos y expulsión con Fantasmático charco venenoso con Insectoide espinas desde la tierra con Wildvine o aullido sónico con Blitzwolfer. El gasto ocurre al salir el especial, incluso si falla; cancelar la animación con un dash antes del contacto evita el gasto.
+Cada alien consume 1,5 puntos de energía por segundo. Dos leves conectados y un fuerte activan un especial de 20 puntos: impacto sísmico con Cuatro Brazos, bola ígnea explosiva con Fuego, estallido de cristales con Diamante, carrera potenciada con XLR8, embestida de ida y vuelta con Cannonbolt, captura con tentáculos y expulsión con Fantasmático charco venenoso con Insectoide espinas desde la tierra con Wildvine aullido sónico con Blitzwolfer o embestida en forma de cuchilla con Ultra T. El gasto ocurre al salir el especial, incluso si falla; cancelar la animación con un dash antes del contacto evita el gasto.
 
 Al agotarse la energía, el sistema vuelve a Ben conservando vida, XP y nivel. En forma humana, el reloj comienza a recargarse tras 3 segundos, a 8 puntos por segundo. La rueda pausa la simulación. El XP y el nivel se mantienen durante la sesión; recargar la página inicia una sesión nueva.
 
@@ -260,7 +285,7 @@ npx playwright install chromium
 npm test
 ```
 
-Las 395 comprobaciones verifican los fotogramas, la guardia, los golpes, el dash, el anclaje del reloj, la energía, los especiales, el XP y el HUD en escritorio y móvil. También prueban la transformación real a Cuatro Brazos y a Fuego, sus cuatro direcciones de ataque, las escalas, su colisión, la cámara fija, la estabilidad del torso, la recuperación de los golpes, los combos con pulsaciones rápidas y la vuelta a Ben por teclado, por pantalla táctil y por energía agotada. Las pruebas de fuego verifican el daño reducido de Ben, los ataques cuerpo a cuerpo, el vuelo de los proyectiles, los obstáculos, las explosiones y las colisiones a distintas tasas de actualización. También comprueban la variación real de las siluetas al correr, la cadencia según la distancia, los cinco ataques distintos, la sincronización del contacto y los avances de los golpes a 30, 60 y 120 actualizaciones por segundo. Las comprobaciones HD verifican la resolución de los atlas, el tamaño físico de ambos aliens, la representación en pantallas normales y retina y la cadencia reducida de Fuego sin alterar su desplazamiento. Las pruebas de Diamante comprueban la selección de la ranura 4 por teclado y pantalla táctil, sus 256 poses, el movimiento y los golpes en cuatro direcciones, los avances de peso, las pulsaciones en espera, los proyectiles y su estallido, el gasto de energía, la conservación de estadísticas y la vuelta a Ben. Las pruebas de XLR8 verifican sus poses, golpes rápidos, clic breve, trazo por ratón y dedo, temporizador automático, cámara en móvil, coordenadas retina, colisiones continuas, cancelaciones, enfriamiento, reserva del especial y retorno a Ben. El movimiento y el daño del recorrido se comprueban a 30, 60 y 120 actualizaciones por segundo. Las pruebas de Cannonbolt verifican la rueda ampliada, las transiciones de cuerpo a esfera, el diámetro estable, los ataques de garra y la tercera embestida en cuatro direcciones, la carga por ratón y pantalla táctil, el combo de ida y vuelta, el gasto único de energía, las cancelaciones y las colisiones de la esfera. Las pruebas de Fantasmático verifican sus 256 poses completas, flotación, garras en cuatro direcciones, clic breve, inmunidad temporal real, desplazamiento un 15 % más rápido, límites del mapa, atravesar obstáculos y reaparecer en suelo libre, daño idéntico entre pulsaciones cortas y largas, reserva del combo, cancelaciones, vuelta a Ben y controles táctiles. El remate de captura comprueba el objetivo elegido, la atracción y expulsión en cuatro direcciones, el daño único, el gasto de energía, las entradas de fuerte en espera, la liberación al cancelar, el agotamiento del reloj, las barreras, los objetivos cercanos y el KO con XP sin duplicados. El movimiento y el ataque se comprueban también a 30, 60 y 120 actualizaciones por segundo. Las pruebas de Insectoide comprueban las poses, los cuatro anclajes de disparo, tres ráfagas distintas, una sola acreditación de combo por ráfaga, caminata sobre patas, aguijonazo, vuelo y aterrizaje del dash, veneno por contacto, inmunidad del dueño, obstáculos, cancelaciones, XP, cambios de forma y controles táctiles. Los proyectiles y el veneno se verifican a 30, 60 y 120 actualizaciones por segundo. Las pruebas de Wildvine comprueban las 256 poses completas, caminata y dash terrestres, tres latigazos orientados, giro de 360 grados, espinas en secuencia, límites y obstáculos, daño único, reserva y gasto de energía, cancelaciones, pulsaciones en espera, XP, cambio de forma y controles táctiles. El daño y la duración de las espinas se comprueban a 30, 60 y 120 actualizaciones por segundo. Las pruebas de Blitzwolfer comprueban las poses completas, escala de la marcha cuadrúpeda, dos garras y mordida, contacto de la embestida, boca dividida en cuatro partes, origen de la onda sobre la garganta, cono viajero, daño único, obstáculos, cancelaciones, gasto de energía, entradas en espera, retorno a Ben, XP y controles táctiles. La embestida y el aullido se verifican a 30, 60 y 120 actualizaciones por segundo. El tercer golpe de Cuatro Brazos se comprueba con sus nuevos tiempos, su daño único y la siguiente pulsación en espera a 30, 60 y 120 actualizaciones por segundo. Si Chromium está instalado en `/usr/bin/chromium`, se utiliza ese ejecutable; también puede indicarse otro mediante `CHROMIUM_PATH`.
+Las 443 comprobaciones verifican los fotogramas, la guardia, los golpes, el dash, el anclaje del reloj, la energía, los especiales, el XP y el HUD en escritorio y móvil. También prueban la transformación real a Cuatro Brazos y a Fuego, sus cuatro direcciones de ataque, las escalas, su colisión, la cámara fija, la estabilidad del torso, la recuperación de los golpes, los combos con pulsaciones rápidas y la vuelta a Ben por teclado, por pantalla táctil y por energía agotada. Las pruebas de fuego verifican el daño reducido de Ben, los ataques cuerpo a cuerpo, el vuelo de los proyectiles, los obstáculos, las explosiones y las colisiones a distintas tasas de actualización. También comprueban la variación real de las siluetas al correr, la cadencia según la distancia, los cinco ataques distintos, la sincronización del contacto y los avances de los golpes a 30, 60 y 120 actualizaciones por segundo. Las comprobaciones HD verifican la resolución de los atlas, el tamaño físico de ambos aliens, la representación en pantallas normales y retina y la cadencia reducida de Fuego sin alterar su desplazamiento. Las pruebas de Diamante comprueban la selección de la ranura 4 por teclado y pantalla táctil, sus 256 poses, el movimiento y los golpes en cuatro direcciones, los avances de peso, las pulsaciones en espera, los proyectiles y su estallido, el gasto de energía, la conservación de estadísticas y la vuelta a Ben. Las pruebas de XLR8 verifican sus poses, golpes rápidos, clic breve, trazo por ratón y dedo, temporizador automático, cámara en móvil, coordenadas retina, colisiones continuas, cancelaciones, enfriamiento, reserva del especial y retorno a Ben. El movimiento y el daño del recorrido se comprueban a 30, 60 y 120 actualizaciones por segundo. Las pruebas de Cannonbolt verifican la rueda ampliada, las transiciones de cuerpo a esfera, el diámetro estable, los ataques de garra y la tercera embestida en cuatro direcciones, la carga por ratón y pantalla táctil, el combo de ida y vuelta, el gasto único de energía, las cancelaciones y las colisiones de la esfera. Las pruebas de Fantasmático verifican sus 256 poses completas, flotación, garras en cuatro direcciones, clic breve, inmunidad temporal real, desplazamiento un 15 % más rápido, límites del mapa, atravesar obstáculos y reaparecer en suelo libre, daño idéntico entre pulsaciones cortas y largas, reserva del combo, cancelaciones, vuelta a Ben y controles táctiles. El remate de captura comprueba el objetivo elegido, la atracción y expulsión en cuatro direcciones, el daño único, el gasto de energía, las entradas de fuerte en espera, la liberación al cancelar, el agotamiento del reloj, las barreras, los objetivos cercanos y el KO con XP sin duplicados. El movimiento y el ataque se comprueban también a 30, 60 y 120 actualizaciones por segundo. Las pruebas de Insectoide comprueban las poses, los cuatro anclajes de disparo, tres ráfagas distintas, una sola acreditación de combo por ráfaga, caminata sobre patas, aguijonazo, vuelo y aterrizaje del dash, veneno por contacto, inmunidad del dueño, obstáculos, cancelaciones, XP, cambios de forma y controles táctiles. Los proyectiles y el veneno se verifican a 30, 60 y 120 actualizaciones por segundo. Las pruebas de Wildvine comprueban las 256 poses completas, caminata y dash terrestres, tres latigazos orientados, giro de 360 grados, espinas en secuencia, límites y obstáculos, daño único, reserva y gasto de energía, cancelaciones, pulsaciones en espera, XP, cambio de forma y controles táctiles. El daño y la duración de las espinas se comprueban a 30, 60 y 120 actualizaciones por segundo. Las pruebas de Blitzwolfer comprueban las poses completas, escala de la marcha cuadrúpeda, dos garras y mordida, contacto de la embestida, boca dividida en cuatro partes, origen de la onda sobre la garganta, cono viajero, daño único, obstáculos, cancelaciones, gasto de energía, entradas en espera, retorno a Ben, XP y controles táctiles. La embestida y el aullido se verifican a 30, 60 y 120 actualizaciones por segundo. Las pruebas de Ultra T comprueban las 256 poses completas, el cambio de silueta, caminata y dash terrestres, puñetazos alternados y brazos fusionados, anclaje del láser sobre el ojo, primer impacto, obstáculos, embestida con colisiones continuas, un solo golpe por enemigo, reconstrucción sobre suelo libre, cancelaciones, gasto de energía, XP, entradas en espera y controles táctiles. La embestida y el daño se verifican a 30, 60 y 120 actualizaciones por segundo. El tercer golpe de Cuatro Brazos se comprueba con sus nuevos tiempos, su daño único y la siguiente pulsación en espera a 30, 60 y 120 actualizaciones por segundo. Si Chromium está instalado en `/usr/bin/chromium`, se utiliza ese ejecutable; también puede indicarse otro mediante `CHROMIUM_PATH`.
 
 El diseño fuente y el atlas del reloj están en [assets](assets). Para recompilarlo e incrustarlo en `index.html`:
 
@@ -373,4 +398,16 @@ La embestida y la onda sónica están en [systems/blitzwolfer-abilities.js](syst
 
 ```sh
 npm run build:wolf
+```
+
+Las fuentes y el atlas de Ultra T se compilan con:
+
+```sh
+npm run build:upgrade
+```
+
+El compilador conserva una escala común dentro de cada acción, registra la cintura y el suelo y localiza el ojo del láser. La lógica del rayo y la cuchilla está en [systems/upgrade-abilities.js](systems/upgrade-abilities.js); los controles, poses y efectos están en [systems/upgrade-game.js](systems/upgrade-game.js). Para sincronizarlos con el HTML autónomo:
+
+```sh
+npm run build:ultrat
 ```

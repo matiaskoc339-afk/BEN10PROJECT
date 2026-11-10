@@ -1,0 +1,5 @@
+const fs=require('node:fs'),path=require('node:path'),root=path.resolve(__dirname,'..'),file=path.join(root,'index.html');let html=fs.readFileSync(file,'utf8');
+const physics='<!-- UPGRADE_ABILITIES_START -->\n<script>\n'+fs.readFileSync(path.join(root,'systems/upgrade-abilities.js'),'utf8')+'\n</script>\n<!-- UPGRADE_ABILITIES_END -->';
+if(html.includes('<!-- UPGRADE_ABILITIES_START -->'))html=html.replace(/<!-- UPGRADE_ABILITIES_START -->[\s\S]*?<!-- UPGRADE_ABILITIES_END -->/,()=>physics);else html=html.replace('<!-- BLITZWOLFER_ABILITIES_END -->',()=> '<!-- BLITZWOLFER_ABILITIES_END -->\n'+physics);
+const game='// UPGRADE_GAME_START\n'+fs.readFileSync(path.join(root,'systems/upgrade-game.js'),'utf8')+'// UPGRADE_GAME_END';
+if(html.includes('// UPGRADE_GAME_START'))html=html.replace(/\/\/ UPGRADE_GAME_START[\s\S]*?\/\/ UPGRADE_GAME_END/,()=>game);else html=html.replace('function framePlayer(){',()=>game+'\nfunction framePlayer(){');fs.writeFileSync(file,html);console.log('Embedded Ultra T eye laser and blade morph.');
