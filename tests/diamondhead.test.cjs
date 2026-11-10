@@ -154,12 +154,12 @@ const close=(a,b)=>assert.ok(Math.abs(a-b)<.02,`${a} != ${b}`);
  await check('switching among all three aliens preserves life, XP and remaining energy, with four classic slots locked',async()=>{
   await reset();await transform();await page.evaluate(()=>{__demo.stats.damage(15);__demo.stats.awardXP(130);});const energy=await page.evaluate(()=>__demo.stats.energy);
   await transform('2');await transform('1');await transform();assert.ok((await page.evaluate(()=>__demo.stats.energy))<energy);
-  for(const key of ['9','0','u','i']){await page.keyboard.press('r');await page.keyboard.press(key);assert.equal(await page.evaluate(()=>__demo.state.wheel),true);assert.equal(await page.evaluate(()=>__demo.player.mode),'idle');await page.keyboard.press('Escape');}
+  for(const key of ['0','u','i','o']){await page.keyboard.press('r');await page.keyboard.press(key);assert.equal(await page.evaluate(()=>__demo.state.wheel),true);assert.equal(await page.evaluate(()=>__demo.player.mode),'idle');await page.keyboard.press('Escape');}
   await page.keyboard.press('t');assert.deepEqual(await page.evaluate(()=>[__demo.stats.form,__demo.stats.health,__demo.stats.level,__demo.stats.xp,__demo.cam.zoom]),[null,85,2,30,1.125]);
  });
  await check('touch users select slot 4, launch a crystal and return through the watch centre',async()=>{
   const mobile=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true}),p=await mobile.newPage();await p.addInitScript(()=>{requestAnimationFrame=()=>0;});await p.goto('http://127.0.0.1:8782');await p.evaluate(()=>__demo.readyPromise);
-  await p.locator('#watchShortcut').tap();const box=await p.locator('#wheelCanvas').boundingBox();await p.touchscreen.tap(box.x+box.width*.815,box.y+box.height*.5);await p.evaluate(()=>__demo.tick(1.05));
+  await p.locator('#watchShortcut').tap();const box=await p.locator('#wheelCanvas').boundingBox();await p.touchscreen.tap(box.x+box.width*0.812703,box.y+box.height*0.462031);await p.evaluate(()=>__demo.tick(1.05));
   assert.equal(await p.locator('#formName').textContent(),'DIAMANTE');await p.locator('#btnHeavy').tap();await p.evaluate(()=>__demo.tick(.44));assert.equal(await p.evaluate(()=>__demo.projectiles[0].kind),'crystal');
   await p.locator('#watchShortcut').tap();await p.touchscreen.tap(box.x+box.width/2,box.y+box.height/2);assert.equal(await p.evaluate(()=>__demo.stats.form),null);await mobile.close();
  });
