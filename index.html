@@ -1826,13 +1826,13 @@ function drawSonicWave(w){
  ctx.restore();
 }
 const BLITZWOLFER_MOTION={};
-for(const [direction,index] of [['down',0],['up',1],['right',2],['left',3]])BLITZWOLFER_MOTION[direction]={light1:combatClip(index,12+index,[1,2,3,4,5,6],2),light2:combatClip(index,16+index,[1,2,2,3,4,5,6],2),light3:combatClip(index,20+index,[1,2,3,3,4,5,6],2),rush:combatClip(index,24+index,[1,2,3,4,4,5,6],2),howl:combatClip(index,28+index,[1,2,3,3,4,4,4,5,6],2),dash:combatClip(index,8+index,[1,2,3,4,5,6],0)};
+for(const [direction,index] of [['down',0],['up',1],['right',2],['left',3]])BLITZWOLFER_MOTION[direction]={light1:combatClip(index,12+index,[1,2,3,4,5,6],2),light2:combatClip(index,16+index,[1,2,2,3,4,5,6],2,index===1),light3:combatClip(index,20+index,[1,2,3,3,4,5,6],2),rush:combatClip(index,24+index,[1,2,3,4,4,5,6],2),howl:combatClip(index,28+index,[1,2,3,3,4,4,4,5,6],2),dash:combatClip(index,8+index,[1,2,3,4,5,6],0)};
 function blitzwolferActionClip(){return BLITZWOLFER_MOTION[player.actionDir][player.mode.startsWith('heavy')?(player.specialAnimation?'howl':'rush'):player.mode];}
 function blitzwolferPose(){
- const direction=player.mode==='idle'?player.dir:player.actionDir,index={down:0,up:1,right:2,left:3}[direction];let row=index,frame=0,lift=0;
+ const direction=player.mode==='idle'?player.dir:player.actionDir,index={down:0,up:1,right:2,left:3}[direction];let row=index,frame=0,lift=0,flip=false;
  if(player.mode==='idle'){row=index+(player.moving?4:0);frame=Math.floor((player.moving?player.runClock*LOBOAN.speed/(1.1*LOBOAN.stride):player.idleClock*.8)*8)%8;}
- else{const clip=blitzwolferActionClip();if(clip){const phase=clamp(Math.floor(player.modeTime/(player.modeDur||1)*clip.poses.length),0,clip.poses.length-1);[row,frame]=clip.poses[phase];}if(player.mode==='dash')lift=Math.sin(Math.PI*clamp(player.modeTime/player.modeDur,0,1))*9;}
- return {atlas:blitzwolferAtlas,row,frame,flip:false,idle:player.mode==='idle'&&!player.moving,direction,alien:true,scale:LOBOAN.scale/blitzwolferAtlas.resolutionScale,lift};
+ else{const clip=blitzwolferActionClip();if(clip){const phase=clamp(Math.floor(player.modeTime/(player.modeDur||1)*clip.poses.length),0,clip.poses.length-1);[row,frame,flip]=clip.poses[phase];}if(player.mode==='dash')lift=Math.sin(Math.PI*clamp(player.modeTime/player.modeDur,0,1))*9;}
+ return {atlas:blitzwolferAtlas,row,frame,flip,idle:player.mode==='idle'&&!player.moving,direction,alien:true,scale:LOBOAN.scale/blitzwolferAtlas.resolutionScale,lift};
 }
 // BLITZWOLFER_GAME_END
 function framePlayer(){
