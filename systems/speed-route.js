@@ -44,7 +44,7 @@
  class Rush{
   constructor(points,{speed=config.rushSpeed,radius=config.radius}={}){
    if(!points.length||!points.every(finite)||!Number.isFinite(speed)||speed<=0)throw new Error('Invalid rush path');
-   this.points=points.map(p=>({...p}));this.position={...points[0]};this.index=1;this.speed=speed;this.radius=radius;this.hits=new Set();this.distance=0;this.heading={x:1,y:0};this.segments=[];this.active=points.length>1;
+   this.points=points.map(p=>({...p}));this.position={...points[0]};this.index=1;this.speed=speed;this.radius=radius;this.contacts=new Set();this.hits=new Set();this.distance=0;this.heading={x:1,y:0};this.segments=[];this.active=points.length>1;
   }
   step(dt,world={},targets=[],onHit=()=>{}){
    this.segments=[];if(!Number.isFinite(dt)||dt<=0||!this.active)return;
@@ -56,8 +56,12 @@
     if(moved>1e-8){
      this.segments.push({from:a,to:b});
      this.heading={x:(b.x-a.x)/moved,y:(b.y-a.y)/moved};
-     const crossed=targets.filter(p=>p.alive&&!this.hits.has(p)&&distanceToSegment(a,b,p)<=this.radius+18).sort((p,q)=>projection(a,b,p)-projection(a,b,q));
+     // A continuous overlap is one hit. Leaving the target rearms the next
+     // crossing, including return legs and several crossings in one frame.
+     const radius=this.radius+18;
+     const crossed=targets.filter(p=>p.alive&&!(this.contacts.has(p)&&distance(a,p)<=radius+1e-7)&&distanceToSegment(a,b,p)<=radius).sort((p,q)=>projection(a,b,p)-projection(a,b,q));
      for(const hit of crossed){this.hits.add(hit);onHit(hit);}
+     this.contacts=new Set(targets.filter(p=>p.alive&&distance(b,p)<=radius+1e-7));
     }
     this.position=b;this.distance+=moved;budget-=moved;
     if(clipped.blocked){this.active=false;return;}

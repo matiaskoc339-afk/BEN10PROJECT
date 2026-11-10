@@ -453,7 +453,7 @@ kbd { display:inline-grid; place-items:center; min-height:23px; min-width:23px; 
  class Rush{
   constructor(points,{speed=config.rushSpeed,radius=config.radius}={}){
    if(!points.length||!points.every(finite)||!Number.isFinite(speed)||speed<=0)throw new Error('Invalid rush path');
-   this.points=points.map(p=>({...p}));this.position={...points[0]};this.index=1;this.speed=speed;this.radius=radius;this.hits=new Set();this.distance=0;this.heading={x:1,y:0};this.segments=[];this.active=points.length>1;
+   this.points=points.map(p=>({...p}));this.position={...points[0]};this.index=1;this.speed=speed;this.radius=radius;this.contacts=new Set();this.hits=new Set();this.distance=0;this.heading={x:1,y:0};this.segments=[];this.active=points.length>1;
   }
   step(dt,world={},targets=[],onHit=()=>{}){
    this.segments=[];if(!Number.isFinite(dt)||dt<=0||!this.active)return;
@@ -465,8 +465,12 @@ kbd { display:inline-grid; place-items:center; min-height:23px; min-width:23px; 
     if(moved>1e-8){
      this.segments.push({from:a,to:b});
      this.heading={x:(b.x-a.x)/moved,y:(b.y-a.y)/moved};
-     const crossed=targets.filter(p=>p.alive&&!this.hits.has(p)&&distanceToSegment(a,b,p)<=this.radius+18).sort((p,q)=>projection(a,b,p)-projection(a,b,q));
+     // A continuous overlap is one hit. Leaving the target rearms the next
+     // crossing, including return legs and several crossings in one frame.
+     const radius=this.radius+18;
+     const crossed=targets.filter(p=>p.alive&&!(this.contacts.has(p)&&distance(a,p)<=radius+1e-7)&&distanceToSegment(a,b,p)<=radius).sort((p,q)=>projection(a,b,p)-projection(a,b,q));
      for(const hit of crossed){this.hits.add(hit);onHit(hit);}
+     this.contacts=new Set(targets.filter(p=>p.alive&&distance(b,p)<=radius+1e-7));
     }
     this.position=b;this.distance+=moved;budget-=moved;
     if(clipped.blocked){this.active=false;return;}
@@ -860,7 +864,7 @@ function calculateHit(){
  let got=false;
  for(const d of dummyList){if(!d.alive||dist(player.x,player.y,d.x,d.y)>reach)continue;const dx=d.x-player.x,dy=d.y-player.y,dot=(dx*fx+dy*fy)/(Math.hypot(dx,dy)||1);if(!(special&&tetramand)&&dot<.35)continue;got=damageDummy(d,damage,heavy)||got;}
  if(special){if(tetramand){pieces.push({type:'shockwave',x:player.x,y:player.y,vx:0,vy:0,life:.5,max:.5,size:180,color:'#ffe4ac'});spawnDust(player.x,player.y,32,'#bba27b');}stats.useComboSpecial();spawnHit(player.x+fx*58,player.y-38+fy*30,true);flash=.4;showCombo('ESPECIAL · −'+stats.config.specialCost+' ENERGÍA');}
- else if(!heavy&&got){stats.recordLightHit();if(stats.specialReady)showCombo(isHeatblast()?'BOLA EXPLOSIVA LISTA · FUERTE':isDiamondhead()?'ESTALLIDO DE CRISTALES LISTO · FUERTE':isXLR8()?'VELOCIDAD POTENCIADA LISTA · DERECHO':'ESPECIAL LISTO · GOLPE FUERTE');}
+ else if(!heavy&&got){stats.recordLightHit();if(stats.specialReady)showCombo(isHeatblast()?'BOLA EXPLOSIVA LISTA · FUERTE':isDiamondhead()?'ESTALLIDO DE CRISTALES LISTO · FUERTE':isXLR8()?'COMBO RELÁMPAGO LISTO · DERECHO':'ESPECIAL LISTO · GOLPE FUERTE');}
  else if(heavy||!got)stats.clearCombo();
  player.specialQueued=false;
  if(got){shake=Math.max(shake,heavy?8:4);if(tetramand)impactPause=heavy?.055:.035;else if(petrosapien)impactPause=.025;}else spawnDust(player.x+fx*28,player.y+fy*15,heavy?5:2,'#d1d9c5');
@@ -879,7 +883,7 @@ function syncSpeedGuide(){
  speedGuide.hidden=!(planning||charging);document.body.classList.toggle('is-speed-planning',planning||charging);
  if(speedGuide.hidden){s.guideStamp='';return;}
  const left=Math.max(0,Ben10Speed.config.holdThreshold+Ben10Speed.config.planningTime-s.time),stamp=s.phase+Math.ceil(left*10)+(s.reservation?'special':'');
- if(s.guideStamp!==stamp){s.guideStamp=stamp;speedGuideTitle.textContent=planning?'TRAZA TU RECORRIDO · '+left.toFixed(1).replace('.',',')+' s':'PREPARANDO IMPULSO';speedGuideHint.textContent=planning?(s.reservation?'RUTA POTENCIADA · ':'')+'Suelta para correr · al terminar el tiempo arranca solo':'Mantén y mueve para trazar · clic breve: ida y vuelta';}
+ if(s.guideStamp!==stamp){s.guideStamp=stamp;speedGuideTitle.textContent=planning?'TRAZA TU RECORRIDO · '+left.toFixed(1).replace('.',',')+' s':'PREPARANDO IMPULSO';speedGuideHint.textContent=planning?(s.reservation?'COMBO · RECORRIDO + REMATE · ':'')+'Suelta para correr · al terminar el tiempo arranca solo':'Mantén y mueve para trazar · clic breve: ida y vuelta';}
  speedGuideFill.style.transform='scaleX('+(planning?Math.min(1,left/Ben10Speed.config.planningTime):1)+')';
 }
 function speedSafeLanding(origin,heading){
@@ -891,16 +895,16 @@ function speedSafeLanding(origin,heading){
  return {...origin};
 }
 function cancelSpeedAbility(){
- if(player.mode==='speedRush'||player.mode==='speedBrake'){const landing=speedSafeLanding({x:player.x,y:player.y},speedAction.rush?.heading);player.x=landing.x;player.y=landing.y;}
+ if(player.mode==='speedRush'||player.mode==='speedFinish'||player.mode==='speedBrake'){const landing=speedSafeLanding({x:player.x,y:player.y},speedAction.rush?.heading);player.x=landing.x;player.y=landing.y;}
  stats.cancelReservedSpecial(speedAction.reservation);releaseSpeedCapture();
- Object.assign(speedAction,{phase:'idle',time:0,plan:null,rush:null,reservation:null,trail:[],damage:34,lastPointer:null});
+ Object.assign(speedAction,{phase:'idle',time:0,plan:null,rush:null,reservation:null,trail:[],damage:34,lastPointer:null,powered:false,finisherHit:false,passHits:0});
  if(player.mode.startsWith('speed')){player.mode='idle';player.modeTime=0;player.modeDur=0;player.moving=false;player.idleClock=0;}
  syncSpeedGuide();
 }
 function beginSpeedAbility(event){
  if(!isXLR8()||!assetsReady||state.wheel||stats.health<=0||speedAction.phase!=='idle'||player.mode==='omnitrix'||player.mode==='dash'||player.mode==='hurt'||t-player.lastHeavy<KINECELERAN.heavyCooldown)return false;
  faceForAction();const reservation=stats.reserveComboSpecial();
- Object.assign(speedAction,{phase:'charge',time:0,plan:new Ben10Speed.RoutePlan({x:player.x,y:player.y}),rush:null,reservation,trail:[],damage:34,lastPointer:null,pointerId:event?.pointerId??null,button:event?.button??2,capture:event?.currentTarget||null,guideStamp:''});
+ Object.assign(speedAction,{phase:'charge',time:0,plan:new Ben10Speed.RoutePlan({x:player.x,y:player.y}),rush:null,reservation,trail:[],damage:34,lastPointer:null,pointerId:event?.pointerId??null,button:event?.button??2,capture:event?.currentTarget||null,guideStamp:'',powered:false,finisherHit:false,passHits:0});
  player.lastHeavy=t;startMode('speedCharge',Ben10Speed.config.holdThreshold+Ben10Speed.config.planningTime);player.moving=false;
  if(event){speedAction.lastPointer=speedPointerWorld(event);speedAction.plan.add(speedAction.lastPointer,speedWorld());try{speedAction.capture?.setPointerCapture?.(event.pointerId);}catch{}}
  syncSpeedGuide();return true;
@@ -920,9 +924,21 @@ function startSpeedRush(kind){
  const points=kind==='route'&&s.plan.length>=24?s.plan.points:Ben10Speed.quickPath({x:player.x,y:player.y},player.actionX,player.actionY,speedWorld());
  const powered=!!stats.useReservedSpecial(s.reservation);s.reservation=null;
  if(!isXLR8()){cancelSpeedAbility();updateStats(0);return;}
- if(!powered)stats.clearCombo();s.damage=powered?58:34;s.rush=new Ben10Speed.Rush(points);s.phase='rush';s.time=0;s.trail=[];
+ if(!powered)stats.clearCombo();s.powered=powered;s.damage=powered?58:34;s.rush=new Ben10Speed.Rush(points);s.phase='rush';s.time=0;s.trail=[];
  releaseSpeedCapture();startMode('speedRush',Math.max(.01,points.reduce((sum,p,i)=>sum+(i?dist(points[i-1].x,points[i-1].y,p.x,p.y):0),0)/Ben10Speed.config.rushSpeed));player.moving=true;
  showCombo(powered?'VELOCIDAD POTENCIADA · −20 ENERGÍA':kind==='tap'?'XLR8 · IDA Y VUELTA':'XLR8 · RECORRIDO VELOZ');syncSpeedGuide();
+}
+function speedFinisherTargets(){
+ return dummyList.filter(d=>d.alive&&dist(player.x,player.y,d.x,d.y)<=108&&!Ben10Speed.clipSegment({x:player.x,y:player.y},d,speedWorld()).blocked);
+}
+function beginSpeedBrake(){
+ const s=speedAction;s.brakeFrom={x:player.x,y:player.y};s.brakeTo=speedSafeLanding(s.brakeFrom,s.rush.heading);
+ s.phase='brake';s.time=0;startMode('speedBrake',.18);player.lastHeavy=t;
+}
+function beginSpeedFinisher(){
+ const s=speedAction,target=speedFinisherTargets().sort((a,b)=>dist(player.x,player.y,a.x,a.y)-dist(player.x,player.y,b.x,b.y))[0];
+ if(target&&dist(player.x,player.y,target.x,target.y)>.001)faceFrom(target.x-player.x,target.y-player.y);
+ s.phase='finish';s.time=0;s.finisherHit=false;startMode('speedFinish',.3);showCombo('COMBO XLR8 · PATADA RELÁMPAGO');
 }
 function updateSpeedAbility(dt){
  const s=speedAction;if(s.phase==='idle')return;
@@ -935,13 +951,20 @@ function updateSpeedAbility(dt){
   syncSpeedGuide();return;
  }
  if(s.phase==='rush'){
-  s.rush.step(dt,speedWorld(),dummyList,d=>{damageDummy(d,s.damage,false);shake=Math.min(shake,4);spawnDust(d.x,d.y-38,3,'#82dffc');});
+  s.rush.step(dt,speedWorld(),dummyList,d=>{damageDummy(d,s.damage,false);s.passHits++;if(s.passHits>1)showCombo('XLR8 · '+s.passHits+' IMPACTOS EN RECORRIDO');shake=Math.min(shake,4);spawnDust(d.x,d.y-38,3,'#82dffc');});
   player.x=s.rush.position.x;player.y=s.rush.position.y;faceFrom(s.rush.heading.x,s.rush.heading.y);player.actionDir=player.dir;player.actionX=player.faceX;player.actionY=player.faceY;
   for(const segment of s.rush.segments)s.trail.push({...segment.from,age:0},{...segment.to,age:0});
-  if(!s.rush.active){
-   s.brakeFrom={x:player.x,y:player.y};s.brakeTo=speedSafeLanding(s.brakeFrom,s.rush.heading);
-   s.phase='brake';s.time=0;startMode('speedBrake',.18);player.lastHeavy=t;
+  if(!s.rush.active){if(s.powered)beginSpeedFinisher();else beginSpeedBrake();}
+ }else if(s.phase==='finish'){
+  if(!s.finisherHit&&s.time>=.15){
+   s.finisherHit=true;
+   for(const d of speedFinisherTargets()){
+    const dx=d.x-player.x,dy=d.y-player.y,length=Math.hypot(dx,dy),dot=(dx*player.actionX+dy*player.actionY)/(length||1);
+    if(length<=32||dot>=.35)damageDummy(d,28,false);
+   }
+   pieces.push({type:'shockwave',x:player.x,y:player.y,vx:0,vy:0,life:.22,max:.22,size:72,color:'#a1efff'});
   }
+  if(s.time>=.3)beginSpeedBrake();
  }else if(s.phase==='brake'){const u=Math.min(1,s.time/.18),ease=1-(1-u)*(1-u);player.x=lerp(s.brakeFrom.x,s.brakeTo.x,ease);player.y=lerp(s.brakeFrom.y,s.brakeTo.y,ease);if(s.time>=.18){s.trail=[];s.phase='idle';s.rush=null;s.plan=null;player.mode='idle';player.modeTime=0;player.modeDur=0;player.moving=false;player.idleClock=0;player.lastHeavy=t;}}
 }
 function drawSpeedRoute(){
@@ -1053,6 +1076,7 @@ function xlr8Pose(){
  if(player.mode==='idle'){if(player.moving){row=4+index;frame=Math.floor(player.runClock*KINECELERAN.speed/(1.1*KINECELERAN.stride)*8)%8;}else frame=Math.floor(player.idleClock*7)%8;}
  else if(player.mode==='speedCharge'){row=24+index;frame=speedAction.time<Ben10Speed.config.holdThreshold?Math.min(3,Math.floor(speedAction.time/Ben10Speed.config.holdThreshold*4)):4+Math.floor(speedAction.time*10)%4;}
  else if(player.mode==='speedRush'){row=8+index;frame=3+Math.floor(player.modeTime*28)%4;}
+ else if(player.mode==='speedFinish'){const clip=XLR8_MOTION[direction].light3;const phase=clamp(Math.floor(player.modeTime/.3*clip.poses.length),0,clip.poses.length-1);[row,frame]=clip.poses[phase];}
  else if(player.mode==='speedBrake'){row=28+index;frame=clamp(Math.floor(player.modeTime/.18*8),0,7);}
  else{const clip=xlr8ActionClip();if(clip){const phase=clamp(Math.floor(player.modeTime/(player.modeDur||1)*clip.poses.length),0,clip.poses.length-1);[row,frame]=clip.poses[phase];}}
  return {atlas:xlr8Atlas,row,frame,flip:false,idle:player.mode==='idle'&&!player.moving,direction,alien:true,scale:KINECELERAN.scale/xlr8Atlas.resolutionScale};

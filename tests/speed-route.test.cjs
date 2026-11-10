@@ -9,11 +9,11 @@ test('route length, point count and tiny pointer jitter are bounded',()=>{
  const p=new RoutePlan({x:600,y:600},{maxLength:100,maxPoints:4});assert.equal(p.add({x:601,y:601},world),false);p.add({x:800,y:600},world);close(p.length,100);assert.equal(p.points[1].x,700);assert.equal(p.add({x:800,y:800},world),false);
  const q=new RoutePlan({x:600,y:600},{maxPoints:3});q.add({x:630,y:600},world);q.add({x:660,y:600},world);assert.equal(q.add({x:690,y:600},world),false);
 });
-test('tap rush follows facing and returns exactly to the origin while hitting a crossed enemy once',()=>{
+test('tap rush follows facing and returns exactly to the origin while hitting the enemy on both passes',()=>{
  for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){
   const a={x:900,y:900},near={x:a.x+dx*100,y:a.y+dy*100,alive:true},behind={x:a.x-dx*100,y:a.y-dy*100,alive:true},hits=[];
   const r=new Rush(quickPath(a,dx,dy,world));r.step(1,world,[near,behind],p=>hits.push(p));
-  assert.deepEqual(r.position,a);assert.equal(r.active,false);assert.deepEqual(hits,[near]);close(r.distance,config.tapDistance*2);
+  assert.deepEqual(r.position,a);assert.equal(r.active,false);assert.deepEqual(hits,[near,near]);close(r.distance,config.tapDistance*2);
  }
 });
 test('a drawn multi-turn route hits every crossed target and ignores enemies outside the route',()=>{
@@ -23,15 +23,29 @@ test('a drawn multi-turn route hits every crossed target and ignores enemies out
 test('swept hits cannot tunnel through a target on a single long frame',()=>{
  const target={x:800,y:600,alive:true},hits=[],r=new Rush([{x:600,y:600},{x:1500,y:600}]);r.step(.5,world,[target],p=>hits.push(p));assert.deepEqual(hits,[target]);
 });
-test('loops, return paths and dead targets cannot multiply damage',()=>{
+test('separate crossings can damage again while dead targets remain ignored',()=>{
  const target={x:750,y:600,alive:true},dead={x:850,y:600,alive:false},hits=[],r=new Rush([{x:600,y:600},{x:900,y:600},{x:600,y:600},{x:900,y:600}]);
- for(let i=0;i<100;i++)r.step(.01,world,[target,dead],p=>hits.push(p));assert.deepEqual(hits,[target]);
+ for(let i=0;i<100;i++)r.step(.01,world,[target,dead],p=>hits.push(p));assert.deepEqual(hits,[target,target,target]);
 });
 test('solid cover clips the plan and rush before enemies behind the wall',()=>{
  const blocked={...world,obstacles:[{x:800,y:600,r:30,block:true}]},target={x:900,y:600,alive:true},hits=[];
  const p=new RoutePlan({x:600,y:600});p.add({x:1000,y:600},blocked);assert.equal(p.blocked,true);assert.ok(p.points[1].x<756);
  const r=new Rush([{x:600,y:600},{x:1000,y:600}]);r.step(1,blocked,[target],p=>hits.push(p));assert.equal(hits.length,0);assert.ok(r.position.x<756);assert.equal(r.active,false);
  const tap=new Rush(quickPath({x:600,y:600},1,0,blocked));tap.step(1,blocked,[],()=>{});close(tap.position.x,600);
+});
+test('one continuous overlap cannot deal extra damage when divided into many frames or waypoints',()=>{
+ const target={x:800,y:600,alive:true},points=[{x:700,y:600},{x:780,y:600},{x:790,y:600},{x:810,y:600},{x:820,y:600},{x:900,y:600}];
+ for(const dt of [1,1/30,1/60,1/120]){const hits=[],r=new Rush(points);for(let t=0;t<1;t+=dt)r.step(dt,world,[target],p=>hits.push(p));assert.equal(hits.length,1);}
+});
+test('turning around inside the hitbox is continuous contact; leaving and reentering rearms the hit',()=>{
+ const target={x:800,y:600,alive:true},hits=[],r=new Rush([{x:700,y:600},{x:800,y:600},{x:790,y:600},{x:810,y:600},{x:900,y:600},{x:700,y:600}]);
+ r.step(1,world,[target],p=>hits.push(p));assert.equal(hits.length,2);
+});
+test('multiple crossings have the same damage count in one long frame and at 30, 60 and 120 Hz',()=>{
+ for(const dt of [1,1/30,1/60,1/120]){
+  const target={x:800,y:600,alive:true},hits=[],r=new Rush([{x:700,y:600},{x:900,y:600},{x:700,y:600},{x:900,y:600},{x:700,y:600}]);
+  for(let t=0;t<1;t+=dt)r.step(dt,world,[target],p=>hits.push(p));assert.equal(hits.length,4);
+ }
 });
 test('a route can go around solid obstacles and ignores decorative nonblocking props',()=>{
  const w={...world,obstacles:[{x:800,y:600,r:30,block:true},{x:800,y:450,r:30,block:false}]},p=new RoutePlan({x:600,y:600});

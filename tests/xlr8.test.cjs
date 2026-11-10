@@ -23,9 +23,9 @@ let browser,count=0;async function check(name,fn){await fn();count++;console.log
   const rows=[];for(const d of [.18,.2,.26]){await page.mouse.click(1100,300);await tick(d*.6);rows.push(await page.evaluate(()=>__demo.framePlayer().row));assert.equal(await page.evaluate(()=>__demo.framePlayer().direction),dir);await tick(d*.4+.03);}
   assert.deepEqual(rows,[12+i,16+i,20+i]);assert.deepEqual(await page.evaluate(()=>__demo.dummies.map(d=>d.health)),[462,500]);assert.equal(await page.evaluate(()=>__demo.projectiles.length),0);
  });
- await check('a brief right click rushes forward and returns to the exact origin in all four facings, hitting once',async()=>{
+ await check('a brief right click rushes forward and returns to the exact origin in all four facings, hitting on both passes',async()=>{
   for(const key of ['d','a','w','s']){await reset();await transform();await face(key);const p=await position();await page.evaluate(()=>{const p=__demo.player;__demo.dummies.push({x:p.x+p.faceX*100,y:p.y+p.faceY*100,health:100,alive:true},{x:p.x-p.faceX*100,y:p.y-p.faceY*100,health:100,alive:true});});
-   await page.mouse.move(1100,300);await page.mouse.down({button:'right'});await tick(.06);await page.mouse.up({button:'right'});assert.equal(await page.evaluate(()=>__demo.speedAction.phase),'rush');await tick(.6);const end=await position();close(end.x,p.x);close(end.y,p.y);assert.deepEqual(await page.evaluate(()=>__demo.dummies.map(d=>d.health)),[66,100]);assert.equal(await page.evaluate(()=>__demo.player.mode),'idle');}
+   await page.mouse.move(1100,300);await page.mouse.down({button:'right'});await tick(.06);await page.mouse.up({button:'right'});assert.equal(await page.evaluate(()=>__demo.speedAction.phase),'rush');await tick(.6);const end=await position();close(end.x,p.x);close(end.y,p.y);assert.deepEqual(await page.evaluate(()=>__demo.dummies.map(d=>d.health)),[32,100]);assert.equal(await page.evaluate(()=>__demo.player.mode),'idle');}
  });
  await check('holding right click draws an ordered route and automatically executes it when the visible timer ends',async()=>{
   await reset();await transform();const p=await position();await page.evaluate(()=>{const p=__demo.player;for(const [dx,dy] of [[140,0],[260,90],[140,160],[60,70]])__demo.dummies.push({x:p.x+dx,y:p.y+dy,health:100,alive:true});});
@@ -41,9 +41,9 @@ let browser,count=0;async function check(name,fn){await fn();count++;console.log
   await page.keyboard.down('d');await tick(.3);await page.keyboard.up('d');assert.deepEqual(await position(),p);assert.deepEqual(await page.evaluate(()=>({...__demo.cam})),cam);
   await page.mouse.click(900,300,{button:'left'});assert.equal(await page.evaluate(()=>__demo.speedAction.phase),'plan');await page.mouse.up({button:'right'});await tick(.6);
  });
- await check('a looping route never damages the same enemy twice and stops at solid cover',async()=>{
-  await reset();await transform();const p=await position();await page.evaluate(()=>{const p=__demo.player;__demo.dummies.push({x:p.x+100,y:p.y,health:100,alive:true});});
-  await moveWorld(p.x+200,p.y);await page.mouse.down({button:'right'});await tick(.2);await moveWorld(p.x,p.y);await moveWorld(p.x+200,p.y);await page.mouse.up({button:'right'});await tick(.8);assert.equal(await page.evaluate(()=>__demo.dummies[0].health),66);
+ await check('a looping route damages again on each crossing and still stops at solid cover',async()=>{
+  await reset();await transform();const p=await position();await page.evaluate(()=>{const p=__demo.player;__demo.dummies.push({x:p.x+100,y:p.y,health:500,alive:true});});
+  await moveWorld(p.x+200,p.y);await page.mouse.down({button:'right'});await tick(.2);await moveWorld(p.x,p.y);await moveWorld(p.x+200,p.y);await page.mouse.up({button:'right'});await tick(.8);assert.equal(await page.evaluate(()=>__demo.dummies[0].health),398);
   await reset();await transform();const q=await position();await page.evaluate(()=>{const p=__demo.player;__demo.props.push({x:p.x+110,y:p.y,r:24,block:true});__demo.dummies.push({x:p.x+240,y:p.y,health:100,alive:true});});
   await moveWorld(q.x+300,q.y);await page.mouse.down({button:'right'});await tick(.25);assert.equal(await page.evaluate(()=>__demo.speedAction.plan.blocked),true);await page.mouse.up({button:'right'});await tick(.7);assert.ok((await position()).x<q.x+72);assert.equal(await page.evaluate(()=>__demo.dummies[0].health),100);
  });
@@ -107,6 +107,33 @@ let browser,count=0;async function check(name,fn){await fn();count++;console.log
    for(const dx of [140,-140,140,0])__demo.speedAction.plan.add({x:start.x+dx,y:start.y},{obstacles:[]});__demo.startSpeedRush('route');const bad=[];
    for(let i=0;i<90;i++){__demo.update(1/60);__demo.render(1/60);const x=(__demo.player.x-__demo.cam.x)*__demo.cam.zoom;if(x<25||x>365)bad.push(x);}return bad;
   });assert.deepEqual(bad,[]);await context.close();
+ });
+ await check('two real melee hits and a powered route finish with a visible lightning kick for 28 extra damage and one energy charge',async()=>{
+  await reset();await transform();await face('d');await page.evaluate(()=>{const p=__demo.player;__demo.dummies.push({x:p.x+80,y:p.y,health:500,alive:true});});
+  for(const d of [.18,.2]){await page.mouse.click(1100,300);await tick(d+.03);}const energy=await page.evaluate(()=>__demo.stats.energy),target=await page.evaluate(()=>({x:__demo.dummies[0].x,y:__demo.dummies[0].y}));
+  await moveWorld(target.x-20,target.y);await page.mouse.down({button:'right'});await tick(.22);await page.mouse.up({button:'right'});await tick(.04);
+  assert.equal(await page.evaluate(()=>__demo.speedAction.phase),'finish');assert.equal(await page.evaluate(()=>__demo.dummies[0].health),420);
+  await tick(.12);assert.equal(await page.evaluate(()=>__demo.dummies[0].health),420);await tick(.04);assert.equal(await page.evaluate(()=>__demo.dummies[0].health),392);
+  assert.equal(await page.evaluate(()=>__demo.framePlayer().row),22);close(await page.evaluate(()=>__demo.stats.energy),energy-20-.42*1.5);
+  await tick(.5);assert.equal(await page.evaluate(()=>__demo.speedAction.phase),'idle');assert.equal(await page.evaluate(()=>__demo.dummies[0].health),392);
+ });
+ await check('the combo kick faces its target and damages once at 30, 60 and 120 Hz in every direction',async()=>{
+  for(const fps of [30,60,120])for(const [dir,dx,dy,index] of [['right',1,0,2],['left',-1,0,3],['up',0,-1,1],['down',0,1,0]]){
+   const result=await page.evaluate(v=>{
+    __demo.reset();__demo.stats.transform({id:'xlr8'});const p=__demo.player;Object.assign(p,{dir:v.dir,faceX:v.dx,faceY:v.dy});__demo.dummies.push({x:p.x+v.dx*60,y:p.y+v.dy*60,health:500,alive:true});__demo.stats.recordLightHit();__demo.stats.recordLightHit();
+    __demo.beginSpeedAbility();__demo.speedAction.plan.add({x:p.x+v.dx*40,y:p.y+v.dy*40},{obstacles:[]});__demo.startSpeedRush('route');let row=null;
+    for(let left=1;left>1e-10;){const dt=Math.min(left,1/v.fps);__demo.update(dt);left-=dt;if(p.mode==='speedFinish'&&p.modeTime>=.15&&p.modeTime<.22)row=__demo.framePlayer().row;}
+    return {hp:__demo.dummies[0].health,energy:__demo.stats.energy,phase:__demo.speedAction.phase,row};
+   },{fps,dir,dx,dy});assert.equal(result.hp,414);close(result.energy,78.5);assert.equal(result.phase,'idle');assert.equal(result.row,20+index);
+  }
+ });
+ await check('the finisher respects solid cover and returning to Ben cancels a kick before contact',async()=>{
+  const blocked=await page.evaluate(()=>{
+   __demo.reset();__demo.stats.transform({id:'xlr8'});const p=__demo.player;Object.assign(p,{dir:'right',faceX:1,faceY:0});__demo.dummies.push({x:p.x+120,y:p.y,health:500,alive:true});__demo.props.push({x:p.x+70,y:p.y,r:20,block:true});__demo.stats.recordLightHit();__demo.stats.recordLightHit();__demo.beginSpeedAbility();__demo.speedAction.plan.add({x:p.x+180,y:p.y},{obstacles:__demo.props});__demo.startSpeedRush('route');__demo.tick(1);return __demo.dummies[0].health;
+  });assert.equal(blocked,500);
+  await page.evaluate(()=>{
+   __demo.reset();__demo.stats.transform({id:'xlr8'});const p=__demo.player;Object.assign(p,{dir:'right',faceX:1,faceY:0});__demo.dummies.push({x:p.x+60,y:p.y,health:500,alive:true});__demo.stats.recordLightHit();__demo.stats.recordLightHit();__demo.beginSpeedAbility();__demo.speedAction.plan.add({x:p.x+40,y:p.y},{obstacles:[]});__demo.startSpeedRush('route');__demo.tick(.04);
+  });assert.equal(await page.evaluate(()=>__demo.speedAction.phase),'finish');await page.keyboard.press('t');await tick(.7);assert.equal(await page.evaluate(()=>__demo.dummies[0].health),442);assert.equal(await page.evaluate(()=>__demo.stats.form),null);
  });
  await check('the embedded XLR8 controller matches its maintained source',async()=>{const root=path.resolve(__dirname,'..');assert.ok(fs.readFileSync(path.join(root,'index.html'),'utf8').includes('// XLR8_GAME_START\n'+fs.readFileSync(path.join(root,'systems/xlr8-game.js'),'utf8')+'// XLR8_GAME_END'));});
  assert.deepEqual(errors,[]);console.log(`${count} XLR8 checks passed`);
