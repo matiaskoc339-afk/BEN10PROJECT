@@ -1,12 +1,12 @@
 # Ben 10 · Demo v0.8
 
-La demo v0.8 es la única versión jugable de este repositorio. La entrada principal es [index.html](index.html), un archivo autónomo que incluye los sprites de Ben, Cuatro Brazos, Fuego y Diamante, el escenario, el Omnitrix clásico y el HUD. Se puede jugar sin conexión.
+La demo v0.8 es la única versión jugable de este repositorio. La entrada principal es [index.html](index.html), un archivo autónomo que incluye los sprites de Ben, Cuatro Brazos, Fuego, XLR8 y Diamante, el escenario, el Omnitrix clásico y el HUD. Se puede jugar sin conexión.
 
 ![Demo v0.8](docs/preview.png)
 
 ## Sprites HD
 
-Cuatro Brazos, Fuego y Diamante usan atlas de 160 píxeles de altura base por pose. Las nuevas hojas de referencia mantienen el diseño clásico, las proporciones y el anclaje anatómico; la guardia, el movimiento y los ataques se calibran desde la pose neutra de cada vista. El renderizado conserva el tamaño de los personajes y añade un filtrado de mayor calidad para los contornos.
+Cuatro Brazos, Fuego, XLR8 y Diamante usan atlas de 160 píxeles de altura base por pose. Las nuevas hojas de referencia mantienen el diseño clásico, las proporciones y el anclaje anatómico; la guardia, el movimiento y los ataques se calibran desde la pose neutra de cada vista. El renderizado conserva el tamaño de los personajes y añade un filtrado de mayor calidad para los contornos.
 
 Los fotogramas se dibujan desde una textura compartida para evitar copiar cientos de imágenes HD al iniciar la demo. El reloj de selección utiliza una escala propia para que los retratos sigan dentro de sus ranuras.
 
@@ -31,16 +31,17 @@ Visita [http://localhost:8000](http://localhost:8000). Para jugar no hace falta 
 | Abrir el Omnitrix    | R              |
 | Elegir Cuatro Brazos | 1, dentro de la rueda |
 | Elegir Fuego         | 2, dentro de la rueda |
+| Elegir XLR8          | 3, dentro de la rueda |
 | Elegir Diamante      | 4, dentro de la rueda |
 | Volver a Ben        | T, o el centro de la rueda |
 
-En pantallas táctiles están disponibles el joystick y los botones. Toca el reloj, elige el retrato del alien y toca el centro de la rueda para volver a Ben. Las otras siete ranuras se reservan para aliens de la serie clásica y están bloqueadas. Diamante conserva la ranura 4; XLR8 sigue en la 3, todavía bloqueada.
+En pantallas táctiles están disponibles el joystick y los botones. Toca el reloj, elige el retrato del alien y toca el centro de la rueda para volver a Ben. Las otras seis ranuras se reservan para aliens de la serie clásica y están bloqueadas. XLR8 ocupa la ranura 3 y Diamante conserva la 4.
 
 ## Primer alien: Cuatro Brazos
 
 Cuatro Brazos utiliza sus propios sprites de guardia, marcha, puñetazos alternados, golpes pesados y carga. Sus cuatro brazos y el emblema del Omnitrix en el hombro siguen el diseño clásico. Ben tiene una escala de niño: se redujo su tamaño un 37,5 % respecto a la demo anterior. Cuatro Brazos mide aproximadamente 1,6 veces la altura de Ben; su escala se redujo un 30 % respecto a la primera entrega del alien. La sombra y la colisión acompañan ese tamaño. Camina a 190 unidades por segundo frente a las 247 de Ben; sus golpes tienen más daño y alcance.
 
-La cámara centra el cuerpo completo con un encuadre más cercano, idéntico para Ben y los tres aliens: transformarse no aleja la vista. Los fotogramas se registran por el centro del torso y el suelo, con margen para los brazos extendidos. Así, las piernas en movimiento no desplazan todo el cuerpo de un lado a otro. Cada ataque incluye preparación, contacto y recuperación hasta la misma guardia; una pulsación rápida queda en espera sin reiniciar el golpe actual. El impacto sísmico conserva la orientación del personaje. Si hace falta espacio para el cuerpo del alien, la transformación busca suelo libre cercano.
+La cámara centra el cuerpo completo con un encuadre más cercano, idéntico para Ben y los cuatro aliens: transformarse no aleja la vista. Los fotogramas se registran por el centro del torso y el suelo, con margen para los brazos extendidos. Así, las piernas en movimiento no desplazan todo el cuerpo de un lado a otro. Cada ataque incluye preparación, contacto y recuperación hasta la misma guardia; una pulsación rápida queda en espera sin reiniciar el golpe actual. El impacto sísmico conserva la orientación del personaje. Si hace falta espacio para el cuerpo del alien, la transformación busca suelo libre cercano.
 
 El tercer golpe leve dura 0,50 segundos, frente a los 0,38 de los dos primeros. Su smash lateral incluye la pose de puños levantados y sostiene brevemente el impacto para que se lea mejor. El contacto permanece sincronizado con el dibujo y causa daño una sola vez.
 
@@ -63,9 +64,10 @@ La preparación lateral de la descarga utiliza una pose corregida con dos brazos
 | Ben | 8 / 8 / 12 | 20, cuerpo a cuerpo | 247 |
 | Cuatro Brazos | 26 / 30 / 38 | 65, cuerpo a cuerpo | 190 |
 | Fuego | 14 / 16 / 20 | 32, bola de fuego | 285 |
+| XLR8 | 10 / 12 / 16 | 34, pasada de velocidad | 380 |
 | Diamante | 18 / 22 / 28 | 28, lanza de cristal | 230 |
 
-Ben hace menos daño que antes: los dos primeros leves bajan de 17 a 8; el tercero, de 25 a 12; el fuerte, de 45 a 20. Fuego tiene un dash más rápido y puede atacar a distancia. Cambiar entre los tres aliens conserva la vida, el XP y la energía restante.
+Ben hace menos daño que antes: los dos primeros leves bajan de 17 a 8; el tercero, de 25 a 12; el fuerte, de 45 a 20. Fuego tiene un dash más rápido y puede atacar a distancia. Cambiar entre los cuatro aliens conserva la vida, el XP y la energía restante.
 
 ![Fuego en la demo](docs/heatblast.png)
 
@@ -91,13 +93,34 @@ El fuerte alterna dos animaciones de lanzamiento. La lanza de cristal viaja a 60
 
 [Ver a Diamante en movimiento](docs/diamondhead.mp4).
 
+## XLR8 clásico y recorrido de velocidad
+
+XLR8 sigue la referencia clásica: cuerpo delgado azul y negro, casco aerodinámico, ojos amarillos, pecho blanco con Omnitrix, cola con franjas y pies con esferas. Sus 256 poses HD cubren guardia, desplazamiento, carrera veloz, tres golpes rápidos, toma de impulso y frenado en cuatro direcciones. Mide 88 unidades y se desplaza a 380 unidades por segundo; la cámara conserva el encuadre y sigue más de cerca la carrera veloz, también en móvil.
+
+- **Clic derecho breve:** sale hasta 180 unidades hacia donde mira y vuelve al punto de partida.
+- **Mantener clic derecho:** se agacha para tomar impulso; al superar 0,18 segundos se abre una ventana de 1,6 segundos para dibujar el camino con el ratón. La cámara permanece fija mientras se traza y una línea muestra el recorrido válido. Al terminar la cuenta atrás lo ejecuta automáticamente; soltar antes también lo ejecuta.
+- **En móvil:** un toque en `RUTA` hace la ida y vuelta; mantenerlo y arrastrar el dedo dibuja un recorrido.
+- **Golpes normales:** alterna un recto, un ataque de garras y una patada rápida de 0,18, 0,20 y 0,26 segundos.
+
+La carrera sigue los puntos dibujados a 1900 unidades por segundo, con un máximo de 1800 unidades de recorrido. Golpea a cada enemigo cruzado una sola vez por activación, incluso si vuelve a pasar por él. La colisión se comprueba a lo largo de cada tramo, así que no se salta objetivos ni atraviesa obstáculos entre fotogramas. Al frenar busca suelo libre si termina sobre un enemigo vivo. El impulso se recupera durante 1,05 segundos después del frenado.
+
+Dos leves conectados permiten reservar una carrera potenciada de 58 de daño. La reserva sobrevive al tiempo de trazado y los 20 puntos de energía se gastan al arrancar. Cancelar con `T`, el reloj, Espacio, un cambio de tamaño de pantalla o pérdida del foco cierra el trazado. Si la energía se agota o Ben revierte durante la carrera, esta se detiene. La reserva no puede reutilizarse después de cancelar o cambiar de forma.
+
+![XLR8 en la demo](docs/xlr8.png)
+
+![Dibujar un recorrido con cuenta atrás](docs/xlr8-route.png)
+
+![Carrera e impacto al cruzar un objetivo](docs/xlr8-rush.png)
+
+[Ver a XLR8 en movimiento](docs/xlr8.mp4).
+
 ## HUD y progresión
 
 - El líquido verde del reloj representa la energía del Omnitrix. El propio reloj abre la rueda de selección.
 - La barra roja muestra la vida; la naranja muestra el XP necesario para el siguiente nivel.
 - Cada objetivo derrotado otorga 40 XP. El primer nivel requiere 100 XP y cada siguiente umbral aumenta en 50. El sobrante se conserva al subir de nivel.
 
-Cada alien consume 1,5 puntos de energía por segundo. Dos leves conectados y un fuerte activan un especial de 20 puntos: impacto sísmico con Cuatro Brazos, bola ígnea explosiva con Fuego o estallido de cristales con Diamante. El gasto ocurre al salir el especial, incluso si falla; cancelar la animación con un dash antes del contacto evita el gasto.
+Cada alien consume 1,5 puntos de energía por segundo. Dos leves conectados y un fuerte activan un especial de 20 puntos: impacto sísmico con Cuatro Brazos, bola ígnea explosiva con Fuego, estallido de cristales con Diamante o carrera potenciada con XLR8. El gasto ocurre al salir el especial, incluso si falla; cancelar la animación con un dash antes del contacto evita el gasto.
 
 Al agotarse la energía, el sistema vuelve a Ben conservando vida, XP y nivel. En forma humana, el reloj comienza a recargarse tras 3 segundos, a 8 puntos por segundo. La rueda pausa la simulación. El XP y el nivel se mantienen durante la sesión; recargar la página inicia una sesión nueva.
 
@@ -109,7 +132,7 @@ npx playwright install chromium
 npm test
 ```
 
-Las 134 comprobaciones verifican los fotogramas, la guardia, los golpes, el dash, el anclaje del reloj, la energía, los especiales, el XP y el HUD en escritorio y móvil. También prueban la transformación real a Cuatro Brazos y a Fuego, sus cuatro direcciones de ataque, las escalas, su colisión, la cámara fija, la estabilidad del torso, la recuperación de los golpes, los combos con pulsaciones rápidas y la vuelta a Ben por teclado, por pantalla táctil y por energía agotada. Las pruebas de fuego verifican el daño reducido de Ben, los ataques cuerpo a cuerpo, el vuelo de los proyectiles, los obstáculos, las explosiones y las colisiones a distintas tasas de actualización. También comprueban la variación real de las siluetas al correr, la cadencia según la distancia, los cinco ataques distintos, la sincronización del contacto y los avances de los golpes a 30, 60 y 120 actualizaciones por segundo. Las comprobaciones HD verifican la resolución de los atlas, el tamaño físico de ambos aliens, la representación en pantallas normales y retina y la cadencia reducida de Fuego sin alterar su desplazamiento. Las pruebas de Diamante comprueban la selección de la ranura 4 por teclado y pantalla táctil, sus 256 poses, el movimiento y los golpes en cuatro direcciones, los avances de peso, las pulsaciones en espera, los proyectiles y su estallido, el gasto de energía, la conservación de estadísticas y la vuelta a Ben. El tercer golpe de Cuatro Brazos se comprueba con sus nuevos tiempos, su daño único y la siguiente pulsación en espera a 30, 60 y 120 actualizaciones por segundo. Si Chromium está instalado en `/usr/bin/chromium`, se utiliza ese ejecutable; también puede indicarse otro mediante `CHROMIUM_PATH`.
+Las 173 comprobaciones verifican los fotogramas, la guardia, los golpes, el dash, el anclaje del reloj, la energía, los especiales, el XP y el HUD en escritorio y móvil. También prueban la transformación real a Cuatro Brazos y a Fuego, sus cuatro direcciones de ataque, las escalas, su colisión, la cámara fija, la estabilidad del torso, la recuperación de los golpes, los combos con pulsaciones rápidas y la vuelta a Ben por teclado, por pantalla táctil y por energía agotada. Las pruebas de fuego verifican el daño reducido de Ben, los ataques cuerpo a cuerpo, el vuelo de los proyectiles, los obstáculos, las explosiones y las colisiones a distintas tasas de actualización. También comprueban la variación real de las siluetas al correr, la cadencia según la distancia, los cinco ataques distintos, la sincronización del contacto y los avances de los golpes a 30, 60 y 120 actualizaciones por segundo. Las comprobaciones HD verifican la resolución de los atlas, el tamaño físico de ambos aliens, la representación en pantallas normales y retina y la cadencia reducida de Fuego sin alterar su desplazamiento. Las pruebas de Diamante comprueban la selección de la ranura 4 por teclado y pantalla táctil, sus 256 poses, el movimiento y los golpes en cuatro direcciones, los avances de peso, las pulsaciones en espera, los proyectiles y su estallido, el gasto de energía, la conservación de estadísticas y la vuelta a Ben. Las pruebas de XLR8 verifican sus poses, golpes rápidos, clic breve, trazo por ratón y dedo, temporizador automático, cámara en móvil, coordenadas retina, colisiones continuas, cancelaciones, enfriamiento, reserva del especial y retorno a Ben. El movimiento y el daño del recorrido se comprueban a 30, 60 y 120 actualizaciones por segundo. El tercer golpe de Cuatro Brazos se comprueba con sus nuevos tiempos, su daño único y la siguiente pulsación en espera a 30, 60 y 120 actualizaciones por segundo. Si Chromium está instalado en `/usr/bin/chromium`, se utiliza ese ejecutable; también puede indicarse otro mediante `CHROMIUM_PATH`.
 
 El diseño fuente y el atlas del reloj están en [assets](assets). Para recompilarlo e incrustarlo en `index.html`:
 
@@ -147,4 +170,16 @@ La trayectoria y las colisiones de las bolas de fuego y las lanzas de cristal se
 
 ```sh
 npm run build:fire
+```
+
+Las fuentes y el atlas de XLR8 se registran por la cadera, conservando margen para la cola, con:
+
+```sh
+npm run build:xlr8
+```
+
+La física de los recorridos está en [systems/speed-route.js](systems/speed-route.js) y los controles y efectos en [systems/xlr8-game.js](systems/xlr8-game.js). Para sincronizar ambas copias en el HTML:
+
+```sh
+npm run build:speed
 ```

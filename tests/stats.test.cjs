@@ -179,3 +179,19 @@ test("the standalone embeds exactly the tested source module", () => {
     fs.readFileSync(path.join(root, "systems/player-stats.js"), "utf8").trim(),
   );
 });
+
+test('a held speed special can reserve a combo beyond its window and charges only once at execution',()=>{
+ const s=new PlayerStats();s.transform({id:'xlr8',name:'XLR8'});prime(s);const ticket=s.reserveComboSpecial();
+ assert.ok(ticket);assert.equal(s.energy,100);assert.equal(s.specialReady,false);assert.equal(s.reserveComboSpecial(),null);
+ s.tick(1.8);const before=s.energy;assert.ok(s.useReservedSpecial(ticket));close(s.energy,before-20);assert.equal(s.useReservedSpecial(ticket),false);
+});
+test('cancelling or switching forms invalidates a reserved special without spending energy',()=>{
+ const s=new PlayerStats();s.transform({id:'xlr8'});prime(s);let ticket=s.reserveComboSpecial();s.cancelReservedSpecial(ticket);assert.equal(s.useReservedSpecial(ticket),false);assert.equal(s.energy,100);
+ prime(s);ticket=s.reserveComboSpecial();s.returnToBen('manual');s.transform({id:'xlr8'});assert.equal(s.useReservedSpecial(ticket),false);assert.equal(s.energy,100);
+ prime(s);ticket=s.reserveComboSpecial();s.transform({id:'heatblast'});assert.equal(s.useReservedSpecial(ticket),false);
+});
+test('a reserved special cannot overspend a drained watch or survive a reset',()=>{
+ const s=new PlayerStats();s.transform({id:'xlr8'});prime(s);let ticket=s.reserveComboSpecial();s.energy=19;assert.equal(s.useReservedSpecial(ticket),false);assert.equal(s.energy,19);
+ s.energy=20;assert.ok(s.useReservedSpecial(ticket));assert.equal(s.form,null);assert.equal(s.energy,0);
+ s.reset();s.transform({id:'xlr8'});prime(s);ticket=s.reserveComboSpecial();s.reset();s.transform({id:'xlr8'});assert.equal(s.useReservedSpecial(ticket),false);
+});

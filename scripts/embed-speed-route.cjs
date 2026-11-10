@@ -1,0 +1,12 @@
+const fs=require('node:fs'),path=require('node:path');
+const root=path.resolve(__dirname,'..'),file=path.join(root,'index.html');
+const source=fs.readFileSync(path.join(root,'systems/speed-route.js'),'utf8');
+const block='<!-- SPEED_ROUTE_START -->\n<script>\n'+source+'\n</script>\n<!-- SPEED_ROUTE_END -->';
+let html=fs.readFileSync(file,'utf8');
+if(html.includes('<!-- SPEED_ROUTE_START -->'))html=html.replace(/<!-- SPEED_ROUTE_START -->[\s\S]*?<!-- SPEED_ROUTE_END -->/,()=>block);
+else html=html.replace('<!-- FIRE_PROJECTILES_END -->','<!-- FIRE_PROJECTILES_END -->\n'+block);
+const game=fs.readFileSync(path.join(root,'systems/xlr8-game.js'),'utf8');
+const gameBlock='// XLR8_GAME_START\n'+game+'// XLR8_GAME_END';
+if(html.includes('// XLR8_GAME_START'))html=html.replace(/\/\/ XLR8_GAME_START[\s\S]*?\/\/ XLR8_GAME_END/,()=>gameBlock);
+else html=html.replace('function update(dt){',()=>gameBlock+'\nfunction update(dt){');
+fs.writeFileSync(file,html);console.log('Embedded XLR8 route physics and controls.');

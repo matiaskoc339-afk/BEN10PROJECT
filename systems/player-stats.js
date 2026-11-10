@@ -33,6 +33,7 @@
       this.totalXP = 0;
       this.comboHits = 0;
       this.comboLeft = 0;
+      this.specialReservation = null;
       this.rechargeLeft = 0;
       this.events = [];
     }
@@ -95,6 +96,7 @@
     clearCombo() {
       this.comboHits = 0;
       this.comboLeft = 0;
+      this.specialReservation = null;
     }
     recordLightHit() {
       if (this.health <= 0) return;
@@ -103,6 +105,25 @@
     }
     useComboSpecial() {
       if (!this.specialReady) return false;
+      return this._spendComboSpecial();
+    }
+    reserveComboSpecial() {
+      if (!this.specialReady) return null;
+      const reservation = Object.freeze({ form: this.form.id });
+      this.clearCombo();
+      this.specialReservation = reservation;
+      return reservation;
+    }
+    cancelReservedSpecial(reservation) {
+      if (reservation === this.specialReservation) this.specialReservation = null;
+    }
+    useReservedSpecial(reservation) {
+      if (!reservation || reservation !== this.specialReservation ||
+          this.form?.id !== reservation.form || this.health <= 0 ||
+          this.energy < this.config.specialCost) return false;
+      return this._spendComboSpecial();
+    }
+    _spendComboSpecial() {
       const form = { ...this.form },
         cost = this.config.specialCost;
       this.energy = Math.max(0, this.energy - cost);
