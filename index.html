@@ -413,7 +413,7 @@ const TETRAMAND={scale:1.4,height:112,speed:190,radius:20,shadow:28,zoom:CAMERA_
 function isFourArms(){return stats.form?.id===FOUR_ARMS.id}
 const PYRONITE={scale:1.175,height:94,speed:285,radius:16,shadow:20,zoom:CAMERA_ZOOM,lightDuration:.28,lightDurations:[.28,.32,.38],stride:192,lightCooldown:.25,heavyDuration:.64,heavyCooldown:.7,dash:{duration:.32,startSpeed:720,endSpeed:440,cooldown:.58}};
 function isHeatblast(){return stats.form?.id===HEATBLAST.id}
-const PETROSAPIEN={scale:1.275,height:102,speed:230,stride:174,radius:18,shadow:23,zoom:CAMERA_ZOOM,lightDuration:.32,lightDurations:[.32,.36,.46],lightCooldown:.29,heavyDuration:.74,heavyCooldown:.78,dash:{duration:.38,startSpeed:590,endSpeed:330,cooldown:.72}};
+const PETROSAPIEN={scale:1.275,height:102,speed:230,stride:174,radius:18,shadow:23,zoom:CAMERA_ZOOM,lightDuration:.36,lightDurations:[.36,.4,.62],lightCooldown:.29,heavyDuration:.8,heavyCooldown:.78,dash:{duration:.38,startSpeed:590,endSpeed:330,cooldown:.72}};
 function isDiamondhead(){return stats.form?.id===DIAMONDHEAD.id}
 function isAnimatedAlien(){return isFourArms()||isHeatblast()||isDiamondhead()}
 function actorMetrics(){return isFourArms()?TETRAMAND:isHeatblast()?PYRONITE:isDiamondhead()?PETROSAPIEN:HUMAN}
@@ -691,7 +691,7 @@ function startMode(mode,duration){player.bufferedAttack=null;if(!mode.startsWith
 function faceForAction(){const input=moveInput();if(input.x||input.y)faceFrom(input.x,input.y)}
 function moveInput(){let x=(keys.has('d')||keys.has('arrowright')?1:0)-(keys.has('a')||keys.has('arrowleft')?1:0);let y=(keys.has('s')||keys.has('arrowdown')?1:0)-(keys.has('w')||keys.has('arrowup')?1:0);x+=touchMove.x;y+=touchMove.y;let l=Math.hypot(x,y);return l?{x:x/Math.max(1,l),y:y/Math.max(1,l)}:{x:0,y:0}}
 function faceFrom(dx,dy){if(Math.abs(dx)>Math.abs(dy)){player.dir=dx<0?'left':'right';player.faceX=dx<0?-1:1;player.faceY=0;}else{player.dir=dy<0?'up':'down';player.faceX=0;player.faceY=dy<0?-1:1}}
-function bufferAttack(type){if(!isAnimatedAlien()||!/^(light|heavy)/.test(player.mode))return false;if(player.modeTime>=player.modeDur*.45)player.bufferedAttack={type,expires:t+.35};return true;}
+function bufferAttack(type){if(!isAnimatedAlien()||!/^(light|heavy)/.test(player.mode))return false;if(player.modeTime>=player.modeDur*.45)player.bufferedAttack={type,expires:t+(isDiamondhead()?Math.max(.35,player.modeDur-player.modeTime+.08):.35)};return true;}
 function lightAttack(){if(!state.wheel&&bufferAttack('light'))return;const a=actorMetrics();if(state.wheel||player.mode==='omnitrix'||player.mode==='dash'||player.mode==='hurt'||t-player.lastLight<a.lightCooldown||player.mode.startsWith('heavy'))return;faceForAction();player.lightN=t-player.lastLight<.8?player.lightN%3+1:1;player.lastLight=t;startMode('light'+player.lightN,a.lightDurations?.[player.lightN-1]??a.lightDuration);showCombo('COMBO LEVE '+player.lightN+' / 3');}
 function heavyAttack(){if(!state.wheel&&bufferAttack('heavy'))return;const a=actorMetrics();if(state.wheel||player.mode==='omnitrix'||player.mode==='dash'||player.mode==='hurt'||t-player.lastHeavy<a.heavyCooldown)return;faceForAction();player.specialQueued=stats.specialReady;player.specialAnimation=player.specialQueued&&isAnimatedAlien();player.heavyN=player.heavyN%2+1;player.lastHeavy=t;startMode('heavy'+player.heavyN,a.heavyDuration);showCombo(player.specialQueued?(isHeatblast()?'COMBO · BOLA ÍGNEA EXPLOSIVA':isDiamondhead()?'COMBO · ESTALLIDO DE CRISTALES':'COMBO · IMPACTO SÍSMICO'):'COMBO FUERTE '+player.heavyN+' / 2')}
 function dodge(){const dash=actorMetrics().dash;if(state.wheel||player.mode==='omnitrix'||player.mode==='dash'||t-player.lastDash<dash.cooldown)return;let inp=moveInput();if(inp.x||inp.y)faceFrom(inp.x,inp.y);player.lastDash=t;startMode('dash',dash.duration);if(inp.x||inp.y){const length=Math.hypot(inp.x,inp.y);player.actionX=inp.x/length;player.actionY=inp.y/length}spawnDust(player.x,player.y,isFourArms()?14:8,'#b5aea1')}
@@ -831,7 +831,9 @@ function heatblastLunge(time,duration,combo,distances=[6,8,12]){const u=clamp((t
 const DIAMONDHEAD_MOTION={};
 for(const [direction,index] of [['down',0],['up',1],['right',2],['left',3]]){
  DIAMONDHEAD_MOTION[direction]={
-  light1:heatblastClip(index,12+index),light2:heatblastClip(index,16+index),light3:heatblastClip(index,20+index),
+  light1:heatblastClip(index,12+index),light2:heatblastClip(index,16+index),
+  // Let the growing blade, contact and follow-through read before recovery.
+  light3:combatClip(index,20+index,[1,2,2,3,4,4,5,5,6],4),
   heavy1:heatblastClip(index,24+index),heavy2:heatblastClip(index,28+index),dash:combatClip(index,8+index,[1,2,3,4,5,6],0)
  };
 }

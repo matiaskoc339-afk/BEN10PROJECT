@@ -37,7 +37,7 @@ const close=(a,b)=>assert.ok(Math.abs(a-b)<.02,`${a} != ${b}`);
   await reset();await transform();await page.keyboard.down(key);await tick(.12);assert.equal(await page.evaluate(()=>__demo.framePlayer().row),idx+4);await page.keyboard.up(key);
   assert.equal(await page.evaluate(()=>__demo.framePlayer().idle),true);assert.equal(await page.evaluate(()=>__demo.framePlayer().row),idx);
   await page.evaluate(()=>{const p=__demo.player;__demo.dummies.push({x:p.x+p.faceX*90,y:p.y+p.faceY*90,health:500,alive:true},{x:p.x-p.faceX*90,y:p.y-p.faceY*90,health:500,alive:true});});
-  const rows=[];for(const [n,duration] of [[1,.32],[2,.36],[3,.46]]){
+  const rows=[];for(const [n,duration] of [[1,.36],[2,.4],[3,.62]]){
    await page.mouse.click(900,300);await tick(duration*.55);rows.push(await page.evaluate(()=>__demo.framePlayer().row));
    assert.equal(await page.evaluate(()=>__demo.framePlayer().direction),dir);await tick(duration*.45+.04);
   }
@@ -67,13 +67,13 @@ const close=(a,b)=>assert.ok(Math.abs(a-b)<.02,`${a} != ${b}`);
   for(const fps of [30,60,120]){
    const result=await page.evaluate(fps=>{
     __demo.reset();__demo.stats.transform({id:'diamondhead'});const p=__demo.player;p.dir='right';p.faceX=1;p.faceY=0;const steps=[];
-    for(const duration of [.32,.36,.46]){const x=p.x;__demo.lightAttack();for(let left=duration+.03;left>1e-10;){const dt=Math.min(left,1/fps);__demo.update(dt);left-=dt;}steps.push(p.x-x);}
+    for(const duration of [.36,.4,.62]){const x=p.x;__demo.lightAttack();for(let left=duration+.03;left>1e-10;){const dt=Math.min(left,1/fps);__demo.update(dt);left-=dt;}steps.push(p.x-x);}
     return steps;
    },fps);result.forEach((v,i)=>close(v,[4,6,9][i]));
   }
   const blocked=await page.evaluate(()=>{
    __demo.reset();__demo.stats.transform({id:'diamondhead'});const p=__demo.player;p.dir='right';p.faceX=1;p.faceY=0;const x=p.x;
-   __demo.props.push({x:x+50,y:p.y,r:20,block:true});for(const duration of [.32,.36,.46]){__demo.lightAttack();__demo.tick(duration+.03);}return p.x-x;
+   __demo.props.push({x:x+50,y:p.y,r:20,block:true});for(const duration of [.36,.4,.62]){__demo.lightAttack();__demo.tick(duration+.03);}return p.x-x;
   });assert.ok(blocked>0&&blocked<=12);
  });
  await check('buffered punches complete the full three-hit chain without restarting an active drawing',async()=>{
@@ -88,21 +88,51 @@ const close=(a,b)=>assert.ok(Math.abs(a-b)<.02,`${a} != ${b}`);
   }
   await tick(.7);assert.equal(await page.evaluate(()=>__demo.dummies[0].health),432);assert.equal(await page.evaluate(()=>__demo.player.mode),'idle');
  });
+ await check('attacks are a little slower and the blade formation and impact each remain visible for at least 100 ms in every view',async()=>{
+  await reset();await transform();
+  const metrics=await page.evaluate(()=>__demo.actorMetrics());assert.deepEqual(metrics.lightDurations,[.36,.4,.62]);assert.equal(metrics.heavyDuration,.8);
+  const result=await page.evaluate(()=>{
+   const p=__demo.player,result=[];
+   for(const [dir,index] of [['down',0],['up',1],['right',2],['left',3]]){
+    Object.assign(p,{mode:'light3',modeDur:.62,modeTime:0,actionDir:dir});const clip=__demo.diamondheadActionClip();
+    const held=frame=>clip.poses.filter(pose=>pose[0]===20+index&&pose[1]===frame).length/clip.poses.length*p.modeDur;
+    result.push({formation:held(2),impact:held(4),visible:held(2)+held(4)+held(5),contactFrame:clip.poses[clip.contact][1],contact:__demo.attackContactTime()});
+   }return result;
+  });
+  for(const r of result){assert.ok(r.formation>=.1);assert.ok(r.impact>=.1);assert.ok(r.visible>=.32);assert.equal(r.contactFrame,4);assert.ok(r.contact>.27&&r.contact<.3);}
+ });
+ await check('the held blade damages once and early buffered punches and casts survive the longer recovery at 30, 60 and 120 Hz',async()=>{
+  for(const fps of [30,60,120]){
+   const result=await page.evaluate(fps=>{
+    function step(seconds){for(let left=seconds;left>1e-10;){const dt=Math.min(left,1/fps);__demo.update(dt);left-=dt;}}
+    function setup(){__demo.reset();__demo.stats.transform({id:'diamondhead'});const p=__demo.player;p.dir='right';p.faceX=1;p.faceY=0;return p;}
+    let p=setup();__demo.dummies.push({x:p.x+90,y:p.y,health:1000,alive:true});
+    for(const d of [.36,.4]){__demo.lightAttack();step(d+.07);}
+    __demo.lightAttack();step(.25);const before=__demo.dummies[0].health;step(.04);__demo.lightAttack();const time=p.modeTime;
+    step(.29);const held={mode:p.mode,hp:__demo.dummies[0].health};step(.5);const blade={before,time,held,hp:__demo.dummies[0].health,mode:p.mode};
+    p=setup();__demo.dummies.push({x:p.x+300,y:p.y,health:100,alive:true});__demo.heavyAttack();step(.368);__demo.heavyAttack();step(.5);const followup=p.mode;step(1.2);
+    return {blade,followup,castHP:__demo.dummies[0].health,castMode:p.mode};
+   },fps);
+   assert.equal(result.blade.before,960);assert.ok(result.blade.time>.27&&result.blade.time<=.29+.00001);
+   assert.deepEqual(result.blade.held,{mode:'light3',hp:932});assert.equal(result.blade.hp,914);assert.equal(result.blade.mode,'idle');
+   assert.equal(result.followup,'heavy2');assert.equal(result.castHP,44);assert.equal(result.castMode,'idle');
+  }
+ });
  await check('normal shards emit at the palm contact, keep their facing and deal 28 damage once at impact',async()=>{
   for(const key of ['d','a','w','s']){
    await reset();await transform();await face(key);await page.evaluate(()=>{const p=__demo.player;__demo.dummies.push({x:p.x+p.faceX*260,y:p.y+p.faceY*260,health:100,alive:true},{x:p.x-p.faceX*150,y:p.y-p.faceY*150,health:100,alive:true});});
-   await page.mouse.click(900,300,{button:'right'});await tick(.36);assert.equal(await page.evaluate(()=>__demo.projectiles.length),0);
+   await page.mouse.click(900,300,{button:'right'});await tick(.39);assert.equal(await page.evaluate(()=>__demo.projectiles.length),0);
    await tick(.04);assert.equal(await page.evaluate(()=>__demo.projectiles[0].kind),'crystal');assert.deepEqual(await page.evaluate(()=>__demo.dummies.map(d=>d.health)),[100,100]);
    await tick(.7);assert.deepEqual(await page.evaluate(()=>__demo.dummies.map(d=>d.health)),[72,100]);assert.equal(await page.evaluate(()=>__demo.projectiles.length),0);
   }
  });
  await check('two connected melee hits unlock one crystal burst with a 20-energy emission cost and 72 splash damage',async()=>{
   await reset();await transform();await face('d');await page.evaluate(()=>{const p=__demo.player;__demo.dummies.push({x:p.x+85,y:p.y,health:500,alive:true});});
-  for(let i=0;i<2;i++){await page.mouse.click(900,300);await tick(.41);}
+  for(const duration of [.36,.4]){await page.mouse.click(900,300);await tick(duration+.06);}
   assert.equal(await page.evaluate(()=>__demo.stats.specialReady),true);
   await page.evaluate(()=>{const p=__demo.player;__demo.dummies[0].x=p.x+260;__demo.dummies.push({x:p.x+275,y:p.y+25,health:100,alive:true});});
-  const energy=await page.evaluate(()=>__demo.stats.energy);await page.mouse.click(900,300,{button:'right'});await tick(.36);close(await page.evaluate(()=>__demo.stats.energy),energy-.54);
-  await tick(.04);close(await page.evaluate(()=>__demo.stats.energy),energy-.6-20);assert.equal(await page.evaluate(()=>__demo.projectiles[0].special),true);assert.equal(await page.evaluate(()=>__demo.framePlayer().row),30);
+  const energy=await page.evaluate(()=>__demo.stats.energy);await page.mouse.click(900,300,{button:'right'});await tick(.39);close(await page.evaluate(()=>__demo.stats.energy),energy-.585);
+  await tick(.04);close(await page.evaluate(()=>__demo.stats.energy),energy-.645-20);assert.equal(await page.evaluate(()=>__demo.projectiles[0].special),true);assert.equal(await page.evaluate(()=>__demo.framePlayer().row),30);
   await tick(.8);assert.deepEqual(await page.evaluate(()=>__demo.dummies.map(d=>d.health)),[388,28]);assert.equal(await page.evaluate(()=>__demo.stats.specialReady),false);assert.equal(await page.evaluate(()=>__demo.projectiles.length),0);
  });
  await check('dash cancels a pending crystal burst before spending charge and covers its measured distance',async()=>{
@@ -117,8 +147,8 @@ const close=(a,b)=>assert.ok(Math.abs(a-b)<.02,`${a} != ${b}`);
   assert.deepEqual(await page.evaluate(()=>[__demo.dummies[0].alive,__demo.stats.totalXP,__demo.state.kills]),[false,40,1]);
  });
  await check('exhausting the last special charge returns to Ben while the emitted crystal finishes its flight',async()=>{
-  await reset();await transform();await face('d');await page.evaluate(()=>{const p=__demo.player;__demo.stats.energy=20.6;__demo.stats.recordLightHit();__demo.stats.recordLightHit();__demo.dummies.push({x:p.x+300,y:p.y,health:100,alive:true});});
-  await page.mouse.click(900,300,{button:'right'});await tick(.43);assert.equal(await page.evaluate(()=>__demo.stats.form),null);assert.equal(await page.evaluate(()=>__demo.projectiles[0].kind),'crystal');
+  await reset();await transform();await face('d');await page.evaluate(()=>{const p=__demo.player;__demo.stats.energy=20.66;__demo.stats.recordLightHit();__demo.stats.recordLightHit();__demo.dummies.push({x:p.x+300,y:p.y,health:100,alive:true});});
+  await page.mouse.click(900,300,{button:'right'});await tick(.47);assert.equal(await page.evaluate(()=>__demo.stats.form),null);assert.equal(await page.evaluate(()=>__demo.projectiles[0].kind),'crystal');
   await tick(.7);assert.equal(await page.evaluate(()=>__demo.dummies[0].health),28);assert.equal(await page.locator('#formName').textContent(),'BEN');
  });
  await check('switching among all three aliens preserves life, XP and remaining energy, with seven classic slots locked',async()=>{
@@ -130,7 +160,7 @@ const close=(a,b)=>assert.ok(Math.abs(a-b)<.02,`${a} != ${b}`);
  await check('touch users select slot 4, launch a crystal and return through the watch centre',async()=>{
   const mobile=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true}),p=await mobile.newPage();await p.addInitScript(()=>{requestAnimationFrame=()=>0;});await p.goto('http://127.0.0.1:8782');await p.evaluate(()=>__demo.readyPromise);
   await p.locator('#watchShortcut').tap();const box=await p.locator('#wheelCanvas').boundingBox();await p.touchscreen.tap(box.x+box.width*.8,box.y+box.height*.598);await p.evaluate(()=>__demo.tick(1.05));
-  assert.equal(await p.locator('#formName').textContent(),'DIAMANTE');await p.locator('#btnHeavy').tap();await p.evaluate(()=>__demo.tick(.4));assert.equal(await p.evaluate(()=>__demo.projectiles[0].kind),'crystal');
+  assert.equal(await p.locator('#formName').textContent(),'DIAMANTE');await p.locator('#btnHeavy').tap();await p.evaluate(()=>__demo.tick(.44));assert.equal(await p.evaluate(()=>__demo.projectiles[0].kind),'crystal');
   await p.locator('#watchShortcut').tap();await p.touchscreen.tap(box.x+box.width/2,box.y+box.height/2);assert.equal(await p.evaluate(()=>__demo.stats.form),null);await mobile.close();
  });
  assert.deepEqual(errors,[]);console.log(`${count} Diamondhead checks passed`);
