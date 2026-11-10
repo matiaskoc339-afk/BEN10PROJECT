@@ -7,7 +7,7 @@ const root=path.resolve(__dirname,'..'),dir=path.join(root,'assets/aliens');
   const page=await browser.newPage();let html=fs.readFileSync(path.join(root,'index.html'),'utf8');
   const start=html.indexOf('function prepareAtlas('),end=html.indexOf('\nfunction normalizeAtlas(',start);
   await page.setContent('<html></html>');await page.addScriptTag({content:html.slice(start,end)+';window.__compile={prepareAtlas};'});
-  const sources=['guard','float','phase','left','right','both','reveal'].map(name=>'data:image/png;base64,'+fs.readFileSync(path.join(dir,'ghostfreak-'+name+'-source.png')).toString('base64'));
+  const sources=['guard','float','phase','left','right','both','reveal','combo'].map(name=>'data:image/png;base64,'+fs.readFileSync(path.join(dir,'ghostfreak-'+name+'-source.png')).toString('base64'));
   const result=await page.evaluate(async sources=>{
    const frames=[];
    for(const [action,src] of sources.entries()){
@@ -32,9 +32,9 @@ const root=path.resolve(__dirname,'..'),dir=path.join(root,'assets/aliens');
    let extentX=0,down=0;
    for(const f of frames){extentX=Math.max(extentX,f.anchorX*f.scale,(f.w-f.anchorX)*f.scale);down=Math.max(down,(f.h-f.sourceTop)*f.scale-160);}
    const cellWidth=Math.ceil((extentX+10)/4)*8,anchorX=cellWidth/2,anchorY=176,cellHeight=Math.ceil((anchorY+down+10)/4)*4;
-   const canvas=document.createElement('canvas');canvas.width=cellWidth*8;canvas.height=cellHeight*28;const c=canvas.getContext('2d');c.imageSmoothingEnabled=true;c.imageSmoothingQuality='high';
+   const canvas=document.createElement('canvas');canvas.width=cellWidth*8;canvas.height=cellHeight*32;const c=canvas.getContext('2d');c.imageSmoothingEnabled=true;c.imageSmoothingQuality='high';
    for(const f of frames)c.drawImage(f.canvas,f.col*cellWidth+anchorX-Math.round(f.anchorX*f.scale),f.row*cellHeight+anchorY-160-Math.round(f.sourceTop*f.scale),Math.round(f.w*f.scale),Math.round(f.h*f.scale));
-   return {png:canvas.toDataURL().split(',')[1],spec:{cols:8,rows:28,cellWidth,cellHeight,anchorX,anchorY,bodyHeight:160,resolutionScale:2,quality:'HD',registration:'hood-and-floating-tail'}};
+   return {png:canvas.toDataURL().split(',')[1],spec:{cols:8,rows:32,cellWidth,cellHeight,anchorX,anchorY,bodyHeight:160,resolutionScale:2,quality:'HD',registration:'hood-and-floating-tail'}};
   },sources);
   result.png=compressPng(Buffer.from(result.png,'base64')).toString('base64');
   fs.writeFileSync(path.join(dir,'ghostfreak-atlas.png'),Buffer.from(result.png,'base64'));fs.writeFileSync(path.join(dir,'ghostfreak-atlas.json'),JSON.stringify(result.spec,null,2)+'\n');
@@ -42,6 +42,6 @@ const root=path.resolve(__dirname,'..'),dir=path.join(root,'assets/aliens');
   html=fs.readFileSync(path.join(root,'index.html'),'utf8');
   if(html.includes('// GHOSTFREAK_ASSET_START'))html=html.replace(/\/\/ GHOSTFREAK_ASSET_START[\s\S]*?\/\/ GHOSTFREAK_ASSET_END/,()=>block);
   else html=html.replace('let watchIcon=null;',()=>block+'\nlet watchIcon=null;');
-  fs.writeFileSync(path.join(root,'index.html'),html);console.log('Ghostfreak: 224 registered HD poses',result.spec);
+  fs.writeFileSync(path.join(root,'index.html'),html);console.log('Ghostfreak: 256 registered HD poses',result.spec);
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1});

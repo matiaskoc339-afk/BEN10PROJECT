@@ -32,3 +32,16 @@ test('intangibility blocks damage and ends on reset, form change and return to B
 test('an exhausted watch ends invulnerability as well as the active transformation',()=>{
  const s=new PlayerStats();s.transform({id:'ghostfreak'});s.setInvulnerable(true);s.energy=.15;s.tick(.2);assert.equal(s.form,null);assert.equal(s.invulnerable,false);assert.equal(s.damage(12),12);
 });
+test('the grapple has separate opening, capture, pull, hold, expulsion and recovery poses',()=>{
+ for(const [t,frame,pull] of [[0,0,0],[.2,1,0],[.3,2,0],[.36,3,0],[.68,5,1],[.9,5,1],[1.02,6,1],[1.26,7,0],[1.4,7,0]]){
+  const pose=Ghost.comboPose(t);assert.equal(pose.frame,frame);assert.ok(Math.abs(pose.pull-pull)<1e-8);
+ }
+ assert.equal(Ghost.comboPose(.55).frame,4);
+});
+test('pull and expulsion are smooth, bounded and monotonically approach their endpoints',()=>{
+ let previous=0;
+ for(let i=0;i<=100;i++){const p=Ghost.comboPose(.36+i*.32/100).pull;assert.ok(p>=previous-1e-8&&p>=0&&p<=1);previous=p;}
+ previous=1;
+ for(let i=0;i<=100;i++){const p=Ghost.comboPose(1.02+i*.24/100).pull;assert.ok(p<=previous+1e-8&&p>=0&&p<=1);previous=p;}
+ assert.equal(Ghost.comboPose(Infinity).pull,0);assert.equal(Ghost.comboPose(-1).pull,0);
+});
