@@ -60,3 +60,32 @@ test('the standalone embeds exactly the tested fire model',()=>{
   const html=fs.readFileSync(path.join(root,'index.html'),'utf8'),source=fs.readFileSync(path.join(root,'systems/fire-projectiles.js'),'utf8');
   assert.ok(html.includes('<!-- FIRE_PROJECTILES_START -->\n<script>\n'+source+'\n</script>\n<!-- FIRE_PROJECTILES_END -->'));
 });
+test('crystal shards have their own speed and damage and hit once in every facing direction',()=>{
+  for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){
+    const field=new ProjectileField(),hits=[],target={x:600+dx*240,y:600+dy*240,alive:true};
+    const shot=field.launch({x:600,y:600,dx,dy,kind:'crystal'});
+    assert.equal(shot.speed,600);assert.equal(shot.damage,28);assert.equal(shot.kind,'crystal');
+    field.tick(.1,world([target]),hit=>hits.push(hit));assert.equal(hits.length,0);
+    field.tick(1,world([target]),hit=>hits.push(hit));field.tick(1,world([target]),hit=>hits.push(hit));
+    assert.equal(hits.length,1);assert.equal(hits[0].target,target);assert.equal(hits[0].splash,0);
+  }
+});
+test('crystal burst retains its identity and splash after emission and respects solid cover',()=>{
+  const field=new ProjectileField(),hits=[],target={x:500,y:200,alive:true};
+  const shot=field.launch({x:100,y:200,dx:1,dy:0,kind:'crystal',special:true});
+  field.tick(1,world([target],[{x:300,y:200,r:24,block:true}]),hit=>hits.push(hit));
+  assert.equal(hits.length,1);assert.equal(hits[0].id,shot.id);assert.equal(hits[0].reason,'wall');
+  assert.equal(hits[0].damage,72);assert.equal(hits[0].splash,95);assert.equal(hits[0].kind,'crystal');assert.equal(hits[0].target,null);
+});
+test('crystal collision position and range are stable at 30, 60 and 120 updates per second',()=>{
+  const results=[];
+  for(const fps of [30,60,120]){
+    const field=new ProjectileField(),hits=[],target={x:450,y:200,alive:true};
+    field.launch({x:100,y:200,dx:1,dy:0,kind:'crystal'});
+    for(let i=0;i<fps;i++)field.tick(1/fps,world([target]),hit=>hits.push(hit));
+    assert.equal(hits.length,1);results.push(hits[0].x);
+    field.launch({x:100,y:600,dx:1,dy:0,kind:'crystal'});field.tick(2,world(),hit=>hits.push(hit));
+    assert.equal(hits[1].reason,'range');assert.equal(hits[1].x,740);assert.equal(field.shots.length,0);
+  }
+  assert.ok(Math.max(...results)-Math.min(...results)<1e-6);
+});

@@ -17,12 +17,14 @@
   class ProjectileField{
     constructor(){this.shots=[];this.serial=0;}
     clear(){this.shots=[];}
-    launch({x,y,dx,dy,special=false}){
+    launch({x,y,dx,dy,special=false,kind='fire'}){
       const length=Math.hypot(dx,dy);
       if(!length||![x,y,dx,dy].every(Number.isFinite))throw new Error('Invalid fireball direction');
-      const shot={id:++this.serial,x,y,dx:dx/length,dy:dy/length,special:!!special,
-        speed:special?460:510,radius:special?12:8,damage:special?70:32,
-        splash:special?86:0,remaining:special?680:620,age:0};
+      if(!['fire','crystal'].includes(kind))throw new Error('Unknown projectile kind');
+      const crystal=kind==='crystal';
+      const shot={id:++this.serial,x,y,dx:dx/length,dy:dy/length,special:!!special,kind,
+        speed:crystal?(special?500:600):(special?460:510),radius:crystal?(special?13:7):(special?12:8),damage:crystal?(special?72:28):(special?70:32),
+        splash:special?(crystal?95:86):0,remaining:crystal?(special?680:640):(special?680:620),age:0};
       this.shots.push(shot);return shot;
     }
     tick(dt,{targets=[],obstacles=[],width=2400,height=1800},onImpact){

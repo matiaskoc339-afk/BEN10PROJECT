@@ -1,0 +1,12 @@
+{
+  "cols": 8,
+  "rows": 32,
+  "cellWidth": 264,
+  "cellHeight": 196,
+  "anchorX": 132,
+  "anchorY": 180,
+  "bodyHeight": 160,
+  "resolutionScale": 2,
+  "quality": "HD",
+  "registration": "pelvis-and-ground"
+}
