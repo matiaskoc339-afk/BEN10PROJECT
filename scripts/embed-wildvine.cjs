@@ -1,0 +1,5 @@
+const fs=require('node:fs'),path=require('node:path'),root=path.resolve(__dirname,'..'),file=path.join(root,'index.html');let html=fs.readFileSync(file,'utf8');
+const physics='<!-- WILDVINE_ROOTS_START -->\n<script>\n'+fs.readFileSync(path.join(root,'systems/wildvine-roots.js'),'utf8')+'\n</script>\n<!-- WILDVINE_ROOTS_END -->';
+if(html.includes('<!-- WILDVINE_ROOTS_START -->'))html=html.replace(/<!-- WILDVINE_ROOTS_START -->[\s\S]*?<!-- WILDVINE_ROOTS_END -->/,()=>physics);else html=html.replace('<!-- STINKFLY_FIELD_END -->',()=> '<!-- STINKFLY_FIELD_END -->\n'+physics);
+const game='// WILDVINE_GAME_START\n'+fs.readFileSync(path.join(root,'systems/wildvine-game.js'),'utf8')+'// WILDVINE_GAME_END';
+if(html.includes('// WILDVINE_GAME_START'))html=html.replace(/\/\/ WILDVINE_GAME_START[\s\S]*?\/\/ WILDVINE_GAME_END/,()=>game);else html=html.replace('function update(dt){',()=>game+'\nfunction update(dt){');fs.writeFileSync(file,html);console.log('Embedded Wildvine whip, spin and underground thorn combo.');
