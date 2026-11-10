@@ -1,0 +1,12 @@
+{
+  "cols": 8,
+  "rows": 32,
+  "cellWidth": 280,
+  "cellHeight": 240,
+  "anchorX": 140,
+  "anchorY": 224,
+  "bodyHeight": 160,
+  "resolutionScale": 2,
+  "quality": "HD",
+  "registration": "thorax-and-ground"
+}

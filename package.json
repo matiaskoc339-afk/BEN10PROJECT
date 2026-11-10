@@ -2,12 +2,12 @@
   "name": "ben10-demo",
   "version": "0.8.0",
   "private": true,
-  "description": "Demo v0.8 de Ben 10 clásico, con seis aliens jugables, Omnitrix y XP.",
+  "description": "Demo v0.8 de Ben 10 clásico, con siete aliens jugables, Omnitrix y XP.",
   "scripts": {
     "start": "python3 -m http.server 8000 --bind 0.0.0.0",
-    "test": "npm run test:stats && npm run test:fire && npm run test:speed && npm run test:cannon && npm run test:ghost && npm run test:browser",
+    "test": "npm run test:stats && npm run test:fire && npm run test:speed && npm run test:cannon && npm run test:ghost && npm run test:stink && npm run test:browser",
     "test:stats": "node --test tests/stats.test.cjs",
-    "test:browser": "node tests/character.test.cjs && node tests/hud.test.cjs && node tests/alien.test.cjs && node tests/heatblast.test.cjs && node tests/heatblast-motion.test.cjs && node tests/alien-hd.test.cjs && node tests/diamondhead.test.cjs && node tests/xlr8.test.cjs && node tests/cannonbolt.test.cjs && node tests/ghostfreak.test.cjs && node tests/ghostfreak-combo.test.cjs",
+    "test:browser": "node tests/character.test.cjs && node tests/hud.test.cjs && node tests/alien.test.cjs && node tests/heatblast.test.cjs && node tests/heatblast-motion.test.cjs && node tests/alien-hd.test.cjs && node tests/diamondhead.test.cjs && node tests/xlr8.test.cjs && node tests/cannonbolt.test.cjs && node tests/ghostfreak.test.cjs && node tests/ghostfreak-combo.test.cjs && node tests/stinkfly.test.cjs",
     "test:cannon": "node --test tests/cannonbolt-physics.test.cjs",
     "build:cannonbolt": "node scripts/bake-cannonbolt.cjs",
     "build:cannon": "node scripts/embed-cannonbolt.cjs",
@@ -23,7 +23,10 @@
     "build:heatblast": "node scripts/bake-heatblast.cjs",
     "test:ghost": "node --test tests/ghostfreak-ability.test.cjs",
     "build:ghostfreak": "node scripts/bake-ghostfreak.cjs",
-    "build:ghost": "node scripts/embed-ghostfreak.cjs"
+    "build:ghost": "node scripts/embed-ghostfreak.cjs",
+    "test:stink": "node --test tests/stinkfly-field.test.cjs",
+    "build:stinkfly": "node scripts/bake-stinkfly.cjs",
+    "build:stink": "node scripts/embed-stinkfly.cjs"
   },
   "devDependencies": {
     "playwright": "1.62.1"
