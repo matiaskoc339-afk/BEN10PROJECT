@@ -243,7 +243,7 @@ const close = (a, b) => assert.ok(Math.abs(a - b) < 0.01, `${a} != ${b}`);
     async () => {
       await reset();
       await page.keyboard.press("r");
-      await page.keyboard.press("6");
+      await page.keyboard.press("7");
       await tick(2);
       assert.equal(await page.evaluate(() => __demo.stats.transformed), false);
       assert.equal(await page.locator("#formName").textContent(), "BEN");

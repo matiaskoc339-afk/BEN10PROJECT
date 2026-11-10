@@ -1,12 +1,12 @@
 # Ben 10 · Demo v0.8
 
-La demo v0.8 es la única versión jugable de este repositorio. La entrada principal es [index.html](index.html), un archivo autónomo que incluye los sprites de Ben, Cuatro Brazos, Fuego, XLR8, Diamante y Cannonbolt, el escenario, el Omnitrix clásico y el HUD. Se puede jugar sin conexión.
+La demo v0.8 es la única versión jugable de este repositorio. La entrada principal es [index.html](index.html), un archivo autónomo que incluye los sprites de Ben, Cuatro Brazos, Fuego, XLR8, Diamante, Cannonbolt y Fantasmático, el escenario, el Omnitrix clásico y el HUD. Se puede jugar sin conexión.
 
 ![Demo v0.8](docs/preview.png)
 
 ## Sprites HD
 
-Cuatro Brazos, Fuego, XLR8, Diamante y Cannonbolt usan atlas de 160 píxeles de altura base por pose. Las nuevas hojas de referencia mantienen el diseño clásico, las proporciones y el anclaje anatómico; la guardia, el movimiento y los ataques se calibran desde la pose neutra de cada vista. El renderizado conserva el tamaño de los personajes y añade un filtrado de mayor calidad para los contornos.
+Cuatro Brazos, Fuego, XLR8, Diamante, Cannonbolt y Fantasmático usan atlas de 160 píxeles de altura base por pose. Las nuevas hojas de referencia mantienen el diseño clásico, las proporciones y el anclaje anatómico; la guardia, el movimiento y los ataques se calibran desde la pose neutra de cada vista. El renderizado conserva el tamaño de los personajes y añade un filtrado de mayor calidad para los contornos.
 
 Los fotogramas se dibujan desde una textura compartida para evitar copiar cientos de imágenes HD al iniciar la demo. El reloj de selección utiliza una escala propia para que los retratos sigan dentro de sus ranuras.
 
@@ -34,15 +34,16 @@ Visita [http://localhost:8000](http://localhost:8000). Para jugar no hace falta 
 | Elegir XLR8          | 3, dentro de la rueda |
 | Elegir Diamante      | 4, dentro de la rueda |
 | Elegir Cannonbolt    | 5, dentro de la rueda |
+| Elegir Fantasmático  | 6, dentro de la rueda |
 | Volver a Ben        | T, o el centro de la rueda |
 
-En pantallas táctiles están disponibles el joystick y los botones. Toca el reloj, elige el retrato del alien y toca el centro de la rueda para volver a Ben. Las otras seis ranuras se reservan para aliens de la serie clásica y están bloqueadas. XLR8 ocupa la ranura 3, Diamante la 4 y Cannonbolt la 5. La rueda incorpora once formas clásicas; las seis siguientes siguen bloqueadas.
+En pantallas táctiles están disponibles el joystick y los botones. Toca el reloj, elige el retrato del alien y toca el centro de la rueda para volver a Ben. Las otras cinco ranuras se reservan para aliens de la serie clásica y están bloqueadas. XLR8 ocupa la ranura 3, Diamante la 4, Cannonbolt la 5 y Fantasmático la 6. La rueda incorpora once formas clásicas; las cinco restantes siguen bloqueadas.
 
 ## Primer alien: Cuatro Brazos
 
 Cuatro Brazos utiliza sus propios sprites de guardia, marcha, puñetazos alternados, golpes pesados y carga. Sus cuatro brazos y el emblema del Omnitrix en el hombro siguen el diseño clásico. Ben tiene una escala de niño: se redujo su tamaño un 37,5 % respecto a la demo anterior. Cuatro Brazos mide aproximadamente 1,6 veces la altura de Ben; su escala se redujo un 30 % respecto a la primera entrega del alien. La sombra y la colisión acompañan ese tamaño. Camina a 190 unidades por segundo frente a las 247 de Ben; sus golpes tienen más daño y alcance.
 
-La cámara centra el cuerpo completo con un encuadre más cercano, idéntico para Ben y los cinco aliens: transformarse no aleja la vista. Los fotogramas se registran por el centro del torso y el suelo, con margen para los brazos extendidos. Así, las piernas en movimiento no desplazan todo el cuerpo de un lado a otro. Cada ataque incluye preparación, contacto y recuperación hasta la misma guardia; una pulsación rápida queda en espera sin reiniciar el golpe actual. El impacto sísmico conserva la orientación del personaje. Si hace falta espacio para el cuerpo del alien, la transformación busca suelo libre cercano.
+La cámara centra el cuerpo completo con un encuadre más cercano, idéntico para Ben y los seis aliens: transformarse no aleja la vista. Los fotogramas se registran por el centro del torso y el suelo, con margen para los brazos extendidos. Así, las piernas en movimiento no desplazan todo el cuerpo de un lado a otro. Cada ataque incluye preparación, contacto y recuperación hasta la misma guardia; una pulsación rápida queda en espera sin reiniciar el golpe actual. El impacto sísmico conserva la orientación del personaje. Si hace falta espacio para el cuerpo del alien, la transformación busca suelo libre cercano.
 
 El tercer golpe leve dura 0,50 segundos, frente a los 0,38 de los dos primeros. Su smash lateral incluye la pose de puños levantados y sostiene brevemente el impacto para que se lea mejor. El contacto permanece sincronizado con el dibujo y causa daño una sola vez.
 
@@ -68,8 +69,9 @@ La preparación lateral de la descarga utiliza una pose corregida con dos brazos
 | XLR8 | 10 / 12 / 16 | 34, pasada de velocidad | 380 |
 | Diamante | 18 / 22 / 28 | 28, lanza de cristal | 230 |
 | Cannonbolt | 18 / 22 / 32 | 40–72, embestida cargada | 270, rodando |
+| Fantasmático | 14 / 18 / 26 | 44, tentáculos | 260, flotando; 299 intangible |
 
-Ben hace menos daño que antes: los dos primeros leves bajan de 17 a 8; el tercero, de 25 a 12; el fuerte, de 45 a 20. Fuego tiene un dash más rápido y puede atacar a distancia. Cambiar entre los cinco aliens conserva la vida, el XP y la energía restante.
+Ben hace menos daño que antes: los dos primeros leves bajan de 17 a 8; el tercero, de 25 a 12; el fuerte, de 45 a 20. Fuego tiene un dash más rápido y puede atacar a distancia. Cambiar entre los seis aliens conserva la vida, el XP y la energía restante.
 
 ![Fuego en la demo](docs/heatblast.png)
 
@@ -143,13 +145,34 @@ Los impactos se comprueban a lo largo del desplazamiento y respetan los obstácu
 
 [Ver a Cannonbolt en movimiento](docs/cannonbolt.mp4).
 
+## Fantasmático clásico
+
+Fantasmático sigue las referencias: cubierta blanca y gris, cabeza puntiaguda con un ojo morado, garras negras, cola flotante, costuras oscuras y Omnitrix en el pecho izquierdo. Sus 224 poses HD cubren reposo, desplazamiento, intangibilidad, las tres garras y la apertura del torso en cuatro direcciones. Mide 100 unidades y mantiene el encuadre de cámara. El cuerpo sube y baja suavemente sobre la sombra; la cola y los brazos se mueven tanto parado como al avanzar, sin pasos ni piernas.
+
+- **Clic izquierdo:** garra izquierda, derecha y ataque con ambas manos, de 14, 18 y 26 de daño. Cada golpe tiene preparación, contacto y recuperación propios.
+- **Clic derecho breve:** abre la cubierta del torso y ataca directamente con los tentáculos. Hace 44 de daño una sola vez, con la apertura y la retirada visibles.
+- **Mantener clic derecho:** tras 0,16 segundos se vuelve translúcido, inmune al daño y capaz de atravesar objetivos y obstáculos. Se mueve un 15 % más rápido. Una cuenta atrás muestra el tiempo restante; el proceso completo admite un máximo de 1,8 segundos.
+- **Soltar:** vuelve a ser sólido en su posición actual y ejecuta la misma apertura y el mismo daño que un clic breve. Mantener más tiempo no carga ni potencia el ataque. Si está dentro de un obstáculo, reaparece en suelo libre cercano.
+- **Combo:** dos garras conectadas preparan la versión de 72 de daño. Se reservan los 20 puntos de energía durante la fase y se consumen una sola vez, cuando salen los tentáculos. El tiempo de intangibilidad tampoco cambia este daño.
+- **Móvil:** mantener y soltar el botón `FASE` reproduce estos controles.
+
+El torso se abre con las dos manos y deja ver una cavidad oscura de la que salen los tentáculos con franjas claras y azul oscuro. Los tentáculos no golpean a través de obstáculos sólidos. La fase termina automáticamente al llegar al límite y no puede atravesar los bordes del mapa. `T`, el reloj, Espacio, perder el foco o cambiar el tamaño de la pantalla cancelan la habilidad y restauran la vulnerabilidad. Si el reloj se agota dentro de un obstáculo, Ben reaparece en suelo libre. Cancelar antes del impacto evita gastar los 20 puntos reservados. El ataque deja un enfriamiento de 1,05 segundos después de cerrar la cubierta.
+
+![Fantasmático flotando en reposo](docs/ghostfreak.png)
+
+![Intangibilidad durante el desplazamiento](docs/ghostfreak-phase.png)
+
+![Apertura del torso y tentáculos](docs/ghostfreak-tentacles.png)
+
+[Ver a Fantasmático en movimiento](docs/ghostfreak.mp4).
+
 ## HUD y progresión
 
 - El líquido verde del reloj representa la energía del Omnitrix. El propio reloj abre la rueda de selección.
 - La barra roja muestra la vida; la naranja muestra el XP necesario para el siguiente nivel.
 - Cada objetivo derrotado otorga 40 XP. El primer nivel requiere 100 XP y cada siguiente umbral aumenta en 50. El sobrante se conserva al subir de nivel.
 
-Cada alien consume 1,5 puntos de energía por segundo. Dos leves conectados y un fuerte activan un especial de 20 puntos: impacto sísmico con Cuatro Brazos, bola ígnea explosiva con Fuego, estallido de cristales con Diamante, carrera potenciada con XLR8 o embestida de ida y vuelta con Cannonbolt. El gasto ocurre al salir el especial, incluso si falla; cancelar la animación con un dash antes del contacto evita el gasto.
+Cada alien consume 1,5 puntos de energía por segundo. Dos leves conectados y un fuerte activan un especial de 20 puntos: impacto sísmico con Cuatro Brazos, bola ígnea explosiva con Fuego, estallido de cristales con Diamante, carrera potenciada con XLR8, embestida de ida y vuelta con Cannonbolt o tentáculos potenciados con Fantasmático. El gasto ocurre al salir el especial, incluso si falla; cancelar la animación con un dash antes del contacto evita el gasto.
 
 Al agotarse la energía, el sistema vuelve a Ben conservando vida, XP y nivel. En forma humana, el reloj comienza a recargarse tras 3 segundos, a 8 puntos por segundo. La rueda pausa la simulación. El XP y el nivel se mantienen durante la sesión; recargar la página inicia una sesión nueva.
 
@@ -161,7 +184,7 @@ npx playwright install chromium
 npm test
 ```
 
-Las 214 comprobaciones verifican los fotogramas, la guardia, los golpes, el dash, el anclaje del reloj, la energía, los especiales, el XP y el HUD en escritorio y móvil. También prueban la transformación real a Cuatro Brazos y a Fuego, sus cuatro direcciones de ataque, las escalas, su colisión, la cámara fija, la estabilidad del torso, la recuperación de los golpes, los combos con pulsaciones rápidas y la vuelta a Ben por teclado, por pantalla táctil y por energía agotada. Las pruebas de fuego verifican el daño reducido de Ben, los ataques cuerpo a cuerpo, el vuelo de los proyectiles, los obstáculos, las explosiones y las colisiones a distintas tasas de actualización. También comprueban la variación real de las siluetas al correr, la cadencia según la distancia, los cinco ataques distintos, la sincronización del contacto y los avances de los golpes a 30, 60 y 120 actualizaciones por segundo. Las comprobaciones HD verifican la resolución de los atlas, el tamaño físico de ambos aliens, la representación en pantallas normales y retina y la cadencia reducida de Fuego sin alterar su desplazamiento. Las pruebas de Diamante comprueban la selección de la ranura 4 por teclado y pantalla táctil, sus 256 poses, el movimiento y los golpes en cuatro direcciones, los avances de peso, las pulsaciones en espera, los proyectiles y su estallido, el gasto de energía, la conservación de estadísticas y la vuelta a Ben. Las pruebas de XLR8 verifican sus poses, golpes rápidos, clic breve, trazo por ratón y dedo, temporizador automático, cámara en móvil, coordenadas retina, colisiones continuas, cancelaciones, enfriamiento, reserva del especial y retorno a Ben. El movimiento y el daño del recorrido se comprueban a 30, 60 y 120 actualizaciones por segundo. Las pruebas de Cannonbolt verifican la rueda ampliada, las transiciones de cuerpo a esfera, el diámetro estable, los ataques de garra y la tercera embestida en cuatro direcciones, la carga por ratón y pantalla táctil, el combo de ida y vuelta, el gasto único de energía, las cancelaciones y las colisiones de la esfera. El tercer golpe de Cuatro Brazos se comprueba con sus nuevos tiempos, su daño único y la siguiente pulsación en espera a 30, 60 y 120 actualizaciones por segundo. Si Chromium está instalado en `/usr/bin/chromium`, se utiliza ese ejecutable; también puede indicarse otro mediante `CHROMIUM_PATH`.
+Las 250 comprobaciones verifican los fotogramas, la guardia, los golpes, el dash, el anclaje del reloj, la energía, los especiales, el XP y el HUD en escritorio y móvil. También prueban la transformación real a Cuatro Brazos y a Fuego, sus cuatro direcciones de ataque, las escalas, su colisión, la cámara fija, la estabilidad del torso, la recuperación de los golpes, los combos con pulsaciones rápidas y la vuelta a Ben por teclado, por pantalla táctil y por energía agotada. Las pruebas de fuego verifican el daño reducido de Ben, los ataques cuerpo a cuerpo, el vuelo de los proyectiles, los obstáculos, las explosiones y las colisiones a distintas tasas de actualización. También comprueban la variación real de las siluetas al correr, la cadencia según la distancia, los cinco ataques distintos, la sincronización del contacto y los avances de los golpes a 30, 60 y 120 actualizaciones por segundo. Las comprobaciones HD verifican la resolución de los atlas, el tamaño físico de ambos aliens, la representación en pantallas normales y retina y la cadencia reducida de Fuego sin alterar su desplazamiento. Las pruebas de Diamante comprueban la selección de la ranura 4 por teclado y pantalla táctil, sus 256 poses, el movimiento y los golpes en cuatro direcciones, los avances de peso, las pulsaciones en espera, los proyectiles y su estallido, el gasto de energía, la conservación de estadísticas y la vuelta a Ben. Las pruebas de XLR8 verifican sus poses, golpes rápidos, clic breve, trazo por ratón y dedo, temporizador automático, cámara en móvil, coordenadas retina, colisiones continuas, cancelaciones, enfriamiento, reserva del especial y retorno a Ben. El movimiento y el daño del recorrido se comprueban a 30, 60 y 120 actualizaciones por segundo. Las pruebas de Cannonbolt verifican la rueda ampliada, las transiciones de cuerpo a esfera, el diámetro estable, los ataques de garra y la tercera embestida en cuatro direcciones, la carga por ratón y pantalla táctil, el combo de ida y vuelta, el gasto único de energía, las cancelaciones y las colisiones de la esfera. Las pruebas de Fantasmático verifican sus 224 poses completas, flotación, garras en cuatro direcciones, clic breve, inmunidad temporal real, desplazamiento un 15 % más rápido, límites del mapa, atravesar obstáculos y reaparecer en suelo libre, daño idéntico entre pulsaciones cortas y largas, reserva del combo, cancelaciones, vuelta a Ben y controles táctiles. El movimiento y el ataque se comprueban también a 30, 60 y 120 actualizaciones por segundo. El tercer golpe de Cuatro Brazos se comprueba con sus nuevos tiempos, su daño único y la siguiente pulsación en espera a 30, 60 y 120 actualizaciones por segundo. Si Chromium está instalado en `/usr/bin/chromium`, se utiliza ese ejecutable; también puede indicarse otro mediante `CHROMIUM_PATH`.
 
 El diseño fuente y el atlas del reloj están en [assets](assets). Para recompilarlo e incrustarlo en `index.html`:
 
@@ -226,3 +249,16 @@ npm run build:cannon
 ```
 
 Los compiladores comprimen los atlas PNG sin modificar sus píxeles para reducir el tamaño del archivo autónomo.
+
+Las fuentes de Fantasmático y su atlas están en [assets/aliens](assets/aliens). La compilación registra el cuerpo por la cabeza y conserva el movimiento libre de la cola y los tentáculos:
+
+```sh
+npm run build:ghostfreak
+```
+
+La duración de la fase y la búsqueda de suelo libre están en [systems/ghostfreak-ability.js](systems/ghostfreak-ability.js); los controles y el ataque están en [systems/ghostfreak-game.js](systems/ghostfreak-game.js). La inmunidad temporal se aplica en el modelo compartido de estadísticas. Para sincronizar las copias incrustadas:
+
+```sh
+npm run build:ghost
+npm run build:stats
+```

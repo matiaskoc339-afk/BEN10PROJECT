@@ -1,0 +1,11 @@
+const fs=require('node:fs'),path=require('node:path');
+const root=path.resolve(__dirname,'..'),file=path.join(root,'index.html');
+let html=fs.readFileSync(file,'utf8');
+const source=fs.readFileSync(path.join(root,'systems/ghostfreak-ability.js'),'utf8');
+const block='<!-- GHOSTFREAK_ABILITY_START -->\n<script>\n'+source+'\n</script>\n<!-- GHOSTFREAK_ABILITY_END -->';
+if(html.includes('<!-- GHOSTFREAK_ABILITY_START -->'))html=html.replace(/<!-- GHOSTFREAK_ABILITY_START -->[\s\S]*?<!-- GHOSTFREAK_ABILITY_END -->/,()=>block);
+else html=html.replace('<!-- CANNONBOLT_PHYSICS_END -->',()=> '<!-- CANNONBOLT_PHYSICS_END -->\n'+block);
+const game='// GHOSTFREAK_GAME_START\n'+fs.readFileSync(path.join(root,'systems/ghostfreak-game.js'),'utf8')+'// GHOSTFREAK_GAME_END';
+if(html.includes('// GHOSTFREAK_GAME_START'))html=html.replace(/\/\/ GHOSTFREAK_GAME_START[\s\S]*?\/\/ GHOSTFREAK_GAME_END/,()=>game);
+else html=html.replace('function update(dt){',()=>game+'\nfunction update(dt){');
+fs.writeFileSync(file,html);console.log('Embedded Ghostfreak timing, intangibility and tentacle controls.');

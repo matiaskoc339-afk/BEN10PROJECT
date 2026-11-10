@@ -151,10 +151,10 @@ const close=(a,b)=>assert.ok(Math.abs(a-b)<.02,`${a} != ${b}`);
   await page.mouse.click(900,300,{button:'right'});await tick(.47);assert.equal(await page.evaluate(()=>__demo.stats.form),null);assert.equal(await page.evaluate(()=>__demo.projectiles[0].kind),'crystal');
   await tick(.7);assert.equal(await page.evaluate(()=>__demo.dummies[0].health),28);assert.equal(await page.locator('#formName').textContent(),'BEN');
  });
- await check('switching among all three aliens preserves life, XP and remaining energy, with six classic slots locked',async()=>{
+ await check('switching among all three aliens preserves life, XP and remaining energy, with five classic slots locked',async()=>{
   await reset();await transform();await page.evaluate(()=>{__demo.stats.damage(15);__demo.stats.awardXP(130);});const energy=await page.evaluate(()=>__demo.stats.energy);
   await transform('2');await transform('1');await transform();assert.ok((await page.evaluate(()=>__demo.stats.energy))<energy);
-  for(const key of ['6','7','8','9','0','u']){await page.keyboard.press('r');await page.keyboard.press(key);assert.equal(await page.evaluate(()=>__demo.state.wheel),true);assert.equal(await page.evaluate(()=>__demo.player.mode),'idle');await page.keyboard.press('Escape');}
+  for(const key of ['7','8','9','0','u']){await page.keyboard.press('r');await page.keyboard.press(key);assert.equal(await page.evaluate(()=>__demo.state.wheel),true);assert.equal(await page.evaluate(()=>__demo.player.mode),'idle');await page.keyboard.press('Escape');}
   await page.keyboard.press('t');assert.deepEqual(await page.evaluate(()=>[__demo.stats.form,__demo.stats.health,__demo.stats.level,__demo.stats.xp,__demo.cam.zoom]),[null,85,2,30,1.125]);
  });
  await check('touch users select slot 4, launch a crystal and return through the watch centre',async()=>{

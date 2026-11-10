@@ -34,6 +34,7 @@
       this.comboHits = 0;
       this.comboLeft = 0;
       this.specialReservation = null;
+      this.invulnerable = false;
       this.rechargeLeft = 0;
       this.events = [];
     }
@@ -58,7 +59,7 @@
       return this.health;
     }
     damage(amount) {
-      if (!Number.isFinite(amount) || amount <= 0) return 0;
+      if (!Number.isFinite(amount) || amount <= 0 || this.invulnerable) return 0;
       const before = this.health;
       this.setHealth(this.health - amount);
       if (before > 0 && this.health === 0) {
@@ -67,6 +68,9 @@
         this.events.push({ type: "defeated" });
       }
       return before - this.health;
+    }
+    setInvulnerable(active) {
+      this.invulnerable = !!active && this.transformed && this.health > 0;
     }
     transform(form) {
       if (
@@ -79,6 +83,7 @@
       )
         return false;
       this.form = { id: form.id, name: String(form.name || form.id) };
+      this.invulnerable = false;
       this.clearCombo();
       this.rechargeLeft = 0;
       this.events.push({ type: "form-started", form: { ...this.form } });
@@ -88,6 +93,7 @@
       if (!this.transformed) return false;
       const previous = this.form;
       this.form = null;
+      this.invulnerable = false;
       this.clearCombo();
       this.rechargeLeft = this.config.rechargeDelay;
       this.events.push({ type: "form-ended", reason, previous });
