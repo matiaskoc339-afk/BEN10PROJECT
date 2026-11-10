@@ -1,3 +1,4 @@
+const {compressPng}=require('./compress-png.cjs');
 // Compile original eight-frame clips into one registered HD texture.
 const fs=require('node:fs'),path=require('node:path');
 const {chromium}=require('playwright');
@@ -50,6 +51,7 @@ const root=path.resolve(__dirname,'..'),dir=path.join(root,'assets/aliens');
    }
    return {png:canvas.toDataURL().split(',')[1],spec:{cols:8,rows:32,cellWidth,cellHeight,anchorX,anchorY,bodyHeight:160,resolutionScale:2,quality:'HD',registration:'pelvis-and-ground'}};
   },sources);
+  result.png=compressPng(Buffer.from(result.png,'base64')).toString('base64');
   fs.writeFileSync(path.join(dir,'xlr8-atlas.png'),Buffer.from(result.png,'base64'));
   fs.writeFileSync(path.join(dir,'xlr8-atlas.json'),JSON.stringify(result.spec,null,2)+'\n');
   const block='// XLR8_ASSET_START\nconst XLR8_ATLAS='+JSON.stringify(result.spec)+';\nconst xlr8Sheet=new Image();xlr8Sheet.src=\'data:image/png;base64,'+result.png+'\';\n// XLR8_ASSET_END';

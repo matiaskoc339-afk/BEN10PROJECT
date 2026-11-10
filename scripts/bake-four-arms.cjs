@@ -1,3 +1,4 @@
+const {compressPng}=require('./compress-png.cjs');
 // Keep a single HD character model across directions and animation sheets.
 // Each four-column master holds four eight-frame clips on pairs of rows.
 const fs=require('node:fs'),path=require('node:path');
@@ -52,6 +53,7 @@ const root=path.resolve(__dirname,'..'),dir=path.join(root,'assets/aliens');
    }
    return {png:canvas.toDataURL('image/png').split(',')[1],spec:{cols:8,rows:22,cellWidth,cellHeight,anchorX,anchorY,bodyHeight:160,resolutionScale:2,quality:'HD',registration:'torso-centre-and-ground'}};
   },sources);
+  result.png=compressPng(Buffer.from(result.png,'base64')).toString('base64');
   fs.writeFileSync(path.join(dir,'four-arms-atlas.png'),Buffer.from(result.png,'base64'));fs.writeFileSync(path.join(dir,'four-arms-atlas.json'),JSON.stringify(result.spec,null,2)+'\n');
   const block='// FOUR_ARMS_ASSET_START\nconst FOUR_ARMS_ATLAS='+JSON.stringify(result.spec)+';\nconst fourArmsSheet=new Image();fourArmsSheet.src=\'data:image/png;base64,'+result.png+'\';\n// FOUR_ARMS_ASSET_END';
   html=fs.readFileSync(path.join(root,'index.html'),'utf8').replace(/\/\/ FOUR_ARMS_ASSET_START[\s\S]*?\/\/ FOUR_ARMS_ASSET_END/,()=>block);fs.writeFileSync(path.join(root,'index.html'),html);

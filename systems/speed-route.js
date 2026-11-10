@@ -36,9 +36,9 @@
    if(travel<.001)return false;this.points.push(clipped.end);this.length+=travel;return true;
   }
  }
- function quickPath(start,dx,dy,world={},range=config.tapDistance){
+ function quickPath(start,dx,dy,world={},range=config.tapDistance,radius=config.radius){
   const length=Math.hypot(dx,dy);if(!length||!finite(start))throw new Error('Invalid rush facing');
-  const end=clipSegment(start,{x:start.x+dx/length*range,y:start.y+dy/length*range},world).end;
+  const end=clipSegment(start,{x:start.x+dx/length*range,y:start.y+dy/length*range},world,radius).end;
   return distance(start,end)>.001?[{...start},end,{...start}]:[{...start}];
  }
  class Rush{

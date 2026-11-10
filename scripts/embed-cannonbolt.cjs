@@ -1,0 +1,10 @@
+const fs=require('node:fs'),path=require('node:path');
+const root=path.resolve(__dirname,'..'),file=path.join(root,'index.html'),source=fs.readFileSync(path.join(root,'systems/cannonbolt-physics.js'),'utf8');
+const block='<!-- CANNONBOLT_PHYSICS_START -->\n<script>\n'+source+'\n</script>\n<!-- CANNONBOLT_PHYSICS_END -->';
+let html=fs.readFileSync(file,'utf8');
+if(html.includes('<!-- CANNONBOLT_PHYSICS_START -->'))html=html.replace(/<!-- CANNONBOLT_PHYSICS_START -->[\s\S]*?<!-- CANNONBOLT_PHYSICS_END -->/,()=>block);
+else html=html.replace('<!-- SPEED_ROUTE_END -->',()=> '<!-- SPEED_ROUTE_END -->\n'+block);
+const sourceGame=fs.readFileSync(path.join(root,'systems/cannonbolt-game.js'),'utf8'),game='// CANNONBOLT_GAME_START\n'+sourceGame+'// CANNONBOLT_GAME_END';
+if(html.includes('// CANNONBOLT_GAME_START'))html=html.replace(/\/\/ CANNONBOLT_GAME_START[\s\S]*?\/\/ CANNONBOLT_GAME_END/,()=>game);
+else html=html.replace('function update(dt){',()=>game+'\nfunction update(dt){');
+fs.writeFileSync(file,html);console.log('Embedded Cannonbolt physics, charge and ball transitions.');

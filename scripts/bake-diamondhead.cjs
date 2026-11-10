@@ -1,3 +1,4 @@
+const {compressPng}=require('./compress-png.cjs');
 // Compile original eight-frame clips into one registered HD texture.
 const fs=require('node:fs'),path=require('node:path');
 const {chromium}=require('playwright');
@@ -48,6 +49,7 @@ const root=path.resolve(__dirname,'..'),dir=path.join(root,'assets/aliens');
    }
    return {png:canvas.toDataURL().split(',')[1],spec:{cols:8,rows:32,cellWidth,cellHeight,anchorX,anchorY,bodyHeight:160,resolutionScale:2,quality:'HD',registration:'pelvis-and-ground'}};
   },sources);
+  result.png=compressPng(Buffer.from(result.png,'base64')).toString('base64');
   fs.writeFileSync(path.join(dir,'diamondhead-atlas.png'),Buffer.from(result.png,'base64'));
   fs.writeFileSync(path.join(dir,'diamondhead-atlas.json'),JSON.stringify(result.spec,null,2)+'\n');
   const block='// DIAMONDHEAD_ASSET_START\nconst DIAMONDHEAD_ATLAS='+JSON.stringify(result.spec)+';\nconst diamondheadSheet=new Image();diamondheadSheet.src=\'data:image/png;base64,'+result.png+'\';\n// DIAMONDHEAD_ASSET_END';

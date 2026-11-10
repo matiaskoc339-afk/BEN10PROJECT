@@ -1,3 +1,4 @@
+const {compressPng}=require('./compress-png.cjs');
 // Register whole silhouettes on the torso centre and ground plane. Swinging
 // feet must not pull the whole body sideways between animation frames.
 const fs = require('node:fs');
@@ -99,6 +100,7 @@ const dir = path.join(root, 'assets/aliens');
       }
       return {png:canvas.toDataURL('image/png').split(',')[1],spec:{cols:8,rows,cellWidth,cellHeight,anchorX,anchorY,bodyHeight:160,resolutionScale:2,quality:'HD',registration:'pelvis-for-motion-chest-for-guard'}};
     }, sources);
+    result.png=compressPng(Buffer.from(result.png,'base64')).toString('base64');
     fs.writeFileSync(path.join(dir,'heatblast-atlas.png'), Buffer.from(result.png,'base64'));
     fs.writeFileSync(path.join(dir,'heatblast-atlas.json'), JSON.stringify(result.spec,null,2)+'\n');
     const block='// HEATBLAST_ASSET_START\nconst HEATBLAST_ATLAS='+JSON.stringify(result.spec)+';\nconst heatblastSheet=new Image();heatblastSheet.src=\'data:image/png;base64,'+result.png+'\';\n// HEATBLAST_ASSET_END';
