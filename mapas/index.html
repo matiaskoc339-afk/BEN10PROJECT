@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#111b1b"><title>Ben 10 · El camino de los Eternos</title><link rel="stylesheet" href="mapas.css"></head>
+<body>
+<header><a class="identity" href="#"><span class="omni">⌛</span><span>EL CAMINO DE LOS ETERNOS<small>ATLAS DE ESCENARIOS · BEN 10</small></span></a><nav id="chapters" aria-label="Capítulos"></nav><button id="routeToggle" aria-expanded="false">Ver recorrido <span>28</span></button></header>
+<main>
+ <section id="stage" aria-label="Vista del recorrido">
+  <canvas id="map" tabindex="0" aria-label="Recorre el mapa con WASD o las flechas"></canvas>
+  <div id="sceneLabel"><span id="chapterLabel"></span><h1 id="roomName"></h1><p id="roomSubtitle"></p></div>
+  <div id="loading"><span class="loading-orbit"></span><b>Preparando el recorrido…</b></div>
+  <div id="phaseExit" hidden><span>ENTRADA ALCANZADA</span><h2 id="exitTitle"></h2><button id="enterPhase">Entrar <span>→</span></button><small>También puedes pulsar E</small></div>
+  <div id="finish" hidden><span>FIN DEL RECORRIDO</span><h2>Laboratorio principal</h2><p>Arena reservada para el futuro enfrentamiento con el Rey Eterno.</p><button id="restart">Volver al inicio</button></div>
+  <aside id="routePanel" hidden><div class="route-title"><h2>Tres fases, un viaje</h2><button id="routeClose" aria-label="Cerrar recorrido">×</button></div><p>Recorridos continuos con entrada manual al castillo y al laboratorio.</p><button id="downloadPanorama">Descargar panorama de esta fase ↓</button><div id="roomList"></div></aside>
+ </section>
+ <div class="journey"><span>A</span><button id="timeline" aria-label="Saltar a una parte del recorrido"><i id="progress"></i><div id="chapterMarks"></div><b id="positionDot"></b></button><span>B</span><span id="positionLabel">01 / 28</span></div>
+</main>
+<footer><div class="controls"><span><kbd>WASD</kbd> / <kbd>↑ ↓ ← →</kbd> Recorrer</span><span><kbd>Espacio</kbd> Paseo automático</span><span>Arrastra para explorar</span></div><div class="options"><button id="follow" hidden>Volver a Ben</button><label><input id="showBen" type="checkbox" checked> Ben de referencia</label><label><input id="showFloor" type="checkbox"> Suelo transitable</label><button id="auto" aria-pressed="false">Iniciar paseo <span>→</span></button></div></footer>
+<script src="data/recorrido.js"></script><script src="world.js"></script><script src="mapas.js"></script>
+</body></html>

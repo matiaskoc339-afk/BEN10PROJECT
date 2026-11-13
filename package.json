@@ -43,7 +43,10 @@
     "build:skill-sprites": "node scripts/bake-skill-sprites.cjs",
     "test:art": "python3 scripts/validate-drawn-assets.py",
     "test:render": "node tests/v33-render-review.cjs",
-    "test:targeting": "node tests/combat-targeting-browser.cjs"
+    "test:targeting": "node tests/combat-targeting-browser.cjs",
+    "build:maps": "python3 scripts/build-map-pack.py",
+    "test:maps": "node --test tests/map-pack.test.cjs && npm run test:maps:browser",
+    "test:maps:browser": "node tests/map-pack-browser.cjs"
   },
   "devDependencies": {
     "playwright": "1.62.1"

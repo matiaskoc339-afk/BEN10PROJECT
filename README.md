@@ -1,5 +1,7 @@
 # Ben 10 · Demo PC V33.1
 
+Los nuevos mapas se prueban aparte en **[El camino de los Eternos](mapas/index.html)**: tres fases panorámicas, entradas manuales al castillo y al laboratorio, y una zona reservada para un puzzle. [Documentación y controles](mapas/README.md).
+
 V33 simplifica las conexiones de los árboles y añade poses dibujadas para las 70 técnicas de los diez aliens. Conserva los sprites originales de movimiento y ataques básicos, el escenario y el cómic.
 
 ## Jugar
