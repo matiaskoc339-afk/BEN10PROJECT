@@ -1,4 +1,4 @@
-# Ben 10 · Demo PC V33
+# Ben 10 · Demo PC V33.1
 
 V33 simplifica las conexiones de los árboles y añade poses dibujadas para las 70 técnicas de los diez aliens. Conserva los sprites originales de movimiento y ataques básicos, el escenario y el cómic.
 
@@ -24,6 +24,14 @@ El prólogo mantiene su fondo blanco, «Da clic» y avance automático. Esc perm
 Cada alien conserva sus 24 mejoras y su propia forma de árbol. Hay una conexión principal por nodo: 23 conexiones por árbol, con énfasis en la mejora seleccionada. Atributos, seis combos y F siguen mezclados. Los aliens comienzan con atributos limitados y mejoran mediante compras.
 
 Las partidas V32 conservan las mejoras aprendidas, nivel, XP y puntos aunque cambie el recorrido de las conexiones. Las versiones anteriores a V32 conservan nivel y XP y recuperan sus puntos. Las técnicas sólo se ejecutan al aprenderlas y completar su combinación; la vista previa indica entrada, coste y requisitos.
+
+## Selección de objetivo y energía
+
+Las técnicas dirigidas dan prioridad al enemigo golpeado durante el combo. Si no hay uno válido, eligen el que señalas con el ratón, el que está frente al personaje o el más cercano dentro del sector frontal. Un aro en el suelo indica la selección.
+
+Cada técnica conserva su alcance y respeta los obstáculos. Las invocaciones fijan el punto al comenzar: un enemigo que se aparta puede esquivarlas. Los agarres pueden fallar antes de sujetar al enemigo; la técnica no cambia de víctima a mitad de animación.
+
+Si intentas una técnica sin energía suficiente, el reloj del HUD destella en rojo y recupera su color. No aparece texto de energía insuficiente ni se gasta energía.
 
 ## Nuevas técnicas
 

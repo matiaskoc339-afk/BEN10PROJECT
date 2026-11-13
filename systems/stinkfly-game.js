@@ -53,7 +53,7 @@ function updateStinkEffects(dt){
  slime.tick(dt,{targets:dummyList,obstacles:props,width:WORLD.w,height:WORLD.h},s=>{
   if(s.target){damageDummy(s.target,s.damage,false,{slime:true,port:s.port});const b=s.burst;if(b&&!b.credited&&creditable(b)){b.credited=true;stinkAction.lastOutcome=b.id;stats.recordLightHit();if(stats.specialReady)showCombo('COMBO INSECTOIDE LISTO · FUERTE: VENENO');}}
   else if(s.kind==='spit')spawnDust(s.x,s.y-s.height,2,'#a6d35c');
- },b=>{if(b.launched&&!b.hit&&creditable(b)){stinkAction.lastOutcome=b.id;stats.clearCombo();}},(d,damage)=>damageDummy(d,damage,false,{slime:true,port:1}));
+ },b=>{if(b.launched&&!b.hit&&creditable(b)){stinkAction.lastOutcome=b.id;stats.clearCombo();}},(d,damage)=>damageDummy(d,damage,false,{slime:true,port:1,rememberTarget:false}));
 }
 function drawStinkShot(s){
  const x=Math.round(s.x),y=Math.round(s.y-s.height),r=s.kind==='glob'?7:3;ctx.save();ctx.translate(x,y);ctx.rotate(Math.atan2(s.dy,s.dx));

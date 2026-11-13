@@ -1,6 +1,7 @@
 // Environmental effects accompany, rather than substitute for, the new body drawings.
 const evolutionPlantImage=new Image();evolutionPlantImage.src='assets/skills/carnivorous-plant.png';
 function evolutionDrawEffects(){
+ combatDrawTarget();
  const fields=progression.fields,fx=progression.fx;
  const custom=new Set(['groundFire','geyser','jets','cross','dirt','groundTentacles','flowerRoots','carnivore','lightning','uppercut','cable','armor','bite']);
  progression.fields=[];progression.fx=fx.filter(e=>!custom.has(e.kind));evolutionDrawBaseEffects();progression.fields=fields;progression.fx=fx;

@@ -113,9 +113,9 @@ function evolutionRecordAttack(type){
  progression.comboLog=progression.comboLog.filter(e=>t-e.t<3.2);progression.comboLog.push({type,t});progression.comboLog=progression.comboLog.slice(-6);
  const log=progression.comboLog.map(e=>e.type).join(''),b=evolutionBonus(),i=evolutionIndex[stats.form.id];
  const skill=SKILL_BOOK[i].skills.slice(1).filter(s=>b.combos.includes(s.sequence)&&log.endsWith(s.sequence)).sort((a,b)=>b.sequence.length-a.sequence.length)[0];
- return skill?evolutionBeginSkill(i,skill):false;
+ if(skill){evolutionBeginSkill(i,skill);return true;}return false;
 }
-function evolutionHit(c,d,damage,heavy=true){if(!d.alive)return false;return damageDummy(d,Math.round(damage*c.power.amp),heavy,{attackScale:c.power.atk})}
+function evolutionHit(c,d,damage,heavy=true){if(!d.alive)return false;return damageDummy(d,Math.round(damage*c.power.amp),heavy,{attackScale:c.power.atk,rememberTarget:false})}
 function evolutionArea(c,x,y,radius,damage,{front=false,stun=0}={}){
  let hits=0;for(const d of dummyList){if(!d.alive||dist(x,y,d.x,d.y)>radius)continue;if(front&&(d.x-c.x)*c.dx+(d.y-c.y)*c.dy<0)continue;if(Ben10Speed.clipSegment({x:c.x,y:c.y},d,speedWorld(),0).blocked)continue;if(evolutionHit(c,d,damage)){hits++;if(stun)d.stunTime=Math.max(d.stunTime||0,stun)}}
  return hits;

@@ -1,11 +1,11 @@
 {
   "name": "ben10-demo",
-  "version": "0.33.0",
+  "version": "0.33.1",
   "private": true,
-  "description": "Demo PC V33: árboles más claros y nuevas poses dibujadas para las 70 técnicas.",
+  "description": "Demo PC V33.1: selección contextual de objetivos y aviso de energía en el reloj.",
   "scripts": {
     "start": "python3 -m http.server 8000 --bind 0.0.0.0",
-    "test": "npm run test:evolution && npm run test:art && npm run test:browser && npm run test:render",
+    "test": "npm run test:evolution && npm run test:art && npm run test:browser && npm run test:render && npm run test:targeting",
     "test:stats": "node --test tests/stats.test.cjs",
     "test:browser": "node tests/evolution-v32-browser.cjs",
     "test:cannon": "node --test tests/cannonbolt-physics.test.cjs",
@@ -42,7 +42,8 @@
     "build:evolution": "node scripts/embed-evolution.cjs",
     "build:skill-sprites": "node scripts/bake-skill-sprites.cjs",
     "test:art": "python3 scripts/validate-drawn-assets.py",
-    "test:render": "node tests/v33-render-review.cjs"
+    "test:render": "node tests/v33-render-review.cjs",
+    "test:targeting": "node tests/combat-targeting-browser.cjs"
   },
   "devDependencies": {
     "playwright": "1.62.1"

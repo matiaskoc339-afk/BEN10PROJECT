@@ -1,0 +1,5 @@
+/* Red warning belongs to the watch, so life and XP keep their own appearance. */
+#hud.is-energy-denied #hudHourglassBase{fill:#b22940;stroke:#ff8590;filter:drop-shadow(0 0 9px #ff304b);animation:energyDeniedPulse .36s ease-in-out 2 alternate}
+#hud.is-energy-denied #energyFill,#hud.is-energy-denied #energyTopFill,#hud.is-energy-denied #energyBottomFill{filter:drop-shadow(0 0 5px #ff4058) brightness(1.35)}
+#hud.is-energy-denied .hud-rod{fill:#ff3752;stroke:#ffa4ab;animation:none}
+@keyframes energyDeniedPulse{from{opacity:.7}to{opacity:1;filter:drop-shadow(0 0 15px #ff203f) brightness(1.35)}}

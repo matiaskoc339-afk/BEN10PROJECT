@@ -1,4 +1,4 @@
-BEN 10 — DEMO PC V33 · TÉCNICAS Y ÁRBOLES
+BEN 10 — DEMO PC V33.1 · TÉCNICAS Y ÁRBOLES
 
 Extrae toda la carpeta y abre index.html en Chrome, Edge o Firefox de PC.
 Conserva assets junto al HTML. No hace falta instalar nada para jugar.
@@ -18,3 +18,10 @@ V33 añade poses nuevas para las técnicas sin sustituir los sprites básicos.
 Los agarres levantan y estrellan al rival; las habilidades de suelo, impulsos,
 intangibilidad y proyectiles siguen la nueva animación de cada técnica.
 La F de Diamante endurece el cuerpo y no hace daño.
+
+OBJETIVOS Y ENERGÍA
+Las técnicas buscan primero al enemigo al que venías haciendo el combo;
+después al que señalas o tienes delante, y luego a uno cercano del frente.
+El aro del suelo muestra el objetivo. El alcance y los obstáculos cuentan;
+un enemigo puede apartarse antes del impacto y hacerte fallar.
+Sin energía suficiente, el reloj destella en rojo sin mostrar un aviso escrito.

@@ -16,9 +16,8 @@ function evolutionSkillIntangible(){
  return c.form==='ghostfreak'&&((c.definition.id==='c0'&&p>.15&&p<.57)||(c.definition.id==='c3'&&p>.2&&p<.83));
 }
 function evolutionFindTarget(c,range){
- return dummyList.filter(d=>{const x=d.x-c.x,y=d.y-c.y,along=x*c.dx+y*c.dy,side=Math.abs(x*c.dy-y*c.dx);
-  return d.alive&&along>=8&&along<=range&&side<=72&&!Ben10Speed.clipSegment({x:c.x,y:c.y},d,speedWorld(),0).blocked;
- }).sort((a,b)=>dist(c.x,c.y,a.x,a.y)-dist(c.x,c.y,b.x,b.y))[0]||null;
+ if(c.targetLocked)return combatTargetInReach(c)?c.target:null;
+ return combatChooseTarget(c,range);
 }
 function evolutionCancelSkill(){
  const c=progression.skill;for(const d of dummyList){d.skillLift=0;d.skillHidden=false;d.skillTilt=0;}
@@ -29,14 +28,14 @@ function evolutionCancelSkill(){
 function evolutionBeginSkill(index,skill){
  if(progression.skill||stats.form?.id!==SKILL_BOOK[index].id||player.mode!=='idle')return false;
  const bonus=evolutionBonus(),last=progression.abilityTimes[stats.form.id+skill.id]??-100;
+ if(stats.energy<skill.cost){combatEnergyDenied();return false;}
  if(t-last<skill.cooldown){showToast('RECARGANDO · '+skill.name.toUpperCase());return false;}
- if(stats.energy<skill.cost){showToast('ENERGÍA INSUFICIENTE · '+skill.cost);return false;}
  faceForAction();const duration=skill.duration,c={form:stats.form.id,index,definition:skill,style:skill.style,label:skill.name,age:0,time:duration,duration,x:player.x,y:player.y,dx:player.faceX,dy:player.faceY,dir:player.dir,power:{...bonus},next:0,hit:new Set(),contacts:new Set(),target:null,color:SKILL_BOOK[index].color,z:0,alpha:1};
  c.route=EVO_MOVE_ROUTES[c.form]?.[skill.id]||'stationary';
- const targetRange=c.route==='pullPunch'?skill.reach:c.route==='burrow'?skill.move+100:c.route==='pounceReturn'?skill.move+60:155;
- c.target=evolutionFindTarget(c,targetRange);if(c.target){c.targetX=c.target.x;c.targetY=c.target.y;}
+ combatLockTarget(c);
  c.destination={x:c.x+c.dx*skill.move,y:c.y+c.dy*skill.move};
- if(c.route==='burrow'&&c.target)c.destination={x:c.target.x-c.dx*45,y:c.target.y-c.dy*45};
+ if(c.route==='liquid'&&c.aim)c.destination={...c.aim};
+ if(c.route==='burrow'&&c.aim){const travel=Math.max(0,Math.min(skill.move,dist(c.x,c.y,c.aim.x,c.aim.y)-45));c.destination={x:c.x+c.dx*travel,y:c.y+c.dy*travel};}
  stats.energy-=skill.cost;progression.abilityTimes[c.form+skill.id]=t;progression.comboLog=[];progression.skill=c;progression.casts=[c];
  startMode('skill',duration);player.moving=false;player.runClock=0;evolutionTexture(index,skill);
  showCombo(skill.name.toUpperCase()+' · −'+skill.cost+' ENERGÍA');syncHud();return true;
@@ -52,7 +51,7 @@ function evolutionFrontAt(c,x,y,damage,reach,width=60,once=false){
  }return hits;
 }
 function evolutionTargetContact(c,damage,{slam=false,knock=0}={}){
- const d=c.target;if(!d?.alive)return 0;
+ const d=c.target;if(!combatTargetInReach(c))return 0;
  if(evolutionHit(c,d,damage)){if(slam){d.skillLift=0;d.skillTilt=0;d.stunTime=1.1;evolutionEffect(c,'impact',d.x,d.y,80);shake=Math.max(shake,7);}if(knock)evolutionKnock(c,d,knock);return 1;}return 0;
 }
 function evolutionGroundSpike(c,x,y,radius,damage,size=75,kind='pillar'){
@@ -75,9 +74,9 @@ function evolutionContact(c,k){
  }else if(c.form==='heatblast'&&id==='c1'){
   hit=evolutionArea(c,player.x,player.y,78,s.damage);progression.fields.push({kind:'pool',source:c,x:player.x,y:player.y,life:2.2,age:0,next:.6,radius:58,damage:7});evolutionEffect(c,'jets',player.x,player.y,90,.35);
  }else if(c.form==='heatblast'&&id==='c3'){
-  const at=front(60+k*55);hit=evolutionGroundSpike(c,at.x,at.y,48,s.damage,70,'groundFire');
+  const at=combatGroundStep(c,k,s.contacts.length,225);hit=evolutionGroundSpike(c,at.x,at.y,48,s.damage,70,'groundFire');
  }else if(c.form==='heatblast'&&id==='c5'){
-  const at=front(140);hit=evolutionGroundSpike(c,at.x,at.y,83,s.damage,165,'geyser');shake=Math.max(shake,7);
+  const at=combatGroundPoint(c,140);hit=evolutionGroundSpike(c,at.x,at.y,83,s.damage,165,'geyser');shake=Math.max(shake,7);
  }else if(c.form==='xlr8'&&id==='c1'){
   hit=evolutionTargetContact(c,s.damage);if(c.target)evolutionEffect(c,'lightning',c.target.x,c.target.y,75,.22);
  }else if(c.form==='xlr8'&&id==='c4'){evolutionProjectile(c,k,'wind');return;
@@ -85,13 +84,13 @@ function evolutionContact(c,k){
   // Their swept motion owns contact detection; it cannot double-hit on a key pose.
   return;
  }else if(c.form==='diamondhead'&&id==='c0'){
-  const at=front(105);hit=evolutionGroundSpike(c,at.x,at.y,65,s.damage,100);
+  const at=combatGroundPoint(c,105);hit=evolutionGroundSpike(c,at.x,at.y,65,s.damage,100);
  }else if(c.form==='diamondhead'&&id==='c1'){
   hit=evolutionForward(c,s.damage,145,70);evolutionEffect(c,'cross',player.x,player.y,100);
  }else if(c.form==='diamondhead'&&id==='c4'){
-  for(let j=-2;j<=2;j++){const at=front(90+Math.abs(j)*25);at.x-=c.dy*j*44;at.y+=c.dx*j*44;hit+=evolutionGroundSpike(c,at.x,at.y,28,s.damage,70);}
+  for(let j=-2;j<=2;j++){const at=combatGroundPoint(c,90+Math.abs(j)*25);at.x-=c.dy*j*44;at.y+=c.dx*j*44;hit+=evolutionGroundSpike(c,at.x,at.y,28,s.damage,70);}
  }else if(c.form==='diamondhead'&&id==='c5'){
-  const at=front(80+k*54);hit=evolutionGroundSpike(c,at.x,at.y,55,s.damage,100+k*14);shake=Math.max(shake,5);
+  const at=combatGroundStep(c,k,s.contacts.length,296);hit=evolutionGroundSpike(c,at.x,at.y,55,s.damage,100+k*14);shake=Math.max(shake,5);
  }else if(c.form==='cannonbolt'&&id==='c0'){
   hit=evolutionArea(c,c.x,c.y,105,s.damage);evolutionEffect(c,'impact',c.x,c.y,100);shake=Math.max(shake,4);
  }else if(c.form==='cannonbolt'&&id==='c3'){
@@ -102,13 +101,14 @@ function evolutionContact(c,k){
  }else if(c.form==='ghostfreak'&&id==='c2'){
   hit=evolutionTargetContact(c,s.damage,{slam:true});
  }else if(c.form==='ghostfreak'&&id==='c3'){
-  const at={x:player.x+c.dx*45,y:player.y+c.dy*45};hit=evolutionArea(c,at.x,at.y,65,s.damage,{front:true});evolutionEffect(c,'groundTentacles',at.x,at.y,115,.25);
+  const at=c.aim?{...c.aim}:{x:player.x+c.dx*45,y:player.y+c.dy*45};hit=evolutionArea(c,at.x,at.y,65,s.damage,{front:true});evolutionEffect(c,'groundTentacles',at.x,at.y,115,.25);
  }else if(c.form==='wildvine'&&id==='c1'){
   hit=evolutionTargetContact(c,s.damage,{knock:45});evolutionEffect(c,'impact',player.x+c.dx*45,player.y+c.dy*45,65);
  }else if(c.form==='wildvine'&&id==='f'){
-  const at=front(80+k*55);hit=evolutionGroundSpike(c,at.x,at.y,65,s.damage,105,'flowerRoots');progression.fields.push({kind:'bud',source:c,x:at.x,y:at.y,life:.65,age:0,radius:58,damage:10});
+  const at=combatGroundStep(c,k,s.contacts.length,190);hit=evolutionGroundSpike(c,at.x,at.y,65,s.damage,105,'flowerRoots');progression.fields.push({kind:'bud',source:c,x:at.x,y:at.y,life:.65,age:0,radius:58,damage:10});
  }else if(c.form==='wildvine'&&id==='c5'){
-  const target=c.target?.alive?c.target:null,at=target?{x:target.x,y:target.y}:front(125);
+  const target=combatTargetInReach(c)?c.target:null,at=combatGroundPoint(c,125);
+  if(!target&&c.target){c.target.skillHidden=false;c.target.skillLift=0;}
   if(k===0){c.plantX=at.x;c.plantY=at.y;evolutionEffect(c,'carnivore',at.x,at.y,110,1.1);}
   if(target){target.skillLift=8;target.skillHidden=k>0&&k<3;hit=evolutionTargetContact(c,s.damage);if(k===3){target.skillHidden=false;evolutionKnock(c,target,35);}}
  }else if(c.form==='blitzwolfer'&&id==='c4'){
@@ -116,7 +116,7 @@ function evolutionContact(c,k){
  }else if(c.form==='blitzwolfer'&&id==='c2'){
   hit=evolutionTargetContact(c,s.damage);if(c.target)evolutionEffect(c,k===2?'bite':'slash',c.target.x,c.target.y,75);
  }else if(c.form==='upgrade'&&id==='c5'){
-  // Fixed destination, deliberately no enemy acquisition or homing.
+  // The selected point is fixed at the start; an enemy can leave before emergence.
   const at=c.destination;hit=evolutionFrontAt(c,at.x-c.dx*30,at.y-c.dy*30,s.damage,65,45);evolutionEffect(c,'uppercut',at.x,at.y,85);
  }else if(c.form==='upgrade'&&id==='c2'){
   hit=evolutionBeam(c,s.damage,r,40);shake=Math.max(shake,5);
@@ -126,9 +126,9 @@ function evolutionContact(c,k){
  }else if(['melee','lunge','whip'].includes(s.style))hit=evolutionForward(c,s.damage,r,s.style==='whip'?80:65,s.style==='lunge');
  else if(['spin','quake','meteor','burn','siphon','fear','emp'].includes(s.style))hit=evolutionArea(c,player.x,player.y,r,s.damage,{stun:s.style==='fear'?1.8:0});
  else if(s.style==='grab')hit=evolutionTargetContact(c,s.damage,{slam:true});
- else if(s.style==='pillars'){const at=front(80+k*44);hit=evolutionGroundSpike(c,at.x,at.y,55,s.damage,75);}
- else if(s.style==='prison'){const d=evolutionFindTarget(c,r),at=d||front(110);hit=evolutionArea(c,at.x,at.y,80,s.damage,{front:true,stun:1.8});evolutionEffect(c,'prison',at.x,at.y,85,1.4);}
- else if(['toxin','rain'].includes(s.style)){const step=85+k*32,at=front(step),offset=(k%2?1:-1)*35;at.x-=c.dy*offset;at.y+=c.dx*offset;progression.fields.push({kind:'pool',source:c,x:at.x,y:at.y,life:3.5,age:0,next:0,radius:52,damage:s.damage});evolutionEffect(c,'slime',at.x,at.y,40);}
+ else if(s.style==='pillars'){const at=combatGroundStep(c,k,s.contacts.length,168);hit=evolutionGroundSpike(c,at.x,at.y,55,s.damage,75);}
+ else if(s.style==='prison'){const at=combatGroundPoint(c,110);hit=evolutionArea(c,at.x,at.y,80,s.damage,{front:true,stun:1.8});evolutionEffect(c,'prison',at.x,at.y,85,1.4);}
+ else if(['toxin','rain'].includes(s.style)){const step=85+k*32,at=combatGroundPoint(c,step),offset=(k%2?1:-1)*25;at.x-=c.dy*offset;at.y+=c.dx*offset;progression.fields.push({kind:'pool',source:c,x:at.x,y:at.y,life:3.5,age:0,next:0,radius:52,damage:s.damage});evolutionEffect(c,'slime',at.x,at.y,40);}
  else if(['wave','flame','sonic','beam','sweep'].includes(s.style))hit=evolutionBeam(c,s.damage,r,s.style==='sonic'?95:60,s.style);
  if(s.style==='siphon'&&hit)stats.setHealth(stats.health+8);
  if(s.style==='emp')progression.buffs[c.form]={time:4,def:.3};
@@ -151,7 +151,7 @@ function evolutionMove(c,dt){
   q=p<.68?smoothSkill(.22,.43,p):1-smoothSkill(.75,.94,p);const distance=c.target?Math.max(0,Math.min(s.move,dist(c.x,c.y,c.targetX,c.targetY)-35)):s.move;goal=along(distance*q);c.z=p<.44?Math.sin(Math.PI*smoothSkill(.2,.44,p))*60:p>.74?Math.sin(Math.PI*smoothSkill(.74,.94,p))*35:0;
  }
  if(route==='flurry'&&c.target){const a=smoothSkill(.22,.78,p)*Math.PI*6,r=p<.22?1-smoothSkill(.1,.22,p):p>.78?smoothSkill(.78,.96,p):0;
-  const xx=c.targetX-c.dx*45*Math.cos(a)-c.dy*35*Math.sin(a),yy=c.targetY-c.dy*45*Math.cos(a)+c.dx*35*Math.sin(a);goal={x:lerp(xx,c.x,r),y:lerp(yy,c.y,r)};c.target.stunTime=.2;
+  const xx=c.targetX-c.dx*45*Math.cos(a)-c.dy*35*Math.sin(a),yy=c.targetY-c.dy*45*Math.cos(a)+c.dx*35*Math.sin(a);goal={x:lerp(xx,c.x,r),y:lerp(yy,c.y,r)};if(combatTargetInReach(c))c.target.stunTime=.2;
  }
  if(route==='phase'){c.alpha=p>.17&&p<.54?.05:1;goal=along(s.move*smoothSkill(.2,.56,p));}
  if(route==='burrow'||route==='liquid'){const a=route==='burrow'?.24:.25,b=route==='burrow'?.49:.5;q=smoothSkill(a,b,p);goal={x:lerp(c.x,c.destination.x,q),y:lerp(c.y,c.destination.y,q)};if(p>.23&&p<.48)c.alpha=.08;if(route==='burrow'&&p>.48&&p<.81)c.alpha=0;}
@@ -167,7 +167,7 @@ function evolutionMove(c,dt){
     if(dist(player.x,player.y,d.x,d.y)<rad+3)touching.add(d);
    }c.contacts=touching;}
  }
- if(['grapple','drag','pullPunch'].includes(route)&&c.target?.alive){const d=c.target,grab=smoothSkill(.27,route==='pullPunch'?.65:.43,p),distance=route==='pullPunch'?45:48;
+ if(['grapple','drag','pullPunch'].includes(route)&&c.target?.alive&&p>=.27){if(!combatTargetInReach(c)){c.targetLost=true;c.target.skillLift=0;return;}c.captured=true;const d=c.target,grab=smoothSkill(.27,route==='pullPunch'?.65:.43,p),distance=route==='pullPunch'?45:48;
   evolutionShiftTarget(c,d,lerp(c.targetX,player.x+c.dx*distance,grab),lerp(c.targetY,player.y+c.dy*distance,grab));
   if(route==='grapple')d.skillLift=p<.43?0:p<.6?90*smoothSkill(.43,.6,p):p<.75?90*(1-smoothSkill(.6,.75,p)):0;
   if(route==='drag')d.stunTime=.2;
