@@ -1,31 +1,20 @@
-BEN 10 — DEMO PC V32 · EVOLUCIÓN DEL ADN
+BEN 10 — DEMO PC V33 · TÉCNICAS Y ÁRBOLES
 
-Extrae toda la carpeta del ZIP y abre index.html en Chrome, Edge o Firefox.
-Conserva la carpeta assets junto al HTML: contiene el cómic y las 70 hojas
-nuevas de animación. También se puede servir con npm start y Python 3.
+Extrae toda la carpeta y abre index.html en Chrome, Edge o Firefox de PC.
+Conserva assets junto al HTML. No hace falta instalar nada para jugar.
 
-PRÓLOGO
-Fondo blanco y viñetas que aparecen en orden, con avance automático.
-Da clic, Espacio o Enter para avanzar. Esc permite entrar a la demo.
-
-CONTROLES
 WASD / flechas: moverse.
-Clic izquierdo: ataque leve. Clic derecho: fuerte.
-Espacio: dash. R: Omnitrix. 1–9 y 0: elegir alien dentro del reloj.
-T: volver a Ben. K: árbol del alien. F: habilidad, una vez aprendida.
+Clic izquierdo: leve. Clic derecho: fuerte. Espacio: dash.
+R: Omnitrix. 1–9 y 0: elegir alien dentro del reloj.
+T: volver a Ben. K: árbol del alien. F: habilidad aprendida.
 F9: panel de pruebas para añadir puntos.
+Esc: salir de la intro o cerrar paneles.
 
-ÁRBOLES
-24 nodos por alien, con atributos, seis combos y F entrelazados.
-Cada mapa tiene una forma propia: círculo, llama, rayo, diamante, espiral,
-espectro, alas, planta, garras o circuito.
-Ver forma permite ver el recorrido completo; selecciona un nodo para mirar
-su animación, entrada, coste y requisitos. Los botones + y − ajustan el zoom.
+Cada alien mantiene 24 mejoras, seis combos y F, con menos líneas en su árbol.
+Selecciona una técnica para ver su animación y la combinación que la activa.
+Las compras V32, nivel, XP y puntos se conservan.
 
-El alien empieza con atributos limitados. Los nodos de estadísticas
-mejoran ataque, velocidad y defensa; los de técnicas sólo añaden movimientos.
-Las partidas anteriores conservan nivel y XP. Los puntos gastados vuelven
-a estar disponibles para elegir mejoras en estos nuevos árboles.
-
-Los nuevos fotogramas usan los sprites originales y mantienen sus diseños,
-escala, guardia, caras y colores. Cada técnica tiene un clip propio.
+V33 añade poses nuevas para las técnicas sin sustituir los sprites básicos.
+Los agarres levantan y estrellan al rival; las habilidades de suelo, impulsos,
+intangibilidad y proyectiles siguen la nueva animación de cada técnica.
+La F de Diamante endurece el cuerpo y no hace daño.

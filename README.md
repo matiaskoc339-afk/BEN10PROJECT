@@ -1,51 +1,41 @@
-# Ben 10 · Demo PC V32
+# Ben 10 · Demo PC V33
 
-V32 amplía la última versión del usuario con árboles de ADN entrelazados y nuevos fotogramas de combate que conservan los sprites originales.
+V33 simplifica las conexiones de los árboles y añade poses dibujadas para las 70 técnicas de los diez aliens. Conserva los sprites originales de movimiento y ataques básicos, el escenario y el cómic.
 
 ## Jugar
 
-Abre [index.html](index.html) en un navegador de PC. Conserva la carpeta `assets`: contiene el cómic y las nuevas hojas de animación. También puedes iniciar un servidor local con `npm start` y visitar http://localhost:8000.
-
-## Prólogo
-
-El cómic aparece viñeta por viñeta sobre fondo blanco. Sólo muestra «Da clic» y avanza automáticamente. Clic, Espacio o Enter adelantan; Esc entra a la demo. P permite pausar y las flechas navegar.
-
-![Árbol de Fuego](docs/v32-tree-fire.png)
-
-## Evolución del ADN · K
-
-Cada alien tiene 24 nodos y una silueta propia: círculo, llama, rayo, diamante, espiral, espectro, alas, planta, garras y circuito. Las mejoras de atributos, los seis combos y la habilidad F se mezclan en recorridos conectados, con desvíos y accesos alternativos.
-
-La forma inicial tiene atributos limitados. Las compras mejoran realmente ataque, velocidad y defensa. Aprender un combo añade una técnica; sus nodos no regalan atributos pasivos. «Ver forma» permite ver el mapa completo; seleccionar un nodo muestra su animación, combinación, coste y requisitos. El zoom permite leer cada conexión.
-
-Las partidas anteriores conservan nivel y XP. Los puntos gastados en los árboles anteriores vuelven a estar disponibles para redistribuirlos. El nuevo árbol se guarda automáticamente.
-
-## Animaciones de las técnicas
-
-Los diez aliens tienen siete clips propios: seis combos y F. Son 70 hojas PNG con 18 fotogramas para cada una de cuatro direcciones, 5.040 poses en total. Los fotogramas mantienen el dibujo de los atlas originales; se registran por el cuerpo y el suelo para conservar la escala y el regreso a la guardia.
-
-Los impactos, presas, proyectiles y aterrizajes se sincronizan con la técnica. El codazo de Cuatro Brazos incluye impulso, el brazo recogido, contacto y recuperación. Cannonbolt se pliega y rueda; Fantasmático despliega sus tentáculos; Insectoide usa sus alas, orificios y cola; las lianas y la materia de Ultra T conservan su elasticidad.
-
-![Vista previa de una técnica](docs/v32-elbow.png)
-
-## Controles
+Extrae toda la carpeta y abre [index.html](index.html) en Chrome, Edge o Firefox de PC. Mantén `assets` junto al HTML. También puedes ejecutar `npm start` y visitar http://localhost:8000.
 
 | Acción | Control |
 | --- | --- |
-| Moverse | WASD o flechas |
+| Moverse | WASD / flechas |
 | Ataque leve / fuerte | Clic izquierdo / derecho |
 | Dash | Espacio |
-| Omnitrix y selección | R, después 1–9 o 0 |
+| Omnitrix y elección | R, después 1–9 o 0 |
 | Volver a Ben | T |
-| Árbol del alien | K |
+| Árbol de habilidades | K |
 | Habilidad aprendida | F |
 | Añadir puntos para probar | F9 |
 
-## Desarrollo y comprobaciones
+El prólogo mantiene su fondo blanco, «Da clic» y avance automático. Esc permite entrar directamente a la demo.
 
-- `npm test`: progresión, migración de partidas y prueba de navegador de los 70 ataques.
-- `npm run build:evolution`: incrusta el catálogo, la interfaz y los sistemas editables en el HTML.
-- `npm run build:skill-sprites`: reconstruye los clips a partir de los atlas originales, conserva sus píxeles al empaquetarlos e incrusta sus metadatos. Requiere Chromium, Python 3 y Pillow.
-- `npm run test:legacy`: conserva las pruebas de las versiones anteriores; sus expectativas de balance e interfaz pertenecen a esas versiones.
+## Árboles y progresión
 
-Los sprites de juego originales y la corrección del daño de Fuego de V31 se conservan. Las nuevas hojas están en `assets/skills`, el catálogo en `assets/skills/catalog.json` y los sistemas editables en `systems/evolution-v32.js` y `systems/skill-sprites.js`.
+Cada alien conserva sus 24 mejoras y su propia forma de árbol. Hay una conexión principal por nodo: 23 conexiones por árbol, con énfasis en la mejora seleccionada. Atributos, seis combos y F siguen mezclados. Los aliens comienzan con atributos limitados y mejoran mediante compras.
+
+Las partidas V32 conservan las mejoras aprendidas, nivel, XP y puntos aunque cambie el recorrido de las conexiones. Las versiones anteriores a V32 conservan nivel y XP y recuperan sus puntos. Las técnicas sólo se ejecutan al aprenderlas y completar su combinación; la vista previa indica entrada, coste y requisitos.
+
+## Nuevas técnicas
+
+Las hojas nuevas contienen seis poses dibujadas por técnica y vista: anticipación, carga, acción, contacto, seguimiento y recuperación. Son 1.260 poses en 70 atlas, con vistas frontal, trasera y lateral; la izquierda refleja la lateral. No se deforma la textura del sprite original para simular una extremidad nueva. Los originales completos están en `assets/skills/source-v33`.
+
+La coreografía implementa agarres y caídas reales, desplazamientos barridos, órbita de una pasada, intangibilidad, rebotes, proyectiles y efectos de suelo. La barrera de Diamante es defensiva; el cañón ocular atraviesa enemigos y se detiene ante obstáculos. El torpedo líquido emerge en un punto fijo y puede fallar. El daño de los proyectiles conserva la potencia de la forma al lanzarlos.
+
+## Desarrollo
+
+- `npm test`: progresión y combate, validación de los 1.260 fotogramas, ejecución de las 70 técnicas en Chromium y revisión de direcciones y arranque independiente.
+- `npm run build:evolution`: incrusta catálogo, interfaz y código editable en el HTML.
+- `npm run build:skill-sprites`: extrae y registra las láminas nuevas, empaqueta los atlas e incrusta sus metadatos. Requiere Python 3, Pillow, NumPy y SciPy.
+- `npm run test:legacy`: pruebas históricas; algunas expectativas de interfaz y balance pertenecen a versiones anteriores.
+
+Los sistemas de V33 están en `systems/skill-choreography-v33.js` y `systems/skill-effects-v33.js`. La interfaz y progresión siguen en `systems/evolution-v32.js`; el nombre se conserva para mantener las herramientas existentes.

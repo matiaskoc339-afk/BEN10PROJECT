@@ -1,0 +1,31 @@
+{
+  "version": 33,
+  "unitTestsPassed": 15,
+  "browserCastsPassed": 70,
+  "browserErrors": [],
+  "httpErrors": [],
+  "finalRenderReview": {
+    "bounce": {
+      "form": "cannonbolt",
+      "player": {
+        "x": 1210,
+        "y": 915
+      },
+      "damage": 96
+    },
+    "passed": true,
+    "directions": 4,
+    "standalone": true,
+    "errors": []
+  },
+  "atlasClips": 70,
+  "drawnPoseCells": 1260,
+  "originalEmbeddedImagesPreserved": 24,
+  "treeNodesPerAlien": 24,
+  "treeEdgesPerAlien": 23,
+  "zipBytes": 128735652,
+  "zipSha256": "e1d89b9062f92051fcfd3e897c07b252e01cdd2b536740244eb225834b171cd7",
+  "indexSha256": "c029c145604eae7d098b51708ee7add5b12f6bf5dd1180c58447e51fb5502424",
+  "comicSha256": "75423c9cf0eec4693db2f57148d596ab7a271ce8c173849c7eeee295bc4bf431",
+  "fileURLTest": "Blocked by managed Chromium policy; standalone package verified through local HTTP."
+}

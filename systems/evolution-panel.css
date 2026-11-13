@@ -43,3 +43,6 @@
 .evo-learn-wrap{padding:15px 22px 18px;border-top:1px solid #2e4433;background:#101e17}.evo-learn-wrap>small{display:block;text-align:center;margin-top:9px;color:#4f7257;font-size:8px;letter-spacing:.2px}#evoBuy{width:100%;padding:15px;border:1px solid color-mix(in srgb,var(--alien) 60%,#39532e);border-radius:5px;color:#11200e;background:var(--alien);font:900 12px Consolas,monospace;letter-spacing:1px;cursor:pointer}#evoBuy:disabled{border-color:#3c503c;background:#233526;color:#658268;cursor:default}#evoBuy:not(:disabled):hover{filter:brightness(1.18);box-shadow:0 0 22px color-mix(in srgb,var(--alien) 15%,transparent)}
 
 .evo-map.overview .evo-node.locked{opacity:.9}.evo-map.overview .evo-node.locked .evo-node-orb{border-color:color-mix(in srgb,var(--alien) 40%,#344e3b);color:color-mix(in srgb,var(--alien) 60%,#57705c)}
+
+/* V33: one readable prerequisite per node; selected connections stay clear. */
+#evoLines .dormant{stroke:#31443b;opacity:.48}#evoLines .reachable{opacity:.65;stroke-dasharray:none}#evoLines .learned{opacity:.55;stroke-width:2;filter:none}#evoLines .selected-path{opacity:1;stroke:var(--alien);stroke-width:4;filter:drop-shadow(0 0 3px var(--alien))}

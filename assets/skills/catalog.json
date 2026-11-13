@@ -30,15 +30,24 @@
         "cost": 14,
         "cooldown": 6,
         "sequence": "F",
-        "description": "Planta los pies, alza los cuatro brazos y golpea el suelo.",
+        "description": "Aplaude con los dos pares de manos. Conserva la onda de choque circular del seísmo.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 200,
-          "cellHeight": 192,
-          "anchorX": 98,
-          "anchorY": 179,
+          "cellWidth": 299,
+          "cellHeight": 223,
+          "anchorX": 132,
+          "anchorY": 203,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c0",
@@ -46,24 +55,33 @@
         "motion": "elbow",
         "style": "lunge",
         "contacts": [
-          0.58
+          0.59
         ],
         "damage": 48,
         "reach": 105,
         "move": 115,
-        "duration": 1.45,
+        "duration": 1.5,
         "cost": 8,
         "cooldown": 1.1,
         "sequence": "LHL",
-        "description": "Carga el peso, avanza y conecta el impacto antes de recuperar la guardia.",
+        "description": "Salta como un luchador y cae con el codo por delante.",
         "previewHeight": 145,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 184,
-          "cellHeight": 216,
-          "anchorX": 94,
-          "anchorY": 204,
+          "cellWidth": 309,
+          "cellHeight": 248,
+          "anchorX": 120,
+          "anchorY": 215,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.12,
+          0.24,
+          0.52,
+          0.64,
+          0.88
+        ]
       },
       {
         "id": "c1",
@@ -77,19 +95,28 @@
         "damage": 25,
         "reach": 112,
         "move": 35,
-        "duration": 1.12,
+        "duration": 1.35,
         "cost": 10,
         "cooldown": 1.1,
         "sequence": "HLL",
-        "description": "Un golpe con preparación y contacto sincronizados con el cuerpo.",
+        "description": "Dos uppercuts alternos desde los hombros; el par inferior mantiene la guardia.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 184,
-          "cellHeight": 184,
-          "anchorX": 90,
-          "anchorY": 170,
+          "cellWidth": 243,
+          "cellHeight": 253,
+          "anchorX": 120,
+          "anchorY": 237,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c2",
@@ -97,24 +124,33 @@
         "motion": "clap",
         "style": "wave",
         "contacts": [
-          0.54
+          0.56
         ],
         "damage": 48,
         "reach": 235,
         "move": 0,
-        "duration": 1.12,
+        "duration": 1.25,
         "cost": 12,
         "cooldown": 1.1,
         "sequence": "LLHH",
-        "description": "El movimiento del cuerpo impulsa una onda frontal que respeta los obstáculos.",
+        "description": "Abre los cuatro brazos y junta ambos pares hacia delante.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 200,
-          "cellHeight": 184,
-          "anchorX": 98,
-          "anchorY": 170,
+          "cellWidth": 271,
+          "cellHeight": 252,
+          "anchorX": 127,
+          "anchorY": 238,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c3",
@@ -122,24 +158,33 @@
         "motion": "throw",
         "style": "rock",
         "contacts": [
-          0.57
+          0.74
         ],
         "damage": 57,
         "reach": 360,
         "move": 0,
-        "duration": 1.12,
+        "duration": 1.7,
         "cost": 14,
         "cooldown": 1.1,
         "sequence": "LHH",
-        "description": "Arranca una roca, la sostiene sobre el hombro y la lanza hacia delante.",
+        "description": "Recoge del suelo una roca enorme, la carga al hombro y la lanza.",
         "previewHeight": 149,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 240,
-          "cellHeight": 208,
-          "anchorX": 117,
-          "anchorY": 197,
+          "cellWidth": 285,
+          "cellHeight": 258,
+          "anchorX": 120,
+          "anchorY": 241,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c4",
@@ -147,24 +192,33 @@
         "motion": "grab",
         "style": "grab",
         "contacts": [
-          0.72
+          0.75
         ],
         "damage": 65,
-        "reach": 135,
+        "reach": 155,
         "move": 0,
-        "duration": 1.45,
+        "duration": 1.6,
         "cost": 16,
         "cooldown": 1.1,
         "sequence": "HLHL",
-        "description": "Sujeta a un objetivo cercano, lo levanta y lo estrella al terminar la presa.",
+        "description": "Agarra al rival de enfrente, lo levanta y lo estrella contra el suelo.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 224,
-          "cellHeight": 200,
-          "anchorX": 109,
-          "anchorY": 187,
+          "cellWidth": 284,
+          "cellHeight": 254,
+          "anchorX": 122,
+          "anchorY": 240,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c5",
@@ -172,10 +226,10 @@
         "motion": "spin",
         "style": "spin",
         "contacts": [
-          0.28,
-          0.44,
+          0.3,
+          0.45,
           0.6,
-          0.76
+          0.75
         ],
         "damage": 21,
         "reach": 140,
@@ -184,15 +238,24 @@
         "cost": 18,
         "cooldown": 1.1,
         "sequence": "HHLH",
-        "description": "Extiende sus armas naturales y gira; cada vuelta tiene su propio contacto.",
+        "description": "Gira de verdad con los cuatro puños y golpea alrededor.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 224,
-          "cellHeight": 200,
-          "anchorX": 105,
-          "anchorY": 186,
+          "cellWidth": 263,
+          "cellHeight": 254,
+          "anchorX": 113,
+          "anchorY": 233,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       }
     ],
     "statNames": [
@@ -238,24 +301,33 @@
         "motion": "flare",
         "style": "burn",
         "contacts": [
-          0.52
+          0.56
         ],
         "damage": 45,
         "reach": 150,
         "move": 0,
-        "duration": 1.12,
+        "duration": 1.4,
         "cost": 14,
         "cooldown": 6,
         "sequence": "F",
-        "description": "Abre los brazos y libera un anillo de llamas que deja brasas en el suelo.",
+        "description": "Carga las llamas junto al cuerpo y estalla en un anillo solar.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 256,
-          "cellHeight": 184,
-          "anchorX": 125,
-          "anchorY": 169,
+          "cellWidth": 217,
+          "cellHeight": 196,
+          "anchorX": 105,
+          "anchorY": 178,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c0",
@@ -263,24 +335,33 @@
         "motion": "hook",
         "style": "melee",
         "contacts": [
-          0.49
+          0.56
         ],
         "damage": 38,
         "reach": 115,
         "move": 30,
-        "duration": 1.12,
+        "duration": 1.35,
         "cost": 8,
         "cooldown": 1.1,
         "sequence": "LHL",
-        "description": "Un golpe con preparación y contacto sincronizados con el cuerpo.",
+        "description": "Carga un puño enorme de magma. El impacto sacude la cámara y empuja al rival.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 200,
-          "cellHeight": 184,
-          "anchorX": 98,
-          "anchorY": 170,
+          "cellWidth": 181,
+          "cellHeight": 192,
+          "anchorX": 77,
+          "anchorY": 174,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c1",
@@ -288,24 +369,35 @@
         "motion": "jet",
         "style": "meteor",
         "contacts": [
-          0.69
+          0.4,
+          0.55,
+          0.7
         ],
-        "damage": 58,
-        "reach": 145,
-        "move": 110,
-        "duration": 1.12,
+        "damage": 20,
+        "reach": 80,
+        "move": 115,
+        "duration": 1.8,
         "cost": 10,
         "cooldown": 1.1,
         "sequence": "HLL",
-        "description": "Se agacha, salta hacia delante y descarga el peso al aterrizar.",
+        "description": "Levanta el cuerpo con dos chorros hacia abajo, avanza y quema el suelo antes de aterrizar.",
         "previewHeight": 147,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 184,
-          "cellHeight": 216,
-          "anchorX": 91,
-          "anchorY": 204,
+          "cellWidth": 154,
+          "cellHeight": 223,
+          "anchorX": 78,
+          "anchorY": 189,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c2",
@@ -313,25 +405,34 @@
         "motion": "volley",
         "style": "fire",
         "contacts": [
-          0.38,
-          0.62
+          0.4,
+          0.73
         ],
         "damage": 28,
         "reach": 365,
         "move": 0,
-        "duration": 1.12,
+        "duration": 1.4,
         "cost": 12,
         "cooldown": 1.1,
         "sequence": "LLHH",
-        "description": "Dos empujes de palma lanzan dos proyectiles independientes.",
+        "description": "Lanza dos grandes bolas de fuego, una con cada mano.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 216,
-          "cellHeight": 184,
-          "anchorX": 107,
-          "anchorY": 169,
+          "cellWidth": 263,
+          "cellHeight": 207,
+          "anchorX": 91,
+          "anchorY": 190,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c3",
@@ -339,24 +440,36 @@
         "motion": "flame",
         "style": "flame",
         "contacts": [
-          0.54
+          0.44,
+          0.52,
+          0.6,
+          0.68
         ],
-        "damage": 47,
-        "reach": 230,
+        "damage": 14,
+        "reach": 240,
         "move": 0,
-        "duration": 1.12,
+        "duration": 1.5,
         "cost": 14,
         "cooldown": 1.1,
         "sequence": "LHH",
-        "description": "Baja el centro de gravedad y proyecta fuego a ras de suelo.",
+        "description": "Se agacha y apoya ambas palmas: las llamas recorren el suelo hacia delante.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 248,
-          "cellHeight": 184,
-          "anchorX": 121,
+          "cellWidth": 278,
+          "cellHeight": 223,
+          "anchorX": 106,
           "anchorY": 168,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c4",
@@ -364,27 +477,36 @@
         "motion": "spin",
         "style": "spin",
         "contacts": [
-          0.28,
-          0.44,
-          0.6,
-          0.76
+          0.35,
+          0.47,
+          0.59,
+          0.71
         ],
         "damage": 18,
         "reach": 145,
         "move": 0,
-        "duration": 1.3,
+        "duration": 1.6,
         "cost": 16,
         "cooldown": 1.1,
         "sequence": "HLHL",
-        "description": "Extiende sus armas naturales y gira; cada vuelta tiene su propio contacto.",
+        "description": "Prepara el giro y se convierte en un tornado de fuego.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 208,
-          "cellHeight": 184,
-          "anchorX": 103,
-          "anchorY": 174,
+          "cellWidth": 197,
+          "cellHeight": 237,
+          "anchorX": 94,
+          "anchorY": 169,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c5",
@@ -392,26 +514,33 @@
         "motion": "root",
         "style": "pillars",
         "contacts": [
-          0.48,
-          0.62,
-          0.76
+          0.56
         ],
-        "damage": 25,
+        "damage": 75,
         "reach": 280,
         "move": 0,
-        "duration": 1.45,
+        "duration": 1.65,
         "cost": 18,
         "cooldown": 1.1,
         "sequence": "HHLH",
-        "description": "El gesto conecta con el suelo y hace surgir una secuencia de pilares.",
+        "description": "Dispara un rayo al suelo y hace surgir una gran erupción delante.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 200,
-          "cellHeight": 184,
-          "anchorX": 100,
-          "anchorY": 168,
+          "cellWidth": 308,
+          "cellHeight": 199,
+          "anchorX": 149,
+          "anchorY": 182,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       }
     ],
     "statNames": [
@@ -457,24 +586,33 @@
         "motion": "sprint",
         "style": "rush",
         "contacts": [
-          0.48
+          0.49
         ],
         "damage": 38,
         "reach": 70,
         "move": 245,
-        "duration": 1.12,
+        "duration": 1.05,
         "cost": 14,
         "cooldown": 6,
         "sequence": "F",
-        "description": "Se recoge, acelera y frena con una estela que golpea al cruzar.",
+        "description": "Toma impulso y embiste con el puño por delante.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 232,
-          "cellHeight": 184,
-          "anchorX": 116,
-          "anchorY": 169,
+          "cellWidth": 264,
+          "cellHeight": 222,
+          "anchorX": 103,
+          "anchorY": 199,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c0",
@@ -482,24 +620,33 @@
         "motion": "kick",
         "style": "lunge",
         "contacts": [
-          0.52
+          0.49
         ],
         "damage": 37,
         "reach": 110,
-        "move": 105,
-        "duration": 1.12,
+        "move": 240,
+        "duration": 0.95,
         "cost": 8,
         "cooldown": 1.1,
         "sequence": "LHL",
-        "description": "Carga el peso, avanza y conecta el impacto antes de recuperar la guardia.",
+        "description": "Carga y dispara una patada todavía más rápida.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 216,
-          "cellHeight": 184,
-          "anchorX": 105,
-          "anchorY": 173,
+          "cellWidth": 257,
+          "cellHeight": 272,
+          "anchorX": 110,
+          "anchorY": 248,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c1",
@@ -507,27 +654,36 @@
         "motion": "flurry",
         "style": "melee",
         "contacts": [
-          0.29,
-          0.43,
-          0.57,
-          0.71
+          0.3,
+          0.44,
+          0.59,
+          0.73
         ],
         "damage": 12,
-        "reach": 100,
-        "move": 30,
-        "duration": 1.12,
+        "reach": 155,
+        "move": 0,
+        "duration": 1.5,
         "cost": 10,
         "cooldown": 1.1,
         "sequence": "HLL",
-        "description": "Un golpe con preparación y contacto sincronizados con el cuerpo.",
+        "description": "Fija al rival de enfrente y lo golpea desde varios ángulos entre retiradas veloces.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 208,
-          "cellHeight": 184,
-          "anchorX": 104,
-          "anchorY": 171,
+          "cellWidth": 248,
+          "cellHeight": 267,
+          "anchorX": 95,
+          "anchorY": 244,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c2",
@@ -540,19 +696,28 @@
         "damage": 42,
         "reach": 120,
         "move": 165,
-        "duration": 1.12,
+        "duration": 1.15,
         "cost": 12,
         "cooldown": 1.1,
         "sequence": "LLHH",
-        "description": "Carga el peso, avanza y conecta el impacto antes de recuperar la guardia.",
+        "description": "Derrapa sobre sus ruedas con la pierna y la cola contrapesando el cuerpo.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 256,
-          "cellHeight": 184,
-          "anchorX": 125,
-          "anchorY": 169,
+          "cellWidth": 274,
+          "cellHeight": 277,
+          "anchorX": 148,
+          "anchorY": 258,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c3",
@@ -560,27 +725,33 @@
         "motion": "orbit",
         "style": "orbit",
         "contacts": [
-          0.27,
-          0.45,
-          0.63,
-          0.81
+          0.56
         ],
-        "damage": 16,
+        "damage": 50,
         "reach": 90,
         "move": 140,
-        "duration": 1.3,
+        "duration": 1.35,
         "cost": 14,
         "cooldown": 1.1,
         "sequence": "LHH",
-        "description": "Traza una órbita física; vuelve a golpear después de salir del contacto.",
+        "description": "Completa una sola órbita. Cada enemigo recibe un impacto por pasada.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 240,
-          "cellHeight": 184,
-          "anchorX": 117,
-          "anchorY": 169,
+          "cellWidth": 244,
+          "cellHeight": 279,
+          "anchorX": 98,
+          "anchorY": 257,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c4",
@@ -588,24 +759,33 @@
         "motion": "windKick",
         "style": "wave",
         "contacts": [
-          0.54
+          0.56
         ],
         "damage": 42,
         "reach": 280,
         "move": 0,
-        "duration": 1.12,
+        "duration": 1.2,
         "cost": 16,
         "cooldown": 1.1,
         "sequence": "HLHL",
-        "description": "El movimiento del cuerpo impulsa una onda frontal que respeta los obstáculos.",
+        "description": "Una patada rapidísima lanza un corte de viento a distancia.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 216,
-          "cellHeight": 184,
-          "anchorX": 107,
-          "anchorY": 173,
+          "cellWidth": 268,
+          "cellHeight": 281,
+          "anchorX": 100,
+          "anchorY": 257,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c5",
@@ -624,15 +804,24 @@
         "cost": 18,
         "cooldown": 1.1,
         "sequence": "HHLH",
-        "description": "Tres pasadas veloces en zigzag, con frenadas y postimágenes.",
+        "description": "Tres cambios rápidos de dirección con zarpazos en el recorrido.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 232,
-          "cellHeight": 184,
-          "anchorX": 114,
-          "anchorY": 169,
+          "cellWidth": 242,
+          "cellHeight": 205,
+          "anchorX": 105,
+          "anchorY": 180,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       }
     ],
     "statNames": [
@@ -678,24 +867,33 @@
         "motion": "guard",
         "style": "barrier",
         "contacts": [
-          0.54
+          0.4
         ],
-        "damage": 42,
-        "reach": 150,
+        "damage": 0,
+        "reach": 0,
         "move": 0,
-        "duration": 1.12,
+        "duration": 1.25,
         "cost": 14,
         "cooldown": 6,
         "sequence": "F",
-        "description": "Cruza los antebrazos y levanta cuarzo delante; endurece la defensa durante 4 s.",
+        "description": "Endurece su cuerpo con cuarzo durante tres segundos. Es defensiva y no inflige daño.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 192,
-          "cellHeight": 184,
-          "anchorX": 90,
-          "anchorY": 169,
+          "cellWidth": 189,
+          "cellHeight": 191,
+          "anchorX": 94,
+          "anchorY": 174,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c0",
@@ -703,50 +901,68 @@
         "motion": "blade",
         "style": "melee",
         "contacts": [
-          0.51
+          0.56
         ],
         "damage": 47,
         "reach": 150,
-        "move": 25,
-        "duration": 1.12,
+        "move": 0,
+        "duration": 1.35,
         "cost": 8,
         "cooldown": 1.1,
         "sequence": "LHL",
-        "description": "Un golpe con preparación y contacto sincronizados con el cuerpo.",
+        "description": "Apunta al suelo y hace surgir una cuchilla de cristal delante.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 232,
-          "cellHeight": 184,
-          "anchorX": 108,
-          "anchorY": 174,
+          "cellWidth": 244,
+          "cellHeight": 210,
+          "anchorX": 99,
+          "anchorY": 185,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c1",
         "name": "Lanzas gemelas",
         "motion": "volley",
-        "style": "crystal",
+        "style": "melee",
         "contacts": [
-          0.38,
-          0.62
+          0.4,
+          0.65
         ],
         "damage": 30,
-        "reach": 380,
+        "reach": 145,
         "move": 0,
-        "duration": 1.12,
+        "duration": 1.4,
         "cost": 10,
         "cooldown": 1.1,
         "sequence": "HLL",
-        "description": "Forma lanzas en ambas manos y las dispara de forma alternada.",
+        "description": "Moldea ambos brazos como lanzas y corta en X a corta distancia.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 240,
-          "cellHeight": 184,
-          "anchorX": 117,
-          "anchorY": 174,
+          "cellWidth": 246,
+          "cellHeight": 192,
+          "anchorX": 115,
+          "anchorY": 169,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c2",
@@ -754,26 +970,35 @@
         "motion": "stomp",
         "style": "pillars",
         "contacts": [
-          0.48,
-          0.64,
-          0.8
+          0.56,
+          0.66,
+          0.76
         ],
         "damage": 26,
         "reach": 260,
         "move": 0,
-        "duration": 1.12,
+        "duration": 1.35,
         "cost": 12,
         "cooldown": 1.1,
         "sequence": "LLHH",
-        "description": "El gesto conecta con el suelo y hace surgir una secuencia de pilares.",
+        "description": "Un pisotón hace crecer geodas hacia delante.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 192,
-          "cellHeight": 184,
-          "anchorX": 97,
-          "anchorY": 170,
+          "cellWidth": 224,
+          "cellHeight": 195,
+          "anchorX": 118,
+          "anchorY": 176,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c3",
@@ -781,24 +1006,33 @@
         "motion": "cage",
         "style": "prison",
         "contacts": [
-          0.58
+          0.56
         ],
         "damage": 42,
         "reach": 220,
         "move": 0,
-        "duration": 1.12,
+        "duration": 1.5,
         "cost": 14,
         "cooldown": 1.1,
         "sequence": "LHH",
-        "description": "Concentra su poder hacia delante y encierra al objetivo durante 1,8 s.",
+        "description": "Dirige los cristales para encerrar al rival que tiene enfrente.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 184,
-          "cellHeight": 184,
-          "anchorX": 90,
-          "anchorY": 169,
+          "cellWidth": 233,
+          "cellHeight": 183,
+          "anchorX": 123,
+          "anchorY": 167,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c4",
@@ -806,24 +1040,33 @@
         "motion": "fan",
         "style": "fan",
         "contacts": [
-          0.52
+          0.56
         ],
         "damage": 19,
-        "reach": 340,
+        "reach": 240,
         "move": 0,
-        "duration": 1.12,
+        "duration": 1.45,
         "cost": 16,
         "cooldown": 1.1,
         "sequence": "HLHL",
-        "description": "Abre la mano y lanza cinco astillas en abanico.",
+        "description": "Apunta al suelo y levanta un abanico de astillas, sin dispararlas desde los brazos.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 232,
-          "cellHeight": 184,
-          "anchorX": 105,
-          "anchorY": 174,
+          "cellWidth": 298,
+          "cellHeight": 198,
+          "anchorX": 133,
+          "anchorY": 165,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c5",
@@ -831,28 +1074,37 @@
         "motion": "root",
         "style": "pillars",
         "contacts": [
-          0.42,
+          0.44,
           0.52,
-          0.62,
-          0.72,
-          0.82
+          0.6,
+          0.68,
+          0.76
         ],
         "damage": 23,
         "reach": 320,
         "move": 0,
-        "duration": 1.45,
+        "duration": 1.8,
         "cost": 18,
         "cooldown": 1.1,
         "sequence": "HHLH",
-        "description": "El gesto conecta con el suelo y hace surgir una secuencia de pilares.",
+        "description": "Planta ambas palmas y levanta una secuencia de pilares enormes hacia delante.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 192,
-          "cellHeight": 184,
-          "anchorX": 95,
-          "anchorY": 170,
+          "cellWidth": 252,
+          "cellHeight": 195,
+          "anchorX": 120,
+          "anchorY": 178,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       }
     ],
     "statNames": [
@@ -903,19 +1155,28 @@
         "damage": 65,
         "reach": 165,
         "move": 115,
-        "duration": 1.45,
+        "duration": 1.55,
         "cost": 14,
         "cooldown": 6,
         "sequence": "F",
-        "description": "Se agacha, salta hacia delante y descarga el peso al aterrizar.",
+        "description": "Se hace bola, salta y cae con una compresión clara de la coraza.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 248,
-          "cellHeight": 184,
-          "anchorX": 124,
-          "anchorY": 169,
+          "cellWidth": 284,
+          "cellHeight": 220,
+          "anchorX": 136,
+          "anchorY": 187,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c0",
@@ -923,24 +1184,51 @@
         "motion": "bounce",
         "style": "lunge",
         "contacts": [
-          0.52
+          0.4,
+          0.62,
+          0.83
         ],
-        "damage": 44,
-        "reach": 110,
-        "move": 150,
-        "duration": 1.12,
+        "damage": 22,
+        "reach": 105,
+        "move": 0,
+        "duration": 1.8,
         "cost": 8,
         "cooldown": 1.1,
         "sequence": "LHL",
-        "description": "Carga el peso, avanza y conecta el impacto antes de recuperar la guardia.",
+        "description": "Rebota tres veces en el mismo sitio, dañando al aterrizar.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 248,
-          "cellHeight": 184,
-          "anchorX": 124,
-          "anchorY": 169,
+          "cellWidth": 283,
+          "cellHeight": 322,
+          "anchorX": 140,
+          "anchorY": 234,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.22,
+          0.36,
+          0.42,
+          0.56,
+          0.63,
+          0.77,
+          0.84,
+          0.94
+        ],
+        "frameMap": [
+          0,
+          1,
+          3,
+          2,
+          4,
+          2,
+          4,
+          2,
+          5,
+          0
+        ]
       },
       {
         "id": "c1",
@@ -948,25 +1236,34 @@
         "motion": "hook",
         "style": "melee",
         "contacts": [
-          0.45,
-          0.66
+          0.49,
+          0.65
         ],
         "damage": 24,
         "reach": 120,
-        "move": 20,
-        "duration": 1.12,
+        "move": 95,
+        "duration": 1.3,
         "cost": 10,
         "cooldown": 1.1,
         "sequence": "HLL",
-        "description": "Un golpe con preparación y contacto sincronizados con el cuerpo.",
+        "description": "Rueda hacia delante y se abre antes del contacto para golpear con las garras.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 280,
-          "cellHeight": 192,
-          "anchorX": 146,
-          "anchorY": 176,
+          "cellWidth": 372,
+          "cellHeight": 259,
+          "anchorX": 150,
+          "anchorY": 244,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c2",
@@ -974,27 +1271,33 @@
         "motion": "ballOrbit",
         "style": "orbit",
         "contacts": [
-          0.27,
-          0.45,
-          0.63,
-          0.81
+          0.66
         ],
-        "damage": 22,
+        "damage": 66,
         "reach": 105,
-        "move": 120,
-        "duration": 1.3,
+        "move": 240,
+        "duration": 1.65,
         "cost": 12,
         "cooldown": 1.1,
         "sequence": "LLHH",
-        "description": "Traza una órbita física; vuelve a golpear después de salir del contacto.",
+        "description": "Carga quieto hasta calentar la coraza y sale disparado con toda la potencia.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 248,
-          "cellHeight": 184,
-          "anchorX": 125,
-          "anchorY": 169,
+          "cellWidth": 328,
+          "cellHeight": 262,
+          "anchorX": 158,
+          "anchorY": 244,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c3",
@@ -1002,24 +1305,35 @@
         "motion": "brake",
         "style": "lunge",
         "contacts": [
-          0.57
+          0.4,
+          0.54,
+          0.68
         ],
-        "damage": 57,
-        "reach": 135,
-        "move": 210,
-        "duration": 1.12,
+        "damage": 21,
+        "reach": 125,
+        "move": 0,
+        "duration": 1.5,
         "cost": 14,
         "cooldown": 1.1,
         "sequence": "LHH",
-        "description": "Carga el peso, avanza y conecta el impacto antes de recuperar la guardia.",
+        "description": "Revoluciona la coraza sin avanzar; la tierra que levanta golpea delante.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 248,
-          "cellHeight": 184,
-          "anchorX": 125,
-          "anchorY": 169,
+          "cellWidth": 319,
+          "cellHeight": 253,
+          "anchorX": 139,
+          "anchorY": 234,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c4",
@@ -1033,19 +1347,28 @@
         "damage": 39,
         "reach": 105,
         "move": 220,
-        "duration": 1.12,
+        "duration": 1.35,
         "cost": 16,
         "cooldown": 1.1,
         "sequence": "HLHL",
-        "description": "Se recoge en bola, embiste y regresa sin atravesar obstáculos.",
+        "description": "Embestida veloz de ida y vuelta, con un contacto en cada pasada.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 248,
-          "cellHeight": 184,
-          "anchorX": 124,
-          "anchorY": 169,
+          "cellWidth": 294,
+          "cellHeight": 265,
+          "anchorX": 145,
+          "anchorY": 209,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c5",
@@ -1053,24 +1376,33 @@
         "motion": "comet",
         "style": "meteor",
         "contacts": [
-          0.72
+          0.74
         ],
         "damage": 84,
         "reach": 190,
-        "move": 170,
-        "duration": 1.12,
+        "move": 90,
+        "duration": 2.0,
         "cost": 18,
         "cooldown": 1.1,
         "sequence": "HHLH",
-        "description": "Se agacha, salta hacia delante y descarga el peso al aterrizar.",
+        "description": "Encadena botes cada vez más altos y cae como un cometa en llamas.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 248,
-          "cellHeight": 200,
-          "anchorX": 125,
-          "anchorY": 184,
+          "cellWidth": 341,
+          "cellHeight": 275,
+          "anchorX": 141,
+          "anchorY": 185,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       }
     ],
     "statNames": [
@@ -1121,19 +1453,28 @@
         "damage": 43,
         "reach": 150,
         "move": 0,
-        "duration": 1.12,
+        "duration": 1.4,
         "cost": 14,
         "cooldown": 6,
         "sequence": "F",
-        "description": "Abre la cubierta, despliega sus tentáculos y recupera 8 de vida si conecta.",
+        "description": "Abre la piel y libera los tentáculos anillados del vientre.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 232,
-          "cellHeight": 200,
-          "anchorX": 123,
-          "anchorY": 180,
+          "cellWidth": 197,
+          "cellHeight": 204,
+          "anchorX": 94,
+          "anchorY": 167,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c0",
@@ -1141,24 +1482,34 @@
         "motion": "phaseClaw",
         "style": "melee",
         "contacts": [
-          0.52
+          0.59,
+          0.73
         ],
-        "damage": 38,
+        "damage": 22,
         "reach": 135,
         "move": 40,
-        "duration": 1.12,
+        "duration": 1.85,
         "cost": 8,
         "cooldown": 1.1,
         "sequence": "LHL",
-        "description": "Un golpe con preparación y contacto sincronizados con el cuerpo.",
+        "description": "Desaparece un segundo y reaparece con dos garras dentro de la misma técnica.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 224,
-          "cellHeight": 192,
-          "anchorX": 106,
-          "anchorY": 181,
+          "cellWidth": 243,
+          "cellHeight": 206,
+          "anchorX": 103,
+          "anchorY": 165,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c1",
@@ -1166,25 +1517,34 @@
         "motion": "tendril",
         "style": "whip",
         "contacts": [
-          0.46,
-          0.65
+          0.56,
+          0.73
         ],
         "damage": 24,
         "reach": 230,
         "move": 0,
-        "duration": 1.12,
+        "duration": 1.55,
         "cost": 10,
         "cooldown": 1.1,
         "sequence": "HLL",
-        "description": "El miembro se alarga y describe un arco; el daño llega en el chasquido.",
+        "description": "Abre su vientre y usa sus tentáculos como dos látigos hacia delante.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 264,
-          "cellHeight": 184,
-          "anchorX": 132,
-          "anchorY": 170,
+          "cellWidth": 224,
+          "cellHeight": 199,
+          "anchorX": 84,
+          "anchorY": 165,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c2",
@@ -1192,24 +1552,33 @@
         "motion": "grab",
         "style": "grab",
         "contacts": [
-          0.73
+          0.75
         ],
         "damage": 59,
         "reach": 155,
         "move": 0,
-        "duration": 1.45,
+        "duration": 1.8,
         "cost": 12,
         "cooldown": 1.1,
         "sequence": "LLHH",
-        "description": "Sujeta a un objetivo cercano, lo levanta y lo estrella al terminar la presa.",
+        "description": "Los tentáculos agarran al rival de enfrente, lo levantan y lo estampan.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 200,
-          "cellHeight": 192,
-          "anchorX": 93,
-          "anchorY": 169,
+          "cellWidth": 256,
+          "cellHeight": 215,
+          "anchorX": 123,
+          "anchorY": 181,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c3",
@@ -1217,24 +1586,35 @@
         "motion": "appear",
         "style": "lunge",
         "contacts": [
-          0.62
+          0.52,
+          0.62,
+          0.72
         ],
-        "damage": 47,
+        "damage": 21,
         "reach": 135,
         "move": 170,
-        "duration": 1.12,
+        "duration": 2.1,
         "cost": 14,
         "cooldown": 1.1,
         "sequence": "LHH",
-        "description": "Carga el peso, avanza y conecta el impacto antes de recuperar la guardia.",
+        "description": "Se hunde, avanza bajo el suelo y golpea con tentáculos enormes antes de reaparecer.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 208,
-          "cellHeight": 208,
-          "anchorX": 98,
-          "anchorY": 192,
+          "cellWidth": 394,
+          "cellHeight": 199,
+          "anchorX": 210,
+          "anchorY": 167,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c4",
@@ -1243,26 +1623,35 @@
         "style": "spin",
         "contacts": [
           0.3,
-          0.46,
-          0.62,
-          0.78
+          0.45,
+          0.6,
+          0.75
         ],
         "damage": 19,
         "reach": 150,
         "move": 0,
-        "duration": 1.3,
+        "duration": 1.4,
         "cost": 16,
         "cooldown": 1.1,
         "sequence": "HLHL",
-        "description": "Extiende sus armas naturales y gira; cada vuelta tiene su propio contacto.",
+        "description": "Gira sobre su eje con una silueta limpia y la cola recogida.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 216,
-          "cellHeight": 184,
-          "anchorX": 109,
-          "anchorY": 170,
+          "cellWidth": 161,
+          "cellHeight": 186,
+          "anchorX": 84,
+          "anchorY": 154,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c5",
@@ -1270,24 +1659,33 @@
         "motion": "haunt",
         "style": "fear",
         "contacts": [
-          0.58
+          0.56
         ],
         "damage": 62,
         "reach": 205,
         "move": 0,
-        "duration": 1.12,
+        "duration": 1.65,
         "cost": 18,
         "cooldown": 1.1,
         "sequence": "HHLH",
-        "description": "Abre la cubierta y despliega seis tentáculos para inmovilizar a los cercanos.",
+        "description": "Abre todo el vientre y despliega sus tentáculos para aterrorizar a los enemigos cercanos.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 248,
-          "cellHeight": 208,
-          "anchorX": 128,
-          "anchorY": 193,
+          "cellWidth": 386,
+          "cellHeight": 216,
+          "anchorX": 204,
+          "anchorY": 177,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       }
     ],
     "statNames": [
@@ -1333,27 +1731,36 @@
         "motion": "toxicCloud",
         "style": "toxin",
         "contacts": [
-          0.42,
-          0.53,
-          0.64,
-          0.75
+          0.38,
+          0.49,
+          0.6,
+          0.71
         ],
         "damage": 10,
         "reach": 210,
         "move": 0,
-        "duration": 1.12,
+        "duration": 1.5,
         "cost": 14,
         "cooldown": 6,
         "sequence": "F",
-        "description": "Expulsa veneno por sus cuatro orificios y deja charcos corrosivos.",
+        "description": "Apunta los cuatro conductos al suelo y deja una nube corrosiva delante.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 208,
-          "cellHeight": 192,
-          "anchorX": 102,
-          "anchorY": 175,
+          "cellWidth": 292,
+          "cellHeight": 216,
+          "anchorX": 152,
+          "anchorY": 184,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c0",
@@ -1361,24 +1768,33 @@
         "motion": "sting",
         "style": "melee",
         "contacts": [
-          0.56
+          0.71
         ],
         "damage": 45,
         "reach": 155,
         "move": 20,
-        "duration": 1.12,
+        "duration": 1.5,
         "cost": 8,
         "cooldown": 1.1,
         "sequence": "LHL",
-        "description": "Un golpe con preparación y contacto sincronizados con el cuerpo.",
+        "description": "Se eleva con las alas y clava la cola en un arco de escorpión.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 248,
-          "cellHeight": 200,
-          "anchorX": 122,
-          "anchorY": 188,
+          "cellWidth": 235,
+          "cellHeight": 207,
+          "anchorX": 114,
+          "anchorY": 180,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c1",
@@ -1386,27 +1802,36 @@
         "motion": "spit",
         "style": "slime",
         "contacts": [
-          0.29,
-          0.42,
-          0.55,
-          0.68
+          0.27,
+          0.41,
+          0.56,
+          0.73
         ],
         "damage": 11,
         "reach": 300,
         "move": 0,
-        "duration": 1.12,
+        "duration": 1.3,
         "cost": 10,
         "cooldown": 1.1,
         "sequence": "HLL",
-        "description": "Cuatro contracciones distintas disparan una gota desde cada orificio.",
+        "description": "Cuatro escupitajos con retrocesos distintos, uno por conducto.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 200,
-          "cellHeight": 192,
-          "anchorX": 99,
-          "anchorY": 177,
+          "cellWidth": 248,
+          "cellHeight": 216,
+          "anchorX": 111,
+          "anchorY": 190,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c2",
@@ -1414,24 +1839,33 @@
         "motion": "dive",
         "style": "meteor",
         "contacts": [
-          0.69
+          0.7
         ],
         "damage": 48,
         "reach": 135,
         "move": 155,
-        "duration": 1.12,
+        "duration": 1.6,
         "cost": 12,
         "cooldown": 1.1,
         "sequence": "LLHH",
-        "description": "Se agacha, salta hacia delante y descarga el peso al aterrizar.",
+        "description": "Abre las alas, sube y cae de punta con cola y veneno.",
         "previewHeight": 131,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 256,
-          "cellHeight": 264,
-          "anchorX": 128,
-          "anchorY": 248,
+          "cellWidth": 264,
+          "cellHeight": 205,
+          "anchorX": 140,
+          "anchorY": 166,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c3",
@@ -1439,24 +1873,33 @@
         "motion": "stickySpit",
         "style": "sticky",
         "contacts": [
-          0.5
+          0.56
         ],
         "damage": 34,
         "reach": 330,
         "move": 0,
-        "duration": 1.12,
+        "duration": 1.25,
         "cost": 14,
         "cooldown": 1.1,
         "sequence": "LHH",
-        "description": "Reúne baba en los orificios y escupe un proyectil que inmoviliza.",
+        "description": "Recoge los conductos y escupe una gran masa adhesiva hacia delante.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 216,
-          "cellHeight": 192,
-          "anchorX": 105,
-          "anchorY": 179,
+          "cellWidth": 269,
+          "cellHeight": 228,
+          "anchorX": 101,
+          "anchorY": 161,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c4",
@@ -1464,25 +1907,34 @@
         "motion": "tailSweep",
         "style": "spin",
         "contacts": [
-          0.43,
-          0.66
+          0.44,
+          0.65
         ],
         "damage": 28,
         "reach": 170,
         "move": 0,
-        "duration": 1.3,
+        "duration": 1.4,
         "cost": 16,
         "cooldown": 1.1,
         "sequence": "HLHL",
-        "description": "Extiende sus armas naturales y gira; cada vuelta tiene su propio contacto.",
+        "description": "Afirma las cuatro patas y barre el frente con la cola.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 248,
-          "cellHeight": 200,
-          "anchorX": 124,
-          "anchorY": 188,
+          "cellWidth": 246,
+          "cellHeight": 244,
+          "anchorX": 117,
+          "anchorY": 155,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c5",
@@ -1498,19 +1950,28 @@
         "damage": 16,
         "reach": 235,
         "move": 0,
-        "duration": 1.3,
+        "duration": 1.8,
         "cost": 18,
         "cooldown": 1.1,
         "sequence": "HHLH",
-        "description": "Despliega las alas y escupe hacia abajo para sembrar veneno.",
+        "description": "Vuela y descarga varias gotas venenosas antes de posarse.",
         "previewHeight": 138,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 256,
-          "cellHeight": 256,
-          "anchorX": 131,
-          "anchorY": 239,
+          "cellWidth": 226,
+          "cellHeight": 270,
+          "anchorX": 106,
+          "anchorY": 164,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       }
     ],
     "statNames": [
@@ -1556,26 +2017,35 @@
         "motion": "root",
         "style": "pillars",
         "contacts": [
-          0.47,
-          0.62,
-          0.77
+          0.46,
+          0.6,
+          0.74
         ],
         "damage": 30,
         "reach": 250,
         "move": 0,
-        "duration": 1.45,
+        "duration": 1.75,
         "cost": 14,
         "cooldown": 6,
         "sequence": "F",
-        "description": "El gesto conecta con el suelo y hace surgir una secuencia de pilares.",
+        "description": "Planta los brazos y levanta raíces mayores con flores bomba.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 208,
-          "cellHeight": 192,
-          "anchorX": 103,
-          "anchorY": 168,
+          "cellWidth": 249,
+          "cellHeight": 197,
+          "anchorX": 120,
+          "anchorY": 180,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c0",
@@ -1583,25 +2053,34 @@
         "motion": "whip",
         "style": "whip",
         "contacts": [
-          0.43,
+          0.4,
           0.65
         ],
         "damage": 25,
         "reach": 210,
         "move": 0,
-        "duration": 1.12,
+        "duration": 1.4,
         "cost": 8,
         "cooldown": 1.1,
         "sequence": "LHL",
-        "description": "El miembro se alarga y describe un arco; el daño llega en el chasquido.",
+        "description": "Dos látigos alternos de sus brazos vegetales que cruzan el frente.",
         "previewHeight": 126,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 384,
-          "cellHeight": 184,
-          "anchorX": 194,
-          "anchorY": 170,
+          "cellWidth": 267,
+          "cellHeight": 201,
+          "anchorX": 102,
+          "anchorY": 179,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c1",
@@ -1609,24 +2088,33 @@
         "motion": "tendril",
         "style": "pull",
         "contacts": [
-          0.58
+          0.73
         ],
         "damage": 38,
         "reach": 245,
         "move": 0,
-        "duration": 1.12,
+        "duration": 1.5,
         "cost": 10,
         "cooldown": 1.1,
         "sequence": "HLL",
-        "description": "Estira un miembro, engancha al objetivo y lo acerca.",
+        "description": "Alarga una liana, atrae al rival de enfrente y termina con un puñetazo.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 256,
-          "cellHeight": 184,
-          "anchorX": 132,
-          "anchorY": 169,
+          "cellWidth": 270,
+          "cellHeight": 194,
+          "anchorX": 91,
+          "anchorY": 170,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c2",
@@ -1634,27 +2122,36 @@
         "motion": "spin",
         "style": "spin",
         "contacts": [
-          0.29,
+          0.3,
           0.45,
-          0.61,
-          0.77
+          0.6,
+          0.75
         ],
         "damage": 22,
         "reach": 170,
         "move": 0,
-        "duration": 1.3,
+        "duration": 1.4,
         "cost": 12,
         "cooldown": 1.1,
         "sequence": "LLHH",
-        "description": "Extiende sus armas naturales y gira; cada vuelta tiene su propio contacto.",
+        "description": "Enrosca las raíces y gira los brazos con espinas.",
         "previewHeight": 143,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 360,
-          "cellHeight": 184,
-          "anchorX": 177,
-          "anchorY": 174,
+          "cellWidth": 239,
+          "cellHeight": 189,
+          "anchorX": 117,
+          "anchorY": 168,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c3",
@@ -1662,26 +2159,34 @@
         "motion": "seed",
         "style": "seed",
         "contacts": [
-          0.38,
-          0.55,
-          0.72
+          0.4,
+          0.73
         ],
-        "damage": 26,
+        "damage": 32,
         "reach": 300,
         "move": 0,
-        "duration": 1.12,
+        "duration": 1.5,
         "cost": 14,
         "cooldown": 1.1,
         "sequence": "LHH",
-        "description": "Extrae semillas del dorso y las arroja en parábolas explosivas.",
+        "description": "Arranca dos semillas del cuerpo y las lanza como bombas.",
         "previewHeight": 120,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 384,
-          "cellHeight": 184,
-          "anchorX": 191,
-          "anchorY": 169,
+          "cellWidth": 272,
+          "cellHeight": 181,
+          "anchorX": 97,
+          "anchorY": 163,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c4",
@@ -1689,24 +2194,33 @@
         "motion": "vineCage",
         "style": "prison",
         "contacts": [
-          0.59
+          0.56
         ],
         "damage": 49,
         "reach": 220,
         "move": 0,
-        "duration": 1.45,
+        "duration": 1.6,
         "cost": 16,
         "cooldown": 1.1,
         "sequence": "HLHL",
-        "description": "Concentra su poder hacia delante y encierra al objetivo durante 1,8 s.",
+        "description": "Se pega al suelo para levantar una jaula de espinas delante.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 208,
-          "cellHeight": 192,
-          "anchorX": 106,
-          "anchorY": 168,
+          "cellWidth": 254,
+          "cellHeight": 186,
+          "anchorX": 129,
+          "anchorY": 166,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c5",
@@ -1714,27 +2228,44 @@
         "motion": "forest",
         "style": "garden",
         "contacts": [
-          0.42,
-          0.54,
-          0.66,
-          0.78
+          0.44,
+          0.56,
+          0.68,
+          0.8
         ],
         "damage": 29,
-        "reach": 300,
+        "reach": 250,
         "move": 0,
-        "duration": 1.12,
+        "duration": 2.0,
         "cost": 18,
         "cooldown": 1.1,
         "sequence": "HHLH",
-        "description": "Hunde ambos brazos y hace crecer raíces en varias posiciones.",
+        "description": "Enraíza los brazos y hace crecer una planta carnívora que muerde al rival cercano y se retira.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 216,
-          "cellHeight": 192,
-          "anchorX": 106,
-          "anchorY": 168,
+          "cellWidth": 272,
+          "cellHeight": 182,
+          "anchorX": 113,
+          "anchorY": 162,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ],
+        "frameMap": [
+          0,
+          1,
+          2,
+          2,
+          2,
+          5
+        ]
       }
     ],
     "statNames": [
@@ -1780,8 +2311,8 @@
         "motion": "jaw",
         "style": "sonic",
         "contacts": [
-          0.49,
-          0.65
+          0.56,
+          0.69
         ],
         "damage": 27,
         "reach": 280,
@@ -1790,15 +2321,24 @@
         "cost": 14,
         "cooldown": 6,
         "sequence": "F",
-        "description": "Abre las cuatro partes de la mandíbula y proyecta anillos sónicos.",
+        "description": "Abre la boca en cuatro partes y proyecta su aullido sónico.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 216,
-          "cellHeight": 184,
-          "anchorX": 108,
-          "anchorY": 169,
+          "cellWidth": 254,
+          "cellHeight": 227,
+          "anchorX": 121,
+          "anchorY": 208,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c0",
@@ -1806,25 +2346,34 @@
         "motion": "cross",
         "style": "melee",
         "contacts": [
-          0.41,
-          0.62
+          0.4,
+          0.65
         ],
         "damage": 25,
         "reach": 135,
         "move": 30,
-        "duration": 1.12,
+        "duration": 1.25,
         "cost": 8,
         "cooldown": 1.1,
         "sequence": "LHL",
-        "description": "Un golpe con preparación y contacto sincronizados con el cuerpo.",
+        "description": "Dos arañazos diagonales, uno con cada garra, forman una X.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 200,
-          "cellHeight": 192,
-          "anchorX": 100,
-          "anchorY": 177,
+          "cellWidth": 241,
+          "cellHeight": 231,
+          "anchorX": 115,
+          "anchorY": 213,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c1",
@@ -1832,24 +2381,33 @@
         "motion": "bite",
         "style": "lunge",
         "contacts": [
-          0.54
+          0.56
         ],
         "damage": 45,
         "reach": 115,
         "move": 130,
-        "duration": 1.12,
+        "duration": 1.2,
         "cost": 10,
         "cooldown": 1.1,
         "sequence": "HLL",
-        "description": "Carga el peso, avanza y conecta el impacto antes de recuperar la guardia.",
+        "description": "Se lanza y muerde abriendo las cuatro partes de la mandíbula.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 224,
-          "cellHeight": 184,
-          "anchorX": 110,
-          "anchorY": 168,
+          "cellWidth": 234,
+          "cellHeight": 232,
+          "anchorX": 106,
+          "anchorY": 214,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c2",
@@ -1857,24 +2415,35 @@
         "motion": "pounce",
         "style": "meteor",
         "contacts": [
-          0.64
+          0.44,
+          0.56,
+          0.68
         ],
-        "damage": 58,
+        "damage": 21,
         "reach": 135,
         "move": 180,
-        "duration": 1.12,
+        "duration": 1.9,
         "cost": 12,
         "cooldown": 1.1,
         "sequence": "LLHH",
-        "description": "Se agacha, salta hacia delante y descarga el peso al aterrizar.",
+        "description": "Salta al rival de enfrente, araña y muerde; después vuelve al punto de salida.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 216,
-          "cellHeight": 216,
-          "anchorX": 108,
-          "anchorY": 200,
+          "cellWidth": 287,
+          "cellHeight": 242,
+          "anchorX": 121,
+          "anchorY": 214,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c3",
@@ -1882,26 +2451,35 @@
         "motion": "spin",
         "style": "spin",
         "contacts": [
-          0.31,
-          0.48,
-          0.65
+          0.32,
+          0.5,
+          0.68
         ],
         "damage": 23,
         "reach": 150,
         "move": 0,
-        "duration": 1.3,
+        "duration": 1.4,
         "cost": 14,
         "cooldown": 1.1,
         "sequence": "LHH",
-        "description": "Extiende sus armas naturales y gira; cada vuelta tiene su propio contacto.",
+        "description": "Gira el cuerpo y ataca con las garras alrededor.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 232,
-          "cellHeight": 184,
-          "anchorX": 115,
-          "anchorY": 171,
+          "cellWidth": 280,
+          "cellHeight": 234,
+          "anchorX": 127,
+          "anchorY": 213,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c4",
@@ -1909,24 +2487,35 @@
         "motion": "grab",
         "style": "grab",
         "contacts": [
-          0.72
+          0.4,
+          0.56,
+          0.75
         ],
-        "damage": 62,
+        "damage": 23,
         "reach": 145,
-        "move": 70,
-        "duration": 1.45,
+        "move": 50,
+        "duration": 1.65,
         "cost": 16,
         "cooldown": 1.1,
         "sequence": "HLHL",
-        "description": "Sujeta a un objetivo cercano, lo levanta y lo estrella al terminar la presa.",
+        "description": "Agarra al rival, alterna arañazos y termina arrojándolo al suelo.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 216,
-          "cellHeight": 184,
-          "anchorX": 106,
-          "anchorY": 170,
+          "cellWidth": 253,
+          "cellHeight": 233,
+          "anchorX": 107,
+          "anchorY": 214,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c5",
@@ -1934,26 +2523,35 @@
         "motion": "packHowl",
         "style": "sonic",
         "contacts": [
-          0.4,
+          0.44,
           0.56,
-          0.72
+          0.7
         ],
         "damage": 29,
         "reach": 350,
         "move": 0,
-        "duration": 1.3,
+        "duration": 1.8,
         "cost": 18,
         "cooldown": 1.1,
         "sequence": "HHLH",
-        "description": "Abre las cuatro partes de la mandíbula y proyecta anillos sónicos.",
+        "description": "Se afirma y abre toda su mandíbula para un aullido muchísimo mayor.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 224,
-          "cellHeight": 184,
-          "anchorX": 110,
-          "anchorY": 168,
+          "cellWidth": 274,
+          "cellHeight": 214,
+          "anchorX": 127,
+          "anchorY": 193,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       }
     ],
     "statNames": [
@@ -1999,24 +2597,33 @@
         "motion": "surge",
         "style": "emp",
         "contacts": [
-          0.55
+          0.56
         ],
         "damage": 48,
         "reach": 160,
         "move": 0,
-        "duration": 1.12,
+        "duration": 1.45,
         "cost": 14,
         "cooldown": 6,
         "sequence": "F",
-        "description": "Moldea el torso, extiende los circuitos y emite un pulso; defensa +25 % durante 4 s.",
+        "description": "Se moldea como un escudo circular, emite un pulso y refuerza su defensa.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 200,
-          "cellHeight": 184,
-          "anchorX": 98,
-          "anchorY": 169,
+          "cellWidth": 245,
+          "cellHeight": 217,
+          "anchorX": 125,
+          "anchorY": 189,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c0",
@@ -2024,24 +2631,33 @@
         "motion": "piston",
         "style": "melee",
         "contacts": [
-          0.53
+          0.56
         ],
         "damage": 45,
         "reach": 165,
         "move": 35,
-        "duration": 1.12,
+        "duration": 1.4,
         "cost": 8,
         "cooldown": 1.1,
         "sequence": "LHL",
-        "description": "Un golpe con preparación y contacto sincronizados con el cuerpo.",
+        "description": "Moldea un puño pistón enorme y lo estampa hacia delante.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 200,
-          "cellHeight": 184,
-          "anchorX": 87,
-          "anchorY": 169,
+          "cellWidth": 274,
+          "cellHeight": 242,
+          "anchorX": 131,
+          "anchorY": 222,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c1",
@@ -2049,25 +2665,34 @@
         "motion": "blade",
         "style": "melee",
         "contacts": [
-          0.44,
-          0.66
+          0.4,
+          0.65
         ],
         "damage": 28,
         "reach": 175,
         "move": 30,
-        "duration": 1.12,
+        "duration": 1.35,
         "cost": 10,
         "cooldown": 1.1,
         "sequence": "HLL",
-        "description": "Un golpe con preparación y contacto sincronizados con el cuerpo.",
+        "description": "Forma dos cuchillas y realiza cortes cruzados.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 224,
-          "cellHeight": 184,
-          "anchorX": 102,
-          "anchorY": 174,
+          "cellWidth": 238,
+          "cellHeight": 241,
+          "anchorX": 122,
+          "anchorY": 222,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c2",
@@ -2075,50 +2700,72 @@
         "motion": "cannon",
         "style": "beam",
         "contacts": [
-          0.49,
-          0.65
+          0.56,
+          0.66,
+          0.76
         ],
-        "damage": 34,
-        "reach": 350,
+        "damage": 27,
+        "reach": 390,
         "move": 0,
-        "duration": 1.45,
+        "duration": 1.85,
         "cost": 12,
         "cooldown": 1.1,
         "sequence": "LLHH",
-        "description": "Fusiona los brazos en un cañón conectado al ojo; carga y dispara.",
+        "description": "Todo el cuerpo se convierte en un cañón ocular. El rayo alcanza a todos los que cruza hasta una pared.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 248,
-          "cellHeight": 184,
-          "anchorX": 121,
-          "anchorY": 168,
+          "cellWidth": 269,
+          "cellHeight": 215,
+          "anchorX": 110,
+          "anchorY": 196,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c3",
         "name": "Arpón de cable",
         "motion": "tendril",
-        "style": "pull",
+        "style": "whip",
         "contacts": [
-          0.58
+          0.27,
+          0.41,
+          0.56,
+          0.73
         ],
-        "damage": 42,
+        "damage": 15,
         "reach": 250,
         "move": 0,
-        "duration": 1.12,
+        "duration": 1.55,
         "cost": 14,
         "cooldown": 1.1,
         "sequence": "LHH",
-        "description": "Estira un miembro, engancha al objetivo y lo acerca.",
+        "description": "Convierte los brazos en cables elásticos y golpea cuatro veces al frente.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 264,
-          "cellHeight": 184,
-          "anchorX": 132,
-          "anchorY": 169,
+          "cellWidth": 279,
+          "cellHeight": 211,
+          "anchorX": 104,
+          "anchorY": 192,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c4",
@@ -2126,26 +2773,35 @@
         "motion": "sweep",
         "style": "sweep",
         "contacts": [
-          0.43,
-          0.58,
+          0.4,
+          0.56,
           0.73
         ],
         "damage": 26,
         "reach": 320,
         "move": 0,
-        "duration": 1.12,
+        "duration": 1.5,
         "cost": 16,
         "cooldown": 1.1,
         "sequence": "HLHL",
-        "description": "El ojo carga y barre el frente con un rayo de tres contactos.",
+        "description": "Dispara tres láseres consecutivos desde el ojo.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 184,
-          "cellHeight": 184,
-          "anchorX": 89,
-          "anchorY": 174,
+          "cellWidth": 261,
+          "cellHeight": 229,
+          "anchorX": 108,
+          "anchorY": 166,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       },
       {
         "id": "c5",
@@ -2156,21 +2812,30 @@
           0.59
         ],
         "damage": 74,
-        "reach": 130,
-        "move": 250,
-        "duration": 1.45,
+        "reach": 80,
+        "move": 180,
+        "duration": 1.7,
         "cost": 18,
         "cooldown": 1.1,
         "sequence": "HHLH",
-        "description": "Carga el peso, avanza y conecta el impacto antes de recuperar la guardia.",
+        "description": "Se hace líquido y emerge con un uppercut en un punto fijo delante. Si no hay enemigo allí, falla.",
         "previewHeight": 150,
+        "artVersion": 33,
         "layout": {
-          "cellWidth": 232,
-          "cellHeight": 184,
-          "anchorX": 114,
-          "anchorY": 168,
+          "cellWidth": 238,
+          "cellHeight": 218,
+          "anchorX": 116,
+          "anchorY": 199,
           "bodyHeight": 160
-        }
+        },
+        "frameTimes": [
+          0,
+          0.14,
+          0.3,
+          0.49,
+          0.7,
+          0.88
+        ]
       }
     ],
     "statNames": [
