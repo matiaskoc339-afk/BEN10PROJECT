@@ -1,38 +1,31 @@
-BEN 10 — DEMO PC V31 · PRÓLOGO EN CÓMIC
+BEN 10 — DEMO PC V32 · EVOLUCIÓN DEL ADN
 
-1. Extrae toda la carpeta del ZIP.
-2. Abre index.html en Chrome, Edge o Firefox para PC.
-3. Conserva la carpeta assets junto al HTML: contiene el cómic original.
+Extrae toda la carpeta del ZIP y abre index.html en Chrome, Edge o Firefox.
+Conserva la carpeta assets junto al HTML: contiene el cómic y las 70 hojas
+nuevas de animación. También se puede servir con npm start y Python 3.
 
 PRÓLOGO
-Las 12 viñetas aparecen en orden de lectura, con una transición breve.
-El avance es automático y deja tiempo para leer cada viñeta.
-Al terminar se entra a la demo.
+Fondo blanco y viñetas que aparecen en orden, con avance automático.
+Da clic, Espacio o Enter para avanzar. Esc permite entrar a la demo.
 
-Espacio / Enter / flecha derecha / clic en el cómic: avanzar.
-Flecha izquierda: volver a la viñeta anterior.
-P: pausar o reanudar el avance automático.
-Esc: saltar a la demo.
-También puedes usar los botones de la barra inferior.
-
-JUEGO — TECLADO Y RATÓN
-WASD o flechas: moverse.
-Clic izquierdo: ataque leve.
-Clic derecho: ataque fuerte o habilidad propia del alien.
-Espacio: dash.
-R: abrir el Omnitrix.
-1–9 y 0, con el Omnitrix abierto: elegir alien.
-T: volver a Ben.
-K: árbol de evolución.
-F: habilidad desbloqueada en el árbol.
+CONTROLES
+WASD / flechas: moverse.
+Clic izquierdo: ataque leve. Clic derecho: fuerte.
+Espacio: dash. R: Omnitrix. 1–9 y 0: elegir alien dentro del reloj.
+T: volver a Ben. K: árbol del alien. F: habilidad, una vez aprendida.
 F9: panel de pruebas para añadir puntos.
 
-Esta versión incluye la progresión de V30 y conserva sus partidas locales
-cuando el navegador permite acceder al mismo almacenamiento.
+ÁRBOLES
+24 nodos por alien, con atributos, seis combos y F entrelazados.
+Cada mapa tiene una forma propia: círculo, llama, rayo, diamante, espiral,
+espectro, alas, planta, garras o circuito.
+Ver forma permite ver el recorrido completo; selecciona un nodo para mirar
+su animación, entrada, coste y requisitos. Los botones + y − ajustan el zoom.
 
-CAMBIOS
-- El daño del proyectil de Fuego se fija al dispararse y permanece igual
-  aunque vuelvas a Ben antes del impacto. También cubre la bola explosiva.
-- Eliminados el joystick, botones táctiles y estilos específicos para móvil.
-- Eliminados la cinemática anterior y todos sus recursos, incluidos Gwen y Max.
-- Nuevo prólogo con el cómic original, sin modificar su imagen ni proporciones.
+El alien empieza con atributos limitados. Los nodos de estadísticas
+mejoran ataque, velocidad y defensa; los de técnicas sólo añaden movimientos.
+Las partidas anteriores conservan nivel y XP. Los puntos gastados vuelven
+a estar disponibles para elegir mejoras en estos nuevos árboles.
+
+Los nuevos fotogramas usan los sprites originales y mantienen sus diseños,
+escala, guardia, caras y colores. Cada técnica tiene un clip propio.

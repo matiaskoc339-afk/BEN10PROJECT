@@ -1,0 +1,19 @@
+<div id="evolutionLayer" role="dialog" aria-modal="true" aria-label="Evolución del ADN" aria-hidden="true">
+ <section id="evolutionShell">
+  <header class="evo-header"><div class="evo-wordmark"><span>◈</span><div>OMNITRIX<small>EVOLUCIÓN DEL ADN</small></div></div><div class="evo-header-note">El poder se entrena. Tu camino lo decides tú.</div><div class="evo-wallet"><small>PUNTOS DISPONIBLES</small><b id="evoPointCount">0</b></div><button type="button" id="evoAdminOpen" title="Panel de pruebas · F9">F9</button><button type="button" id="evoClose" aria-label="Cerrar árbol de habilidades">CERRAR <kbd>K</kbd></button></header>
+  <div class="evo-workspace">
+   <nav class="evo-roster"><div class="evo-section-label">TUS FORMAS <span>10</span></div><div id="evoTabs" role="tablist" aria-label="Elegir árbol de alien"></div><div class="evo-level" id="evoLevel">NIVEL 1</div></nav>
+   <main class="evo-map">
+    <header class="evo-map-head"><div><small id="evoSubtitle">FUERZA TETRAMAND</small><h1 id="evoTreeLabel">Cuatro Brazos</h1></div><div class="evo-map-tools"><span id="evoProgress">0 / 24 APRENDIDOS</span><div><button type="button" id="evoZoomOut" aria-label="Alejar árbol">−</button><button type="button" id="evoFit">VER FORMA</button><button type="button" id="evoZoomIn" aria-label="Acercar árbol">+</button></div></div></header>
+    <div id="evoMigration" hidden>Árboles renovados: tus puntos anteriores están disponibles de nuevo. Conservas tu nivel y XP.</div>
+    <div id="evoGraphScroll" tabindex="0" aria-label="Mapa del árbol. Usa Ver forma para verlo completo."><div id="evoGraphViewport"><div id="evoGraph"><svg id="evoLines" width="760" height="1360" viewBox="0 0 760 1360" aria-hidden="true"></svg></div></div></div>
+    <footer class="evo-legend"><span><i>◇</i> ATRIBUTO</span><span><i>✦</i> COMBO</span><span><i>F</i> HABILIDAD</span><span>↑ DESLIZA PARA EXPLORAR</span></footer>
+   </main>
+   <aside class="evo-inspector">
+    <div class="evo-preview-stage"><span class="evo-preview-label">ARCHIVO DE COMBATE</span><canvas id="evoPreview" width="304" height="244" aria-label="Vista previa animada de la habilidad"></canvas></div>
+    <div class="evo-inspector-content"><span id="evoNodeType">ATRIBUTO PERMANENTE</span><h2 id="evoInfoTitle">ADN latente</h2><div id="evoInput"></div><p id="evoInfoDescription"></p><small id="evoSkillMeta"></small><div class="evo-section-label">TU EVOLUCIÓN <span>AHORA / MEJORA</span></div><div id="evoStats"></div><p id="evoInfoRequirements"></p></div>
+    <div class="evo-learn-wrap"><button type="button" id="evoBuy">APRENDER</button><small>Mejoras permanentes · Guardado automático</small></div>
+   </aside>
+  </div>
+ </section>
+</div>

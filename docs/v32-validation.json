@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "errors": [],
+  "httpErrors": [],
+  "realCombo": {
+    "sequence": "LHL",
+    "skill": "c0",
+    "activated": true
+  },
+  "version": "V32",
+  "trees": 10,
+  "nodesPerTree": 24,
+  "skills": 70,
+  "frames": 5040,
+  "allSkillsDamagedTargets": true,
+  "losslessPackedSpriteSheets": true,
+  "guardReturnsVerified": true,
+  "unitTests": 6,
+  "indexSha256": "62f8ba49415f85de58e99019ae1a7a83d845d30927d9842f052cb355b01b2aa7",
+  "comicSha256": "75423c9cf0eec4693db2f57148d596ab7a271ce8c173849c7eeee295bc4bf431"
+}

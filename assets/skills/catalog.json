@@ -1,0 +1,2197 @@
+[
+  {
+    "id": "four-arms",
+    "name": "Cuatro Brazos",
+    "subtitle": "FUERZA TETRAMAND",
+    "color": "#f18461",
+    "branches": [
+      "Lucha libre",
+      "Cuatro puños",
+      "Coloso"
+    ],
+    "start": [
+      0.55,
+      0.46,
+      0.36
+    ],
+    "skills": [
+      {
+        "id": "f",
+        "name": "Seísmo tetramand",
+        "motion": "slam",
+        "style": "quake",
+        "contacts": [
+          0.56
+        ],
+        "damage": 70,
+        "reach": 170,
+        "move": 0,
+        "duration": 1.12,
+        "cost": 14,
+        "cooldown": 6,
+        "sequence": "F",
+        "description": "Planta los pies, alza los cuatro brazos y golpea el suelo.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 200,
+          "cellHeight": 192,
+          "anchorX": 98,
+          "anchorY": 179,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c0",
+        "name": "Codazo del luchador",
+        "motion": "elbow",
+        "style": "lunge",
+        "contacts": [
+          0.58
+        ],
+        "damage": 48,
+        "reach": 105,
+        "move": 115,
+        "duration": 1.45,
+        "cost": 8,
+        "cooldown": 1.1,
+        "sequence": "LHL",
+        "description": "Carga el peso, avanza y conecta el impacto antes de recuperar la guardia.",
+        "previewHeight": 145,
+        "layout": {
+          "cellWidth": 184,
+          "cellHeight": 216,
+          "anchorX": 94,
+          "anchorY": 204,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c1",
+        "name": "Doble uppercut",
+        "motion": "upper",
+        "style": "melee",
+        "contacts": [
+          0.4,
+          0.64
+        ],
+        "damage": 25,
+        "reach": 112,
+        "move": 35,
+        "duration": 1.12,
+        "cost": 10,
+        "cooldown": 1.1,
+        "sequence": "HLL",
+        "description": "Un golpe con preparación y contacto sincronizados con el cuerpo.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 184,
+          "cellHeight": 184,
+          "anchorX": 90,
+          "anchorY": 170,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c2",
+        "name": "Aplauso de choque",
+        "motion": "clap",
+        "style": "wave",
+        "contacts": [
+          0.54
+        ],
+        "damage": 48,
+        "reach": 235,
+        "move": 0,
+        "duration": 1.12,
+        "cost": 12,
+        "cooldown": 1.1,
+        "sequence": "LLHH",
+        "description": "El movimiento del cuerpo impulsa una onda frontal que respeta los obstáculos.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 200,
+          "cellHeight": 184,
+          "anchorX": 98,
+          "anchorY": 170,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c3",
+        "name": "Roca al hombro",
+        "motion": "throw",
+        "style": "rock",
+        "contacts": [
+          0.57
+        ],
+        "damage": 57,
+        "reach": 360,
+        "move": 0,
+        "duration": 1.12,
+        "cost": 14,
+        "cooldown": 1.1,
+        "sequence": "LHH",
+        "description": "Arranca una roca, la sostiene sobre el hombro y la lanza hacia delante.",
+        "previewHeight": 149,
+        "layout": {
+          "cellWidth": 240,
+          "cellHeight": 208,
+          "anchorX": 117,
+          "anchorY": 197,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c4",
+        "name": "Presa y estrellón",
+        "motion": "grab",
+        "style": "grab",
+        "contacts": [
+          0.72
+        ],
+        "damage": 65,
+        "reach": 135,
+        "move": 0,
+        "duration": 1.45,
+        "cost": 16,
+        "cooldown": 1.1,
+        "sequence": "HLHL",
+        "description": "Sujeta a un objetivo cercano, lo levanta y lo estrella al terminar la presa.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 224,
+          "cellHeight": 200,
+          "anchorX": 109,
+          "anchorY": 187,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c5",
+        "name": "Tornado de cuatro puños",
+        "motion": "spin",
+        "style": "spin",
+        "contacts": [
+          0.28,
+          0.44,
+          0.6,
+          0.76
+        ],
+        "damage": 21,
+        "reach": 140,
+        "move": 0,
+        "duration": 1.3,
+        "cost": 18,
+        "cooldown": 1.1,
+        "sequence": "HHLH",
+        "description": "Extiende sus armas naturales y gira; cada vuelta tiene su propio contacto.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 224,
+          "cellHeight": 200,
+          "anchorX": 105,
+          "anchorY": 186,
+          "bodyHeight": 160
+        }
+      }
+    ],
+    "statNames": [
+      [
+        "Dedos de acero",
+        "Músculos de cantera",
+        "Puños de campeonato",
+        "Fuerza de los cuatro soles"
+      ],
+      [
+        "Paso del cuadrilátero",
+        "Equilibrio del luchador",
+        "Agilidad del coloso",
+        "Vértigo tetramand"
+      ],
+      [
+        "Guardia de cuatro codos",
+        "Piel endurecida",
+        "Resistencia de gladiador",
+        "Muralla de cuatro brazos"
+      ]
+    ]
+  },
+  {
+    "id": "heatblast",
+    "name": "Fuego",
+    "subtitle": "NÚCLEO PYRONITA",
+    "color": "#ffb34f",
+    "branches": [
+      "Puños de magma",
+      "Combustión",
+      "Propulsión"
+    ],
+    "start": [
+      0.51,
+      0.7,
+      0.34
+    ],
+    "skills": [
+      {
+        "id": "f",
+        "name": "Anillo solar",
+        "motion": "flare",
+        "style": "burn",
+        "contacts": [
+          0.52
+        ],
+        "damage": 45,
+        "reach": 150,
+        "move": 0,
+        "duration": 1.12,
+        "cost": 14,
+        "cooldown": 6,
+        "sequence": "F",
+        "description": "Abre los brazos y libera un anillo de llamas que deja brasas en el suelo.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 256,
+          "cellHeight": 184,
+          "anchorX": 125,
+          "anchorY": 169,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c0",
+        "name": "Gancho de magma",
+        "motion": "hook",
+        "style": "melee",
+        "contacts": [
+          0.49
+        ],
+        "damage": 38,
+        "reach": 115,
+        "move": 30,
+        "duration": 1.12,
+        "cost": 8,
+        "cooldown": 1.1,
+        "sequence": "LHL",
+        "description": "Un golpe con preparación y contacto sincronizados con el cuerpo.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 200,
+          "cellHeight": 184,
+          "anchorX": 98,
+          "anchorY": 170,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c1",
+        "name": "Salto propulsado",
+        "motion": "jet",
+        "style": "meteor",
+        "contacts": [
+          0.69
+        ],
+        "damage": 58,
+        "reach": 145,
+        "move": 110,
+        "duration": 1.12,
+        "cost": 10,
+        "cooldown": 1.1,
+        "sequence": "HLL",
+        "description": "Se agacha, salta hacia delante y descarga el peso al aterrizar.",
+        "previewHeight": 147,
+        "layout": {
+          "cellWidth": 184,
+          "cellHeight": 216,
+          "anchorX": 91,
+          "anchorY": 204,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c2",
+        "name": "Doble descarga",
+        "motion": "volley",
+        "style": "fire",
+        "contacts": [
+          0.38,
+          0.62
+        ],
+        "damage": 28,
+        "reach": 365,
+        "move": 0,
+        "duration": 1.12,
+        "cost": 12,
+        "cooldown": 1.1,
+        "sequence": "LLHH",
+        "description": "Dos empujes de palma lanzan dos proyectiles independientes.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 216,
+          "cellHeight": 184,
+          "anchorX": 107,
+          "anchorY": 169,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c3",
+        "name": "Llamarada rasante",
+        "motion": "flame",
+        "style": "flame",
+        "contacts": [
+          0.54
+        ],
+        "damage": 47,
+        "reach": 230,
+        "move": 0,
+        "duration": 1.12,
+        "cost": 14,
+        "cooldown": 1.1,
+        "sequence": "LHH",
+        "description": "Baja el centro de gravedad y proyecta fuego a ras de suelo.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 248,
+          "cellHeight": 184,
+          "anchorX": 121,
+          "anchorY": 168,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c4",
+        "name": "Tornado ígneo",
+        "motion": "spin",
+        "style": "spin",
+        "contacts": [
+          0.28,
+          0.44,
+          0.6,
+          0.76
+        ],
+        "damage": 18,
+        "reach": 145,
+        "move": 0,
+        "duration": 1.3,
+        "cost": 16,
+        "cooldown": 1.1,
+        "sequence": "HLHL",
+        "description": "Extiende sus armas naturales y gira; cada vuelta tiene su propio contacto.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 208,
+          "cellHeight": 184,
+          "anchorX": 103,
+          "anchorY": 174,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c5",
+        "name": "Erupción volcánica",
+        "motion": "root",
+        "style": "pillars",
+        "contacts": [
+          0.48,
+          0.62,
+          0.76
+        ],
+        "damage": 25,
+        "reach": 280,
+        "move": 0,
+        "duration": 1.45,
+        "cost": 18,
+        "cooldown": 1.1,
+        "sequence": "HHLH",
+        "description": "El gesto conecta con el suelo y hace surgir una secuencia de pilares.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 200,
+          "cellHeight": 184,
+          "anchorX": 100,
+          "anchorY": 168,
+          "bodyHeight": 160
+        }
+      }
+    ],
+    "statNames": [
+      [
+        "Brazas del núcleo",
+        "Combustión de puños",
+        "Llama de mil grados",
+        "Núcleo estelar"
+      ],
+      [
+        "Salto con propulsión",
+        "Estela de plasma",
+        "Vuelo de ceniza",
+        "Velocidad de cometa"
+      ],
+      [
+        "Escudo de brasas",
+        "Piel de obsidiana",
+        "Manto volcánico",
+        "Corazón de magma"
+      ]
+    ]
+  },
+  {
+    "id": "xlr8",
+    "name": "XLR8",
+    "subtitle": "INERCIA KINECELERAN",
+    "color": "#76d9f4",
+    "branches": [
+      "Reflejos",
+      "Trazada azul",
+      "Inercia"
+    ],
+    "start": [
+      0.34,
+      0.82,
+      0.34
+    ],
+    "skills": [
+      {
+        "id": "f",
+        "name": "Aceleración refleja",
+        "motion": "sprint",
+        "style": "rush",
+        "contacts": [
+          0.48
+        ],
+        "damage": 38,
+        "reach": 70,
+        "move": 245,
+        "duration": 1.12,
+        "cost": 14,
+        "cooldown": 6,
+        "sequence": "F",
+        "description": "Se recoge, acelera y frena con una estela que golpea al cruzar.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 232,
+          "cellHeight": 184,
+          "anchorX": 116,
+          "anchorY": 169,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c0",
+        "name": "Patada de inercia",
+        "motion": "kick",
+        "style": "lunge",
+        "contacts": [
+          0.52
+        ],
+        "damage": 37,
+        "reach": 110,
+        "move": 105,
+        "duration": 1.12,
+        "cost": 8,
+        "cooldown": 1.1,
+        "sequence": "LHL",
+        "description": "Carga el peso, avanza y conecta el impacto antes de recuperar la guardia.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 216,
+          "cellHeight": 184,
+          "anchorX": 105,
+          "anchorY": 173,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c1",
+        "name": "Zarpazos relámpago",
+        "motion": "flurry",
+        "style": "melee",
+        "contacts": [
+          0.29,
+          0.43,
+          0.57,
+          0.71
+        ],
+        "damage": 12,
+        "reach": 100,
+        "move": 30,
+        "duration": 1.12,
+        "cost": 10,
+        "cooldown": 1.1,
+        "sequence": "HLL",
+        "description": "Un golpe con preparación y contacto sincronizados con el cuerpo.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 208,
+          "cellHeight": 184,
+          "anchorX": 104,
+          "anchorY": 171,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c2",
+        "name": "Derrape cortante",
+        "motion": "drift",
+        "style": "lunge",
+        "contacts": [
+          0.54
+        ],
+        "damage": 42,
+        "reach": 120,
+        "move": 165,
+        "duration": 1.12,
+        "cost": 12,
+        "cooldown": 1.1,
+        "sequence": "LLHH",
+        "description": "Carga el peso, avanza y conecta el impacto antes de recuperar la guardia.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 256,
+          "cellHeight": 184,
+          "anchorX": 125,
+          "anchorY": 169,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c3",
+        "name": "Órbita azul",
+        "motion": "orbit",
+        "style": "orbit",
+        "contacts": [
+          0.27,
+          0.45,
+          0.63,
+          0.81
+        ],
+        "damage": 16,
+        "reach": 90,
+        "move": 140,
+        "duration": 1.3,
+        "cost": 14,
+        "cooldown": 1.1,
+        "sequence": "LHH",
+        "description": "Traza una órbita física; vuelve a golpear después de salir del contacto.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 240,
+          "cellHeight": 184,
+          "anchorX": 117,
+          "anchorY": 169,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c4",
+        "name": "Corte de viento",
+        "motion": "windKick",
+        "style": "wave",
+        "contacts": [
+          0.54
+        ],
+        "damage": 42,
+        "reach": 280,
+        "move": 0,
+        "duration": 1.12,
+        "cost": 16,
+        "cooldown": 1.1,
+        "sequence": "HLHL",
+        "description": "El movimiento del cuerpo impulsa una onda frontal que respeta los obstáculos.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 216,
+          "cellHeight": 184,
+          "anchorX": 107,
+          "anchorY": 173,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c5",
+        "name": "Ruta de espejos",
+        "motion": "mirrorRush",
+        "style": "zigzag",
+        "contacts": [
+          0.3,
+          0.51,
+          0.72
+        ],
+        "damage": 24,
+        "reach": 75,
+        "move": 220,
+        "duration": 1.3,
+        "cost": 18,
+        "cooldown": 1.1,
+        "sequence": "HHLH",
+        "description": "Tres pasadas veloces en zigzag, con frenadas y postimágenes.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 232,
+          "cellHeight": 184,
+          "anchorX": 114,
+          "anchorY": 169,
+          "bodyHeight": 160
+        }
+      }
+    ],
+    "statNames": [
+      [
+        "Garra de impacto",
+        "Corte aerodinámico",
+        "Golpe sin freno",
+        "Impacto mach"
+      ],
+      [
+        "Tracción de talones",
+        "Pies de relámpago",
+        "Reflejos imposibles",
+        "Hipersalto temporal"
+      ],
+      [
+        "Frenado de precisión",
+        "Armadura cinética",
+        "Escamas de carrera",
+        "Coraza de inercia"
+      ]
+    ]
+  },
+  {
+    "id": "diamondhead",
+    "name": "Diamante",
+    "subtitle": "FORJA PETROSAPIEN",
+    "color": "#92e4c4",
+    "branches": [
+      "Aristas",
+      "Geodas",
+      "Resonancia"
+    ],
+    "start": [
+      0.47,
+      0.38,
+      0.64
+    ],
+    "skills": [
+      {
+        "id": "f",
+        "name": "Barrera de cuarzo",
+        "motion": "guard",
+        "style": "barrier",
+        "contacts": [
+          0.54
+        ],
+        "damage": 42,
+        "reach": 150,
+        "move": 0,
+        "duration": 1.12,
+        "cost": 14,
+        "cooldown": 6,
+        "sequence": "F",
+        "description": "Cruza los antebrazos y levanta cuarzo delante; endurece la defensa durante 4 s.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 192,
+          "cellHeight": 184,
+          "anchorX": 90,
+          "anchorY": 169,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c0",
+        "name": "Cuchilla ascendente",
+        "motion": "blade",
+        "style": "melee",
+        "contacts": [
+          0.51
+        ],
+        "damage": 47,
+        "reach": 150,
+        "move": 25,
+        "duration": 1.12,
+        "cost": 8,
+        "cooldown": 1.1,
+        "sequence": "LHL",
+        "description": "Un golpe con preparación y contacto sincronizados con el cuerpo.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 232,
+          "cellHeight": 184,
+          "anchorX": 108,
+          "anchorY": 174,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c1",
+        "name": "Lanzas gemelas",
+        "motion": "volley",
+        "style": "crystal",
+        "contacts": [
+          0.38,
+          0.62
+        ],
+        "damage": 30,
+        "reach": 380,
+        "move": 0,
+        "duration": 1.12,
+        "cost": 10,
+        "cooldown": 1.1,
+        "sequence": "HLL",
+        "description": "Forma lanzas en ambas manos y las dispara de forma alternada.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 240,
+          "cellHeight": 184,
+          "anchorX": 117,
+          "anchorY": 174,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c2",
+        "name": "Pisotón de geoda",
+        "motion": "stomp",
+        "style": "pillars",
+        "contacts": [
+          0.48,
+          0.64,
+          0.8
+        ],
+        "damage": 26,
+        "reach": 260,
+        "move": 0,
+        "duration": 1.12,
+        "cost": 12,
+        "cooldown": 1.1,
+        "sequence": "LLHH",
+        "description": "El gesto conecta con el suelo y hace surgir una secuencia de pilares.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 192,
+          "cellHeight": 184,
+          "anchorX": 97,
+          "anchorY": 170,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c3",
+        "name": "Prisión facetada",
+        "motion": "cage",
+        "style": "prison",
+        "contacts": [
+          0.58
+        ],
+        "damage": 42,
+        "reach": 220,
+        "move": 0,
+        "duration": 1.12,
+        "cost": 14,
+        "cooldown": 1.1,
+        "sequence": "LHH",
+        "description": "Concentra su poder hacia delante y encierra al objetivo durante 1,8 s.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 184,
+          "cellHeight": 184,
+          "anchorX": 90,
+          "anchorY": 169,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c4",
+        "name": "Abanico de astillas",
+        "motion": "fan",
+        "style": "fan",
+        "contacts": [
+          0.52
+        ],
+        "damage": 19,
+        "reach": 340,
+        "move": 0,
+        "duration": 1.12,
+        "cost": 16,
+        "cooldown": 1.1,
+        "sequence": "HLHL",
+        "description": "Abre la mano y lanza cinco astillas en abanico.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 232,
+          "cellHeight": 184,
+          "anchorX": 105,
+          "anchorY": 174,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c5",
+        "name": "Catedral cristalina",
+        "motion": "root",
+        "style": "pillars",
+        "contacts": [
+          0.42,
+          0.52,
+          0.62,
+          0.72,
+          0.82
+        ],
+        "damage": 23,
+        "reach": 320,
+        "move": 0,
+        "duration": 1.45,
+        "cost": 18,
+        "cooldown": 1.1,
+        "sequence": "HHLH",
+        "description": "El gesto conecta con el suelo y hace surgir una secuencia de pilares.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 192,
+          "cellHeight": 184,
+          "anchorX": 95,
+          "anchorY": 170,
+          "bodyHeight": 160
+        }
+      }
+    ],
+    "statNames": [
+      [
+        "Puntas de cuarzo",
+        "Filo facetado",
+        "Púas legendarias",
+        "Geoda destructora"
+      ],
+      [
+        "Desliz cristalino",
+        "Patines minerales",
+        "Paso prismático",
+        "Destello de gema"
+      ],
+      [
+        "Capa mineral",
+        "Escudo compacto",
+        "Coraza de diamante",
+        "Fortaleza prismática"
+      ]
+    ]
+  },
+  {
+    "id": "cannonbolt",
+    "name": "Cannonbolt",
+    "subtitle": "MASA ARBURIANA",
+    "color": "#f1cf73",
+    "branches": [
+      "Caparazón",
+      "Rebotes",
+      "Momento"
+    ],
+    "start": [
+      0.34,
+      0.38,
+      0.7
+    ],
+    "skills": [
+      {
+        "id": "f",
+        "name": "Meteoro arburiano",
+        "motion": "ballJump",
+        "style": "meteor",
+        "contacts": [
+          0.7
+        ],
+        "damage": 65,
+        "reach": 165,
+        "move": 115,
+        "duration": 1.45,
+        "cost": 14,
+        "cooldown": 6,
+        "sequence": "F",
+        "description": "Se agacha, salta hacia delante y descarga el peso al aterrizar.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 248,
+          "cellHeight": 184,
+          "anchorX": 124,
+          "anchorY": 169,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c0",
+        "name": "Rebote de hombro",
+        "motion": "bounce",
+        "style": "lunge",
+        "contacts": [
+          0.52
+        ],
+        "damage": 44,
+        "reach": 110,
+        "move": 150,
+        "duration": 1.12,
+        "cost": 8,
+        "cooldown": 1.1,
+        "sequence": "LHL",
+        "description": "Carga el peso, avanza y conecta el impacto antes de recuperar la guardia.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 248,
+          "cellHeight": 184,
+          "anchorX": 124,
+          "anchorY": 169,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c1",
+        "name": "Garra circular",
+        "motion": "hook",
+        "style": "melee",
+        "contacts": [
+          0.45,
+          0.66
+        ],
+        "damage": 24,
+        "reach": 120,
+        "move": 20,
+        "duration": 1.12,
+        "cost": 10,
+        "cooldown": 1.1,
+        "sequence": "HLL",
+        "description": "Un golpe con preparación y contacto sincronizados con el cuerpo.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 280,
+          "cellHeight": 192,
+          "anchorX": 146,
+          "anchorY": 176,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c2",
+        "name": "Órbita de choque",
+        "motion": "ballOrbit",
+        "style": "orbit",
+        "contacts": [
+          0.27,
+          0.45,
+          0.63,
+          0.81
+        ],
+        "damage": 22,
+        "reach": 105,
+        "move": 120,
+        "duration": 1.3,
+        "cost": 12,
+        "cooldown": 1.1,
+        "sequence": "LLHH",
+        "description": "Traza una órbita física; vuelve a golpear después de salir del contacto.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 248,
+          "cellHeight": 184,
+          "anchorX": 125,
+          "anchorY": 169,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c3",
+        "name": "Derrape blindado",
+        "motion": "brake",
+        "style": "lunge",
+        "contacts": [
+          0.57
+        ],
+        "damage": 57,
+        "reach": 135,
+        "move": 210,
+        "duration": 1.12,
+        "cost": 14,
+        "cooldown": 1.1,
+        "sequence": "LHH",
+        "description": "Carga el peso, avanza y conecta el impacto antes de recuperar la guardia.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 248,
+          "cellHeight": 184,
+          "anchorX": 125,
+          "anchorY": 169,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c4",
+        "name": "Ida y vuelta",
+        "motion": "returnRoll",
+        "style": "return",
+        "contacts": [
+          0.34,
+          0.68
+        ],
+        "damage": 39,
+        "reach": 105,
+        "move": 220,
+        "duration": 1.12,
+        "cost": 16,
+        "cooldown": 1.1,
+        "sequence": "HLHL",
+        "description": "Se recoge en bola, embiste y regresa sin atravesar obstáculos.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 248,
+          "cellHeight": 184,
+          "anchorX": 124,
+          "anchorY": 169,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c5",
+        "name": "Caída del cometa",
+        "motion": "comet",
+        "style": "meteor",
+        "contacts": [
+          0.72
+        ],
+        "damage": 84,
+        "reach": 190,
+        "move": 170,
+        "duration": 1.12,
+        "cost": 18,
+        "cooldown": 1.1,
+        "sequence": "HHLH",
+        "description": "Se agacha, salta hacia delante y descarga el peso al aterrizar.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 248,
+          "cellHeight": 200,
+          "anchorX": 125,
+          "anchorY": 184,
+          "bodyHeight": 160
+        }
+      }
+    ],
+    "statNames": [
+      [
+        "Peso de choque",
+        "Impacto rodante",
+        "Masa de meteorito",
+        "Choque planetario"
+      ],
+      [
+        "Rodamiento fino",
+        "Inercia orbital",
+        "Giro sin freno",
+        "Propulsión de cometa"
+      ],
+      [
+        "Placas compactas",
+        "Coraza cerrada",
+        "Blindaje ancestral",
+        "Muralla arburiana"
+      ]
+    ]
+  },
+  {
+    "id": "ghostfreak",
+    "name": "Fantasmático",
+    "subtitle": "VELO ECTONURITA",
+    "color": "#c2a8ec",
+    "branches": [
+      "Velo",
+      "Tentáculos",
+      "Terror"
+    ],
+    "start": [
+      0.34,
+      0.38,
+      0.34
+    ],
+    "skills": [
+      {
+        "id": "f",
+        "name": "Eco espectral",
+        "motion": "unveil",
+        "style": "siphon",
+        "contacts": [
+          0.56
+        ],
+        "damage": 43,
+        "reach": 150,
+        "move": 0,
+        "duration": 1.12,
+        "cost": 14,
+        "cooldown": 6,
+        "sequence": "F",
+        "description": "Abre la cubierta, despliega sus tentáculos y recupera 8 de vida si conecta.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 232,
+          "cellHeight": 200,
+          "anchorX": 123,
+          "anchorY": 180,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c0",
+        "name": "Garra del velo",
+        "motion": "phaseClaw",
+        "style": "melee",
+        "contacts": [
+          0.52
+        ],
+        "damage": 38,
+        "reach": 135,
+        "move": 40,
+        "duration": 1.12,
+        "cost": 8,
+        "cooldown": 1.1,
+        "sequence": "LHL",
+        "description": "Un golpe con preparación y contacto sincronizados con el cuerpo.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 224,
+          "cellHeight": 192,
+          "anchorX": 106,
+          "anchorY": 181,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c1",
+        "name": "Látigo ectoplásmico",
+        "motion": "tendril",
+        "style": "whip",
+        "contacts": [
+          0.46,
+          0.65
+        ],
+        "damage": 24,
+        "reach": 230,
+        "move": 0,
+        "duration": 1.12,
+        "cost": 10,
+        "cooldown": 1.1,
+        "sequence": "HLL",
+        "description": "El miembro se alarga y describe un arco; el daño llega en el chasquido.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 264,
+          "cellHeight": 184,
+          "anchorX": 132,
+          "anchorY": 170,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c2",
+        "name": "Abrazo del vacío",
+        "motion": "grab",
+        "style": "grab",
+        "contacts": [
+          0.73
+        ],
+        "damage": 59,
+        "reach": 155,
+        "move": 0,
+        "duration": 1.45,
+        "cost": 12,
+        "cooldown": 1.1,
+        "sequence": "LLHH",
+        "description": "Sujeta a un objetivo cercano, lo levanta y lo estrella al terminar la presa.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 200,
+          "cellHeight": 192,
+          "anchorX": 93,
+          "anchorY": 169,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c3",
+        "name": "Aparición de sombra",
+        "motion": "appear",
+        "style": "lunge",
+        "contacts": [
+          0.62
+        ],
+        "damage": 47,
+        "reach": 135,
+        "move": 170,
+        "duration": 1.12,
+        "cost": 14,
+        "cooldown": 1.1,
+        "sequence": "LHH",
+        "description": "Carga el peso, avanza y conecta el impacto antes de recuperar la guardia.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 208,
+          "cellHeight": 208,
+          "anchorX": 98,
+          "anchorY": 192,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c4",
+        "name": "Espiral de terror",
+        "motion": "spin",
+        "style": "spin",
+        "contacts": [
+          0.3,
+          0.46,
+          0.62,
+          0.78
+        ],
+        "damage": 19,
+        "reach": 150,
+        "move": 0,
+        "duration": 1.3,
+        "cost": 16,
+        "cooldown": 1.1,
+        "sequence": "HLHL",
+        "description": "Extiende sus armas naturales y gira; cada vuelta tiene su propio contacto.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 216,
+          "cellHeight": 184,
+          "anchorX": 109,
+          "anchorY": 170,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c5",
+        "name": "Pesadilla descubierta",
+        "motion": "haunt",
+        "style": "fear",
+        "contacts": [
+          0.58
+        ],
+        "damage": 62,
+        "reach": 205,
+        "move": 0,
+        "duration": 1.12,
+        "cost": 18,
+        "cooldown": 1.1,
+        "sequence": "HHLH",
+        "description": "Abre la cubierta y despliega seis tentáculos para inmovilizar a los cercanos.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 248,
+          "cellHeight": 208,
+          "anchorX": 128,
+          "anchorY": 193,
+          "bodyHeight": 160
+        }
+      }
+    ],
+    "statNames": [
+      [
+        "Garra espectral",
+        "Toque ectoplásmico",
+        "Golpe de sombra",
+        "Furia del más allá"
+      ],
+      [
+        "Flotación ágil",
+        "Fase veloz",
+        "Desplazamiento intangible",
+        "Vuelo de medianoche"
+      ],
+      [
+        "Velo de sombras",
+        "Ectoplasma denso",
+        "Manto de niebla",
+        "Protección fantasmal"
+      ]
+    ]
+  },
+  {
+    "id": "stinkfly",
+    "name": "Insectoide",
+    "subtitle": "GLÁNDULAS LEPIDOPTERANAS",
+    "color": "#b8d878",
+    "branches": [
+      "Aguijón",
+      "Cuatro glándulas",
+      "Vuelo de ataque"
+    ],
+    "start": [
+      0.46,
+      0.71,
+      0.34
+    ],
+    "skills": [
+      {
+        "id": "f",
+        "name": "Nube corrosiva",
+        "motion": "toxicCloud",
+        "style": "toxin",
+        "contacts": [
+          0.42,
+          0.53,
+          0.64,
+          0.75
+        ],
+        "damage": 10,
+        "reach": 210,
+        "move": 0,
+        "duration": 1.12,
+        "cost": 14,
+        "cooldown": 6,
+        "sequence": "F",
+        "description": "Expulsa veneno por sus cuatro orificios y deja charcos corrosivos.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 208,
+          "cellHeight": 192,
+          "anchorX": 102,
+          "anchorY": 175,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c0",
+        "name": "Aguijón en arco",
+        "motion": "sting",
+        "style": "melee",
+        "contacts": [
+          0.56
+        ],
+        "damage": 45,
+        "reach": 155,
+        "move": 20,
+        "duration": 1.12,
+        "cost": 8,
+        "cooldown": 1.1,
+        "sequence": "LHL",
+        "description": "Un golpe con preparación y contacto sincronizados con el cuerpo.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 248,
+          "cellHeight": 200,
+          "anchorX": 122,
+          "anchorY": 188,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c1",
+        "name": "Ráfaga de cuatro ojos",
+        "motion": "spit",
+        "style": "slime",
+        "contacts": [
+          0.29,
+          0.42,
+          0.55,
+          0.68
+        ],
+        "damage": 11,
+        "reach": 300,
+        "move": 0,
+        "duration": 1.12,
+        "cost": 10,
+        "cooldown": 1.1,
+        "sequence": "HLL",
+        "description": "Cuatro contracciones distintas disparan una gota desde cada orificio.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 200,
+          "cellHeight": 192,
+          "anchorX": 99,
+          "anchorY": 177,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c2",
+        "name": "Picado venenoso",
+        "motion": "dive",
+        "style": "meteor",
+        "contacts": [
+          0.69
+        ],
+        "damage": 48,
+        "reach": 135,
+        "move": 155,
+        "duration": 1.12,
+        "cost": 12,
+        "cooldown": 1.1,
+        "sequence": "LLHH",
+        "description": "Se agacha, salta hacia delante y descarga el peso al aterrizar.",
+        "previewHeight": 131,
+        "layout": {
+          "cellWidth": 256,
+          "cellHeight": 264,
+          "anchorX": 128,
+          "anchorY": 248,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c3",
+        "name": "Baba adherente",
+        "motion": "stickySpit",
+        "style": "sticky",
+        "contacts": [
+          0.5
+        ],
+        "damage": 34,
+        "reach": 330,
+        "move": 0,
+        "duration": 1.12,
+        "cost": 14,
+        "cooldown": 1.1,
+        "sequence": "LHH",
+        "description": "Reúne baba en los orificios y escupe un proyectil que inmoviliza.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 216,
+          "cellHeight": 192,
+          "anchorX": 105,
+          "anchorY": 179,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c4",
+        "name": "Barrido de cola",
+        "motion": "tailSweep",
+        "style": "spin",
+        "contacts": [
+          0.43,
+          0.66
+        ],
+        "damage": 28,
+        "reach": 170,
+        "move": 0,
+        "duration": 1.3,
+        "cost": 16,
+        "cooldown": 1.1,
+        "sequence": "HLHL",
+        "description": "Extiende sus armas naturales y gira; cada vuelta tiene su propio contacto.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 248,
+          "cellHeight": 200,
+          "anchorX": 124,
+          "anchorY": 188,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c5",
+        "name": "Lluvia tóxica",
+        "motion": "fly",
+        "style": "rain",
+        "contacts": [
+          0.36,
+          0.48,
+          0.6,
+          0.72
+        ],
+        "damage": 16,
+        "reach": 235,
+        "move": 0,
+        "duration": 1.3,
+        "cost": 18,
+        "cooldown": 1.1,
+        "sequence": "HHLH",
+        "description": "Despliega las alas y escupe hacia abajo para sembrar veneno.",
+        "previewHeight": 138,
+        "layout": {
+          "cellWidth": 256,
+          "cellHeight": 256,
+          "anchorX": 131,
+          "anchorY": 239,
+          "bodyHeight": 160
+        }
+      }
+    ],
+    "statNames": [
+      [
+        "Aguijón reforzado",
+        "Glándula corrosiva",
+        "Mandíbulas letales",
+        "Veneno ancestral"
+      ],
+      [
+        "Aleteo rápido",
+        "Alas ligeras",
+        "Picado aéreo",
+        "Vuelo de cazador"
+      ],
+      [
+        "Quitina elástica",
+        "Caparazón protector",
+        "Piel resistente",
+        "Exoesqueleto supremo"
+      ]
+    ]
+  },
+  {
+    "id": "wildvine",
+    "name": "Wildvine",
+    "subtitle": "CRECIMIENTO FLORAUNA",
+    "color": "#91c784",
+    "branches": [
+      "Lianas",
+      "Raíces",
+      "Semillas"
+    ],
+    "start": [
+      0.53,
+      0.38,
+      0.58
+    ],
+    "skills": [
+      {
+        "id": "f",
+        "name": "Jardín de raíces",
+        "motion": "root",
+        "style": "pillars",
+        "contacts": [
+          0.47,
+          0.62,
+          0.77
+        ],
+        "damage": 30,
+        "reach": 250,
+        "move": 0,
+        "duration": 1.45,
+        "cost": 14,
+        "cooldown": 6,
+        "sequence": "F",
+        "description": "El gesto conecta con el suelo y hace surgir una secuencia de pilares.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 208,
+          "cellHeight": 192,
+          "anchorX": 103,
+          "anchorY": 168,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c0",
+        "name": "Látigo cruzado",
+        "motion": "whip",
+        "style": "whip",
+        "contacts": [
+          0.43,
+          0.65
+        ],
+        "damage": 25,
+        "reach": 210,
+        "move": 0,
+        "duration": 1.12,
+        "cost": 8,
+        "cooldown": 1.1,
+        "sequence": "LHL",
+        "description": "El miembro se alarga y describe un arco; el daño llega en el chasquido.",
+        "previewHeight": 126,
+        "layout": {
+          "cellWidth": 384,
+          "cellHeight": 184,
+          "anchorX": 194,
+          "anchorY": 170,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c1",
+        "name": "Arpón de liana",
+        "motion": "tendril",
+        "style": "pull",
+        "contacts": [
+          0.58
+        ],
+        "damage": 38,
+        "reach": 245,
+        "move": 0,
+        "duration": 1.12,
+        "cost": 10,
+        "cooldown": 1.1,
+        "sequence": "HLL",
+        "description": "Estira un miembro, engancha al objetivo y lo acerca.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 256,
+          "cellHeight": 184,
+          "anchorX": 132,
+          "anchorY": 169,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c2",
+        "name": "Giro de zarzas",
+        "motion": "spin",
+        "style": "spin",
+        "contacts": [
+          0.29,
+          0.45,
+          0.61,
+          0.77
+        ],
+        "damage": 22,
+        "reach": 170,
+        "move": 0,
+        "duration": 1.3,
+        "cost": 12,
+        "cooldown": 1.1,
+        "sequence": "LLHH",
+        "description": "Extiende sus armas naturales y gira; cada vuelta tiene su propio contacto.",
+        "previewHeight": 143,
+        "layout": {
+          "cellWidth": 360,
+          "cellHeight": 184,
+          "anchorX": 177,
+          "anchorY": 174,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c3",
+        "name": "Bombas semilla",
+        "motion": "seed",
+        "style": "seed",
+        "contacts": [
+          0.38,
+          0.55,
+          0.72
+        ],
+        "damage": 26,
+        "reach": 300,
+        "move": 0,
+        "duration": 1.12,
+        "cost": 14,
+        "cooldown": 1.1,
+        "sequence": "LHH",
+        "description": "Extrae semillas del dorso y las arroja en parábolas explosivas.",
+        "previewHeight": 120,
+        "layout": {
+          "cellWidth": 384,
+          "cellHeight": 184,
+          "anchorX": 191,
+          "anchorY": 169,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c4",
+        "name": "Jaula de espinas",
+        "motion": "vineCage",
+        "style": "prison",
+        "contacts": [
+          0.59
+        ],
+        "damage": 49,
+        "reach": 220,
+        "move": 0,
+        "duration": 1.45,
+        "cost": 16,
+        "cooldown": 1.1,
+        "sequence": "HLHL",
+        "description": "Concentra su poder hacia delante y encierra al objetivo durante 1,8 s.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 208,
+          "cellHeight": 192,
+          "anchorX": 106,
+          "anchorY": 168,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c5",
+        "name": "Selva viva",
+        "motion": "forest",
+        "style": "garden",
+        "contacts": [
+          0.42,
+          0.54,
+          0.66,
+          0.78
+        ],
+        "damage": 29,
+        "reach": 300,
+        "move": 0,
+        "duration": 1.12,
+        "cost": 18,
+        "cooldown": 1.1,
+        "sequence": "HHLH",
+        "description": "Hunde ambos brazos y hace crecer raíces en varias posiciones.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 216,
+          "cellHeight": 192,
+          "anchorX": 106,
+          "anchorY": 168,
+          "bodyHeight": 160
+        }
+      }
+    ],
+    "statNames": [
+      [
+        "Lianas cortantes",
+        "Espinas gruesas",
+        "Zarpazo vegetal",
+        "Coloso de enredaderas"
+      ],
+      [
+        "Raíces veloces",
+        "Crecimiento flexible",
+        "Brote fugitivo",
+        "Paso de jungla"
+      ],
+      [
+        "Corteza viva",
+        "Tronco flexible",
+        "Muro de raíces",
+        "Roble indomable"
+      ]
+    ]
+  },
+  {
+    "id": "blitzwolfer",
+    "name": "Blitzwolfer",
+    "subtitle": "INSTINTO LOBOAN",
+    "color": "#bbcbd9",
+    "branches": [
+      "Garras",
+      "La cacería",
+      "Garganta sónica"
+    ],
+    "start": [
+      0.52,
+      0.69,
+      0.34
+    ],
+    "skills": [
+      {
+        "id": "f",
+        "name": "Aullido partido",
+        "motion": "jaw",
+        "style": "sonic",
+        "contacts": [
+          0.49,
+          0.65
+        ],
+        "damage": 27,
+        "reach": 280,
+        "move": 0,
+        "duration": 1.3,
+        "cost": 14,
+        "cooldown": 6,
+        "sequence": "F",
+        "description": "Abre las cuatro partes de la mandíbula y proyecta anillos sónicos.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 216,
+          "cellHeight": 184,
+          "anchorX": 108,
+          "anchorY": 169,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c0",
+        "name": "Zarpazo cruzado",
+        "motion": "cross",
+        "style": "melee",
+        "contacts": [
+          0.41,
+          0.62
+        ],
+        "damage": 25,
+        "reach": 135,
+        "move": 30,
+        "duration": 1.12,
+        "cost": 8,
+        "cooldown": 1.1,
+        "sequence": "LHL",
+        "description": "Un golpe con preparación y contacto sincronizados con el cuerpo.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 200,
+          "cellHeight": 192,
+          "anchorX": 100,
+          "anchorY": 177,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c1",
+        "name": "Mordida de presa",
+        "motion": "bite",
+        "style": "lunge",
+        "contacts": [
+          0.54
+        ],
+        "damage": 45,
+        "reach": 115,
+        "move": 130,
+        "duration": 1.12,
+        "cost": 10,
+        "cooldown": 1.1,
+        "sequence": "HLL",
+        "description": "Carga el peso, avanza y conecta el impacto antes de recuperar la guardia.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 224,
+          "cellHeight": 184,
+          "anchorX": 110,
+          "anchorY": 168,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c2",
+        "name": "Salto del cazador",
+        "motion": "pounce",
+        "style": "meteor",
+        "contacts": [
+          0.64
+        ],
+        "damage": 58,
+        "reach": 135,
+        "move": 180,
+        "duration": 1.12,
+        "cost": 12,
+        "cooldown": 1.1,
+        "sequence": "LLHH",
+        "description": "Se agacha, salta hacia delante y descarga el peso al aterrizar.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 216,
+          "cellHeight": 216,
+          "anchorX": 108,
+          "anchorY": 200,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c3",
+        "name": "Garras al giro",
+        "motion": "spin",
+        "style": "spin",
+        "contacts": [
+          0.31,
+          0.48,
+          0.65
+        ],
+        "damage": 23,
+        "reach": 150,
+        "move": 0,
+        "duration": 1.3,
+        "cost": 14,
+        "cooldown": 1.1,
+        "sequence": "LHH",
+        "description": "Extiende sus armas naturales y gira; cada vuelta tiene su propio contacto.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 232,
+          "cellHeight": 184,
+          "anchorX": 115,
+          "anchorY": 171,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c4",
+        "name": "Arrastre salvaje",
+        "motion": "grab",
+        "style": "grab",
+        "contacts": [
+          0.72
+        ],
+        "damage": 62,
+        "reach": 145,
+        "move": 70,
+        "duration": 1.45,
+        "cost": 16,
+        "cooldown": 1.1,
+        "sequence": "HLHL",
+        "description": "Sujeta a un objetivo cercano, lo levanta y lo estrella al terminar la presa.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 216,
+          "cellHeight": 184,
+          "anchorX": 106,
+          "anchorY": 170,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c5",
+        "name": "Aullido de manada",
+        "motion": "packHowl",
+        "style": "sonic",
+        "contacts": [
+          0.4,
+          0.56,
+          0.72
+        ],
+        "damage": 29,
+        "reach": 350,
+        "move": 0,
+        "duration": 1.3,
+        "cost": 18,
+        "cooldown": 1.1,
+        "sequence": "HHLH",
+        "description": "Abre las cuatro partes de la mandíbula y proyecta anillos sónicos.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 224,
+          "cellHeight": 184,
+          "anchorX": 110,
+          "anchorY": 168,
+          "bodyHeight": 160
+        }
+      }
+    ],
+    "statNames": [
+      [
+        "Colmillos afilados",
+        "Garras de presa",
+        "Mordisco salvaje",
+        "Mandíbula ancestral"
+      ],
+      [
+        "Salto de cazador",
+        "Reflejos lupinos",
+        "Zancada depredadora",
+        "Sombra veloz"
+      ],
+      [
+        "Pelaje protector",
+        "Huesos fuertes",
+        "Resistencia de manada",
+        "Guardia de luna llena"
+      ]
+    ]
+  },
+  {
+    "id": "upgrade",
+    "name": "Ultra T",
+    "subtitle": "MORFOLOGÍA GALVÁNICA",
+    "color": "#98e499",
+    "branches": [
+      "Materia líquida",
+      "Sistemas ópticos",
+      "Metamorfosis"
+    ],
+    "start": [
+      0.62,
+      0.38,
+      0.34
+    ],
+    "skills": [
+      {
+        "id": "f",
+        "name": "Pulso de circuito",
+        "motion": "surge",
+        "style": "emp",
+        "contacts": [
+          0.55
+        ],
+        "damage": 48,
+        "reach": 160,
+        "move": 0,
+        "duration": 1.12,
+        "cost": 14,
+        "cooldown": 6,
+        "sequence": "F",
+        "description": "Moldea el torso, extiende los circuitos y emite un pulso; defensa +25 % durante 4 s.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 200,
+          "cellHeight": 184,
+          "anchorX": 98,
+          "anchorY": 169,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c0",
+        "name": "Puño pistón",
+        "motion": "piston",
+        "style": "melee",
+        "contacts": [
+          0.53
+        ],
+        "damage": 45,
+        "reach": 165,
+        "move": 35,
+        "duration": 1.12,
+        "cost": 8,
+        "cooldown": 1.1,
+        "sequence": "LHL",
+        "description": "Un golpe con preparación y contacto sincronizados con el cuerpo.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 200,
+          "cellHeight": 184,
+          "anchorX": 87,
+          "anchorY": 169,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c1",
+        "name": "Cuchilla binaria",
+        "motion": "blade",
+        "style": "melee",
+        "contacts": [
+          0.44,
+          0.66
+        ],
+        "damage": 28,
+        "reach": 175,
+        "move": 30,
+        "duration": 1.12,
+        "cost": 10,
+        "cooldown": 1.1,
+        "sequence": "HLL",
+        "description": "Un golpe con preparación y contacto sincronizados con el cuerpo.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 224,
+          "cellHeight": 184,
+          "anchorX": 102,
+          "anchorY": 174,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c2",
+        "name": "Cañón ocular",
+        "motion": "cannon",
+        "style": "beam",
+        "contacts": [
+          0.49,
+          0.65
+        ],
+        "damage": 34,
+        "reach": 350,
+        "move": 0,
+        "duration": 1.45,
+        "cost": 12,
+        "cooldown": 1.1,
+        "sequence": "LLHH",
+        "description": "Fusiona los brazos en un cañón conectado al ojo; carga y dispara.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 248,
+          "cellHeight": 184,
+          "anchorX": 121,
+          "anchorY": 168,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c3",
+        "name": "Arpón de cable",
+        "motion": "tendril",
+        "style": "pull",
+        "contacts": [
+          0.58
+        ],
+        "damage": 42,
+        "reach": 250,
+        "move": 0,
+        "duration": 1.12,
+        "cost": 14,
+        "cooldown": 1.1,
+        "sequence": "LHH",
+        "description": "Estira un miembro, engancha al objetivo y lo acerca.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 264,
+          "cellHeight": 184,
+          "anchorX": 132,
+          "anchorY": 169,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c4",
+        "name": "Barrido láser",
+        "motion": "sweep",
+        "style": "sweep",
+        "contacts": [
+          0.43,
+          0.58,
+          0.73
+        ],
+        "damage": 26,
+        "reach": 320,
+        "move": 0,
+        "duration": 1.12,
+        "cost": 16,
+        "cooldown": 1.1,
+        "sequence": "HLHL",
+        "description": "El ojo carga y barre el frente con un rayo de tres contactos.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 184,
+          "cellHeight": 184,
+          "anchorX": 89,
+          "anchorY": 174,
+          "bodyHeight": 160
+        }
+      },
+      {
+        "id": "c5",
+        "name": "Torpedo líquido",
+        "motion": "morph",
+        "style": "lunge",
+        "contacts": [
+          0.59
+        ],
+        "damage": 74,
+        "reach": 130,
+        "move": 250,
+        "duration": 1.45,
+        "cost": 18,
+        "cooldown": 1.1,
+        "sequence": "HHLH",
+        "description": "Carga el peso, avanza y conecta el impacto antes de recuperar la guardia.",
+        "previewHeight": 150,
+        "layout": {
+          "cellWidth": 232,
+          "cellHeight": 184,
+          "anchorX": 114,
+          "anchorY": 168,
+          "bodyHeight": 160
+        }
+      }
+    ],
+    "statNames": [
+      [
+        "Pulso mecánico",
+        "Nanoláser focalizado",
+        "Plasma reforzado",
+        "Rayo de reactor"
+      ],
+      [
+        "Circuitos ágiles",
+        "Transmisión rápida",
+        "Procesador cinético",
+        "Velocidad de datos"
+      ],
+      [
+        "Malla de nanitos",
+        "Blindaje adaptable",
+        "Escudo mecatrónico",
+        "Armadura digital"
+      ]
+    ]
+  }
+]
