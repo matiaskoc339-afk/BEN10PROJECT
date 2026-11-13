@@ -1,0 +1,38 @@
+BEN 10 — DEMO PC V31 · PRÓLOGO EN CÓMIC
+
+1. Extrae toda la carpeta del ZIP.
+2. Abre index.html en Chrome, Edge o Firefox para PC.
+3. Conserva la carpeta assets junto al HTML: contiene el cómic original.
+
+PRÓLOGO
+Las 12 viñetas aparecen en orden de lectura, con una transición breve.
+El avance es automático y deja tiempo para leer cada viñeta.
+Al terminar se entra a la demo.
+
+Espacio / Enter / flecha derecha / clic en el cómic: avanzar.
+Flecha izquierda: volver a la viñeta anterior.
+P: pausar o reanudar el avance automático.
+Esc: saltar a la demo.
+También puedes usar los botones de la barra inferior.
+
+JUEGO — TECLADO Y RATÓN
+WASD o flechas: moverse.
+Clic izquierdo: ataque leve.
+Clic derecho: ataque fuerte o habilidad propia del alien.
+Espacio: dash.
+R: abrir el Omnitrix.
+1–9 y 0, con el Omnitrix abierto: elegir alien.
+T: volver a Ben.
+K: árbol de evolución.
+F: habilidad desbloqueada en el árbol.
+F9: panel de pruebas para añadir puntos.
+
+Esta versión incluye la progresión de V30 y conserva sus partidas locales
+cuando el navegador permite acceder al mismo almacenamiento.
+
+CAMBIOS
+- El daño del proyectil de Fuego se fija al dispararse y permanece igual
+  aunque vuelvas a Ben antes del impacto. También cubre la bola explosiva.
+- Eliminados el joystick, botones táctiles y estilos específicos para móvil.
+- Eliminados la cinemática anterior y todos sus recursos, incluidos Gwen y Max.
+- Nuevo prólogo con el cómic original, sin modificar su imagen ni proporciones.

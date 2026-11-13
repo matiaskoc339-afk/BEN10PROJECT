@@ -1,0 +1,58 @@
+{
+  "passed": true,
+  "errors": [],
+  "failedRequests": [],
+  "httpErrors": [],
+  "fullComicIntact": true,
+  "forms": [
+    "four-arms",
+    "heatblast",
+    "xlr8",
+    "diamondhead",
+    "cannonbolt",
+    "ghostfreak",
+    "stinkfly",
+    "wildvine",
+    "blitzwolfer",
+    "upgrade"
+  ],
+  "damageCases": [
+    {
+      "special": false,
+      "revert": false,
+      "damage": 16,
+      "attackScale": 0.51,
+      "formAtHit": {
+        "id": "heatblast",
+        "name": "Fuego"
+      }
+    },
+    {
+      "special": false,
+      "revert": true,
+      "damage": 16,
+      "attackScale": 0.51,
+      "formAtHit": null
+    },
+    {
+      "special": true,
+      "revert": false,
+      "damage": 36,
+      "attackScale": 0.51,
+      "formAtHit": {
+        "id": "heatblast",
+        "name": "Fuego"
+      }
+    },
+    {
+      "special": true,
+      "revert": true,
+      "damage": 36,
+      "attackScale": 0.51,
+      "formAtHit": null
+    }
+  ],
+  "version": "V31",
+  "indexSha256": "0d394be7dfd8ef6f6bd88eff2803201cb6e6b114d136445d523db4e24f03d602",
+  "comicSha256": "75423c9cf0eec4693db2f57148d596ab7a271ce8c173849c7eeee295bc4bf431"
+}
