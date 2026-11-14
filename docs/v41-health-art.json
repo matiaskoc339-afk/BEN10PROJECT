@@ -1,0 +1,7 @@
+{
+  "tool": "image_gen.imagegen",
+  "prompt": "Create one single game pickup sprite for a Ben 10 classic inspired 2.5D pixel art beat-em-up. A small floating HEALTH CAPSULE: chunky silver graphite metal hexagonal medical canister, luminous cherry-red liquid core, bold bright ivory plus/cross on its front, small lime green indicator lights and rim accents matching the Omnitrix. Clear readable silhouette at 28 pixels tall. Polished hand-crafted retro arcade pixel art with hard square pixel steps, carefully limited 16-color palette, strong dark outline, deliberate highlights and dark undersides, three-quarter front view. No text, no logo, no letters, no characters, no background, no ground, no shadow, no sparkles outside the sprite. One isolated centered icon on a truly transparent background with modest clear padding. The healing item must read as HEALTH, predominantly red and ivory, not green energy. Canvas square.",
+  "original": "/workspace/generated_images/exec-65e6044c-2487-4715-9595-d617ee491a09.png",
+  "asset": "assets/ui/health-pickup.png",
+  "note": "PNG original intacto. El juego recorta su área transparente al dibujarlo y anima elevación, inclinación, brillo y sombra."
+}

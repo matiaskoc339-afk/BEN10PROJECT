@@ -14,7 +14,7 @@ const hook=`
  resetForm(){returnToBen();stats.energy=stats.config.maxEnergy;stats.rechargeLocked=false;stats.rechargeLeft=0;stats.drainEvents();player.mode='idle'},
  hit(n,form='four-arms'){return damageDummy(kingEncounter.boss,n,true,{attackScale:1,sourceForm:form})},
  fire(){returnToBen();stats.drainEvents();stats.energy=stats.config.maxEnergy;stats.rechargeLocked=false;player.mode='idle';selectSlot(1);kingTestStep(1.1);const e=kingEncounter.boss;const p=campaign.clampPoint({x:e.x-185,y:e.y},actorMetrics().radius,props);player.x=p.x;player.y=p.y;player.dir='right';player.faceX=1;player.faceY=0;player.mode='idle';player.lastHeavy=-100;pointer.active=false;e.cooldown=10;const before=e.defense;heavyAttack();kingTestStep(.9);return {before,after:e.defense,health:e.health}},
- die(){stats.invulnerable=false;enemyInvulUntil=0;enemyPlayerHit({damage:9999,origin:{x:player.x+30,y:player.y},dir:{x:-1,y:0}});kingTestStep(.02)},
+ die(){returnToBen();stats.drainEvents();stats.invulnerable=false;enemyInvulUntil=0;enemyPlayerHit({damage:9999,origin:{x:player.x+30,y:player.y},dir:{x:-1,y:0}});kingTestStep(.02)},
  protect(){stats.invulnerable=true},injure(){stats.setHealth(37)},
  front(){const e=kingEncounter.boss;const p=campaign.clampPoint({x:e.x-170,y:e.y},actorMetrics().radius,props);player.x=p.x;player.y=p.y;player.dir='right';player.faceX=1;player.faceY=0},
  render(){campaignCamera(0,true);render(0)}

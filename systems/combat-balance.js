@@ -1,4 +1,4 @@
-/* Shared player health: changing form never changes the health pool. */
+/* Equal maximum health; an alien starts at Ben's current fraction and preserves his reserve. */
 (function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory();else root.Ben10Balance=factory()})(typeof globalThis==='undefined'?this:globalThis,function(){
  'use strict';
  const PLAYER_CONFIG=Object.freeze({maxHealth:50,maxEnergy:90});

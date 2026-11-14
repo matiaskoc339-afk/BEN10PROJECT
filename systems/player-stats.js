@@ -1,5 +1,5 @@
-/* Shared by the standalone demo and the Node tests. Alien graphics are added
-   separately; transform() is the integration point for a future playable form. */
+/* Authoritative stats for the standalone game and Node tests. Ben retains his
+   pre-transformation health; an alien begins at that same health fraction. */
 (function (root, factory) {
   const api = factory();
   if (typeof module === "object" && module.exports) module.exports = api;
@@ -15,7 +15,8 @@
     specialCost: 20,
     comboWindow: 1.35,
     xpBase: 100,
-    xpStep: 50,
+    xpStep: 30,
+    xpCurve: 2,
     targetXP: 40,
   });
   const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
@@ -28,6 +29,7 @@
       this.health = this.config.maxHealth;
       this.energy = this.config.maxEnergy;
       this.form = null;
+      this._benHealth = null;
       this.level = 1;
       this.xp = 0;
       this.totalXP = 0;
@@ -36,13 +38,18 @@
       this.specialReservation = null;
       this.invulnerable = false;
       this.rechargeLeft = 0;
+      this.rechargeLocked = false;
       this.events = [];
     }
     get xpNeeded() {
-      return this.config.xpBase + (this.level - 1) * this.config.xpStep;
+      const n = this.level - 1;
+      return Math.round(this.config.xpBase + n * this.config.xpStep + n * n * this.config.xpCurve);
     }
     get transformed() {
       return this.form !== null;
+    }
+    get benHealth() {
+      return this.transformed ? this._benHealth : this.health;
     }
     get specialReady() {
       return (
@@ -58,16 +65,26 @@
         this.health = clamp(value, 0, this.config.maxHealth);
       return this.health;
     }
+    heal(amount) {
+      if (!Number.isFinite(amount) || amount <= 0 || this.health <= 0) return 0;
+      const before = this.health, benBefore = this.benHealth;
+      this.setHealth(this.health + amount);
+      if (this.transformed) this._benHealth = clamp(this._benHealth + amount, 0, this.config.maxHealth);
+      return Math.max(this.health - before, this.benHealth - benBefore);
+    }
     damage(amount) {
-      if (!Number.isFinite(amount) || amount <= 0 || this.invulnerable) return 0;
+      if (!Number.isFinite(amount) || amount <= 0 || this.invulnerable || this.health <= 0) return 0;
       const before = this.health;
       this.setHealth(this.health - amount);
+      const taken = before - this.health;
       if (before > 0 && this.health === 0) {
         this.clearCombo();
-        this.returnToBen("defeat");
-        this.events.push({ type: "defeated" });
+        if (this.transformed) {
+          this.energy = 0;
+          this.returnToBen("alien-defeated");
+        } else this.events.push({ type: "defeated" });
       }
-      return before - this.health;
+      return taken;
     }
     setInvulnerable(active) {
       this.invulnerable = !!active && this.transformed && this.health > 0;
@@ -79,9 +96,12 @@
         !form.id.trim() ||
         form.id === "ben" ||
         this.energy <= 0 ||
+        this.rechargeLocked ||
+        this.transformed ||
         this.health <= 0
       )
         return false;
+      this._benHealth = this.health;
       this.form = { id: form.id, name: String(form.name || form.id) };
       this.invulnerable = false;
       this.clearCombo();
@@ -93,9 +113,12 @@
       if (!this.transformed) return false;
       const previous = this.form;
       this.form = null;
+      this.health = clamp(this._benHealth ?? this.health, 0, this.config.maxHealth);
+      this._benHealth = null;
       this.invulnerable = false;
       this.clearCombo();
       this.rechargeLeft = this.config.rechargeDelay;
+      if (reason === "empty" || reason === "alien-defeated" || this.energy <= 0) this.rechargeLocked = true;
       this.events.push({ type: "form-ended", reason, previous });
       return true;
     }
@@ -179,6 +202,11 @@
           0,
           this.config.maxEnergy,
         );
+        if (this.rechargeLocked && this.energy >= this.config.maxEnergy - 1e-8) {
+          this.energy = this.config.maxEnergy;
+          this.rechargeLocked = false;
+          this.events.push({ type: "watch-recharged" });
+        }
       }
     }
     drainEvents() {
@@ -188,8 +216,10 @@
       return {
         health: this.health,
         maxHealth: this.config.maxHealth,
+        benHealth: this.benHealth,
         energy: this.energy,
         maxEnergy: this.config.maxEnergy,
+        rechargeLocked: this.rechargeLocked,
         form: this.form ? { ...this.form } : null,
         level: this.level,
         xp: this.xp,

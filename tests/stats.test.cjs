@@ -116,7 +116,7 @@ test("switching forms cannot refill energy; empty and defeated players cannot tr
   s.damage(150);
   assert.equal(s.transform(form), false);
 });
-test("life stays within bounds and lethal damage ends the active form", () => {
+test("life stays within bounds; a fallen alien returns to Ben and only human death ends play", () => {
   const s = new PlayerStats();
   s.transform(form);
   assert.equal(s.damage(35), 35);
@@ -124,8 +124,11 @@ test("life stays within bounds and lethal damage ends the active form", () => {
   s.setHealth(999);
   assert.equal(s.health, 100);
   s.damage(150);
-  assert.equal(s.health, 0);
+  assert.equal(s.health, 100);
   assert.equal(s.form, null);
+  assert.equal(s.energy, 0);
+  s.damage(150);
+  assert.equal(s.health, 0);
   assert.equal(s.damage(-1), 0);
   s.setHealth(NaN);
   assert.equal(s.health, 0);
@@ -135,11 +138,11 @@ test("XP retains overflow across one and multiple level thresholds", () => {
   s.awardXP(120);
   assert.equal(s.level, 2);
   assert.equal(s.xp, 20);
-  assert.equal(s.xpNeeded, 150);
+  assert.equal(s.xpNeeded, 132);
   s.awardXP(355);
   assert.equal(s.level, 4);
-  assert.equal(s.xp, 25);
-  assert.equal(s.xpNeeded, 250);
+  assert.equal(s.xp, 75);
+  assert.equal(s.xpNeeded, 208);
   assert.equal(s.totalXP, 475);
 });
 test("invalid rewards and negative time do not change progression", () => {
@@ -188,7 +191,7 @@ test('a held speed special can reserve a combo beyond its window and charges onl
 test('cancelling or switching forms invalidates a reserved special without spending energy',()=>{
  const s=new PlayerStats();s.transform({id:'xlr8'});prime(s);let ticket=s.reserveComboSpecial();s.cancelReservedSpecial(ticket);assert.equal(s.useReservedSpecial(ticket),false);assert.equal(s.energy,100);
  prime(s);ticket=s.reserveComboSpecial();s.returnToBen('manual');s.transform({id:'xlr8'});assert.equal(s.useReservedSpecial(ticket),false);assert.equal(s.energy,100);
- prime(s);ticket=s.reserveComboSpecial();s.transform({id:'heatblast'});assert.equal(s.useReservedSpecial(ticket),false);
+ prime(s);ticket=s.reserveComboSpecial();s.returnToBen();s.transform({id:'heatblast'});assert.equal(s.useReservedSpecial(ticket),false);
 });
 test('a reserved special cannot overspend a drained watch or survive a reset',()=>{
  const s=new PlayerStats();s.transform({id:'xlr8'});prime(s);let ticket=s.reserveComboSpecial();s.energy=19;assert.equal(s.useReservedSpecial(ticket),false);assert.equal(s.energy,19);

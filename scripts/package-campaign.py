@@ -8,7 +8,7 @@ version=json.loads((root/'package.json').read_text())['version'].split('.')[1]
 output=Path(f'/workspace/outputs/BEN10_DEMO_PC_V{version}.zip')
 stage=Path(f'/workspace/BEN10-DEMO-V{version}')
 data=json.loads((root/'mapas/data/recorrido.json').read_text())
-files={'index.html','LEEME.txt','assets/prologo-comic.png','assets/ui/unknown-alien.png','assets/ui/ben10-title.png','assets/skills/catalog.json','assets/skills/atlas-manifest.json'}
+files={'index.html','LEEME.txt','assets/prologo-comic.png','assets/ui/unknown-alien.png','assets/ui/ben10-title.png','assets/ui/health-pickup.png','assets/skills/catalog.json','assets/skills/atlas-manifest.json'}
 files.update(str(p.relative_to(root)) for p in (root/'assets/skills').glob('*.png'))
 for chapter in data['chapters']:
 
@@ -29,9 +29,12 @@ king=json.loads((root/'jefe-final/data/manifest.json').read_text())
 files.update('jefe-final/'+phase['atlas'] for phase in king['phases'])
 
 reports={}
-for name,file in [('menu',f'artifacts/v{version}/menu-review.json'),('combat',f'artifacts/v{version}/combat-review.json'),('boss',f'artifacts/v{version}/boss-review.json'),('hud',f'artifacts/v{version}/hud-review.json'),('secrets',f'artifacts/v{version}/secrets-review.json'),('campaign','artifacts/campaign/browser-review.json'),('skills','artifacts/v33/browser-review.json'),('render','artifacts/v33/final-render-review.json'),('targeting','artifacts/targeting/browser-review.json')]:
+for name,file in [('recovery',f'artifacts/v{version}/recovery-review.json'),('menu',f'artifacts/v{version}/menu-review.json'),('combat',f'artifacts/v{version}/combat-review.json'),('boss',f'artifacts/v{version}/boss-review.json'),('hud',f'artifacts/v{version}/hud-review.json'),('secrets',f'artifacts/v{version}/secrets-review.json'),('campaign','artifacts/campaign/browser-review.json'),('skills','artifacts/v33/browser-review.json'),('render','artifacts/v33/final-render-review.json'),('targeting','artifacts/targeting/browser-review.json')]:
     reports[name]=json.loads((root/file).read_text())
     assert reports[name].get('passed'),f'Validation missing: {name}'
+assert reports['recovery']['humanHealthReserved'] and reports['recovery']['alienDefeatReturnsToBen']
+assert reports['recovery']['floatingDropAndHealing'] and reports['recovery']['combatSignalsAndTemporaryArrow']
+assert max(reports['recovery']['continuousMenuAcrossOldWrapTimes'])<.5
 assert reports['menu']['threeIndependentSlots'] and reports['menu']['checkpointAndProgressRestored']
 assert reports['menu']['animatedLogoAndDNA'] and reports['menu']['logoAnimationConfinedToZero']
 assert reports['menu']['bossCheckpointAndVictoryRestored'] and reports['menu']['legacyProgressMigrated']
@@ -40,7 +43,7 @@ assert len(reports['combat']['aliens'])==10
 assert sum(p['champions'] for p in reports['combat']['phases'])==3
 assert sum(p['encounters'] for p in reports['combat']['phases'])==16
 assert reports['combat']['hdTiles']==29
-assert reports['combat']['sharedHealth'] is True
+assert reports['combat']['matchingInitialHealth'] is True
 assert reports['combat']['watchCapacity']==90
 assert reports['combat']['humanDamage']==[4,5,6,9]
 assert len(reports['combat']['distinctDefenses'])==3
@@ -66,6 +69,6 @@ with ZipFile(output) as bundle:
     assert bundle.testzip() is None
     assert bundle.read(f'BEN10_DEMO_PC_V{version}/index.html')==(root/'index.html').read_bytes()
 
-report={'version':version,'indexSha256':hashlib.sha256((root/'index.html').read_bytes()).hexdigest(),'zipSha256':hashlib.sha256(output.read_bytes()).hexdigest(),'zipBytes':output.stat().st_size,'runtimeFiles':len(files),'phases':[c['name'] for c in data['chapters']],'collisionTestsPassed':8,'enemyVariants':17,'encounters':16,'waves':28,'champions':3,'finalBossPhases':3,'initialForms':['four-arms','heatblast'],'bossReward':'diamondhead','hdTiles':29,'sharedMaxHealth':50,'maxEnergy':90,'regressions':reports}
+report={'version':version,'indexSha256':hashlib.sha256((root/'index.html').read_bytes()).hexdigest(),'zipSha256':hashlib.sha256(output.read_bytes()).hexdigest(),'zipBytes':output.stat().st_size,'runtimeFiles':len(files),'phases':[c['name'] for c in data['chapters']],'collisionTestsPassed':8,'enemyVariants':17,'encounters':16,'waves':28,'champions':3,'finalBossPhases':3,'initialForms':['four-arms','heatblast'],'bossReward':'diamondhead','hdTiles':29,'sharedMaxHealth':50,'healthMode':'ben-reserve','healthPickup':{'heal':8,'chanceRange':[0.07,0.18]},'maxEnergy':90,'regressions':reports}
 (root/f'docs/v{version}-validation.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
 print(json.dumps({'zip':str(output),'bytes':output.stat().st_size,'files':len(files),'sha256':report['zipSha256']},indent=2))

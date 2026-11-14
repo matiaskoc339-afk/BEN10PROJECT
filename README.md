@@ -1,4 +1,6 @@
-# BEN 10: Omnitrix Fragmentado · Demo PC V40
+# BEN 10: Omnitrix Fragmentado · Demo PC V41
+
+V41 elimina los saltos del fondo del menú, conserva la vida de Ben antes de transformarse y añade cápsulas de salud flotantes con probabilidad baja que aumenta si Ben está herido. Un alien derrotado vuelve a Ben y bloquea el reloj hasta recargar. Los avisos de combate tienen el estilo del Omnitrix; una flecha temporal señala el camino al despejar una zona. Consulta [la vida, las cápsulas y la revisión de combate](docs/v41-vida-y-combate.md).
 
 V40 añade la pantalla principal con logo clásico, motas animadas dentro del cero y un fondo de hélices de ADN, burbujas y masas verdes en movimiento. Tres espacios independientes guardan nivel, mejoras, ADN y puntos de control. Pulsa **P** para pausar o guardar y volver al inicio. El progreso anterior se importa al primer espacio. Consulta [los controles y detalles del guardado](docs/v40-menu-y-guardados.md).
 
@@ -8,7 +10,7 @@ V38 renueva la ventana de habilidades con el estilo arcade del juego: marco met�
 
 V37 añade al **Rey Eterno** en el último tramo del laboratorio, después de despejar la última oleada. Su vida tiene tres fases: armadura cristalina con defensa rompible, furia con embestidas y esquivas, y retirada sin cristal con ayudantes básicos. Solo **Cuatro Brazos y Fuego** están disponibles al empezar. Derrotar al rey y terminar su caída desbloquea a **Diamante**, con una pantalla de recompensa y guardado persistente. Los otros siete aliens del catálogo permanecen bloqueados.
 
-V36 reduce la vida compartida a **50 PV**: Ben y los diez aliens mantienen la misma vida máxima y la misma vida restante al transformarse. Las defensas de cada alien siguen siendo distintas. El reloj tiene **90 de energía**, los ataques de Ben hacen menos daño y los caballeros coordinan mejor sus movimientos a medida que avanza el recorrido.
+La vida máxima sigue en **50 PV** para Ben y los diez aliens. Desde V41, Ben conserva su vida anterior mientras la transformación recibe daño; el alien comienza con la misma vida que tenía Ben. Las defensas de cada alien siguen siendo distintas. El reloj tiene **90 de energía**, los ataques de Ben hacen menos daño y los caballeros coordinan mejor sus movimientos a medida que avanza el recorrido.
 
 V35 incorpora los Caballeros Eternos al recorrido: cinco roles con tres rangos de armadura, 16 combates, 28 oleadas y un campeón con hacha al final de cada fase. Las arenas bloquean el avance hasta eliminar la última oleada; los apoyos priorizan aliados de mayor rango y sus curas se pueden interrumpir. Los fondos se restauraron en 29 tramos de mayor resolución, con solapamientos continuos, objetos recolocados y agua animada sobre la fuente del parque.
 
@@ -61,6 +63,7 @@ La coreografía implementa agarres y caídas reales, desplazamientos barridos, �
 - `npm test`: progresión y combate, validación de los 1.260 fotogramas, ejecución de las 70 técnicas en Chromium y revisión de direcciones y arranque independiente.
 - `npm run build:evolution`: incrusta catálogo, interfaz y código editable en el HTML.
 - `npm run build:skill-sprites`: extrae y registra las láminas nuevas, empaqueta los atlas e incrusta sus metadatos. Requiere Python 3, Pillow, NumPy y SciPy.
+- `npm run test:recovery`: reserva de vida, cápsulas, continuidad del fondo y señales de combate.
 - `npm run test:menu`: animación del título, tres partidas, migración, pausa, recarga y puntos de control.
 - `python3 scripts/bake-title-mask.py`: calcula la máscara del cero a partir del PNG original antes de `npm run build:campaign`.
 - `npm run test:legacy`: pruebas históricas; algunas expectativas de interfaz y balance pertenecen a versiones anteriores.

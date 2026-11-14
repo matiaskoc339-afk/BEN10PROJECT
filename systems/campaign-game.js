@@ -21,6 +21,7 @@ function campaignMovePlayer(x,y){
 }
 function campaignCanEnter(){return assetsReady&&!comicOpen&&!state.wheel&&!progressionPanelOpen&&!adminPanelOpen&&!kingRewardOpen&&player.mode==='idle'&&!evolutionCasting()&&speedAction.phase==='idle'&&cannonAction.phase==='idle'&&ghostAction.phase==='idle'&&stats.health>0;}
 function campaignResetEffects(){
+ healthPickups.clear();
  evolutionCancelSkill();cancelSpeedAbility();cancelCannonAbility();cancelGhostAbility();cancelStinkAction(true);cancelWildAction(true);cancelWolfAction(true);cancelUpgradeAction(true);
  fire.clear();slime.clear();thorns.clear();sonics.clear();eyeBeams.clear();pieces=[];dummyList=[];
  progression.fields=[];progression.fx=[];progression.comboLog=[];combatTargetState.focus=null;stats.clearCombo();
@@ -82,12 +83,12 @@ function campaignDrawWorld(){
  ctx.translate(campaignView.x-cam.x*cam.zoom,campaignView.y-cam.y*cam.zoom);ctx.scale(cam.zoom,cam.zoom);
  const view={left:cam.x,right:cam.x+campaignView.width/cam.zoom},visible=props.filter(p=>p.type==='campaign'&&p.x+p.width/2>=view.left-50&&p.x-p.width/2<=view.right+50);
  campaignArt.background(ctx,campaign,view);
- enemyArt.ground(ctx,enemyBattle);kingArt.ground(ctx,kingEncounter.boss);enemyDrawGates();
+ enemyArt.ground(ctx,enemyBattle);for(const item of healthPickups.items)healthPickupArt.shadow(ctx,item);kingArt.ground(ctx,kingEncounter.boss);enemyDrawGates();
  ctx.save();ctx.beginPath();ctx.rect(0,campaign.offsetY+208*campaign.scale,WORLD.w,152*campaign.scale);ctx.clip();drawWildTrails();drawStinkPools();ctx.restore();
  drawSpeedRoute();drawCannonCharge();
  for(const p of visible)if(p.art.behind)campaignArt.sprite(ctx,p,t);
  campaignArt.ambient(ctx,campaign,t,view);
- const items=visible.filter(p=>!p.art.behind).map(p=>({y:p.y,draw:()=>campaignArt.sprite(ctx,p,t)}));
+ const items=healthPickups.items.map(item=>({y:item.y+2,draw:()=>healthPickupArt.draw(ctx,item)}));items.push(...visible.filter(p=>!p.art.behind).map(p=>({y:p.y,draw:()=>campaignArt.sprite(ctx,p,t)})));
  for(const d of dummyList)if(d!==ghostAction.grab?.target)items.push({y:d.y,draw:()=>drawDummy(d)});
  for(const wave of thorns.waves)for(const node of wave.nodes)items.push({y:node.y,draw:()=>drawWildThorn(node,wave)});
  for(const wave of sonics.waves)items.push({y:wave.origin.y,draw:()=>drawSonicWave(wave)});

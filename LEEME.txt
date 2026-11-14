@@ -1,8 +1,17 @@
-BEN 10: OMNITRIX FRAGMENTADO — DEMO PC V40
+BEN 10: OMNITRIX FRAGMENTADO — DEMO PC V41
 
 Extrae TODA la carpeta y abre index.html en Chrome, Edge o Firefox de PC.
 Conserva assets, mapas, enemigos y jefe-final junto al HTML.
 Funciona sin conexión. No abras el HTML desde dentro del ZIP.
+
+VIDA Y CÁPSULAS
+Si Ben tiene 25/50, su alien empieza con 25/50. Al regresar, Ben conserva
+los 25/50 que tenía antes, aunque el alien haya recibido más daño.
+Si cae el alien vuelves a Ben; el reloj se vacía y debe recargarse.
+Solo perder toda la vida como Ben termina el combate.
+Los caballeros pueden soltar cápsulas flotantes: cura 8 PV al recogerlas.
+La probabilidad es baja, del 7% al 18%, y aumenta si Ben está herido.
+Recogerlas como alien también cura la reserva de Ben.
 
 PANTALLA PRINCIPAL Y TRES PARTIDAS
 Elige un espacio con clic, 1-3 o flechas y Enter. Cada partida conserva
@@ -29,14 +38,15 @@ y mejoras aprendidas aparecen en el panel. Conservas tus compras anteriores.
 
 EL RECORRIDO
 Calles y parques -> castillo -> laboratorio oculto.
-Cada emboscada bloquea el paso hasta terminar todas sus oleadas.
+Cada combate bloquea el paso hasta terminar todas sus rondas.
+Al superarlo, una flecha aparece unos segundos para indicar el camino.
 Hay 16 combates, 28 oleadas y un minijefe con hacha al final de cada fase.
 Tras la última oleada del laboratorio, avanza al tramo final para
 enfrentarte al Rey Eterno. El espacio del puzzle queda reservado.
 
 DIFICULTAD: DIFÍCIL
-Ben y todos sus aliens comparten 50 PV. Transformarte conserva la vida
-restante; cada alien mantiene su propia defensa. El reloj tiene 90 de
+Ben y todos sus aliens tienen 50 PV máximos. El alien empieza con la vida
+actual de Ben y este la conserva al regresar. Cada alien tiene su defensa. El reloj tiene 90 de
 energía y los ataques de Ben hacen menos daño.
 Los caballeros coordinan flanqueos y protegen a sus apoyos. Interrumpe sus
 curas, rompe los escudos con fuertes y esquiva las líneas de tiro.

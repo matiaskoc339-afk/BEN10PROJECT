@@ -6,10 +6,9 @@
  const $=id=>document.getElementById(id),ui={home:$('mainMenu'),backdrop:$('menuBackdrop'),logo:$('menuLogo'),slots:$('saveSlotList'),notice:$('menuSaveNotice'),load:$('menuLoadStatus'),pause:$('gamePause'),remove:$('saveDeleteDialog'),button:$('gameMenuButton')};
  const state={screen:'home',ready:false,selected:0,deleting:null,logoReady:false,maskBounds:null};let callbacks={},last=0,clock=0,saveTimer;
  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
- const canvas=()=>document.createElement('canvas'),base=canvas(),mask=canvas(),dots=canvas(),lava=canvas(),logoContext=ui.logo.getContext('2d'),bg=ui.backdrop.getContext('2d');
+ const canvas=()=>document.createElement('canvas'),base=canvas(),mask=canvas(),dots=canvas(),logoContext=ui.logo.getContext('2d');
  for(const c of [base,mask,dots])c.width=c.height=720;
- lava.width=128;lava.height=76;const lc=lava.getContext('2d'),pixels=lc.createImageData(128,76);
- const blobs=Array.from({length:12},(_,i)=>({x:(i*.382)%1,y:(i*.618)%1,r:6+i%4*2,s:.045+i%3*.017,p:i*2.37}));
+ const background=new Ben10MenuBackground.Renderer(ui.backdrop);
  const logoImage=new Image();
  const logoReady=new Promise(resolve=>{logoImage.onload=()=>{
   base.getContext('2d').drawImage(logoImage,0,0,720,720);
@@ -20,18 +19,7 @@
   for(let i=0;i<15;i++){const x=b.left+w*(.5+.31*Math.sin(i*2.36+t*(.15+i%3*.035))),y=b.top+h*(.5+.34*Math.cos(i*1.71+t*(.18+i%4*.024))),r=7+i%5*5;c.beginPath();c.arc(x,y,r,0,Math.PI*2);c.fill();}
   c.globalCompositeOperation='destination-in';c.drawImage(mask,0,0,720,720);c.globalCompositeOperation='source-over';logoContext.clearRect(0,0,720,720);logoContext.drawImage(base,0,0);logoContext.drawImage(dots,0,0);
  }
- function drawBackground(t){const w=ui.backdrop.width,h=ui.backdrop.height;bg.fillStyle='#07371c';bg.fillRect(0,0,w,h);
-  const points=blobs.map(b=>({x:(b.x+.09*Math.sin(t*.15+b.p))*128,y:((b.y+t*b.s*.38)%1.4-.2)*76,r:b.r*(1+.17*Math.sin(t*.6+b.p))}));
-  for(let y=0;y<76;y++)for(let x=0;x<128;x++){let field=0;for(const b of points)field+=b.r*b.r/(9+(x-b.x)**2+(y-b.y)**2);const n=(y*128+x)*4,edge=Math.max(0,Math.min(1,(field-.8)*2.4)),core=Math.max(0,Math.min(1,(field-1.3)*.65));pixels.data[n]=31+core*41;pixels.data[n+1]=101+core*57;pixels.data[n+2]=32+core*16;pixels.data[n+3]=edge*112;}
-  lc.putImageData(pixels,0,0);bg.imageSmoothingEnabled=true;bg.drawImage(lava,0,0,w,h);
-  const glow=bg.createRadialGradient(w*.36,h*.4,0,w*.36,h*.4,w*.8);glow.addColorStop(0,'#80bb2333');glow.addColorStop(1,'#001f1500');bg.fillStyle=glow;bg.fillRect(0,0,w,h);
-  // The two strands exchange depth as the helix rotates. Rungs share their endpoints.
-  for(let k=0;k<6;k++){const cx=w*(k/5+.03)+Math.sin(t*.07+k)*w*.025,amplitude=w*(.035+k%2*.013),step=h/47,phase=k*1.63+t*(.28+(k%3)*.045),color=k%2?'#a9e342':'#39b97a';
-   bg.lineWidth=Math.max(1,w/1400);for(let i=-5;i<53;i++){const y=(i+t*1.1%1)*step,angle=i*.27+phase,a={x:cx+Math.sin(angle)*amplitude,y},b={x:cx-Math.sin(angle)*amplitude,y:y+step*.8};bg.globalAlpha=.10+.10*(Math.cos(angle)*.5+.5);bg.strokeStyle=color;bg.beginPath();bg.moveTo(a.x,a.y);bg.lineTo(b.x,b.y);bg.stroke();for(let side=0;side<2;side++){const s=side? -1:1,x=cx+s*Math.sin(angle)*amplitude,nx=cx+s*Math.sin(angle+.27)*amplitude;bg.globalAlpha=.13+.17*(.5+.5*s*Math.cos(angle));bg.lineWidth=2.1*(w/1440);bg.beginPath();bg.moveTo(x,y);bg.lineTo(nx,y+step);bg.stroke();bg.beginPath();bg.arc(x,y,1.5*w/1440,0,Math.PI*2);bg.fillStyle=color;bg.fill();}}
-  }
-  bg.globalAlpha=1;
-  for(let i=0;i<25;i++){const x=(i*.731%1)*w+Math.sin(t*.13+i)*18,y=h-((i*.317%1)*h+t*(9+i%4*5))%(h+90),r=(6+i%5*5)*w/1440;bg.strokeStyle='#a0d95728';bg.lineWidth=1.2;bg.beginPath();bg.arc(x,y,r,0,Math.PI*2);bg.stroke();bg.fillStyle='#bef47b22';bg.beginPath();bg.arc(x-r*.3,y-r*.35,Math.max(1,r*.12),0,Math.PI*2);bg.fill();}
- }
+ function drawBackground(time){background.draw(time)}
  function resize(){const d=Math.min(devicePixelRatio||1,1.5);ui.backdrop.width=Math.round(innerWidth*d);ui.backdrop.height=Math.round(innerHeight*d);drawBackground(clock)}
  function animate(now){const dt=last?Math.min(.07,(now-last)/1000):0;last=now;if(!document.hidden&&state.screen==='home'&&!reduced)clock+=dt;if(!document.hidden&&state.screen==='home'&&(!reduced||!state.lastPaint)&&(now-(state.lastPaint||0)>32||!state.lastPaint)){drawBackground(clock);drawLogo(clock);state.lastPaint=now;}requestAnimationFrame(animate)}
  function slotLabel(r){if(!r)return 'Nueva partida';if(r.checkpoint?.kind==='victory')return 'Aventura completada';return ['Las calles','Castillo Eterno','Laboratorio oculto'][r.checkpoint?.phase||0]}

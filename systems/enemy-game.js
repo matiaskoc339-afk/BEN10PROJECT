@@ -1,11 +1,14 @@
 // ENEMY_GAME_START
 const enemyArt=new Ben10EnemyRenderer(window.BEN10_ENEMY_DATA);
-let enemyInvulUntil=0,enemyStaggerUntil=0,enemyBannerLeft=0,enemyHudSignature='',enemyBossSignature='';
+let enemyInvulUntil=0,enemyStaggerUntil=0,enemyBannerLeft=0,enemyHudSignature='',enemyBossSignature='',enemyRouteLeft=0,enemyBannerDuration=1;
 const enemyUI={status:document.getElementById('waveStatus'),banner:document.getElementById('waveBanner'),boss:document.getElementById('championHUD'),defeat:document.getElementById('defeatLayer')};
-function enemyBanner(title,subtitle,duration=2.3){enemyUI.banner.querySelector('strong').textContent=title;enemyUI.banner.querySelector('span').textContent=subtitle;enemyBannerLeft=duration;enemyUI.banner.classList.add('show');}
+function enemyBanner(title,subtitle,duration=2.3,kind='signal'){enemyUI.banner.querySelector('strong').textContent=title;enemyUI.banner.querySelector('.battle-subtitle').textContent=subtitle;enemyUI.banner.querySelector('small').textContent=kind==='combat'?'SECTOR HOSTIL':kind==='clear'?'VÍA LIBRE':kind==='boss'?'AMENAZA PRINCIPAL':'OMNITRIX';enemyUI.banner.dataset.kind=kind;enemyBannerLeft=enemyBannerDuration=duration;enemyUI.banner.style.setProperty('--banner-time','1');enemyUI.banner.classList.add('show');}
+function enemyShowRoute(phaseComplete){const hint=document.getElementById('routeHint');enemyRouteLeft=4.8;hint.querySelector('small').textContent=phaseComplete?['Entrada del castillo','Entrada del laboratorio','Sala del Rey Eterno'][campaign.phaseIndex]:'Siguiente combate';hint.hidden=false;}
+function enemyRouteTick(dt){enemyRouteLeft=Math.max(0,enemyRouteLeft-dt);const hint=document.getElementById('routeHint');hint.hidden=enemyRouteLeft<=0||!!encounters.current||!!kingEncounter.boss?.alive||stats.health<=0;if(hint.hidden)return;hint.style.left=(campaignView.x+campaignView.width-86)+'px';hint.style.top=(campaignView.y+campaignView.height*.61)+'px';hint.style.setProperty('--route-drift',Math.sin(t*5)*5+'px');hint.style.opacity=Math.min(1,enemyRouteLeft/.45);}
+
 function enemyEvent(event){
  const d=event.enemy;
- if(event.type==='defeat'){state.kills++;stats.awardXP(d.xp);evolutionSave();floatText(d.x,d.y-d.bodyHeight-15,'+'+d.xp+' XP','#f2cc8f',13);spawnDust(d.x,d.y,7,d.tier==='crystal'?'#a1d7c5':'#bba080');}
+ if(event.type==='defeat'){recoveryDrop(d);state.kills++;stats.awardXP(d.xp);evolutionSave();floatText(d.x,d.y-d.bodyHeight-15,'+'+d.xp+' XP','#f2cc8f',13);spawnDust(d.x,d.y,7,d.tier==='crystal'?'#a1d7c5':'#bba080');}
  else if(event.type==='heal'){floatText(event.target.x,event.target.y-event.target.bodyHeight-14,'+'+Math.round(event.amount),'#97efba',14);}
  else if(event.type==='boost'){floatText(event.target.x,event.target.y-event.target.bodyHeight-14,'POTENCIADO','#eaca89',12);}
  else if(event.type==='guard-break'){floatText(d.x,d.y-d.bodyHeight-13,'GUARDIA ROTA','#edc480',12);}
@@ -24,11 +27,11 @@ function enemyPlayerHit(hit){
 }
 const enemyBattle=new Ben10Eternals.Battle({onEvent:enemyEvent,onPlayerHit:enemyPlayerHit});
 const encounters=new Ben10Eternals.Director(campaign.data,{scale:campaign.scale,onEvent:event=>{
- if(event.type==='wave-start')enemyBanner(event.encounter.index===encounters.plan.length-1?'GUARDIÁN DEL PASO':'EMBOSCADA',event.encounter.name+' · OLEADA '+event.wave+' / '+event.total);
- if(event.type==='encounter-clear'){enemyBanner(event.phaseComplete?'ZONA DESPEJADA':'¡AVANZA!',event.phaseComplete?'El camino a la entrada está libre':'Busca el siguiente paso');stats.setHealth(stats.health+(event.phaseComplete?12:6));stats.energy=Math.min(stats.config.maxEnergy,stats.energy+(event.phaseComplete?18:10));if(typeof gameSaveCurrent==='function')gameSaveCurrent(true);}
+ if(event.type==='wave-start'){enemyRouteLeft=0;document.getElementById('routeHint').hidden=true;enemyBanner('COMBATE '+String(event.encounter.index+1).padStart(2,'0'),(event.encounter.index===encounters.plan.length-1?'GUARDIÁN DEL PASO · ':event.encounter.name+' · ')+'RONDA '+event.wave+' / '+event.total,2.3,'combat');}
+ if(event.type==='encounter-clear'){enemyBanner('COMBATE SUPERADO',event.phaseComplete?'El camino a la entrada está libre':'La patrulla ha caído. Sigue avanzando.',2.1,'clear');enemyShowRoute(event.phaseComplete);stats.heal(event.phaseComplete?12:6);stats.energy=Math.min(stats.config.maxEnergy,stats.energy+(event.phaseComplete?18:10));if(typeof gameSaveCurrent==='function')gameSaveCurrent(true);}
 }});
 function enemyPhysics(){return {move:(p,dx,dy,r)=>campaign.move(p,dx,dy,r,props),clipSegment:(a,b,r)=>campaign.clipSegment(a,b,r,props),clampPoint:(p,r)=>campaign.clampPoint(p,r,props),captured:ghostAction.grab?.target};}
-function enemyResetPhase(index){enemyBattle.reset(index);encounters.setPhase(index);campaign.arena=null;kingResetPhase();dummyList=enemyBattle.enemies;enemyInvulUntil=0;enemyStaggerUntil=0;enemyBannerLeft=0;enemyUI.banner.classList.remove('show');enemyUI.defeat.hidden=true;enemySyncUI();}
+function enemyResetPhase(index){enemyBattle.reset(index);encounters.setPhase(index);campaign.arena=null;kingResetPhase();dummyList=enemyBattle.enemies;enemyInvulUntil=0;enemyStaggerUntil=0;enemyBannerLeft=0;enemyRouteLeft=0;document.getElementById('routeHint').hidden=true;enemyUI.banner.classList.remove('show');enemyUI.defeat.hidden=true;enemySyncUI();}
 function enemyDamage(d,amount,heavy,feedback={}){
  if(!d.alive)return false;const attackScale=feedback.attackScale??(stats.form?evolutionBonus().atk:1);amount=Math.max(1,Math.round(amount*(attackScale??1)));
  if(d.kind==='finalboss')return kingDamage(d,amount,feedback);
@@ -37,7 +40,7 @@ function enemyDamage(d,amount,heavy,feedback={}){
  floatText(d.x,d.y-d.bodyHeight-6,'-'+outcome.damage,outcome.blocked?'#b8c7c3':heavy?'#ffe0ad':'#d8efba',14);return true;
 }
 function enemySyncUI(){
- const s=encounters.snapshot(enemyBattle),status=s.active?'<span>OLEADA '+s.wave+' / '+s.waves+'</span><em>'+s.living+(s.pending?' + '+s.pending:'')+' ENEMIGOS</em>':'<span>'+(s.complete?'ZONA DESPEJADA':'AVANZA · '+s.encounter+' / '+s.encounters)+'</span><em>DIFÍCIL</em>';
+ const s=encounters.snapshot(enemyBattle),status=s.active?'<span>COMBATE '+String(s.encounter).padStart(2,'0')+' · RONDA '+s.wave+' / '+s.waves+'</span><em>'+s.living+(s.pending?' + '+s.pending:'')+' ENEMIGOS</em>':'<span>'+(s.complete?'SECTOR DESPEJADO':'EXPLORA · COMBATE '+s.encounter+' / '+s.encounters)+'</span><em>DIFÍCIL</em>';
  const king=kingEncounter.boss;const display=king?.alive?'<span>REY ETERNO · FASE '+king.phase+' / 3</span><em>JEFE FINAL</em>':kingEncounter.rewardGranted?'<span>ADN DE DIAMANTE RECUPERADO</span><em>VICTORIA</em>':status;
  if(display!==enemyHudSignature){enemyHudSignature=display;enemyUI.status.innerHTML=display;}
  campaignUI?.campaignStatus?.classList.toggle('in-combat',s.active||!!king?.alive);
@@ -50,7 +53,7 @@ function enemyGameTick(dt,before){
  kingGameTick(dt);
  if(campaign.arena){const p=campaign.clampPoint(player,actorMetrics().radius,props,{ignoreProps:ghostIntangible()||evolutionSkillIntangible()});if(p){player.x=p.x;player.y=p.y;}}
  enemyBattle.update(dt,player,enemyPhysics());dummyList=enemyBattle.enemies;
- enemyBannerLeft=Math.max(0,enemyBannerLeft-dt);enemyUI.banner.classList.toggle('show',enemyBannerLeft>0&&stats.health>0);enemySyncUI();
+ enemyBannerLeft=Math.max(0,enemyBannerLeft-dt);enemyUI.banner.classList.toggle('show',enemyBannerLeft>0&&stats.health>0);enemyUI.banner.style.setProperty('--banner-time',enemyBannerLeft/enemyBannerDuration);enemyRouteTick(dt);enemySyncUI();
 }
 function enemyDraw(d,options={}){if(d.kind==='finalboss')kingArt.draw(ctx,d,t,options);else enemyArt.draw(ctx,d,t,options);}
 function enemyDrawGates(){
@@ -59,6 +62,7 @@ function enemyDrawGates(){
  ctx.restore();
 }
 function enemyRetry(){
+ enemyRouteLeft=0;document.getElementById('routeHint').hidden=true;
  campaignResetEffects();stats.setHealth(stats.config.maxHealth);stats.energy=stats.config.maxEnergy;stats.rechargeLeft=0;stats.rechargeLocked=false;stats.drainEvents();
  const p=kingEncounter.boss&&!kingEncounter.completed?kingRetry():encounters.retry(enemyBattle,campaign),at=campaign.clampPoint(p,HUMAN.radius,props)||p;player.x=at.x;player.y=at.y;player.dir='right';player.faceX=1;player.faceY=0;player.selectedAlien=-1;player.pendingForm=null;player.mode='idle';player.modeTime=0;enemyInvulUntil=enemyBattle.time+1.5;enemyStaggerUntil=0;dummyList=enemyBattle.enemies;
  enemyUI.defeat.hidden=true;keys.clear();hudSignature='';syncHud();campaignAfterUpdate({...player});campaignCamera(0,true);game.focus({preventScroll:true});
