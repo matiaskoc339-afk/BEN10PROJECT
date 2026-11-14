@@ -43,7 +43,7 @@
    priority.sort((a,b)=>((b.rank*100+(1-projected(b)/b.maxHealth)*70+b.maxHealth*.02)-(a.rank*100+(1-projected(a)/a.maxHealth)*70+a.maxHealth*.02))||length(e,a)-length(e,b));return priority[0]||null;
   }
   planTeam(player,world){
-   const team=this.living.filter(e=>e.spawnLeft<=0),smart=team.filter(e=>e.tactics.teamwork),ground=(p,e)=>world.clampPoint?.(p,e.radius)||p,front=player.faceX<0?-1:1;
+   const team=this.living.filter(e=>e.spawnLeft<=0&&e.kind!=='finalboss'),smart=team.filter(e=>e.tactics.teamwork),ground=(p,e)=>world.clampPoint?.(p,e.radius)||p,front=player.faceX<0?-1:1;
    for(const e of this.enemies)e.order=null;
    if(!smart.length)return;
    const supports=team.filter(e=>e.role==='support'),guards=team.filter(e=>e.role==='defender'),ranged=team.filter(e=>e.role==='ranged');
@@ -163,9 +163,9 @@
    if(!(dt>0))return;dt=Math.min(dt,.1);this.time+=dt;
    if(this.lastPlayer){const w=1-Math.exp(-dt*9);this.playerMotion.x+=(clamp((player.x-this.lastPlayer.x)/dt,-800,800)-this.playerMotion.x)*w;this.playerMotion.y+=(clamp((player.y-this.lastPlayer.y)/dt,-500,500)-this.playerMotion.y)*w;}this.lastPlayer={x:player.x,y:player.y};
    this.tacticalClock-=dt;if(this.tacticalClock<=0){this.planTeam(player,world);this.tacticalClock=.28;}
-   for(const e of this.enemies)this.tickEnemy(e,dt,player,world);
+   for(const e of this.enemies)if(e.kind!=='finalboss')this.tickEnemy(e,dt,player,world);
    for(const shot of this.projectiles){const a={x:shot.x,y:shot.y},b={x:shot.x+shot.dx*shot.speed*dt,y:shot.y+shot.dy*shot.speed*dt},clip=world.clipSegment?world.clipSegment(a,b,3):{end:b,blocked:false};shot.x=clip.end.x;shot.y=clip.end.y;shot.life-=dt;if(this.segmentDistance(a,shot,player)<19&&seen(world,a,player)){this.strike(shot.owner,player,shot.damage,{x:shot.dx,y:shot.dy});shot.life=0;}if(clip.blocked)shot.life=0;}
-   this.projectiles=this.projectiles.filter(s=>s.life>0);this.enemies=this.enemies.filter(e=>e.alive||e.deadAge<5);
+   this.projectiles=this.projectiles.filter(s=>s.life>0);this.enemies=this.enemies.filter(e=>e.alive||e.deadAge<5||e.kind==='finalboss');
   }
  }
  const ROLE_ORDER=['melee','ranged','agile','defender','support','melee','ranged','agile'];

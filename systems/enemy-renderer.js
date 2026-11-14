@@ -24,7 +24,7 @@
   ground(ctx,battle){
    ctx.save();
    for(const e of battle.enemies){
-    if(!e.alive||!e.attack)continue;const a=e.attack;if(a.age>a.windup)continue;const p=a.age/a.windup,color=e.kind==='miniboss'?'#ed825f':'#e6b56c';ctx.strokeStyle=color;ctx.fillStyle=e.kind==='miniboss'?'#ed825f1a':'#e6b56c12';ctx.lineWidth=1.3;ctx.setLineDash([5,4]);
+    if(!e.alive||!e.attack||e.kind==='finalboss')continue;const a=e.attack;if(a.age>a.windup)continue;const p=a.age/a.windup,color=e.kind==='miniboss'?'#ed825f':'#e6b56c';ctx.strokeStyle=color;ctx.fillStyle=e.kind==='miniboss'?'#ed825f1a':'#e6b56c12';ctx.lineWidth=1.3;ctx.setLineDash([5,4]);
     if(e.role==='ranged'){ctx.beginPath();ctx.moveTo(e.x,e.y);ctx.lineTo(e.x+a.dir.x*e.reach,e.y+a.dir.y*e.reach);ctx.stroke();}
     else{const x=e.x+a.dir.x*e.reach*.55,y=e.y+a.dir.y*e.reach*.55;ctx.beginPath();ctx.ellipse(x,y,e.reach*.55,e.attackWidth,Math.atan2(a.dir.y,a.dir.x)*.3,0,7);ctx.fill();ctx.stroke();ctx.setLineDash([]);ctx.beginPath();ctx.ellipse(x,y,e.reach*.55,e.attackWidth,0,-Math.PI/2,-Math.PI/2+Math.PI*2*p);ctx.stroke();}
    }ctx.restore();

@@ -1,4 +1,6 @@
-# Ben 10 — Demo PC V36 · El asedio de los Eternos
+# Ben 10 — Demo PC V37 · El Rey Eterno
+
+V37 añade al **Rey Eterno** en el último tramo del laboratorio, después de despejar la última oleada. Su vida tiene tres fases: armadura cristalina con defensa rompible, furia con embestidas y esquivas, y retirada sin cristal con ayudantes básicos. Solo **Cuatro Brazos y Fuego** están disponibles al empezar. Derrotar al rey y terminar su caída desbloquea a **Diamante**, con una pantalla de recompensa y guardado persistente. Los otros siete aliens del catálogo permanecen bloqueados.
 
 V36 reduce la vida compartida a **50 PV**: Ben y los diez aliens mantienen la misma vida máxima y la misma vida restante al transformarse. Las defensas de cada alien siguen siendo distintas. El reloj tiene **90 de energía**, los ataques de Ben hacen menos daño y los caballeros coordinan mejor sus movimientos a medida que avanza el recorrido.
 
@@ -69,8 +71,8 @@ El [visor de arte](mapas/index.html) y la [documentación de capas](mapas/README
 
 Los [sprites de Caballeros Eternos](enemigos/index.html) se revisan en un visor separado: cinco especialidades con tres rangos y dos campeones con hacha, con reposo, caminata, dos acciones, golpe y derrota. El [catálogo](enemigos/catalogo.html) permite ver las 17 variantes juntas. El juego utiliza sus atlas y animaciones en el combate. Consulta [los archivos y sus anclajes](enemigos/README.md).
 
-Consulta [los ajustes de vida, reloj e IA de V36](docs/v36-balance.md) y [el sistema de encuentros](docs/v35-combate.md). Las pruebas de combate se ejecutan con `npm run test:combat`; `npm run package:campaign` genera el ZIP completo de V36 para jugar sin conexión.
+Consulta [el combate del jefe y los desbloqueos de V37](docs/v37-rey-eterno.md), [los ajustes de vida, reloj e IA de V36](docs/v36-balance.md) y [el sistema de encuentros](docs/v35-combate.md). Las pruebas de combate se ejecutan con `npm run test:combat` y `npm run test:boss`; `npm run package:campaign` genera el ZIP completo de V37 para jugar sin conexión.
 
 ## Rey Eterno · arte del jefe final
 
-El [visor del Rey Eterno](jefe-final/index.html) contiene sus tres fases, 19 animaciones y 114 poses nuevas: cristal intacto, cristal agrietado y armadura normal. Incluye ruptura de defensa, embestida, esquiva, invocación, caída real y ADN de Diamante. El [contrato de animación y las reglas previstas](jefe-final/README.md) documentan los eventos para integrar el combate. La demo V36 conserva su contenido actual; esta entrega del jefe es una biblioteca de sprites y animaciones. Se reconstruye con `npm run build:king`, se verifica con `npm run test:king` y se exporta con `npm run package:king`.
+El [visor del Rey Eterno](jefe-final/index.html) contiene los mismos sprites que usa el jefe jugable: tres fases, 19 animaciones y 114 poses nuevas. Incluye ruptura de defensa, embestida, esquiva, invocación, caída real y ADN de Diamante. El [contrato de animación](jefe-final/README.md) documenta sus eventos. El visor se reconstruye con `npm run build:king`, se verifica con `npm run test:king` y se exporta por separado con `npm run package:king`.

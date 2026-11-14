@@ -25,9 +25,11 @@ enemies=json.loads((root/'enemigos/data/manifest.json').read_text())
 for unit in enemies['units']:
     files.add('enemigos/'+unit['atlas'])
     if unit.get('projectile'):files.add('enemigos/'+unit['projectile']['file'])
+king=json.loads((root/'jefe-final/data/manifest.json').read_text())
+files.update('jefe-final/'+phase['atlas'] for phase in king['phases'])
 
 reports={}
-for name,file in [('combat',f'artifacts/v{version}/combat-review.json'),('campaign','artifacts/campaign/browser-review.json'),('skills','artifacts/v33/browser-review.json'),('render','artifacts/v33/final-render-review.json'),('targeting','artifacts/targeting/browser-review.json')]:
+for name,file in [('combat',f'artifacts/v{version}/combat-review.json'),('boss',f'artifacts/v{version}/boss-review.json'),('campaign','artifacts/campaign/browser-review.json'),('skills','artifacts/v33/browser-review.json'),('render','artifacts/v33/final-render-review.json'),('targeting','artifacts/targeting/browser-review.json')]:
     reports[name]=json.loads((root/file).read_text())
     assert reports[name].get('passed'),f'Validation missing: {name}'
 assert len(reports['skills']['skills'])==70
@@ -40,6 +42,9 @@ assert reports['combat']['watchCapacity']==90
 assert reports['combat']['humanDamage']==[4,5,6,9]
 assert len(reports['combat']['distinctDefenses'])==3
 assert len(reports['combat']['progressiveTactics'])==3
+assert reports['boss']['initialTwoForms'] and reports['boss']['afterLastWaveOnly']
+assert reports['boss']['phases']==[1,2,3]
+assert reports['boss']['royalFallAndReward'] and reports['boss']['unlockSurvivesReload'] and reports['boss']['diamondheadPlayable']
 assert data['renderMode']=='hd-tiles'
 output.parent.mkdir(parents=True,exist_ok=True)
 for file in sorted(files):
@@ -53,6 +58,6 @@ with ZipFile(output) as bundle:
     assert bundle.testzip() is None
     assert bundle.read(f'BEN10_DEMO_PC_V{version}/index.html')==(root/'index.html').read_bytes()
 
-report={'version':version,'indexSha256':hashlib.sha256((root/'index.html').read_bytes()).hexdigest(),'zipSha256':hashlib.sha256(output.read_bytes()).hexdigest(),'zipBytes':output.stat().st_size,'runtimeFiles':len(files),'phases':[c['name'] for c in data['chapters']],'collisionTestsPassed':8,'enemyVariants':17,'encounters':16,'waves':28,'champions':3,'hdTiles':29,'sharedMaxHealth':50,'maxEnergy':90,'regressions':reports}
+report={'version':version,'indexSha256':hashlib.sha256((root/'index.html').read_bytes()).hexdigest(),'zipSha256':hashlib.sha256(output.read_bytes()).hexdigest(),'zipBytes':output.stat().st_size,'runtimeFiles':len(files),'phases':[c['name'] for c in data['chapters']],'collisionTestsPassed':8,'enemyVariants':17,'encounters':16,'waves':28,'champions':3,'finalBossPhases':3,'initialForms':['four-arms','heatblast'],'bossReward':'diamondhead','hdTiles':29,'sharedMaxHealth':50,'maxEnergy':90,'regressions':reports}
 (root/f'docs/v{version}-validation.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
 print(json.dumps({'zip':str(output),'bytes':output.stat().st_size,'files':len(files),'sha256':report['zipSha256']},indent=2))

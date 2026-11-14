@@ -4,7 +4,7 @@ Tres versiones del mismo jefe, con **19 animaciones y 114 poses dibujadas**. El 
 
 Abre **index.html** después de extraer toda la carpeta. «Ver las tres fases» reproduce el recorrido de animaciones hasta la caída y la recompensa. También puedes elegir acciones, reproducirlas a 0,25×, avanzar fotograma a fotograma, cambiar de lado y comparar su altura con Ben. Los PNG y JSON se descargan desde el visor. Todas las imágenes y los datos están incluidos; no hay fuentes, servicios ni descargas externas.
 
-Esta entrega contiene el arte, el visor y los datos para integrar el jefe. El combate jugable de la demo V36 sigue conservado; las reglas del jefe descritas abajo todavía no se ejecutan en esa demo.
+Esta carpeta contiene el arte, el visor y los datos del jefe. La demo V37 integra este mismo arte en el combate final del laboratorio, mediante `systems/final-king.js`, `final-king-game.js` y `final-king-renderer.js`. El ZIP de sprites sigue siendo un visor independiente; el ZIP completo de la demo incluye el combate jugable.
 
 | Fase | Diseño | Animaciones |
 | --- | --- | --- |
@@ -12,13 +12,13 @@ Esta entrega contiene el arte, el visor y los datos para integrar el jefe. El co
 | 2 · Furia del rey | Coraza agrietada, postura agresiva | Reposo, carrera, embestida, esquiva, doble tajo, golpe recibido y rotura de armadura |
 | 3 · El último mandato | Armadura normal de metal oscuro, espada quebrada | Reposo, retirada, tajo desesperado, invocación, golpe recibido y caída real con ADN |
 
-## Reglas previstas para el combate
+## Reglas del combate en V37
 
 La primera fase protege la vida con una barra de defensa. Fuego rompe esa defensa más rápido, y los demás aliens también pueden hacerlo. Una vez rota, el rey queda descubierto y puede perder vida. La pérdida de vida permite pasar a la siguiente fase.
 
 En la segunda fase aumenta la agresividad, la movilidad y el daño. El rey embiste con la espada y puede esquivar; la defensa cristalina resulta más fácil de romper. La transición termina retirando las placas de cristal, dejando visible la misma armadura normal de la tercera fase.
 
-En la tercera fase desaparece la defensa, llama a soldados básicos y huye. Su derrota elimina también a sus ayudantes y entrega el ADN de Diamante. Los datos no fijan todavía cifras de vida, daño ni umbrales de fase.
+En la tercera fase desaparece la defensa, llama a soldados básicos y huye. Su derrota elimina también a sus ayudantes y entrega el ADN de Diamante. El catálogo de arte no fija cifras de balance; el controlador de combate establece 900 PV, umbrales del 68 % y 30 %, y defensas de 120 y 72 puntos. El ADN se desbloquea al terminar la caída y se guarda por separado de las mejoras del árbol.
 
 ## Archivos
 

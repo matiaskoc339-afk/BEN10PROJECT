@@ -19,7 +19,7 @@ function campaignMovePlayer(x,y){
  const hit=dummyList.find(d=>d.alive&&d.spawnLeft<=0&&d!==ghostAction.grab?.target&&((next.x-d.x)/((d.radius||16)+radius))**2+((next.y-d.y)/((d.radius||16)*.4+radius*.4))**2<1);
  if(!hit){player.x=next.x;player.y=next.y;}else{const slide=campaign.move(before,0,y-before.y,radius,props);player.y=slide.y;}
 }
-function campaignCanEnter(){return assetsReady&&!comicOpen&&!state.wheel&&!progressionPanelOpen&&!adminPanelOpen&&player.mode==='idle'&&!evolutionCasting()&&speedAction.phase==='idle'&&cannonAction.phase==='idle'&&ghostAction.phase==='idle'&&stats.health>0;}
+function campaignCanEnter(){return assetsReady&&!comicOpen&&!state.wheel&&!progressionPanelOpen&&!adminPanelOpen&&!kingRewardOpen&&player.mode==='idle'&&!evolutionCasting()&&speedAction.phase==='idle'&&cannonAction.phase==='idle'&&ghostAction.phase==='idle'&&stats.health>0;}
 function campaignResetEffects(){
  evolutionCancelSkill();cancelSpeedAbility();cancelCannonAbility();cancelGhostAbility();cancelStinkAction(true);cancelWildAction(true);cancelWolfAction(true);cancelUpgradeAction(true);
  fire.clear();slime.clear();thorns.clear();sonics.clear();eyeBeams.clear();pieces=[];dummyList=[];
@@ -47,7 +47,7 @@ function campaignUpdateUI(){
  const logical=campaign.logical(player),room=Ben10MapWorld.roomAt(campaign.data,logical.x);
  campaignUI.campaignPhase.textContent='FASE '+(campaign.phaseIndex+1)+' / 3';
  campaignUI.campaignPlace.textContent=room.name;campaignUI.campaignProgress.style.width=campaign.progress(player.x)*100+'%';
- campaignExitReady=campaign.atExit(player)&&encounters.complete;campaignUI.campaignExit.hidden=!campaignExitReady;
+ campaignExitReady=campaign.atExit(player)&&encounters.complete&&kingCanExit();campaignUI.campaignExit.hidden=!campaignExitReady;
  campaignUI.campaignEnter.disabled=!campaignCanEnter();
  const end=campaign.phaseIndex===2;
  campaignUI.campaignExitLabel.textContent=end?'LABORATORIO PRINCIPAL':campaign.phaseIndex===0?'ENTRADA DEL CASTILLO':'ENTRADA DEL LABORATORIO';
@@ -82,7 +82,7 @@ function campaignDrawWorld(){
  ctx.translate(campaignView.x-cam.x*cam.zoom,campaignView.y-cam.y*cam.zoom);ctx.scale(cam.zoom,cam.zoom);
  const view={left:cam.x,right:cam.x+campaignView.width/cam.zoom},visible=props.filter(p=>p.type==='campaign'&&p.x+p.width/2>=view.left-50&&p.x-p.width/2<=view.right+50);
  campaignArt.background(ctx,campaign,view);
- enemyArt.ground(ctx,enemyBattle);enemyDrawGates();
+ enemyArt.ground(ctx,enemyBattle);kingArt.ground(ctx,kingEncounter.boss);enemyDrawGates();
  ctx.save();ctx.beginPath();ctx.rect(0,campaign.offsetY+208*campaign.scale,WORLD.w,152*campaign.scale);ctx.clip();drawWildTrails();drawStinkPools();ctx.restore();
  drawSpeedRoute();drawCannonCharge();
  for(const p of visible)if(p.art.behind)campaignArt.sprite(ctx,p,t);

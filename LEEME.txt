@@ -1,4 +1,4 @@
-BEN 10 — DEMO PC V36 · EL ASEDIO DE LOS ETERNOS
+BEN 10 — DEMO PC V37 · EL REY ETERNO
 
 Extrae TODA la carpeta y abre index.html en Chrome, Edge o Firefox de PC.
 Conserva assets, mapas y enemigos junto al HTML. Funciona sin conexión.
@@ -6,8 +6,22 @@ Conserva assets, mapas y enemigos junto al HTML. Funciona sin conexión.
 Calles y parques → castillo → laboratorio de ADN de Diamante.
 Cada emboscada bloquea el paso hasta terminar todas sus oleadas.
 Hay 16 combates, 28 oleadas y un minijefe con hacha al final de cada fase.
-El campeón del laboratorio lleva armadura cristalina; el Rey Eterno
-se añadirá en otra entrega. El espacio del puzzle queda reservado.
+El campeón del laboratorio lleva armadura cristalina. Después de la última
+oleada, avanza al tramo final para enfrentarte al Rey Eterno en tres fases.
+El espacio del puzzle queda reservado.
+
+ADN DISPONIBLE: CUATRO BRAZOS Y FUEGO
+Las otras transformaciones están bloqueadas. El Rey Eterno libera el ADN de
+Diamante al caer: el juego muestra la recompensa y guarda el desbloqueo.
+Puedes probarlo desde esa pantalla o seleccionarlo después con R -> 4.
+Las mejoras guardadas de otros aliens no evitan el bloqueo de su ADN.
+
+REY ETERNO
+Tiene 900 PV. Rompe su defensa cristalina para poder dañarlo; Fuego desgasta
+la defensa más rápido. Al 68% de vida se vuelve más agresivo, embiste y
+esquiva. Al 30% pierde su coraza y llama a soldados básicos mientras huye.
+Sus ayudantes mueren cuando él cae. Espera a que termine su caída real para
+recibir el ADN. Si caes, reintentas el jefe sin repetir la última oleada.
 
 DIFICULTAD: DIFÍCIL
 Ben y todos sus aliens comparten 50 PV. Transformarse conserva la vida
@@ -30,7 +44,8 @@ E o botón de entrada: entrar al castillo o al laboratorio tras despejarlo.
 Esc: salir de la intro o cerrar paneles.
 F9: panel de pruebas para añadir puntos, conservado de la demo.
 
-Se mantienen los diez aliens, sus sprites y las 70 técnicas de los árboles.
+Se conserva el catálogo de diez aliens, sus sprites y las 70 técnicas de los
+árboles; solo puedes transformarte en los aliens cuyo ADN hayas recuperado.
 Se conservan los fondos detallados, 17 variantes de caballeros con animaciones,
 objetos recolocados y agua animada en la fuente del fondo.
 

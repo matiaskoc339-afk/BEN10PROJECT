@@ -1,7 +1,7 @@
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict');
 let chromium;try{({chromium}=require('playwright'))}catch{({chromium}=require('/workspace/BEN10PROJECT/node_modules/playwright'))}
 const root=path.resolve(__dirname,'..'),out=root+'/artifacts/v'+require('../package.json').version.split('.')[1];fs.mkdirSync(out,{recursive:true});
-let html=fs.readFileSync(root+'/index.html','utf8').replace('function update(dt){','function update(dt){if(window.__combatHold)return;');
+let html=require('./fixture-without-boss.cjs')(fs.readFileSync(root+'/index.html','utf8')).replace('function update(dt){','function update(dt){if(window.__combatHold)return;');
 const hook=`
  window.__combatHold=true;
  function testCombatStep(seconds,paint=true){window.__combatHold=false;for(let n=0;n<Math.ceil(seconds*60);n++)update(1/60);window.__combatHold=true;if(paint){campaignCamera(0,true);render(0);}}
