@@ -1,0 +1,162 @@
+{
+  "file": "/workspace/outputs/BEN10_Rey_Eterno_Sprites.zip",
+  "bytes": 14034499,
+  "sha256": "3319e3985ae0d57380ad5814024629675acbae3973f89d3871992401f17f13b1",
+  "phases": 3,
+  "clips": 19,
+  "poses": 114,
+  "validation": {
+    "asset-validation": {
+      "phases": 3,
+      "clips": 19,
+      "poses": 114,
+      "units": [
+        {
+          "id": "fase-1",
+          "poses": 36,
+          "minimumMargin": 20
+        },
+        {
+          "id": "fase-2",
+          "poses": 42,
+          "minimumMargin": 20
+        },
+        {
+          "id": "fase-3",
+          "poses": 36,
+          "minimumMargin": 21
+        }
+      ],
+      "crystalArmorRemoved": true,
+      "royalFallProneRatio": 0.349,
+      "passed": true
+    },
+    "browser-review": {
+      "errors": [],
+      "missing": [],
+      "clips": [
+        {
+          "phase": 1,
+          "key": "idle",
+          "frames": 6
+        },
+        {
+          "phase": 1,
+          "key": "walk",
+          "frames": 6
+        },
+        {
+          "phase": 1,
+          "key": "slash",
+          "frames": 6
+        },
+        {
+          "phase": 1,
+          "key": "guard",
+          "frames": 6
+        },
+        {
+          "phase": 1,
+          "key": "exposed",
+          "frames": 6
+        },
+        {
+          "phase": 1,
+          "key": "guard-break",
+          "frames": 6
+        },
+        {
+          "phase": 2,
+          "key": "idle",
+          "frames": 6
+        },
+        {
+          "phase": 2,
+          "key": "run",
+          "frames": 6
+        },
+        {
+          "phase": 2,
+          "key": "lunge",
+          "frames": 6
+        },
+        {
+          "phase": 2,
+          "key": "dodge",
+          "frames": 6
+        },
+        {
+          "phase": 2,
+          "key": "double-slash",
+          "frames": 6
+        },
+        {
+          "phase": 2,
+          "key": "hurt",
+          "frames": 6
+        },
+        {
+          "phase": 2,
+          "key": "shatter",
+          "frames": 6
+        },
+        {
+          "phase": 3,
+          "key": "idle",
+          "frames": 6
+        },
+        {
+          "phase": 3,
+          "key": "retreat",
+          "frames": 6
+        },
+        {
+          "phase": 3,
+          "key": "desperate-slash",
+          "frames": 6
+        },
+        {
+          "phase": 3,
+          "key": "summon",
+          "frames": 6
+        },
+        {
+          "phase": 3,
+          "key": "hurt",
+          "frames": 6
+        },
+        {
+          "phase": 3,
+          "key": "defeat",
+          "frames": 6
+        }
+      ],
+      "offlineAssetsOnly": true,
+      "launchMode": "local-http",
+      "sequence": [
+        "0:idle",
+        "0:walk",
+        "0:slash",
+        "0:guard",
+        "0:guard-break",
+        "0:exposed",
+        "1:idle",
+        "1:run",
+        "1:lunge",
+        "1:dodge",
+        "1:double-slash",
+        "1:hurt",
+        "1:shatter",
+        "2:idle",
+        "2:retreat",
+        "2:summon",
+        "2:desperate-slash",
+        "2:hurt",
+        "2:defeat"
+      ],
+      "downloadPassed": true,
+      "passed": true
+    }
+  },
+  "combatDemoUnchanged": true
+}

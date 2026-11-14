@@ -1,0 +1,646 @@
+{
+  "id": "fase-1",
+  "name": "Coraza petrosapien",
+  "subtitle": "Guardia impenetrable",
+  "description": "La armadura de ADN de Diamante protege su vida. Romper la defensa lo deja descubierto; Fuego desgasta esa defensa más rápido y los demás aliens también pueden romperla.",
+  "color": "#a4efcf",
+  "rules": {
+    "healthProtectedByDefense": true,
+    "fireBreaksDefenseFaster": true,
+    "allAliensCanBreakDefense": true,
+    "vulnerableAfterGuardBreak": true,
+    "nextPhaseWhenHealthFalls": true
+  },
+  "atlas": "assets/atlases/fase-1.png",
+  "poster": "assets/posters/fase-1.png",
+  "source": "assets/source/fase-1.png",
+  "sourceSha256": "fe48acf6da9ca5a606f2787603c9c5a672b18d0e8fa7c7f50ca044645bc9d699",
+  "bodyHeight": 132,
+  "nativeBodyHeight": 176,
+  "cellWidth": 264,
+  "cellHeight": 240,
+  "anchorX": 131,
+  "anchorY": 214,
+  "columns": 6,
+  "rows": 6,
+  "directions": {
+    "right": {
+      "flipX": false
+    },
+    "left": {
+      "flipX": true
+    }
+  },
+  "animations": {
+    "idle": {
+      "id": "idle",
+      "name": "Reposo imperial",
+      "loop": true,
+      "durations": [
+        180,
+        180,
+        180,
+        180,
+        180,
+        180
+      ],
+      "contactFrames": [],
+      "eventFrames": {},
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            28,
+            11,
+            181,
+            187
+          ]
+        },
+        {
+          "x": 264,
+          "y": 0,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            233,
+            10,
+            185,
+            188
+          ]
+        },
+        {
+          "x": 528,
+          "y": 0,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            436,
+            5,
+            190,
+            192
+          ]
+        },
+        {
+          "x": 792,
+          "y": 0,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            643,
+            13,
+            192,
+            184
+          ]
+        },
+        {
+          "x": 1056,
+          "y": 0,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            851,
+            20,
+            191,
+            176
+          ]
+        },
+        {
+          "x": 1320,
+          "y": 0,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            1063,
+            20,
+            188,
+            176
+          ]
+        }
+      ]
+    },
+    "walk": {
+      "id": "walk",
+      "name": "Marcha acorazada",
+      "loop": true,
+      "durations": [
+        150,
+        150,
+        150,
+        150,
+        150,
+        150
+      ],
+      "contactFrames": [],
+      "eventFrames": {},
+      "frames": [
+        {
+          "x": 0,
+          "y": 240,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            28,
+            220,
+            190,
+            181
+          ]
+        },
+        {
+          "x": 264,
+          "y": 240,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            242,
+            218,
+            185,
+            180
+          ]
+        },
+        {
+          "x": 528,
+          "y": 240,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            444,
+            216,
+            192,
+            183
+          ]
+        },
+        {
+          "x": 792,
+          "y": 240,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            648,
+            215,
+            198,
+            184
+          ]
+        },
+        {
+          "x": 1056,
+          "y": 240,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            857,
+            218,
+            190,
+            181
+          ]
+        },
+        {
+          "x": 1320,
+          "y": 240,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            1063,
+            218,
+            191,
+            181
+          ]
+        }
+      ]
+    },
+    "slash": {
+      "id": "slash",
+      "name": "Tajo de Excalibur",
+      "durations": [
+        190,
+        240,
+        100,
+        90,
+        160,
+        230
+      ],
+      "contactFrames": [
+        3
+      ],
+      "loop": false,
+      "eventFrames": {},
+      "frames": [
+        {
+          "x": 0,
+          "y": 480,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            24,
+            442,
+            178,
+            176
+          ]
+        },
+        {
+          "x": 264,
+          "y": 480,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            215,
+            430,
+            167,
+            188
+          ]
+        },
+        {
+          "x": 528,
+          "y": 480,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            430,
+            416,
+            167,
+            201
+          ]
+        },
+        {
+          "x": 792,
+          "y": 480,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            625,
+            447,
+            192,
+            172
+          ]
+        },
+        {
+          "x": 1056,
+          "y": 480,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            832,
+            453,
+            220,
+            167
+          ]
+        },
+        {
+          "x": 1320,
+          "y": 480,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            1062,
+            441,
+            187,
+            175
+          ]
+        }
+      ]
+    },
+    "guard": {
+      "id": "guard",
+      "name": "Guardia cristalina",
+      "durations": [
+        130,
+        170,
+        190,
+        150,
+        170,
+        180
+      ],
+      "loop": false,
+      "contactFrames": [],
+      "eventFrames": {},
+      "frames": [
+        {
+          "x": 0,
+          "y": 720,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            23,
+            649,
+            183,
+            177
+          ]
+        },
+        {
+          "x": 264,
+          "y": 720,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            238,
+            625,
+            153,
+            201
+          ]
+        },
+        {
+          "x": 528,
+          "y": 720,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            441,
+            624,
+            156,
+            201
+          ]
+        },
+        {
+          "x": 792,
+          "y": 720,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            638,
+            640,
+            169,
+            185
+          ]
+        },
+        {
+          "x": 1056,
+          "y": 720,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            846,
+            642,
+            172,
+            183
+          ]
+        },
+        {
+          "x": 1320,
+          "y": 720,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            1061,
+            651,
+            188,
+            175
+          ]
+        }
+      ]
+    },
+    "exposed": {
+      "id": "exposed",
+      "name": "Descubierto",
+      "loop": true,
+      "durations": [
+        170,
+        160,
+        170,
+        180,
+        170,
+        160
+      ],
+      "contactFrames": [],
+      "eventFrames": {},
+      "frames": [
+        {
+          "x": 0,
+          "y": 960,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            14,
+            849,
+            164,
+            181
+          ]
+        },
+        {
+          "x": 264,
+          "y": 960,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            226,
+            846,
+            168,
+            182
+          ]
+        },
+        {
+          "x": 528,
+          "y": 960,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            426,
+            860,
+            175,
+            168
+          ]
+        },
+        {
+          "x": 792,
+          "y": 960,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            627,
+            869,
+            181,
+            160
+          ]
+        },
+        {
+          "x": 1056,
+          "y": 960,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            843,
+            854,
+            175,
+            174
+          ]
+        },
+        {
+          "x": 1320,
+          "y": 960,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            1055,
+            850,
+            172,
+            178
+          ]
+        }
+      ]
+    },
+    "guard-break": {
+      "id": "guard-break",
+      "name": "Ruptura de defensa",
+      "durations": [
+        120,
+        150,
+        130,
+        160,
+        210,
+        350
+      ],
+      "eventFrames": {
+        "exposed": 4
+      },
+      "loop": false,
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 1200,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            10,
+            1041,
+            195,
+            202
+          ]
+        },
+        {
+          "x": 264,
+          "y": 1200,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            214,
+            1043,
+            197,
+            199
+          ]
+        },
+        {
+          "x": 528,
+          "y": 1200,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            418,
+            1037,
+            199,
+            204
+          ]
+        },
+        {
+          "x": 792,
+          "y": 1200,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            617,
+            1060,
+            204,
+            182
+          ]
+        },
+        {
+          "x": 1056,
+          "y": 1200,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            825,
+            1077,
+            202,
+            166
+          ]
+        },
+        {
+          "x": 1320,
+          "y": 1200,
+          "width": 264,
+          "height": 240,
+          "anchorX": 131,
+          "anchorY": 214,
+          "sourceBox": [
+            1035,
+            1093,
+            206,
+            151
+          ]
+        }
+      ]
+    }
+  }
+}

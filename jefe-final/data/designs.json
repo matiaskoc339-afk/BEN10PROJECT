@@ -1,0 +1,57 @@
+{
+  "title": "Rey Eterno · El ADN robado",
+  "spriteOnly": true,
+  "bodyHeight": 132,
+  "nativeBodyHeight": 176,
+  "phases": [
+    {
+      "id": "fase-1",
+      "name": "Coraza petrosapien",
+      "subtitle": "Guardia impenetrable",
+      "description": "La armadura de ADN de Diamante protege su vida. Romper la defensa lo deja descubierto; Fuego desgasta esa defensa más rápido y los demás aliens también pueden romperla.",
+      "color": "#a4efcf",
+      "rows": [
+        {"id":"idle","name":"Reposo imperial","loop":true,"durations":[180,180,180,180,180,180]},
+        {"id":"walk","name":"Marcha acorazada","loop":true,"durations":[150,150,150,150,150,150]},
+        {"id":"slash","name":"Tajo de Excalibur","durations":[190,240,100,90,160,230],"contactFrames":[3]},
+        {"id":"guard","name":"Guardia cristalina","durations":[130,170,190,150,170,180]},
+        {"id":"exposed","name":"Descubierto","loop":true,"durations":[170,160,170,180,170,160]},
+        {"id":"guard-break","name":"Ruptura de defensa","durations":[120,150,130,160,210,350],"eventFrames":{"exposed":4}}
+      ],
+      "rules": {"healthProtectedByDefense":true,"fireBreaksDefenseFaster":true,"allAliensCanBreakDefense":true,"vulnerableAfterGuardBreak":true,"nextPhaseWhenHealthFalls":true}
+    },
+    {
+      "id": "fase-2",
+      "name": "Furia del rey",
+      "subtitle": "Cristal agrietado",
+      "description": "Más agresivo, rápido y dañino. Embiste con su espada y puede esquivar; conserva una defensa más fácil de romper. Los daños terminan destrozando su coraza.",
+      "color": "#f2bf77",
+      "rows": [
+        {"id":"idle","name":"Guardia agresiva","loop":true,"durations":[140,140,140,140,140,140]},
+        {"id":"run","name":"Carrera de asalto","loop":true,"durations":[95,95,95,95,95,95]},
+        {"id":"lunge","name":"Embestida de espada","durations":[160,210,75,110,140,190],"contactFrames":[3],"motion":[0,-8,10,112,132,132]},
+        {"id":"dodge","name":"Esquiva lateral","durations":[90,100,90,90,100,150],"motion":[0,-8,-34,-72,-86,-86],"eventFrames":{"evadeStart":1,"evadeEnd":4}},
+        {"id":"double-slash","name":"Doble filo real","durations":[120,140,80,120,80,190],"contactFrames":[2,4]},
+        {"id":"hurt","name":"Reacción al golpe","durations":[70,80,100,100,130,160]},
+        {"id":"shatter","name":"Caída de la coraza","durations":[160,180,180,200,230,400],"eventFrames":{"armorRemoved":5}}
+      ],
+      "rules": {"healthProtectedByDefense":true,"defenseLowerThanPhase1":true,"moreAggressive":true,"higherDamage":true,"canDodge":true,"nextPhaseRemovesCrystalArmor":true}
+    },
+    {
+      "id": "fase-3",
+      "name": "El último mandato",
+      "subtitle": "Armadura normal",
+      "description": "Sin defensa cristalina. Llama a soldados básicos y trata de huir. Al caer, sus ayudantes mueren con él y deja el ADN de Diamante.",
+      "color": "#ee8391",
+      "rows": [
+        {"id":"idle","name":"Reposo vulnerable","loop":true,"durations":[170,170,170,170,170,170]},
+        {"id":"retreat","name":"Retirada del rey","loop":true,"nativeFacing":"left","durations":[110,110,110,110,110,110],"motion":[0,-11,-22,-33,-44,-55],"cycleTravel":-66},
+        {"id":"desperate-slash","name":"Último filo","durations":[130,150,80,90,150,200],"contactFrames":[3]},
+        {"id":"summon","name":"Llamada a la orden","durations":[140,180,160,210,250,180],"eventFrames":{"summonBasicHelpers":3}},
+        {"id":"hurt","name":"Reacción al golpe","durations":[80,100,120,140,150,170]},
+        {"id":"defeat","name":"Caída de un rey","durations":[180,230,330,220,280,850],"eventFrames":{"helpersDie":4,"diamondheadDNA":5}}
+      ],
+      "rules": {"defenseBar":false,"summonsBasicHelpers":true,"retreats":true,"helpersDieOnBossDefeat":true,"reward":"diamondhead-dna"}
+    }
+  ]
+}

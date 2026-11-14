@@ -1,0 +1,770 @@
+{
+  "id": "fase-2",
+  "name": "Furia del rey",
+  "subtitle": "Cristal agrietado",
+  "description": "Más agresivo, rápido y dañino. Embiste con su espada y puede esquivar; conserva una defensa más fácil de romper. Los daños terminan destrozando su coraza.",
+  "color": "#f2bf77",
+  "rules": {
+    "healthProtectedByDefense": true,
+    "defenseLowerThanPhase1": true,
+    "moreAggressive": true,
+    "higherDamage": true,
+    "canDodge": true,
+    "nextPhaseRemovesCrystalArmor": true
+  },
+  "atlas": "assets/atlases/fase-2.png",
+  "poster": "assets/posters/fase-2.png",
+  "source": "assets/source/fase-2.png",
+  "sourceSha256": "6671cde4895e9dbb7bfc3d320efc15f48a6064329abb6f35ce63a659f175f8e4",
+  "bodyHeight": 132,
+  "nativeBodyHeight": 176,
+  "cellWidth": 320,
+  "cellHeight": 264,
+  "anchorX": 171,
+  "anchorY": 230,
+  "columns": 6,
+  "rows": 7,
+  "directions": {
+    "right": {
+      "flipX": false
+    },
+    "left": {
+      "flipX": true
+    }
+  },
+  "animations": {
+    "idle": {
+      "id": "idle",
+      "name": "Guardia agresiva",
+      "loop": true,
+      "durations": [
+        140,
+        140,
+        140,
+        140,
+        140,
+        140
+      ],
+      "contactFrames": [],
+      "eventFrames": {},
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            7,
+            38,
+            195,
+            165
+          ]
+        },
+        {
+          "x": 320,
+          "y": 0,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            201,
+            33,
+            186,
+            170
+          ]
+        },
+        {
+          "x": 640,
+          "y": 0,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            386,
+            22,
+            190,
+            182
+          ]
+        },
+        {
+          "x": 960,
+          "y": 0,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            568,
+            33,
+            190,
+            171
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 0,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            766,
+            46,
+            182,
+            157
+          ]
+        },
+        {
+          "x": 1600,
+          "y": 0,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            958,
+            50,
+            192,
+            154
+          ]
+        }
+      ]
+    },
+    "run": {
+      "id": "run",
+      "name": "Carrera de asalto",
+      "loop": true,
+      "durations": [
+        95,
+        95,
+        95,
+        95,
+        95,
+        95
+      ],
+      "contactFrames": [],
+      "eventFrames": {},
+      "frames": [
+        {
+          "x": 0,
+          "y": 264,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            17,
+            240,
+            167,
+            154
+          ]
+        },
+        {
+          "x": 320,
+          "y": 264,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            209,
+            233,
+            175,
+            159
+          ]
+        },
+        {
+          "x": 640,
+          "y": 264,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            393,
+            224,
+            180,
+            149
+          ]
+        },
+        {
+          "x": 960,
+          "y": 264,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            580,
+            227,
+            182,
+            166
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 264,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            778,
+            236,
+            174,
+            157
+          ]
+        },
+        {
+          "x": 1600,
+          "y": 264,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            972,
+            240,
+            170,
+            152
+          ]
+        }
+      ]
+    },
+    "lunge": {
+      "id": "lunge",
+      "name": "Embestida de espada",
+      "durations": [
+        160,
+        210,
+        75,
+        110,
+        140,
+        190
+      ],
+      "contactFrames": [
+        3
+      ],
+      "motion": [
+        0,
+        -8,
+        10,
+        112,
+        132,
+        132
+      ],
+      "loop": false,
+      "eventFrames": {},
+      "frames": [
+        {
+          "x": 0,
+          "y": 528,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            6,
+            430,
+            167,
+            153
+          ]
+        },
+        {
+          "x": 320,
+          "y": 528,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            175,
+            418,
+            169,
+            165
+          ]
+        },
+        {
+          "x": 640,
+          "y": 528,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            356,
+            419,
+            170,
+            164
+          ]
+        },
+        {
+          "x": 960,
+          "y": 528,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            538,
+            425,
+            257,
+            158
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 528,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            755,
+            420,
+            189,
+            164
+          ]
+        },
+        {
+          "x": 1600,
+          "y": 528,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            956,
+            423,
+            193,
+            160
+          ]
+        }
+      ]
+    },
+    "dodge": {
+      "id": "dodge",
+      "name": "Esquiva lateral",
+      "durations": [
+        90,
+        100,
+        90,
+        90,
+        100,
+        150
+      ],
+      "motion": [
+        0,
+        -8,
+        -34,
+        -72,
+        -86,
+        -86
+      ],
+      "eventFrames": {
+        "evadeStart": 1,
+        "evadeEnd": 4
+      },
+      "loop": false,
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 792,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            2,
+            597,
+            176,
+            164
+          ]
+        },
+        {
+          "x": 320,
+          "y": 792,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            184,
+            609,
+            158,
+            151
+          ]
+        },
+        {
+          "x": 640,
+          "y": 792,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            365,
+            624,
+            168,
+            136
+          ]
+        },
+        {
+          "x": 960,
+          "y": 792,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            550,
+            637,
+            216,
+            124
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 792,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            762,
+            626,
+            206,
+            135
+          ]
+        },
+        {
+          "x": 1600,
+          "y": 792,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            967,
+            599,
+            178,
+            162
+          ]
+        }
+      ]
+    },
+    "double-slash": {
+      "id": "double-slash",
+      "name": "Doble filo real",
+      "durations": [
+        120,
+        140,
+        80,
+        120,
+        80,
+        190
+      ],
+      "contactFrames": [
+        2,
+        4
+      ],
+      "loop": false,
+      "eventFrames": {},
+      "frames": [
+        {
+          "x": 0,
+          "y": 1056,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            8,
+            792,
+            168,
+            159
+          ]
+        },
+        {
+          "x": 320,
+          "y": 1056,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            189,
+            763,
+            165,
+            186
+          ]
+        },
+        {
+          "x": 640,
+          "y": 1056,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            365,
+            796,
+            195,
+            153
+          ]
+        },
+        {
+          "x": 960,
+          "y": 1056,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            559,
+            803,
+            196,
+            148
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 1056,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            750,
+            774,
+            208,
+            176
+          ]
+        },
+        {
+          "x": 1600,
+          "y": 1056,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            963,
+            790,
+            173,
+            161
+          ]
+        }
+      ]
+    },
+    "hurt": {
+      "id": "hurt",
+      "name": "Reacción al golpe",
+      "durations": [
+        70,
+        80,
+        100,
+        100,
+        130,
+        160
+      ],
+      "loop": false,
+      "contactFrames": [],
+      "eventFrames": {},
+      "frames": [
+        {
+          "x": 0,
+          "y": 1320,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            11,
+            967,
+            169,
+            169
+          ]
+        },
+        {
+          "x": 320,
+          "y": 1320,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            199,
+            966,
+            161,
+            169
+          ]
+        },
+        {
+          "x": 640,
+          "y": 1320,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            372,
+            967,
+            176,
+            169
+          ]
+        },
+        {
+          "x": 960,
+          "y": 1320,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            568,
+            982,
+            168,
+            154
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 1320,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            769,
+            983,
+            155,
+            151
+          ]
+        },
+        {
+          "x": 1600,
+          "y": 1320,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            960,
+            973,
+            175,
+            162
+          ]
+        }
+      ]
+    },
+    "shatter": {
+      "id": "shatter",
+      "name": "Caída de la coraza",
+      "durations": [
+        160,
+        180,
+        180,
+        200,
+        230,
+        400
+      ],
+      "eventFrames": {
+        "armorRemoved": 5
+      },
+      "loop": false,
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 1584,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            5,
+            1154,
+            183,
+            190
+          ]
+        },
+        {
+          "x": 320,
+          "y": 1584,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            186,
+            1147,
+            196,
+            198
+          ]
+        },
+        {
+          "x": 640,
+          "y": 1584,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            362,
+            1148,
+            228,
+            196
+          ]
+        },
+        {
+          "x": 960,
+          "y": 1584,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            553,
+            1155,
+            197,
+            190
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 1584,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            751,
+            1159,
+            196,
+            187
+          ]
+        },
+        {
+          "x": 1600,
+          "y": 1584,
+          "width": 320,
+          "height": 264,
+          "anchorX": 171,
+          "anchorY": 230,
+          "sourceBox": [
+            954,
+            1162,
+            193,
+            186
+          ]
+        }
+      ]
+    }
+  }
+}

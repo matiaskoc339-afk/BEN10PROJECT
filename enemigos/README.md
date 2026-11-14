@@ -1,6 +1,6 @@
 # Caballeros Eternos · sprites y animaciones
 
-Biblioteca de arte para la demo V34. Contiene **17 variantes, 102 clips y 612 poses dibujadas**, con fondo transparente. V35 incorpora estos sprites al combate mediante `systems/eternal-enemies.js`, `enemy-game.js` y `enemy-renderer.js`. El visor de esta carpeta sigue dedicado al arte. El jefe final se prepara en otra entrega.
+Biblioteca de arte para la demo V34. Contiene **17 variantes, 102 clips y 612 poses dibujadas**, con fondo transparente. V35 incorpora estos sprites al combate mediante `systems/eternal-enemies.js`, `enemy-game.js` y `enemy-renderer.js`. El visor de esta carpeta sigue dedicado al arte. El [Rey Eterno](../jefe-final/README.md) tiene una biblioteca independiente de tres fases, sin modificar estas 17 variantes.
 
 Abre **[index.html](index.html)** para reproducir cada animación. **[catalogo.html](catalogo.html)** muestra las 17 variantes juntas. Ambos visores funcionan sin conexión: conserva toda la carpeta `enemigos` y no abras el HTML desde la vista previa de un ZIP; extráelo primero.
 

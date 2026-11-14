@@ -1,0 +1,2096 @@
+{
+  "version": 1,
+  "title": "Rey Eterno · El ADN robado",
+  "spriteOnly": true,
+  "bossId": "forever-king",
+  "totalClips": 19,
+  "totalPoses": 114,
+  "phases": [
+    {
+      "id": "fase-1",
+      "name": "Coraza petrosapien",
+      "subtitle": "Guardia impenetrable",
+      "description": "La armadura de ADN de Diamante protege su vida. Romper la defensa lo deja descubierto; Fuego desgasta esa defensa más rápido y los demás aliens también pueden romperla.",
+      "color": "#a4efcf",
+      "rules": {
+        "healthProtectedByDefense": true,
+        "fireBreaksDefenseFaster": true,
+        "allAliensCanBreakDefense": true,
+        "vulnerableAfterGuardBreak": true,
+        "nextPhaseWhenHealthFalls": true
+      },
+      "atlas": "assets/atlases/fase-1.png",
+      "poster": "assets/posters/fase-1.png",
+      "source": "assets/source/fase-1.png",
+      "sourceSha256": "fe48acf6da9ca5a606f2787603c9c5a672b18d0e8fa7c7f50ca044645bc9d699",
+      "bodyHeight": 132,
+      "nativeBodyHeight": 176,
+      "cellWidth": 264,
+      "cellHeight": 240,
+      "anchorX": 131,
+      "anchorY": 214,
+      "columns": 6,
+      "rows": 6,
+      "directions": {
+        "right": {
+          "flipX": false
+        },
+        "left": {
+          "flipX": true
+        }
+      },
+      "animations": {
+        "idle": {
+          "id": "idle",
+          "name": "Reposo imperial",
+          "loop": true,
+          "durations": [
+            180,
+            180,
+            180,
+            180,
+            180,
+            180
+          ],
+          "contactFrames": [],
+          "eventFrames": {},
+          "frames": [
+            {
+              "x": 0,
+              "y": 0,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                28,
+                11,
+                181,
+                187
+              ]
+            },
+            {
+              "x": 264,
+              "y": 0,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                233,
+                10,
+                185,
+                188
+              ]
+            },
+            {
+              "x": 528,
+              "y": 0,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                436,
+                5,
+                190,
+                192
+              ]
+            },
+            {
+              "x": 792,
+              "y": 0,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                643,
+                13,
+                192,
+                184
+              ]
+            },
+            {
+              "x": 1056,
+              "y": 0,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                851,
+                20,
+                191,
+                176
+              ]
+            },
+            {
+              "x": 1320,
+              "y": 0,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                1063,
+                20,
+                188,
+                176
+              ]
+            }
+          ]
+        },
+        "walk": {
+          "id": "walk",
+          "name": "Marcha acorazada",
+          "loop": true,
+          "durations": [
+            150,
+            150,
+            150,
+            150,
+            150,
+            150
+          ],
+          "contactFrames": [],
+          "eventFrames": {},
+          "frames": [
+            {
+              "x": 0,
+              "y": 240,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                28,
+                220,
+                190,
+                181
+              ]
+            },
+            {
+              "x": 264,
+              "y": 240,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                242,
+                218,
+                185,
+                180
+              ]
+            },
+            {
+              "x": 528,
+              "y": 240,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                444,
+                216,
+                192,
+                183
+              ]
+            },
+            {
+              "x": 792,
+              "y": 240,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                648,
+                215,
+                198,
+                184
+              ]
+            },
+            {
+              "x": 1056,
+              "y": 240,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                857,
+                218,
+                190,
+                181
+              ]
+            },
+            {
+              "x": 1320,
+              "y": 240,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                1063,
+                218,
+                191,
+                181
+              ]
+            }
+          ]
+        },
+        "slash": {
+          "id": "slash",
+          "name": "Tajo de Excalibur",
+          "durations": [
+            190,
+            240,
+            100,
+            90,
+            160,
+            230
+          ],
+          "contactFrames": [
+            3
+          ],
+          "loop": false,
+          "eventFrames": {},
+          "frames": [
+            {
+              "x": 0,
+              "y": 480,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                24,
+                442,
+                178,
+                176
+              ]
+            },
+            {
+              "x": 264,
+              "y": 480,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                215,
+                430,
+                167,
+                188
+              ]
+            },
+            {
+              "x": 528,
+              "y": 480,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                430,
+                416,
+                167,
+                201
+              ]
+            },
+            {
+              "x": 792,
+              "y": 480,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                625,
+                447,
+                192,
+                172
+              ]
+            },
+            {
+              "x": 1056,
+              "y": 480,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                832,
+                453,
+                220,
+                167
+              ]
+            },
+            {
+              "x": 1320,
+              "y": 480,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                1062,
+                441,
+                187,
+                175
+              ]
+            }
+          ]
+        },
+        "guard": {
+          "id": "guard",
+          "name": "Guardia cristalina",
+          "durations": [
+            130,
+            170,
+            190,
+            150,
+            170,
+            180
+          ],
+          "loop": false,
+          "contactFrames": [],
+          "eventFrames": {},
+          "frames": [
+            {
+              "x": 0,
+              "y": 720,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                23,
+                649,
+                183,
+                177
+              ]
+            },
+            {
+              "x": 264,
+              "y": 720,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                238,
+                625,
+                153,
+                201
+              ]
+            },
+            {
+              "x": 528,
+              "y": 720,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                441,
+                624,
+                156,
+                201
+              ]
+            },
+            {
+              "x": 792,
+              "y": 720,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                638,
+                640,
+                169,
+                185
+              ]
+            },
+            {
+              "x": 1056,
+              "y": 720,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                846,
+                642,
+                172,
+                183
+              ]
+            },
+            {
+              "x": 1320,
+              "y": 720,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                1061,
+                651,
+                188,
+                175
+              ]
+            }
+          ]
+        },
+        "exposed": {
+          "id": "exposed",
+          "name": "Descubierto",
+          "loop": true,
+          "durations": [
+            170,
+            160,
+            170,
+            180,
+            170,
+            160
+          ],
+          "contactFrames": [],
+          "eventFrames": {},
+          "frames": [
+            {
+              "x": 0,
+              "y": 960,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                14,
+                849,
+                164,
+                181
+              ]
+            },
+            {
+              "x": 264,
+              "y": 960,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                226,
+                846,
+                168,
+                182
+              ]
+            },
+            {
+              "x": 528,
+              "y": 960,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                426,
+                860,
+                175,
+                168
+              ]
+            },
+            {
+              "x": 792,
+              "y": 960,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                627,
+                869,
+                181,
+                160
+              ]
+            },
+            {
+              "x": 1056,
+              "y": 960,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                843,
+                854,
+                175,
+                174
+              ]
+            },
+            {
+              "x": 1320,
+              "y": 960,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                1055,
+                850,
+                172,
+                178
+              ]
+            }
+          ]
+        },
+        "guard-break": {
+          "id": "guard-break",
+          "name": "Ruptura de defensa",
+          "durations": [
+            120,
+            150,
+            130,
+            160,
+            210,
+            350
+          ],
+          "eventFrames": {
+            "exposed": 4
+          },
+          "loop": false,
+          "contactFrames": [],
+          "frames": [
+            {
+              "x": 0,
+              "y": 1200,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                10,
+                1041,
+                195,
+                202
+              ]
+            },
+            {
+              "x": 264,
+              "y": 1200,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                214,
+                1043,
+                197,
+                199
+              ]
+            },
+            {
+              "x": 528,
+              "y": 1200,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                418,
+                1037,
+                199,
+                204
+              ]
+            },
+            {
+              "x": 792,
+              "y": 1200,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                617,
+                1060,
+                204,
+                182
+              ]
+            },
+            {
+              "x": 1056,
+              "y": 1200,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                825,
+                1077,
+                202,
+                166
+              ]
+            },
+            {
+              "x": 1320,
+              "y": 1200,
+              "width": 264,
+              "height": 240,
+              "anchorX": 131,
+              "anchorY": 214,
+              "sourceBox": [
+                1035,
+                1093,
+                206,
+                151
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "fase-2",
+      "name": "Furia del rey",
+      "subtitle": "Cristal agrietado",
+      "description": "Más agresivo, rápido y dañino. Embiste con su espada y puede esquivar; conserva una defensa más fácil de romper. Los daños terminan destrozando su coraza.",
+      "color": "#f2bf77",
+      "rules": {
+        "healthProtectedByDefense": true,
+        "defenseLowerThanPhase1": true,
+        "moreAggressive": true,
+        "higherDamage": true,
+        "canDodge": true,
+        "nextPhaseRemovesCrystalArmor": true
+      },
+      "atlas": "assets/atlases/fase-2.png",
+      "poster": "assets/posters/fase-2.png",
+      "source": "assets/source/fase-2.png",
+      "sourceSha256": "6671cde4895e9dbb7bfc3d320efc15f48a6064329abb6f35ce63a659f175f8e4",
+      "bodyHeight": 132,
+      "nativeBodyHeight": 176,
+      "cellWidth": 320,
+      "cellHeight": 264,
+      "anchorX": 171,
+      "anchorY": 230,
+      "columns": 6,
+      "rows": 7,
+      "directions": {
+        "right": {
+          "flipX": false
+        },
+        "left": {
+          "flipX": true
+        }
+      },
+      "animations": {
+        "idle": {
+          "id": "idle",
+          "name": "Guardia agresiva",
+          "loop": true,
+          "durations": [
+            140,
+            140,
+            140,
+            140,
+            140,
+            140
+          ],
+          "contactFrames": [],
+          "eventFrames": {},
+          "frames": [
+            {
+              "x": 0,
+              "y": 0,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                7,
+                38,
+                195,
+                165
+              ]
+            },
+            {
+              "x": 320,
+              "y": 0,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                201,
+                33,
+                186,
+                170
+              ]
+            },
+            {
+              "x": 640,
+              "y": 0,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                386,
+                22,
+                190,
+                182
+              ]
+            },
+            {
+              "x": 960,
+              "y": 0,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                568,
+                33,
+                190,
+                171
+              ]
+            },
+            {
+              "x": 1280,
+              "y": 0,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                766,
+                46,
+                182,
+                157
+              ]
+            },
+            {
+              "x": 1600,
+              "y": 0,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                958,
+                50,
+                192,
+                154
+              ]
+            }
+          ]
+        },
+        "run": {
+          "id": "run",
+          "name": "Carrera de asalto",
+          "loop": true,
+          "durations": [
+            95,
+            95,
+            95,
+            95,
+            95,
+            95
+          ],
+          "contactFrames": [],
+          "eventFrames": {},
+          "frames": [
+            {
+              "x": 0,
+              "y": 264,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                17,
+                240,
+                167,
+                154
+              ]
+            },
+            {
+              "x": 320,
+              "y": 264,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                209,
+                233,
+                175,
+                159
+              ]
+            },
+            {
+              "x": 640,
+              "y": 264,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                393,
+                224,
+                180,
+                149
+              ]
+            },
+            {
+              "x": 960,
+              "y": 264,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                580,
+                227,
+                182,
+                166
+              ]
+            },
+            {
+              "x": 1280,
+              "y": 264,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                778,
+                236,
+                174,
+                157
+              ]
+            },
+            {
+              "x": 1600,
+              "y": 264,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                972,
+                240,
+                170,
+                152
+              ]
+            }
+          ]
+        },
+        "lunge": {
+          "id": "lunge",
+          "name": "Embestida de espada",
+          "durations": [
+            160,
+            210,
+            75,
+            110,
+            140,
+            190
+          ],
+          "contactFrames": [
+            3
+          ],
+          "motion": [
+            0,
+            -8,
+            10,
+            112,
+            132,
+            132
+          ],
+          "loop": false,
+          "eventFrames": {},
+          "frames": [
+            {
+              "x": 0,
+              "y": 528,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                6,
+                430,
+                167,
+                153
+              ]
+            },
+            {
+              "x": 320,
+              "y": 528,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                175,
+                418,
+                169,
+                165
+              ]
+            },
+            {
+              "x": 640,
+              "y": 528,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                356,
+                419,
+                170,
+                164
+              ]
+            },
+            {
+              "x": 960,
+              "y": 528,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                538,
+                425,
+                257,
+                158
+              ]
+            },
+            {
+              "x": 1280,
+              "y": 528,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                755,
+                420,
+                189,
+                164
+              ]
+            },
+            {
+              "x": 1600,
+              "y": 528,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                956,
+                423,
+                193,
+                160
+              ]
+            }
+          ]
+        },
+        "dodge": {
+          "id": "dodge",
+          "name": "Esquiva lateral",
+          "durations": [
+            90,
+            100,
+            90,
+            90,
+            100,
+            150
+          ],
+          "motion": [
+            0,
+            -8,
+            -34,
+            -72,
+            -86,
+            -86
+          ],
+          "eventFrames": {
+            "evadeStart": 1,
+            "evadeEnd": 4
+          },
+          "loop": false,
+          "contactFrames": [],
+          "frames": [
+            {
+              "x": 0,
+              "y": 792,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                2,
+                597,
+                176,
+                164
+              ]
+            },
+            {
+              "x": 320,
+              "y": 792,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                184,
+                609,
+                158,
+                151
+              ]
+            },
+            {
+              "x": 640,
+              "y": 792,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                365,
+                624,
+                168,
+                136
+              ]
+            },
+            {
+              "x": 960,
+              "y": 792,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                550,
+                637,
+                216,
+                124
+              ]
+            },
+            {
+              "x": 1280,
+              "y": 792,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                762,
+                626,
+                206,
+                135
+              ]
+            },
+            {
+              "x": 1600,
+              "y": 792,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                967,
+                599,
+                178,
+                162
+              ]
+            }
+          ]
+        },
+        "double-slash": {
+          "id": "double-slash",
+          "name": "Doble filo real",
+          "durations": [
+            120,
+            140,
+            80,
+            120,
+            80,
+            190
+          ],
+          "contactFrames": [
+            2,
+            4
+          ],
+          "loop": false,
+          "eventFrames": {},
+          "frames": [
+            {
+              "x": 0,
+              "y": 1056,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                8,
+                792,
+                168,
+                159
+              ]
+            },
+            {
+              "x": 320,
+              "y": 1056,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                189,
+                763,
+                165,
+                186
+              ]
+            },
+            {
+              "x": 640,
+              "y": 1056,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                365,
+                796,
+                195,
+                153
+              ]
+            },
+            {
+              "x": 960,
+              "y": 1056,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                559,
+                803,
+                196,
+                148
+              ]
+            },
+            {
+              "x": 1280,
+              "y": 1056,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                750,
+                774,
+                208,
+                176
+              ]
+            },
+            {
+              "x": 1600,
+              "y": 1056,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                963,
+                790,
+                173,
+                161
+              ]
+            }
+          ]
+        },
+        "hurt": {
+          "id": "hurt",
+          "name": "Reacción al golpe",
+          "durations": [
+            70,
+            80,
+            100,
+            100,
+            130,
+            160
+          ],
+          "loop": false,
+          "contactFrames": [],
+          "eventFrames": {},
+          "frames": [
+            {
+              "x": 0,
+              "y": 1320,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                11,
+                967,
+                169,
+                169
+              ]
+            },
+            {
+              "x": 320,
+              "y": 1320,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                199,
+                966,
+                161,
+                169
+              ]
+            },
+            {
+              "x": 640,
+              "y": 1320,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                372,
+                967,
+                176,
+                169
+              ]
+            },
+            {
+              "x": 960,
+              "y": 1320,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                568,
+                982,
+                168,
+                154
+              ]
+            },
+            {
+              "x": 1280,
+              "y": 1320,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                769,
+                983,
+                155,
+                151
+              ]
+            },
+            {
+              "x": 1600,
+              "y": 1320,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                960,
+                973,
+                175,
+                162
+              ]
+            }
+          ]
+        },
+        "shatter": {
+          "id": "shatter",
+          "name": "Caída de la coraza",
+          "durations": [
+            160,
+            180,
+            180,
+            200,
+            230,
+            400
+          ],
+          "eventFrames": {
+            "armorRemoved": 5
+          },
+          "loop": false,
+          "contactFrames": [],
+          "frames": [
+            {
+              "x": 0,
+              "y": 1584,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                5,
+                1154,
+                183,
+                190
+              ]
+            },
+            {
+              "x": 320,
+              "y": 1584,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                186,
+                1147,
+                196,
+                198
+              ]
+            },
+            {
+              "x": 640,
+              "y": 1584,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                362,
+                1148,
+                228,
+                196
+              ]
+            },
+            {
+              "x": 960,
+              "y": 1584,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                553,
+                1155,
+                197,
+                190
+              ]
+            },
+            {
+              "x": 1280,
+              "y": 1584,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                751,
+                1159,
+                196,
+                187
+              ]
+            },
+            {
+              "x": 1600,
+              "y": 1584,
+              "width": 320,
+              "height": 264,
+              "anchorX": 171,
+              "anchorY": 230,
+              "sourceBox": [
+                954,
+                1162,
+                193,
+                186
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "fase-3",
+      "name": "El último mandato",
+      "subtitle": "Armadura normal",
+      "description": "Sin defensa cristalina. Llama a soldados básicos y trata de huir. Al caer, sus ayudantes mueren con él y deja el ADN de Diamante.",
+      "color": "#ee8391",
+      "rules": {
+        "defenseBar": false,
+        "summonsBasicHelpers": true,
+        "retreats": true,
+        "helpersDieOnBossDefeat": true,
+        "reward": "diamondhead-dna"
+      },
+      "atlas": "assets/atlases/fase-3.png",
+      "poster": "assets/posters/fase-3.png",
+      "source": "assets/source/fase-3.png",
+      "sourceSha256": "da90232bb2d97fb8a6e7543f2666ba7be0e893024804266607e727be5c3dd25a",
+      "bodyHeight": 132,
+      "nativeBodyHeight": 176,
+      "cellWidth": 256,
+      "cellHeight": 240,
+      "anchorX": 126,
+      "anchorY": 212,
+      "columns": 6,
+      "rows": 6,
+      "directions": {
+        "right": {
+          "flipX": false
+        },
+        "left": {
+          "flipX": true
+        }
+      },
+      "animations": {
+        "idle": {
+          "id": "idle",
+          "name": "Reposo vulnerable",
+          "loop": true,
+          "durations": [
+            170,
+            170,
+            170,
+            170,
+            170,
+            170
+          ],
+          "contactFrames": [],
+          "eventFrames": {},
+          "frames": [
+            {
+              "x": 0,
+              "y": 0,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                29,
+                13,
+                168,
+                195
+              ]
+            },
+            {
+              "x": 256,
+              "y": 0,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                238,
+                24,
+                171,
+                184
+              ]
+            },
+            {
+              "x": 512,
+              "y": 0,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                443,
+                29,
+                175,
+                179
+              ]
+            },
+            {
+              "x": 768,
+              "y": 0,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                648,
+                35,
+                178,
+                173
+              ]
+            },
+            {
+              "x": 1024,
+              "y": 0,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                862,
+                26,
+                174,
+                182
+              ]
+            },
+            {
+              "x": 1280,
+              "y": 0,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                1073,
+                17,
+                169,
+                191
+              ]
+            }
+          ]
+        },
+        "retreat": {
+          "id": "retreat",
+          "name": "Retirada del rey",
+          "loop": true,
+          "nativeFacing": "left",
+          "durations": [
+            110,
+            110,
+            110,
+            110,
+            110,
+            110
+          ],
+          "motion": [
+            0,
+            -11,
+            -22,
+            -33,
+            -44,
+            -55
+          ],
+          "cycleTravel": -66,
+          "contactFrames": [],
+          "eventFrames": {},
+          "frames": [
+            {
+              "x": 0,
+              "y": 240,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                48,
+                236,
+                153,
+                178
+              ]
+            },
+            {
+              "x": 256,
+              "y": 240,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                238,
+                231,
+                179,
+                183
+              ]
+            },
+            {
+              "x": 512,
+              "y": 240,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                439,
+                233,
+                175,
+                181
+              ]
+            },
+            {
+              "x": 768,
+              "y": 240,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                642,
+                238,
+                167,
+                176
+              ]
+            },
+            {
+              "x": 1024,
+              "y": 240,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                845,
+                240,
+                171,
+                174
+              ]
+            },
+            {
+              "x": 1280,
+              "y": 240,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                1054,
+                234,
+                176,
+                178
+              ]
+            }
+          ]
+        },
+        "desperate-slash": {
+          "id": "desperate-slash",
+          "name": "Último filo",
+          "durations": [
+            130,
+            150,
+            80,
+            90,
+            150,
+            200
+          ],
+          "contactFrames": [
+            3
+          ],
+          "loop": false,
+          "eventFrames": {},
+          "frames": [
+            {
+              "x": 0,
+              "y": 480,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                22,
+                444,
+                169,
+                177
+              ]
+            },
+            {
+              "x": 256,
+              "y": 480,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                230,
+                428,
+                170,
+                194
+              ]
+            },
+            {
+              "x": 512,
+              "y": 480,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                429,
+                440,
+                166,
+                182
+              ]
+            },
+            {
+              "x": 768,
+              "y": 480,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                631,
+                448,
+                189,
+                174
+              ]
+            },
+            {
+              "x": 1024,
+              "y": 480,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                845,
+                457,
+                189,
+                165
+              ]
+            },
+            {
+              "x": 1280,
+              "y": 480,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                1058,
+                445,
+                165,
+                177
+              ]
+            }
+          ]
+        },
+        "summon": {
+          "id": "summon",
+          "name": "Llamada a la orden",
+          "durations": [
+            140,
+            180,
+            160,
+            210,
+            250,
+            180
+          ],
+          "eventFrames": {
+            "summonBasicHelpers": 3
+          },
+          "loop": false,
+          "contactFrames": [],
+          "frames": [
+            {
+              "x": 0,
+              "y": 720,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                30,
+                640,
+                149,
+                191
+              ]
+            },
+            {
+              "x": 256,
+              "y": 720,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                237,
+                639,
+                155,
+                192
+              ]
+            },
+            {
+              "x": 512,
+              "y": 720,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                439,
+                635,
+                158,
+                196
+              ]
+            },
+            {
+              "x": 768,
+              "y": 720,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                638,
+                633,
+                171,
+                199
+              ]
+            },
+            {
+              "x": 1024,
+              "y": 720,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                840,
+                635,
+                198,
+                197
+              ]
+            },
+            {
+              "x": 1280,
+              "y": 720,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                1057,
+                638,
+                169,
+                193
+              ]
+            }
+          ]
+        },
+        "hurt": {
+          "id": "hurt",
+          "name": "Reacción al golpe",
+          "durations": [
+            80,
+            100,
+            120,
+            140,
+            150,
+            170
+          ],
+          "loop": false,
+          "contactFrames": [],
+          "eventFrames": {},
+          "frames": [
+            {
+              "x": 0,
+              "y": 960,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                26,
+                849,
+                167,
+                191
+              ]
+            },
+            {
+              "x": 256,
+              "y": 960,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                220,
+                848,
+                176,
+                192
+              ]
+            },
+            {
+              "x": 512,
+              "y": 960,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                419,
+                868,
+                169,
+                172
+              ]
+            },
+            {
+              "x": 768,
+              "y": 960,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                634,
+                890,
+                174,
+                151
+              ]
+            },
+            {
+              "x": 1024,
+              "y": 960,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                845,
+                896,
+                172,
+                145
+              ]
+            },
+            {
+              "x": 1280,
+              "y": 960,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                1057,
+                871,
+                162,
+                170
+              ]
+            }
+          ]
+        },
+        "defeat": {
+          "id": "defeat",
+          "name": "Caída de un rey",
+          "durations": [
+            180,
+            230,
+            330,
+            220,
+            280,
+            850
+          ],
+          "eventFrames": {
+            "helpersDie": 4,
+            "diamondheadDNA": 5
+          },
+          "loop": false,
+          "contactFrames": [],
+          "frames": [
+            {
+              "x": 0,
+              "y": 1200,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                18,
+                1051,
+                170,
+                194
+              ]
+            },
+            {
+              "x": 256,
+              "y": 1200,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                222,
+                1084,
+                180,
+                165
+              ]
+            },
+            {
+              "x": 512,
+              "y": 1200,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                423,
+                1097,
+                185,
+                152
+              ]
+            },
+            {
+              "x": 768,
+              "y": 1200,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                623,
+                1121,
+                198,
+                128
+              ]
+            },
+            {
+              "x": 1024,
+              "y": 1200,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                834,
+                1153,
+                199,
+                96
+              ]
+            },
+            {
+              "x": 1280,
+              "y": 1200,
+              "width": 256,
+              "height": 240,
+              "anchorX": 126,
+              "anchorY": 212,
+              "sourceBox": [
+                1044,
+                1112,
+                196,
+                137
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "referencePlayer": {
+    "file": "assets/reference/ben.png",
+    "cellWidth": 96,
+    "cellHeight": 96,
+    "anchorX": 48,
+    "anchorY": 88,
+    "sourceBodyHeight": 56,
+    "bodyHeight": 70
+  },
+  "background": "assets/reference/laboratorio.png",
+  "designReference": "assets/reference/rey-eterno-tres-fases.png"
+}

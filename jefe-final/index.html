@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Rey Eterno · Tres fases</title><link rel="stylesheet" href="viewer.css"></head>
+<body>
+<header class="masthead"><a href="index.html" class="brand"><span class="crest">♜</span><span>EL REY ETERNO<small>BEN 10 · EL ADN ROBADO</small></span></a><a href="assets/reference/rey-eterno-tres-fases.png" class="back">Diseño de las tres fases ↗</a></header>
+<main>
+  <section class="workshop">
+    <div class="heading"><div><p class="eyebrow" id="phaseLabel">JEFE FINAL · FASE I</p><h1 id="phaseName">Coraza petrosapien</h1><p id="phaseSubtitle">Guardia impenetrable</p></div><button id="sequence" class="primary">▶ Ver las tres fases</button></div>
+    <div class="stage-wrap"><canvas id="stage" tabindex="0" aria-label="Animaciones del Rey Eterno"></canvas><span id="loading">Preparando al rey…</span><div class="stage-top"><span id="actionLabel"></span><span id="sequenceLabel">VISTA DE ANIMACIÓN</span></div><div id="reward" hidden>ADN DE DIAMANTE <span>Recuperado</span></div></div>
+    <nav class="actions" id="actions" aria-label="Elegir animación"></nav>
+    <div class="playback"><button id="play" aria-label="Pausar">Ⅱ Pausar</button><button id="previous" aria-label="Fotograma anterior">‹</button><div id="frames" aria-label="Fotogramas"></div><button id="next" aria-label="Fotograma siguiente">›</button><span id="frameLabel">1 / 6</span><label>Velocidad <select id="speed"><option value=".25">0,25×</option><option value=".5">0,5×</option><option value="1" selected>1×</option><option value="1.5">1,5×</option></select></label></div>
+    <div class="options"><div class="facing"><button data-facing="left">← Izquierda</button><button data-facing="right" class="active">Derecha →</button></div><label><input id="repeat" type="checkbox"> Repetir acción</label><label><input id="showBen" type="checkbox" checked> Comparar con Ben</label><label>Fondo <select id="background"><option value="laboratory">Laboratorio</option><option value="plain">Liso</option><option value="alpha">Transparencia</option></select></label></div>
+    <div class="exports"><a id="downloadAtlas" download>Descargar sprites PNG ↓</a><a id="downloadData" download>Datos de animación ↓</a><span><kbd>Espacio</kbd> pausa · <kbd>← →</kbd> fotograma</span></div>
+  </section>
+  <aside>
+    <p class="eyebrow">TRES ETAPAS · UN MISMO REY</p><div id="phases" class="phases" aria-label="Elegir fase"></div>
+    <div class="phase-note"><span id="phaseBadge">DEFENSA CRISTALINA</span><p id="phaseDescription"></p></div>
+    <div class="delivery"><strong id="totalLabel">19 animaciones · 114 poses</strong><p>Guardia, ataques, transiciones y derrota. El visor permite revisar el arte; el combate del jefe se integra por separado.</p></div>
+  </aside>
+</main>
+<script src="data/catalog.js"></script><script src="sprites.js"></script><script src="viewer.js"></script>
+</body></html>

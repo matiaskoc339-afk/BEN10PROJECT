@@ -54,7 +54,11 @@
     "test:enemies": "python3 scripts/validate-enemy-sprites.py && node tests/enemy-sprites-browser.cjs",
     "package:enemies": "python3 scripts/package-enemy-sprites.py",
     "test:combat": "node --test tests/player-balance.test.cjs tests/eternal-enemies.test.cjs && node tests/v35-combat-browser.cjs",
-    "test:package": "node tests/v35-packaged-browser.cjs"
+    "test:package": "node tests/v35-packaged-browser.cjs",
+    "build:king": "python3 scripts/build-king-sprites.py",
+    "test:king": "python3 scripts/validate-king-sprites.py && node tests/king-sprites-browser.cjs",
+    "package:king": "python3 scripts/package-king-sprites.py",
+    "preview:king": "node scripts/preview-king-sprites.cjs"
   },
   "devDependencies": {
     "playwright": "1.62.1"

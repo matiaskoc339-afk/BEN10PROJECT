@@ -70,3 +70,7 @@ El [visor de arte](mapas/index.html) y la [documentación de capas](mapas/README
 Los [sprites de Caballeros Eternos](enemigos/index.html) se revisan en un visor separado: cinco especialidades con tres rangos y dos campeones con hacha, con reposo, caminata, dos acciones, golpe y derrota. El [catálogo](enemigos/catalogo.html) permite ver las 17 variantes juntas. El juego utiliza sus atlas y animaciones en el combate. Consulta [los archivos y sus anclajes](enemigos/README.md).
 
 Consulta [los ajustes de vida, reloj e IA de V36](docs/v36-balance.md) y [el sistema de encuentros](docs/v35-combate.md). Las pruebas de combate se ejecutan con `npm run test:combat`; `npm run package:campaign` genera el ZIP completo de V36 para jugar sin conexión.
+
+## Rey Eterno · arte del jefe final
+
+El [visor del Rey Eterno](jefe-final/index.html) contiene sus tres fases, 19 animaciones y 114 poses nuevas: cristal intacto, cristal agrietado y armadura normal. Incluye ruptura de defensa, embestida, esquiva, invocación, caída real y ADN de Diamante. El [contrato de animación y las reglas previstas](jefe-final/README.md) documentan los eventos para integrar el combate. La demo V36 conserva su contenido actual; esta entrega del jefe es una biblioteca de sprites y animaciones. Se reconstruye con `npm run build:king`, se verifica con `npm run test:king` y se exporta con `npm run package:king`.
