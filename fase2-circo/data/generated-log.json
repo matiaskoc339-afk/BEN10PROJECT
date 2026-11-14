@@ -1,0 +1,128 @@
+[
+  {
+    "source": "/workspace/generated_images/exec-f0f802a4-1f7a-4d7e-b9d7-fc0dad08ee87.png",
+    "destination": "assets/source/tramposo-normal.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "sha256": "1e4322c78ec0f1068fde783bc1dcb9203f8fbf2048687adde5a12d98a53693c2"
+  },
+  {
+    "source": "/workspace/generated_images/exec-342e1631-f4d6-426e-a4b8-07acf01bfdcf.png",
+    "destination": "assets/source/rapido-loco.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "sha256": "67e70c426fee065fec8b25f78d9a97ef5b252f18e70c351f387dbf4139234039"
+  },
+  {
+    "source": "/workspace/generated_images/exec-f4a61f47-4bc7-44c8-9c77-c024d6387fad.png",
+    "destination": "assets/backgrounds/01-vestibulo-b.png",
+    "size": [
+      2172,
+      724
+    ],
+    "sha256": "0c6e4f23b62e4865ac222b5e9edd4e1911d97e10fd8b612c0aa468dc37260ca8"
+  },
+  {
+    "source": "/workspace/generated_images/exec-a7be4e7b-9727-47d7-b2d2-46dba3b348c9.png",
+    "destination": "assets/source/fuerte-loco.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "sha256": "16cfae48ccc5f30de02261ddebcac78763c6207fed0b06e2a161f46b95e5f949"
+  },
+  {
+    "source": "/workspace/generated_images/exec-df7d7471-50c3-413d-8584-f6c0cb6a907c.png",
+    "destination": "assets/backgrounds/03-escenario-b.png",
+    "size": [
+      2172,
+      724
+    ],
+    "sha256": "1d63f9559b1cc0de373f08fab8ff49c69d1af85715ff9f107da8501be1befe7b"
+  },
+  {
+    "source": "/workspace/generated_images/exec-00568525-9237-4f34-8714-1ecfbb6d7760.png",
+    "destination": "assets/source/tramposo-loco.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "sha256": "219df18ce11d4b39f45260f07f8e025b6180ecdaf9d4896f8d03a9cb57473b36"
+  },
+  {
+    "source": "/workspace/generated_images/exec-baa7de4b-1aa2-48f9-993f-2899c71f2268.png",
+    "destination": "assets/backgrounds/02-obstaculos-b.png",
+    "size": [
+      2172,
+      724
+    ],
+    "sha256": "f8fc54ee4684423d4622289e3072f8aeceb4a110ed7689560fc7e1108a40d552"
+  },
+  {
+    "source": "/workspace/generated_images/exec-49116624-d25f-4150-8851-964690674c3d.png",
+    "destination": "assets/backgrounds/ruta-cristal.png",
+    "size": [
+      2172,
+      724
+    ],
+    "sha256": "8876bf89b9b679cdcde5467b616c6789efc4d0c6f6432c094c6f34c7b33327c3"
+  },
+  {
+    "source": "/workspace/generated_images/exec-791ed586-73cf-42ed-bf03-c3cafc41474a.png",
+    "destination": "assets/source/bombas-fx.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "sha256": "aeee1cbb9ab143189aa3e4dd3d81ff46e3be2eeb55e864857d1a11ba06c74960"
+  },
+  {
+    "source": "/workspace/generated_images/exec-d46fbff0-5443-4205-a206-22501884264a.png",
+    "destination": "assets/source/espejos-props.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "sha256": "972c9cf929453d581f4dd173c9eb6419b4af613710352a22657365ca082567fd"
+  },
+  {
+    "source": "/workspace/generated_images/exec-b566cb86-80e5-4352-8f6c-308c0df51b99.png",
+    "destination": "assets/backgrounds/00-entrada.png",
+    "size": [
+      2172,
+      724
+    ],
+    "sha256": "ff787ffac18c646c211a136f758d1d0870833016ae9e883f6cbfa69b39aa2b8b"
+  },
+  {
+    "source": "/workspace/generated_images/exec-a9453d3a-6fac-4535-b525-436664ae2b74.png",
+    "destination": "assets/backgrounds/03-escenario-a.png",
+    "size": [
+      2172,
+      724
+    ],
+    "sha256": "d0ffd81f5ae6852f19614f1486e9f0cd02b2f6204575ee3a6844aeae6b20cb5a"
+  },
+  {
+    "source": "/workspace/generated_images/exec-c4eea7b1-d934-4548-af83-70d05dca1945.png",
+    "destination": "assets/backgrounds/01-vestibulo-c.png",
+    "size": [
+      2172,
+      724
+    ],
+    "sha256": "5db58eb71aee52a640cc038eb280d4530b5ddfadf908f4cc3d182adf541d8acb"
+  },
+  {
+    "source": "/workspace/generated_images/exec-a03fab81-c217-4535-8385-095823ba638a.png",
+    "destination": "assets/backgrounds/02-obstaculos-c.png",
+    "size": [
+      2172,
+      724
+    ],
+    "sha256": "e835a05c4ce905ec4aa5f94c23a0255ef465a70109ac8c352751f65b220d0e1e"
+  }
+]

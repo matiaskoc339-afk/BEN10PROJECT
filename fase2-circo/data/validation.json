@@ -1,0 +1,36 @@
+{
+  "variants": 6,
+  "characterPoses": 216,
+  "characterClips": 36,
+  "checkedCharacterFrames": 216,
+  "routes": [
+    {
+      "id": "01-vestibulo",
+      "logicalWidth": 2750.0,
+      "uniqueTiles": 3,
+      "seams": [
+        1020,
+        1814
+      ]
+    },
+    {
+      "id": "02-obstaculos",
+      "logicalWidth": 2700.0,
+      "uniqueTiles": 3,
+      "seams": [
+        1055,
+        1819
+      ]
+    },
+    {
+      "id": "03-escenario",
+      "logicalWidth": 2687.0,
+      "uniqueTiles": 3,
+      "seams": [
+        912,
+        1740
+      ]
+    }
+  ],
+  "gameIndexUnchanged": true
+}

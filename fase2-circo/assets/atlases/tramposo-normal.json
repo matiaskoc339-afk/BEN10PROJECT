@@ -1,0 +1,630 @@
+{
+  "id": "tramposo-normal",
+  "role": "tramposo",
+  "roleLabel": "Tramposos",
+  "name": "Artificiero",
+  "tier": "normal",
+  "tierLabel": "Normal",
+  "kind": "henchman",
+  "bodyHeight": 92,
+  "description": "Secuaz del circo de Zombozo. Poses completas dibujadas, vista lateral en tres cuartos.",
+  "atlas": "assets/atlases/tramposo-normal.png",
+  "poster": "assets/posters/tramposo-normal.png",
+  "source": "assets/source/tramposo-normal.png",
+  "sourceSha256": "1e4322c78ec0f1068fde783bc1dcb9203f8fbf2048687adde5a12d98a53693c2",
+  "cellWidth": 224,
+  "cellHeight": 208,
+  "anchorX": 88,
+  "anchorY": 147,
+  "nativeBodyHeight": 128,
+  "columns": 6,
+  "rows": 6,
+  "directions": {
+    "right": {
+      "flipX": false
+    },
+    "left": {
+      "flipX": true
+    }
+  },
+  "animations": {
+    "idle": {
+      "name": "Reposo",
+      "loop": true,
+      "durations": [
+        150,
+        150,
+        150,
+        150,
+        150,
+        150
+      ],
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            45,
+            20,
+            116,
+            183
+          ]
+        },
+        {
+          "x": 224,
+          "y": 0,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            260,
+            18,
+            110,
+            185
+          ]
+        },
+        {
+          "x": 448,
+          "y": 0,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            471,
+            14,
+            105,
+            189
+          ]
+        },
+        {
+          "x": 672,
+          "y": 0,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            679,
+            16,
+            107,
+            187
+          ]
+        },
+        {
+          "x": 896,
+          "y": 0,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            884,
+            20,
+            110,
+            183
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 0,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            1091,
+            23,
+            112,
+            180
+          ]
+        }
+      ]
+    },
+    "walk": {
+      "name": "Caminata",
+      "loop": true,
+      "durations": [
+        110,
+        110,
+        110,
+        110,
+        110,
+        110
+      ],
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 208,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            39,
+            234,
+            126,
+            172
+          ]
+        },
+        {
+          "x": 224,
+          "y": 208,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            254,
+            232,
+            124,
+            177
+          ]
+        },
+        {
+          "x": 448,
+          "y": 208,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            469,
+            229,
+            121,
+            179
+          ]
+        },
+        {
+          "x": 672,
+          "y": 208,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            682,
+            230,
+            118,
+            178
+          ]
+        },
+        {
+          "x": 896,
+          "y": 208,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            892,
+            232,
+            119,
+            176
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 208,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            1099,
+            235,
+            120,
+            173
+          ]
+        }
+      ]
+    },
+    "attack": {
+      "name": "Lanzamiento de bomba",
+      "loop": false,
+      "durations": [
+        120,
+        170,
+        80,
+        80,
+        120,
+        150
+      ],
+      "contactFrames": [
+        3
+      ],
+      "frames": [
+        {
+          "x": 0,
+          "y": 416,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            45,
+            440,
+            117,
+            181
+          ]
+        },
+        {
+          "x": 224,
+          "y": 416,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            242,
+            437,
+            150,
+            184
+          ]
+        },
+        {
+          "x": 448,
+          "y": 416,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            443,
+            435,
+            167,
+            186
+          ]
+        },
+        {
+          "x": 672,
+          "y": 416,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            659,
+            439,
+            179,
+            183
+          ]
+        },
+        {
+          "x": 896,
+          "y": 416,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            870,
+            445,
+            146,
+            176
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 416,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            1092,
+            440,
+            126,
+            181
+          ]
+        }
+      ]
+    },
+    "secondary": {
+      "name": "Finta y bomba rasante",
+      "loop": false,
+      "durations": [
+        110,
+        140,
+        100,
+        90,
+        150,
+        170
+      ],
+      "contactFrames": [
+        3
+      ],
+      "frames": [
+        {
+          "x": 0,
+          "y": 624,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            42,
+            650,
+            120,
+            178
+          ]
+        },
+        {
+          "x": 224,
+          "y": 624,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            243,
+            658,
+            163,
+            170
+          ]
+        },
+        {
+          "x": 448,
+          "y": 624,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            446,
+            675,
+            157,
+            152
+          ]
+        },
+        {
+          "x": 672,
+          "y": 624,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            649,
+            681,
+            172,
+            147
+          ]
+        },
+        {
+          "x": 896,
+          "y": 624,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            864,
+            672,
+            160,
+            156
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 624,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            1088,
+            649,
+            124,
+            179
+          ]
+        }
+      ]
+    },
+    "hurt": {
+      "name": "Reacción al golpe",
+      "loop": false,
+      "durations": [
+        60,
+        80,
+        90,
+        90,
+        90,
+        110
+      ],
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 832,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            42,
+            855,
+            126,
+            182
+          ]
+        },
+        {
+          "x": 224,
+          "y": 832,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            240,
+            855,
+            149,
+            181
+          ]
+        },
+        {
+          "x": 448,
+          "y": 832,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            445,
+            861,
+            156,
+            176
+          ]
+        },
+        {
+          "x": 672,
+          "y": 832,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            669,
+            866,
+            132,
+            171
+          ]
+        },
+        {
+          "x": 896,
+          "y": 832,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            881,
+            870,
+            125,
+            167
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 832,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            1092,
+            865,
+            121,
+            172
+          ]
+        }
+      ]
+    },
+    "defeat": {
+      "name": "Derrota",
+      "loop": false,
+      "durations": [
+        100,
+        130,
+        160,
+        180,
+        220,
+        420
+      ],
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 1040,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            42,
+            1068,
+            131,
+            175
+          ]
+        },
+        {
+          "x": 224,
+          "y": 1040,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            243,
+            1087,
+            145,
+            156
+          ]
+        },
+        {
+          "x": 448,
+          "y": 1040,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            443,
+            1109,
+            159,
+            129
+          ]
+        },
+        {
+          "x": 672,
+          "y": 1040,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            643,
+            1122,
+            159,
+            118
+          ]
+        },
+        {
+          "x": 896,
+          "y": 1040,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            843,
+            1138,
+            185,
+            102
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 1040,
+          "width": 224,
+          "height": 208,
+          "anchorX": 88,
+          "anchorY": 147,
+          "sourceBox": [
+            1047,
+            1164,
+            203,
+            77
+          ]
+        }
+      ]
+    }
+  }
+}

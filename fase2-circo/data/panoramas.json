@@ -1,0 +1,32 @@
+[
+  {
+    "id": "01-vestibulo",
+    "width": 5500,
+    "height": 720,
+    "logicalWidth": 2750,
+    "floorY": 460,
+    "full": "assets/panoramas/01-vestibulo.png",
+    "wall": "assets/panoramas/01-vestibulo-pared.png",
+    "floor": "assets/panoramas/01-vestibulo-suelo.png"
+  },
+  {
+    "id": "02-obstaculos",
+    "width": 5400,
+    "height": 720,
+    "logicalWidth": 2700,
+    "floorY": 460,
+    "full": "assets/panoramas/02-obstaculos.png",
+    "wall": "assets/panoramas/02-obstaculos-pared.png",
+    "floor": "assets/panoramas/02-obstaculos-suelo.png"
+  },
+  {
+    "id": "03-escenario",
+    "width": 5374,
+    "height": 720,
+    "logicalWidth": 2687,
+    "floorY": 460,
+    "full": "assets/panoramas/03-escenario.png",
+    "wall": "assets/panoramas/03-escenario-pared.png",
+    "floor": "assets/panoramas/03-escenario-suelo.png"
+  }
+]

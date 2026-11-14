@@ -1,0 +1,176 @@
+{
+  "tool": "image_gen",
+  "note": "Fuentes dibujadas conservadas sin modificar; montaje y registro sin generar poses nuevas.",
+  "jobs": [
+    {
+      "id": "fuerte-normal",
+      "prompt": "Create a complete transparent sprite sheet for the CURRENT Ben 10 classic-inspired arcade beat-em-up. Match the crisp illustrated pixel/cel style and three-quarter SIDE camera of the supplied knight and Ben references; NEW CIRCUS ENEMY, no knight armor, no Ben. Hand-drawn animation poses, coherent anatomy, no stretched cutout tricks. EXACT GRID: SIX equally spaced COLUMNS and SIX ROWS, 36 complete full-body poses, each on its OWN generously padded transparent cell. Square canvas around 2048x2048. EVERY pose faces RIGHT in three-quarter side view, fixed camera and same character design and scale. NO text, no grid lines, no background, no floor/shadow, no duplicate extra characters, no motion trails touching adjacent cells. Keep weapons, hair, feet, hands fully inside their cell with 12% clear margins. Each row is ONE six-frame animation progressing left to right: ROW1 idle guard breathing/weight-shift; ROW2 genuine walk cycle exchanging feet with bent knees; ROW3 primary attack anticipation, windup, action, CONTACT at col4, follow-through, recovery; ROW4 secondary attack same timing; ROW5 hit reaction with recoil/stagger/recovery; ROW6 defeat with progressive collapse, col6 lying on ground horizontally, no gore. Clear silhouettes and readable hands. CHARACTER: Zombozo's STRONG clown henchman, a huge stocky adult with barrel chest, huge muscular forearms, short sturdy legs and large shoes. White clown face, small red nose, intimidating heavy brow but cartoon series style. Burgundy-red and ink-navy circus dungarees, ivory striped sleeves, brass buttons, broad suspenders and wrist wraps. A huge round wooden carnival MALLET with a red painted star, clearly held correctly in both hands. Primary row3: raises mallet over shoulder then heavy DOWNWARD ground smash. Secondary row4: wide sideways mallet sweep, bracing weight through bent legs. Idle mallet rests on shoulder. The final corpse keeps the whole mallet on the ground in its own cell. Intimidating imposing strong clown, not a friendly toy. Preserve a chunky broad silhouette.",
+      "refs": [
+        "/workspace/BEN10PROJECT-v31-publish/enemigos/assets/posters/melee-recruit.png",
+        "/workspace/BEN10PROJECT-v31-publish/enemigos/assets/context/ben-reference.png"
+      ],
+      "transparent": true,
+      "kind": "enemy"
+    },
+    {
+      "id": "rapido-normal",
+      "prompt": "Create a complete transparent sprite sheet for the CURRENT Ben 10 classic-inspired arcade beat-em-up. Match the crisp illustrated pixel/cel style and three-quarter SIDE camera of the supplied knight and Ben references; NEW CIRCUS ENEMY, no knight armor, no Ben. Hand-drawn animation poses, coherent anatomy, no stretched cutout tricks. EXACT GRID: SIX equally spaced COLUMNS and SIX ROWS, 36 complete full-body poses, each on its OWN generously padded transparent cell. Square canvas around 2048x2048. EVERY pose faces RIGHT in three-quarter side view, fixed camera and same character design and scale. NO text, no grid lines, no background, no floor/shadow, no duplicate extra characters, no motion trails touching adjacent cells. Keep weapons, hair, feet, hands fully inside their cell with 12% clear margins. Each row is ONE six-frame animation progressing left to right: ROW1 idle guard breathing/weight-shift; ROW2 genuine walk cycle exchanging feet with bent knees; ROW3 primary attack anticipation, windup, action, CONTACT at col4, follow-through, recovery; ROW4 secondary attack same timing; ROW5 hit reaction with recoil/stagger/recovery; ROW6 defeat with progressive collapse, col6 lying on ground horizontally, no gore. Clear silhouettes and readable hands. CHARACTER: Zombozo's FAST clown henchman. Small skinny wiry adult with narrow waist, long thin limbs, flexed springy knees, lightweight pointed circus shoes. Sharp white clown face, orange-red hair tufts, small red nose, cyan/ivory/orange harlequin costume with asymmetrical striped stockings and short neck ruff. Carries two SHORT juggling batons, one in each hand, not knives or swords. Row2 quick low tiptoe walk with complete foot exchange. Primary row3 alternating rapid baton jabs, lunge contact then retract. Secondary row4 agile low spinning kick then hops BACK away in recovery, feet anatomically clear. Idle hunched fight stance, never T pose. Row6 falls sideways and is fully prone in final cell. Small thin slippery silhouette, very different from strong clown.",
+      "refs": [
+        "/workspace/BEN10PROJECT-v31-publish/enemigos/assets/posters/melee-recruit.png",
+        "/workspace/BEN10PROJECT-v31-publish/enemigos/assets/context/ben-reference.png"
+      ],
+      "transparent": true,
+      "kind": "enemy"
+    },
+    {
+      "id": "tramposo-normal",
+      "prompt": "Create a complete transparent sprite sheet for the CURRENT Ben 10 classic-inspired arcade beat-em-up. Match the crisp illustrated pixel/cel style and three-quarter SIDE camera of the supplied knight and Ben references; NEW CIRCUS ENEMY, no knight armor, no Ben. Hand-drawn animation poses, coherent anatomy, no stretched cutout tricks. EXACT GRID: SIX equally spaced COLUMNS and SIX ROWS, 36 complete full-body poses, each on its OWN generously padded transparent cell. Square canvas around 2048x2048. EVERY pose faces RIGHT in three-quarter side view, fixed camera and same character design and scale. NO text, no grid lines, no background, no floor/shadow, no duplicate extra characters, no motion trails touching adjacent cells. Keep weapons, hair, feet, hands fully inside their cell with 12% clear margins. Each row is ONE six-frame animation progressing left to right: ROW1 idle guard breathing/weight-shift; ROW2 genuine walk cycle exchanging feet with bent knees; ROW3 primary attack anticipation, windup, action, CONTACT at col4, follow-through, recovery; ROW4 secondary attack same timing; ROW5 hit reaction with recoil/stagger/recovery; ROW6 defeat with progressive collapse, col6 lying on ground horizontally, no gore. Clear silhouettes and readable hands. CHARACTER: Zombozo's TRICKSTER clown bomber. Medium-height hunched narrow-shoulder adult, long plum-purple coat with orange checks and cream cuffs, olive satchel/bandolier of round striped carnival bombs at the belt, green frizzy hair, white pointed clown face and red nose, sly squinting grin. Long nimble gloved fingers. Row2 crooked skulking walk clutching one bomb. Primary row3 takes ONE round red-and-gold striped bomb from belt, winds throwing arm, RELEASES forward in col4 with EMPTY hand extended, follows through, recovers. Do NOT draw detached flying bombs in sheet: projectile art is separate. Secondary row4 feints and then rolls a bomb low along floor, crouching and laughing, releases in col4. Idle rolls bomb in palms. Row6 drops onto back/side, bag and limbs settle safely, no explosion. Same bomb design throughout.",
+      "refs": [
+        "/workspace/BEN10PROJECT-v31-publish/enemigos/assets/posters/melee-recruit.png",
+        "/workspace/BEN10PROJECT-v31-publish/enemigos/assets/context/ben-reference.png"
+      ],
+      "transparent": true,
+      "kind": "enemy"
+    },
+    {
+      "id": "01-vestibulo",
+      "prompt": "Draw ONE continuous EXTRA-LONG horizontal panorama for a Ben10 classic illustrated pixel/cel arcade beat-em-up, same crisp rich shading and camera elevation as supplied existing street reference, but a NEW sinister circus interior. Output exactly an ultrawide 8:1 landscape, preferably 6144x768 or 8192x1024 pixels. Whole canvas filled edge-to-edge, ONE unbroken scene, NO separate panels or borders, NO collage, NO text, no characters, no HUD. Stage 1 of 3: THE CIRCUS FOYER. Horizontal journey LEFT to RIGHT through a gigantic coherent striped burgundy/ivory circus tent. At far left a dark fabric entry flap with hint of moonlit outdoor cobbles, then ticket wicket and worn show posters without lettering, stacked circus trunks, warm yellow bulbs and rope stanchions in rear; middle opens into a spacious ring foyer with low wooden seating, ornate clown-face prop and hanging pennants; far right narrows into a small violet curtained mirror alcove with a clean empty wall space reserved for a separately animated tall mirror. Rich burgundy, antique gold, teal shadows, tiny sickly lime accents. Perspective must remain SIDE beat-em-up: rear scenery occupies top58%, broad unobstructed WALKABLE FLOOR occupies bottom42%. Floor is a continuous sweeping wood-and-muted-red-circus-mat surface, no gaps, readable plank joints. Ground objects sensibly scaled to a 70-unit-tall Ben, no isolated giant prop in empty space. Distinct landmarks and rhythms across the entire length, not repeated tent modules. At left and right ends reserve a plausible doorway/arrival area. No portal painted in; only mirror alcove.",
+      "refs": [
+        "/workspace/BEN10PROJECT-v31-publish/mapas/assets/remaster/ciudad-01-01.png"
+      ],
+      "transparent": false,
+      "kind": "background"
+    },
+    {
+      "id": "02-obstaculos",
+      "prompt": "Draw ONE continuous EXTRA-LONG horizontal panorama for a Ben10 classic illustrated pixel/cel arcade beat-em-up, same crisp detailed pixel/cel shading and side camera elevation as supplied street reference. NEW sinister circus obstacle wing, continuing the same huge burgundy/ivory striped tent palette with antique gold, violet curtains, teal shadows and lime magical glints. Output ultrawide 8:1 landscape, preferably6144x768 or8192x1024. ONE unbroken environment, not separate images or rooms with seams, canvas full edge-to-edge, no panels, no borders, no HUD, no text, no characters. Stage2 of3: THE OBSTACLE SHOW. LEFT begins in a violet curtained mirror arrival alcove; then backstage racks of juggling rings and hanging hoops over low platforms IN THE REAR, striped spinning-wheel backdrop and rigging, a carousel of decorative masks and padded circus apparatus; middle has a dramatic ramped rear show ramp and overhead trapeze rigs, tightly suspended ropes and box stacks; right approaches a gold-trimmed low backstage door and violet mirror exit alcove. Keep a continuous broad unobstructed WALKABLE floor along bottom42%; scenery and decorative hazards stay in rear top58% or edges so later collision/props can be placed separately. Floor has coherent wood planks and patched circus mats meeting continuously, changing gently in shallow contours rather than a flat repeated checkerboard. The obstacles should be visually varied, fun, slightly menacing and like a carefully authored TMNT-style arcade level, never realistic horror. Mirror alcoves EMPTY for separately animated portals. Match scale at ends to stage1.",
+      "refs": [
+        "/workspace/BEN10PROJECT-v31-publish/mapas/assets/remaster/ciudad-01-01.png"
+      ],
+      "transparent": false,
+      "kind": "background"
+    },
+    {
+      "id": "03-escenario",
+      "prompt": "Draw ONE continuous EXTRA-LONG horizontal panorama, a Ben10 classic illustrated pixel/cel side beat-em-up background matching the rich crisp graphic style and elevated SIDE camera of supplied existing street reference. Output ultrawide 8:1 landscape preferably6144x768 or8192x1024. No borders or black bars, no collage, ONE coherent continuous scene, no characters, NO BOSS drawn, no HUD or readable text. Stage3 of3: ZOMBOZO'S MAIN SHOW ARENA. Same burgundy/ivory striped gigantic circus tent, antique gold trim, violet velvet and teal shadows with restrained lime evil magic. LEFT starts at a violet curtain mirror-arrival alcove, narrow backstage props then a grand side aisle of empty red seats and folded drapes; middle gradually opens past raised side platforms and rigging into the huge central performance ring; the final RIGHT half is a generous empty BOSS FIGHT ARENA beneath an ornate monumental proscenium with a sinister clown theatre-face ornament, layered curtains, painted stars, stage lamps and a dark throne-like unused prop far behind. Bottom42% is continuous WALKABLE wood/mat circus floor, enough depth for beat-em-up fighting, no railings or obstacles across the lane. Rear architecture top58% sets the boundary. Keep floor height/scale consistent with previous two stages. Distinct lighting/landmarks, no repeating wallpaper. Provide a physically plausible empty arena for a future Zombozo boss but absolutely no boss sprite or silhouette now. Leave arrival mirror alcove empty for separate portal art.",
+      "refs": [
+        "/workspace/BEN10PROJECT-v31-publish/mapas/assets/remaster/ciudad-01-01.png"
+      ],
+      "transparent": false,
+      "kind": "background"
+    },
+    {
+      "id": "tramposo-normal-alpha",
+      "prompt": "Remove ONLY the light gray/white background and the diffuse drop shadows from this exact 6-by-6 clown sprite sheet. Preserve every clown, face, white makeup, costume, shoe, hand and held bomb, all 36 drawn poses, grid spacing and scale. Make all empty space absolutely truly transparent with alpha zero, including the corners and gaps, not a translucent gray or white matte. Keep the original white clown faces opaque. No new objects, no frame rearrangement, no cropped body parts. Export an RGBA transparent sprite sheet.",
+      "refs": [
+        "/workspace/BEN10PROJECT-v31-publish/fase2-circo/assets/source/tramposo-normal.png"
+      ],
+      "transparent": true,
+      "dest": "assets/source/tramposo-normal.png"
+    },
+    {
+      "id": "fuerte-loco",
+      "prompt": "Draw a NEW complete 6-column by6-row transparent sprite sheet, 36 poses, of the ADVANCED CRAZY variant of the supplied strong clown. Match same illustration/pixel/cel style, same RIGHT-facing three-quarter side camera, same scale and frame spacing, but actual newly drawn aggressive animation poses. NOT a simple recolor. Broader hunched shoulders, thick reinforced purple/black circus overalls with lime harlequin patches, short shoulder pads and wrist braces, white sinister clown face with spiral black eye makeup, jagged green hair tuft, red nose, clenched grin. Enormous muscular arms and short sturdy legs. His huge wooden red-star mallet now has battered iron reinforcement bands, not spikes crossing cells. Every cell has 12% empty TRANSPARENT margins, alpha zero background, no white matte, no ground shadows, no labels, no grid lines. Exactly6 columns and6 rows. Row1 breathing idle with mallet resting at shoulder, Row2 heavy genuine walk with exchange of feet, Row3 a more aggressive overhead two-handed mallet smash CONTACTcol4, Row4 low wide two-handed mallet sweep CONTACTcol4, Row5 recoil and recovery when hit, Row6 complete stagger and collapse finishing fully PRONE on the ground in col6. Every pose complete with correctly attached two arms/two legs and weapon, all inside own cell. Final prone body and entire mallet must fit. Keep a massive intimidating silhouette, not a friendly toy.",
+      "refs": [
+        "/workspace/BEN10PROJECT-v31-publish/fase2-circo/assets/source/fuerte-normal.png"
+      ],
+      "transparent": true,
+      "dest": "assets/source/fuerte-loco.png"
+    },
+    {
+      "id": "rapido-loco",
+      "prompt": "Create a NEW 6-column by6-row transparent animation sheet (36 full-body poses) for the CRAZY stronger rank of this exact fast clown. Same refined Ben10 cartoon pixel/cel style and RIGHT-facing three-quarter SIDE camera and character scale. Draw new more aggressive poses, not a recolor. Very skinny spring-loaded low crouch, sharp white clown face with asymmetric black diamond eye marks and manic grin, spiky chartreuse hair, turquoise/purple harlequin jacket with reinforced elbow bands and orange straps, short ruff, thin striped legs, narrow curled shoes, two reinforced juggling batons held coherently. 6 rows ×6 columns with plenty of empty transparent alpha-zero margins, no white/gray backdrop or shadows, no labels/grids. Row1 twitchy guarded idle; Row2 genuine fast alternating running/walking steps; Row3 quick alternating baton jabs with windup/contact at col4/recovery; Row4 acrobatic low kick with planted leg, then backward retreat/recovery; Row5 hit recoil and regain footing; Row6 lose balance and collapse ending totally prone in last cell, not still kneeling. All hands/feet/weapons fit safely within their own cell. Keep unmistakably thin and agile compared to the big strong clown.",
+      "refs": [
+        "/workspace/BEN10PROJECT-v31-publish/fase2-circo/assets/source/rapido-normal.png"
+      ],
+      "transparent": true,
+      "dest": "assets/source/rapido-loco.png"
+    },
+    {
+      "id": "tramposo-loco",
+      "prompt": "Draw the new CRAZY stronger rank of this clown bomber as a clean 6-column by6-row TRANSPARENT sprite sheet, exactly36 complete poses. Match the source's drawn style and RIGHT-facing three-quarter SIDE camera, anatomy and size, not a pixel recolor. More hunched manic silhouette, wild white-green hair, black eye spirals, cracked grin white clown makeup/red nose, long near-black/violet coat with vivid turquoise and orange mismatched patches, reinforced leather cuffs and crossed satchels holding striped circus bombs. Two arms only, coherent nimble gloved hands. Row1 idle juggling ONE bomb in hands, Row2 crooked sneaky walk exchanging feet, Row3 overhand bomb toss releasing with EMPTY outstretched hand in col4, Row4 feint then underhand roll of ONE bomb, release col4, Row5 stagger/recover from being hit, Row6 complete collapse ending lying fully down in col6. No detached flying bombs anywhere: projectile art is separate. Preserve large 12% clear padding in every cell and all complete bodies. Absolutely alpha-zero transparent background in every empty area, NO white/gray matte, NO cast shadows, no text or grid lines.",
+      "refs": [
+        "/workspace/BEN10PROJECT-v31-publish/fase2-circo/assets/source/tramposo-normal.png"
+      ],
+      "transparent": true,
+      "dest": "assets/source/tramposo-loco.png"
+    },
+    {
+      "id": "bombas-fx",
+      "prompt": "A polished transparent game FX sprite sheet for the same illustrated pixel/cel Ben10 sinister circus style as the references. EXACT6 columns ×6 rows, 36 clearly separated frames, no labels/grid/background/floor/shadows. Empty pixels MUST be true alpha-zero transparency, not a white/gray matte. Each row6frames progresses left-to-right with identical centered pivot and ample empty gutters. Row1: ONE small round red-and-gold striped carnival EXPLOSIVE BOMB rotating in flight, short sparkling fuse, subtle orange band. Row2: SAME round striped bomb silhouette for ACID type, tiny green window/band, rotates in flight. Row3: SAME bomb for CONFETTI type with a small violet star band, rotates. The three bombs look deliberately similar enough to be confusing, not huge different items. Row4: six-frame orange/red comic explosion: compact ignition, expanding starburst, full bright peak, smoke and fragments fading; no gore. Row5: six-frame green acid burst becoming a low flat bubbly poison puddle; final three frames maintain same puddle shape with bubbles changing, ready to loop. Row6: six-frame harmless festive confetti burst of paper ribbons/stars with tiny green plus-shaped healing sparkles among the falling confetti, fading at the end. Every effect complete inside own cell, no neighboring frame overlap, no character sprites.",
+      "refs": [
+        "/workspace/BEN10PROJECT-v31-publish/fase2-circo/assets/source/tramposo-normal.png",
+        "/workspace/BEN10PROJECT-v31-publish/fase2-circo/assets/backgrounds/01-vestibulo.png"
+      ],
+      "transparent": true,
+      "dest": "assets/source/bombas-fx.png"
+    },
+    {
+      "id": "espejos-props",
+      "prompt": "Transparent game prop ANIMATION sprite sheet matching the supplied crisp richly detailed illustrated pixel/cel circus scene. EXACT6 columns ×6 rows. NO labels, grid lines, floor or cast shadows, and absolutely alpha-zero empty background, not white/gray. Each row has6 distinct frames of ONE prop, side beat-em-up camera, complete silhouettes centered with wide clear gutters. Row1: tall freestanding antique GOLD/VIOLET funhouse MIRROR frame with two small feet, rippling cool teal glass and tiny lime stars, subtle idle shimmer across6frames, consistent frame silhouette. Row2: SAME mirror activating: cool glass ripples open into a violet/teal glowing doorway, portal interior swirls then holds, frame unchanged. Row3: hanging circus LANTERN of brass and green/yellow glass, gentle sway and warm light flicker, whole lantern and chain inside cell. Row4: tall narrow burgundy/ivory STRIPED SUPPORT POLE with two small pennant flags gently swaying; full vertical pole entirely inside each cell, ready to hide structural joins in panorama scenery. Row5: low red-and-gold circus spring TRAP PLATFORM with tiny triangular teeth, closes/retracts then springs open across6frames, playful mechanical danger, not gore. Row6: a horizontal solid MIRROR-SHARD PLATFORM, violet frame with blue faceted top, strict flat 2D platformer side view, six frames of glints and tiny float tilt with same walkable top line. The mirror must be tall enough for a child player to enter; palette consistent with scene.",
+      "refs": [
+        "/workspace/BEN10PROJECT-v31-publish/fase2-circo/assets/backgrounds/01-vestibulo.png"
+      ],
+      "transparent": true,
+      "dest": "assets/source/espejos-props.png"
+    },
+    {
+      "id": "00-entrada",
+      "prompt": "Create a new wide illustrated pixel/cel Ben10 arcade side beat-em-up background for the EXTERIOR ENTRANCE of Zombozo's circus, matching the detailed circus interior palette and source street camera. Wide3:1 landscape around2172x724 or larger, fills whole canvas, no borders/panels, no characters, no boss, no HUD, no readable text. A gigantic burgundy/ivory circus tent at night, antique gold entrance arch and violet curtains, mostly DARK open central entry doorway glowing faintly inside. Foreground wide WALKABLE cobblestone/asphalt approach occupies bottom42%, slightly cracked paving meets the tent's timber threshold coherently. Left has distant Bellwood street lamps and carnival queue ropes, right closed ticket booths and idle warm bulbs. The tent dwarfs Ben plausibly, imposing but colorful not photo horror. One clear dark doorway in right-center reserved for later press-Enter interaction. A moonlit blue sky and silhouettes behind the tent establish exterior; no giant empty flat field. Same side camera elevation and scale as the existing game.",
+      "refs": [
+        "/workspace/BEN10PROJECT-v31-publish/fase2-circo/assets/backgrounds/01-vestibulo.png",
+        "/workspace/BEN10PROJECT-v31-publish/mapas/assets/remaster/ciudad-01-01.png"
+      ],
+      "transparent": false,
+      "dest": "assets/backgrounds/00-entrada.png"
+    },
+    {
+      "id": "ruta-cristal",
+      "prompt": "Create an art-only background for RUTA CRISTAL, a magical funhouse MIRROR DIMENSION connecting circus rooms in a Ben10 cartoon pixel/cel arcade game. Wide3:1 panorama around2172x724 or larger, ONE continuous scene, no borders or panels, no HUD, no text, no characters. IMPORTANT CAMERA: strict FLAT SIDE-ON 2D PLATFORMER like Super Mario, NOT the elevated beat-em-up floor perspective. A deep violet/teal impossible circus space inside a mirror, floating distant carnival arches reflected in fractured blue glass facets, hanging red/gold drapes that break into crystalline reflections, glowing lime glints, black-violet depth and soft magical mist behind. Clear readable midground and large NEGATIVE SPACE for future separately placed platforms/obstacles. A thin solid dark base across bottom12%, with small crystal fragments on sides. Do not draw fixed playable platforms across the center: their sprite art is separate. Mark a subtle arrival arch far left and exit mirror alcove far right, both empty for separate mirror props. Beautiful high-quality rich crisp illustrated pixel/cel art coherent with the circus palette but visibly a different magical 2D POV.",
+      "refs": [
+        "/workspace/BEN10PROJECT-v31-publish/fase2-circo/assets/backgrounds/01-vestibulo.png"
+      ],
+      "transparent": false,
+      "dest": "assets/backgrounds/ruta-cristal.png"
+    },
+    {
+      "id": "01-vestibulo-b",
+      "dest": "assets/backgrounds/01-vestibulo-b.png",
+      "refs": [
+        "/workspace/BEN10PROJECT-v31-publish/fase2-circo/assets/backgrounds/01-vestibulo.png"
+      ],
+      "prompt": "Create a CONTINUATION TILE for this existing long beat-em-up circus panorama. Match EXACT same image aspect3:1, approximately2172x724, same crisp illustrated pixel/cel art, identical camera elevation, scale, floor plank direction and burgundy/ivory/gold/violet/teal palette. Frame fills canvas fully, no borders, black bars, text, HUD or characters. Broad walkable floor bottom39% with its rear boundary at61% height, same height across joining edges. New background area must be carefully authored unique scenery, not repeated/copy-pasted modules. This image will overlap its neighbor by25% to form ONE continuous panorama. The FIRST LEFT25% of the NEW image must faithfully repeat the LAST RIGHT25% of the supplied reference at the SAME SIZE and geometry: the violet-curtained alcove, wood threshold and right green service door. Do not shrink the whole reference into this area; match its rightmost quarter only. Then extend smoothly RIGHT with new content for a longer FOYER: a winding gallery of old carnival silhouettes and gold stars, red upholstered low benches, guarded ticket archive shelves, a large rear fortune-teller wheel behind glass, baggage crates with sensible small scale tucked against rear wall, and warm hanging lanterns. Keep all clutter in rear top61%; continuous empty walkable wood/mat foreground. Finish far right with a narrow burgundy/ivory support pole and calm teal curtain, a clean join for the next tile. NO new mirror or portal and do NOT repeat the giant clown face from the original."
+    },
+    {
+      "id": "02-obstaculos-b",
+      "dest": "assets/backgrounds/02-obstaculos-b.png",
+      "refs": [
+        "/workspace/BEN10PROJECT-v31-publish/fase2-circo/assets/backgrounds/02-obstaculos.png"
+      ],
+      "prompt": "Create a CONTINUATION TILE for this existing long beat-em-up circus panorama. Match EXACT same image aspect3:1, approximately2172x724, same crisp illustrated pixel/cel art, identical camera elevation, scale, floor plank direction and burgundy/ivory/gold/violet/teal palette. Frame fills canvas fully, no borders, black bars, text, HUD or characters. Broad walkable floor bottom39% with its rear boundary at61% height, same height across joining edges. New background area must be carefully authored unique scenery, not repeated/copy-pasted modules. This image will overlap its neighbor by25% to form ONE continuous panorama. The FIRST LEFT25% of the NEW tile must faithfully repeat the LAST RIGHT25% of the supplied image at same size: the backstage star door, crate/lantern details and gold/violet mirror frame at the edge. Then seamlessly extend RIGHT into a DIFFERENT obstacle gallery: rear funhouse illusion windows, a tall rocking decorative striped wheel rig, ropes and padded tumbling apparatus, rear catwalk and star-painted spring mechanisms, an elaborate carnival game of moving shutters. Keep these behind the playable bottom39%; nothing blocks the continuous walking lane. No repeated ring carousel or large ramp from the original. End far right at a striped narrow support pole and neutral teal curtain wall, without any new portal yet. Same continuous planked floor and worn red circus mat patches."
+    },
+    {
+      "id": "03-escenario-b",
+      "dest": "assets/backgrounds/03-escenario-b.png",
+      "refs": [
+        "/workspace/BEN10PROJECT-v31-publish/fase2-circo/assets/backgrounds/03-escenario.png"
+      ],
+      "prompt": "Create a CONTINUATION TILE for this existing long beat-em-up circus panorama. Match EXACT same image aspect3:1, approximately2172x724, same crisp illustrated pixel/cel art, identical camera elevation, scale, floor plank direction and burgundy/ivory/gold/violet/teal palette. Frame fills canvas fully, no borders, black bars, text, HUD or characters. Broad walkable floor bottom39% with its rear boundary at61% height, same height across joining edges. New background area must be carefully authored unique scenery, not repeated/copy-pasted modules. This image will overlap its neighbor by25% to form ONE continuous panorama. This tile goes BEFORE, to the LEFT of the supplied main-stage panorama. Its LAST RIGHT25% must faithfully repeat the FIRST LEFT25% of the reference at the SAME SIZE: violet curtain entry arch and nearby gold trim/wood seating boundary. The new FIRST LEFT75% is an approach aisle behind the grandstand: sweeping rows of empty red seats above a low wood retaining wall, heavy velvet canopy, warm antique brass lanterns, folded trapeze rigs and a small closed concession wagon in rear. Keep a continuous broad unobstructed timber floor bottom39% with consistent perspective and height. Near far left, a narrow striped pole and calm teal drape form a clean join to an earlier tile. NO giant clown face, NO throne, NO boss arena in this new part: those landmarks remain only in the supplied final tile. Do not paint another mirror or portal."
+    },
+    {
+      "id": "01-vestibulo-c",
+      "ref": "01-vestibulo-b",
+      "prompt": "Extend the reference to the RIGHT. Left quarter repeats the reference's far right quarter: ornate fortune wheel tail, burgundy/ivory striped support pole, teal drape. Remaining right three quarters are UNIQUE final foyer corridor: magician display cases of hats and cards, shadow puppet clock, a closed curved concession counter with brass accents, two grounded luggage trunks. End far RIGHT 18% with a calm plain dark teal curtain down to rear floor boundary, NO MIRROR OR MIRROR FRAME: an animated portal will be placed separately there."
+    },
+    {
+      "id": "02-obstaculos-c",
+      "ref": "02-obstaculos-b",
+      "prompt": "Extend reference to the RIGHT. Left quarter repeats its far right quarter with red shutter carnival mechanism, striped support pole and teal drape. Remaining right three quarters depict UNIQUE funhouse obstacle backstage: distorted shadow windows in wall, tiny crooked doors, stacked padded practice mats behind lane, a hanging trapeze, a narrow rear mechanical curtain passage. End far RIGHT 18% with plain dark teal curtain down to rear floor boundary, NO MIRROR OR MIRROR FRAME; the portal is separate. Do not put actual hazardous objects in walkable foreground."
+    },
+    {
+      "id": "03-escenario-a",
+      "ref": "03-escenario-b",
+      "prompt": "PREPEND to reference, extending LEFT. The RIGHT quarter must repeat the reference's far LEFT quarter: teal curtain, burgundy/ivory support pole, lantern and closed concession wagon, same camera and wood floor. The other LEFT three quarters are unique initial backstage arrival corridor BEFORE the spectator stands: quiet rear costume racks behind wood barrier, brass music equipment crates, folded circus benches, long velvet canopy. Far LEFT 18% plain dark teal curtain wall for separately placed arrival mirror. NO MIRROR OR MIRROR FRAME in this new area. No central circus arena or throne here; that comes later."
+    }
+  ]
+}

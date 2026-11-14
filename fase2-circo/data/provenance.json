@@ -1,0 +1,101 @@
+{
+  "generator": "image_gen",
+  "registration": "Fixed-pivot atlas registration and panorama composition; original drawings retained.",
+  "files": [
+    {
+      "file": "assets/source/bombas-fx.png",
+      "sha256": "aeee1cbb9ab143189aa3e4dd3d81ff46e3be2eeb55e864857d1a11ba06c74960",
+      "kind": "generated-art-original"
+    },
+    {
+      "file": "assets/source/espejos-props.png",
+      "sha256": "972c9cf929453d581f4dd173c9eb6419b4af613710352a22657365ca082567fd",
+      "kind": "generated-art-original"
+    },
+    {
+      "file": "assets/source/fuerte-loco.png",
+      "sha256": "16cfae48ccc5f30de02261ddebcac78763c6207fed0b06e2a161f46b95e5f949",
+      "kind": "generated-art-original"
+    },
+    {
+      "file": "assets/source/fuerte-normal.png",
+      "sha256": "c42b178d6a68b90a4a22c38ec8196db57d266fd646baecb542551b24c19414c0",
+      "kind": "generated-art-original"
+    },
+    {
+      "file": "assets/source/rapido-loco.png",
+      "sha256": "67e70c426fee065fec8b25f78d9a97ef5b252f18e70c351f387dbf4139234039",
+      "kind": "generated-art-original"
+    },
+    {
+      "file": "assets/source/rapido-normal.png",
+      "sha256": "50b87aae95915b89e34ec561d4af8caf75a2ad09bab6e2eb89a89afcedca9cfa",
+      "kind": "generated-art-original"
+    },
+    {
+      "file": "assets/source/tramposo-loco.png",
+      "sha256": "219df18ce11d4b39f45260f07f8e025b6180ecdaf9d4896f8d03a9cb57473b36",
+      "kind": "generated-art-original"
+    },
+    {
+      "file": "assets/source/tramposo-normal.png",
+      "sha256": "1e4322c78ec0f1068fde783bc1dcb9203f8fbf2048687adde5a12d98a53693c2",
+      "kind": "generated-art-original"
+    },
+    {
+      "file": "assets/backgrounds/00-entrada.png",
+      "sha256": "ff787ffac18c646c211a136f758d1d0870833016ae9e883f6cbfa69b39aa2b8b",
+      "kind": "generated-art-original"
+    },
+    {
+      "file": "assets/backgrounds/01-vestibulo-b.png",
+      "sha256": "0c6e4f23b62e4865ac222b5e9edd4e1911d97e10fd8b612c0aa468dc37260ca8",
+      "kind": "generated-art-original"
+    },
+    {
+      "file": "assets/backgrounds/01-vestibulo-c.png",
+      "sha256": "5db58eb71aee52a640cc038eb280d4530b5ddfadf908f4cc3d182adf541d8acb",
+      "kind": "generated-art-original"
+    },
+    {
+      "file": "assets/backgrounds/01-vestibulo.png",
+      "sha256": "c585ea5e214fcd0cd6e6813cd0070c255e6b960732b6df9568f7f2dc1d69dc4c",
+      "kind": "generated-art-original"
+    },
+    {
+      "file": "assets/backgrounds/02-obstaculos-b.png",
+      "sha256": "f8fc54ee4684423d4622289e3072f8aeceb4a110ed7689560fc7e1108a40d552",
+      "kind": "generated-art-original"
+    },
+    {
+      "file": "assets/backgrounds/02-obstaculos-c.png",
+      "sha256": "e835a05c4ce905ec4aa5f94c23a0255ef465a70109ac8c352751f65b220d0e1e",
+      "kind": "generated-art-original"
+    },
+    {
+      "file": "assets/backgrounds/02-obstaculos.png",
+      "sha256": "b30baf82a3ff921e2e729899090527fd9e96147852b39e95da911b0af2dbb908",
+      "kind": "generated-art-original"
+    },
+    {
+      "file": "assets/backgrounds/03-escenario-a.png",
+      "sha256": "d0ffd81f5ae6852f19614f1486e9f0cd02b2f6204575ee3a6844aeae6b20cb5a",
+      "kind": "generated-art-original"
+    },
+    {
+      "file": "assets/backgrounds/03-escenario-b.png",
+      "sha256": "1d63f9559b1cc0de373f08fab8ff49c69d1af85715ff9f107da8501be1befe7b",
+      "kind": "generated-art-original"
+    },
+    {
+      "file": "assets/backgrounds/03-escenario.png",
+      "sha256": "47bfc677a2748a6d3b9acfe2a69d099ce7c57bd5f2307fa1d2d67a18c2d51e2d",
+      "kind": "generated-art-original"
+    },
+    {
+      "file": "assets/backgrounds/ruta-cristal.png",
+      "sha256": "8876bf89b9b679cdcde5467b616c6789efc4d0c6f6432c094c6f34c7b33327c3",
+      "kind": "generated-art-original"
+    }
+  ]
+}

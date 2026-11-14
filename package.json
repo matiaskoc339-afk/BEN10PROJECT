@@ -65,7 +65,11 @@
     "test:menu": "node --test tests/save-slots.test.cjs && node tests/main-menu-browser.cjs",
     "test:recovery": "node --test tests/player-balance.test.cjs tests/recovery.test.cjs && node tests/recovery-browser.cjs",
     "build:audio": "python3 scripts/build-audio-bank.py",
-    "test:audio": "node --test tests/audio-design.test.cjs && node tests/audio-browser.cjs"
+    "test:audio": "node --test tests/audio-design.test.cjs && node tests/audio-browser.cjs",
+    "build:circo": "python3 scripts/build-circus-props.py && python3 scripts/build-circus-art.py && node scripts/export-circus-panoramas.cjs",
+    "test:circo": "python3 scripts/validate-circus-art.py && node tests/circus-browser.cjs",
+    "package:circo": "python3 scripts/package-circus-art.py",
+    "preview:circo": "node scripts/preview-circus-art.cjs"
   },
   "devDependencies": {
     "playwright": "1.62.1"

@@ -1,0 +1,630 @@
+{
+  "source": "assets/source/espejos-props.png",
+  "sourceSha256": "972c9cf929453d581f4dd173c9eb6419b4af613710352a22657365ca082567fd",
+  "clips": [
+    {
+      "id": "mirror-idle",
+      "name": "Espejo · reposo",
+      "atlas": "assets/atlases/espejos-props.png",
+      "bodyHeight": 170,
+      "nativeBodyHeight": 208,
+      "animation": {
+        "loop": true,
+        "durations": [
+          150,
+          150,
+          150,
+          150,
+          150,
+          150
+        ],
+        "frames": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              0,
+              0,
+              256,
+              200
+            ]
+          },
+          {
+            "x": 256,
+            "y": 0,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              256,
+              0,
+              512,
+              200
+            ]
+          },
+          {
+            "x": 512,
+            "y": 0,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              512,
+              0,
+              768,
+              200
+            ]
+          },
+          {
+            "x": 768,
+            "y": 0,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              768,
+              0,
+              1024,
+              200
+            ]
+          },
+          {
+            "x": 1024,
+            "y": 0,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              1024,
+              0,
+              1280,
+              200
+            ]
+          },
+          {
+            "x": 1280,
+            "y": 0,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              1280,
+              0,
+              1536,
+              200
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mirror-open",
+      "name": "Espejo · apertura",
+      "atlas": "assets/atlases/espejos-props.png",
+      "bodyHeight": 170,
+      "nativeBodyHeight": 206,
+      "animation": {
+        "loop": false,
+        "durations": [
+          110,
+          110,
+          110,
+          110,
+          110,
+          110
+        ],
+        "frames": [
+          {
+            "x": 0,
+            "y": 256,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              0,
+              200,
+              256,
+              400
+            ]
+          },
+          {
+            "x": 256,
+            "y": 256,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              256,
+              200,
+              512,
+              400
+            ]
+          },
+          {
+            "x": 512,
+            "y": 256,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              512,
+              200,
+              768,
+              400
+            ]
+          },
+          {
+            "x": 768,
+            "y": 256,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              768,
+              200,
+              1024,
+              400
+            ]
+          },
+          {
+            "x": 1024,
+            "y": 256,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              1024,
+              200,
+              1280,
+              400
+            ]
+          },
+          {
+            "x": 1280,
+            "y": 256,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              1280,
+              200,
+              1536,
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "lantern",
+      "name": "Farol oscilante",
+      "atlas": "assets/atlases/espejos-props.png",
+      "bodyHeight": 42,
+      "nativeBodyHeight": 208,
+      "animation": {
+        "loop": true,
+        "durations": [
+          150,
+          150,
+          150,
+          150,
+          150,
+          150
+        ],
+        "frames": [
+          {
+            "x": 0,
+            "y": 512,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              0,
+              400,
+              256,
+              555
+            ]
+          },
+          {
+            "x": 256,
+            "y": 512,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              256,
+              400,
+              512,
+              555
+            ]
+          },
+          {
+            "x": 512,
+            "y": 512,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              512,
+              400,
+              768,
+              555
+            ]
+          },
+          {
+            "x": 768,
+            "y": 512,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              768,
+              400,
+              1024,
+              555
+            ]
+          },
+          {
+            "x": 1024,
+            "y": 512,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              1024,
+              400,
+              1280,
+              555
+            ]
+          },
+          {
+            "x": 1280,
+            "y": 512,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              1280,
+              400,
+              1536,
+              555
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "pole",
+      "name": "Soporte y banderines",
+      "atlas": "assets/atlases/espejos-props.png",
+      "bodyHeight": 224,
+      "nativeBodyHeight": 208,
+      "animation": {
+        "loop": true,
+        "durations": [
+          160,
+          160,
+          160,
+          160,
+          160,
+          160
+        ],
+        "frames": [
+          {
+            "x": 0,
+            "y": 768,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              0,
+              555,
+              256,
+              752
+            ]
+          },
+          {
+            "x": 256,
+            "y": 768,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              256,
+              555,
+              512,
+              752
+            ]
+          },
+          {
+            "x": 512,
+            "y": 768,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              512,
+              555,
+              768,
+              752
+            ]
+          },
+          {
+            "x": 768,
+            "y": 768,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              768,
+              555,
+              1024,
+              752
+            ]
+          },
+          {
+            "x": 1024,
+            "y": 768,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              1024,
+              555,
+              1280,
+              752
+            ]
+          },
+          {
+            "x": 1280,
+            "y": 768,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              1280,
+              555,
+              1536,
+              752
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "trap",
+      "name": "Trampa de resorte",
+      "atlas": "assets/atlases/espejos-props.png",
+      "bodyHeight": 30,
+      "nativeBodyHeight": 122,
+      "animation": {
+        "loop": true,
+        "durations": [
+          180,
+          180,
+          180,
+          180,
+          180,
+          180
+        ],
+        "frames": [
+          {
+            "x": 0,
+            "y": 1024,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              0,
+              752,
+              256,
+              903
+            ]
+          },
+          {
+            "x": 256,
+            "y": 1024,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              256,
+              752,
+              512,
+              903
+            ]
+          },
+          {
+            "x": 512,
+            "y": 1024,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              512,
+              752,
+              768,
+              903
+            ]
+          },
+          {
+            "x": 768,
+            "y": 1024,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              768,
+              752,
+              1024,
+              903
+            ]
+          },
+          {
+            "x": 1024,
+            "y": 1024,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              1024,
+              752,
+              1280,
+              903
+            ]
+          },
+          {
+            "x": 1280,
+            "y": 1024,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              1280,
+              752,
+              1536,
+              903
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "platform",
+      "name": "Plataforma de cristal",
+      "atlas": "assets/atlases/espejos-props.png",
+      "bodyHeight": 24,
+      "nativeBodyHeight": 61,
+      "animation": {
+        "loop": true,
+        "durations": [
+          180,
+          180,
+          180,
+          180,
+          180,
+          180
+        ],
+        "frames": [
+          {
+            "x": 0,
+            "y": 1280,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              0,
+              903,
+              256,
+              1024
+            ]
+          },
+          {
+            "x": 256,
+            "y": 1280,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              256,
+              903,
+              512,
+              1024
+            ]
+          },
+          {
+            "x": 512,
+            "y": 1280,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              512,
+              903,
+              768,
+              1024
+            ]
+          },
+          {
+            "x": 768,
+            "y": 1280,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              768,
+              903,
+              1024,
+              1024
+            ]
+          },
+          {
+            "x": 1024,
+            "y": 1280,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              1024,
+              903,
+              1280,
+              1024
+            ]
+          },
+          {
+            "x": 1280,
+            "y": 1280,
+            "width": 256,
+            "height": 256,
+            "anchorX": 128,
+            "anchorY": 238,
+            "sourceBox": [
+              1280,
+              903,
+              1536,
+              1024
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "zip": "BEN10_Fase2_Zombozo_Arte.zip",
+  "bytes": 112308539,
+  "sha256": "3597cd54c32fd3ec03eeebce5ad26aede9244a22fbb0dc75b5510f9692473587",
+  "files": 68,
+  "characterPoses": 216,
+  "mainRoutes": 3,
+  "artOnly": true,
+  "gameIndexSha256": "9fb8297a56ed2cad28fbe2f4d65c4d9604587018fbbd7e63ff4d54b86d72c722",
+  "packagedViewerLaunch": true
+}
