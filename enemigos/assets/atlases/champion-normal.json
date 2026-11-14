@@ -1,0 +1,631 @@
+{
+  "id": "champion-normal",
+  "role": "champion",
+  "roleLabel": "Minijefe",
+  "name": "Campeón del hacha",
+  "tier": "normal",
+  "tierLabel": "Armadura normal",
+  "kind": "miniboss",
+  "bodyHeight": 142,
+  "reference": "assets/reference/champion-normal.png",
+  "description": "Campeón de gran masa con armadura pesada y hacha de dos manos.",
+  "atlas": "assets/atlases/champion-normal.png",
+  "poster": "assets/posters/champion-normal.png",
+  "source": "assets/source/champion-normal.png",
+  "sourceSha256": "b08a90a06a4e975870bbe97f09b6a87cd672d9f13b434899cd90aefcb3c4f3eb",
+  "cellWidth": 272,
+  "cellHeight": 224,
+  "anchorX": 137,
+  "anchorY": 203,
+  "nativeBodyHeight": 176,
+  "columns": 6,
+  "rows": 6,
+  "directions": {
+    "right": {
+      "flipX": false
+    },
+    "left": {
+      "flipX": true
+    }
+  },
+  "animations": {
+    "idle": {
+      "name": "Reposo",
+      "loop": true,
+      "durations": [
+        150,
+        150,
+        150,
+        150,
+        150,
+        150
+      ],
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            16,
+            11,
+            195,
+            191
+          ]
+        },
+        {
+          "x": 272,
+          "y": 0,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            231,
+            7,
+            187,
+            195
+          ]
+        },
+        {
+          "x": 544,
+          "y": 0,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            443,
+            6,
+            184,
+            196
+          ]
+        },
+        {
+          "x": 816,
+          "y": 0,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            653,
+            5,
+            182,
+            197
+          ]
+        },
+        {
+          "x": 1088,
+          "y": 0,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            861,
+            12,
+            186,
+            190
+          ]
+        },
+        {
+          "x": 1360,
+          "y": 0,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            1069,
+            16,
+            185,
+            186
+          ]
+        }
+      ]
+    },
+    "walk": {
+      "name": "Caminata",
+      "loop": true,
+      "durations": [
+        150,
+        150,
+        150,
+        150,
+        150,
+        150
+      ],
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 224,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            20,
+            223,
+            195,
+            188
+          ]
+        },
+        {
+          "x": 272,
+          "y": 224,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            238,
+            222,
+            181,
+            189
+          ]
+        },
+        {
+          "x": 544,
+          "y": 224,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            451,
+            219,
+            175,
+            191
+          ]
+        },
+        {
+          "x": 816,
+          "y": 224,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            661,
+            219,
+            173,
+            191
+          ]
+        },
+        {
+          "x": 1088,
+          "y": 224,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            867,
+            219,
+            177,
+            191
+          ]
+        },
+        {
+          "x": 1360,
+          "y": 224,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            1073,
+            217,
+            180,
+            193
+          ]
+        }
+      ]
+    },
+    "attack": {
+      "name": "Hachazo vertical",
+      "loop": false,
+      "durations": [
+        180,
+        260,
+        120,
+        120,
+        180,
+        220
+      ],
+      "contactFrames": [
+        3
+      ],
+      "frames": [
+        {
+          "x": 0,
+          "y": 448,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            17,
+            435,
+            198,
+            185
+          ]
+        },
+        {
+          "x": 272,
+          "y": 448,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            224,
+            446,
+            187,
+            175
+          ]
+        },
+        {
+          "x": 544,
+          "y": 448,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            411,
+            416,
+            186,
+            204
+          ]
+        },
+        {
+          "x": 816,
+          "y": 448,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            639,
+            416,
+            165,
+            204
+          ]
+        },
+        {
+          "x": 1088,
+          "y": 448,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            839,
+            464,
+            208,
+            157
+          ]
+        },
+        {
+          "x": 1360,
+          "y": 448,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            1050,
+            464,
+            203,
+            157
+          ]
+        }
+      ]
+    },
+    "secondary": {
+      "name": "Barrido del hacha",
+      "loop": false,
+      "durations": [
+        140,
+        180,
+        100,
+        90,
+        150,
+        190
+      ],
+      "contactFrames": [
+        3
+      ],
+      "frames": [
+        {
+          "x": 0,
+          "y": 672,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            20,
+            643,
+            190,
+            186
+          ]
+        },
+        {
+          "x": 272,
+          "y": 672,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            203,
+            642,
+            182,
+            187
+          ]
+        },
+        {
+          "x": 544,
+          "y": 672,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            394,
+            637,
+            196,
+            192
+          ]
+        },
+        {
+          "x": 816,
+          "y": 672,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            624,
+            648,
+            197,
+            181
+          ]
+        },
+        {
+          "x": 1088,
+          "y": 672,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            848,
+            648,
+            219,
+            181
+          ]
+        },
+        {
+          "x": 1360,
+          "y": 672,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            1069,
+            643,
+            185,
+            185
+          ]
+        }
+      ]
+    },
+    "hurt": {
+      "name": "Reacción al golpe",
+      "loop": false,
+      "durations": [
+        60,
+        80,
+        90,
+        90,
+        90,
+        110
+      ],
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 896,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            24,
+            851,
+            188,
+            186
+          ]
+        },
+        {
+          "x": 272,
+          "y": 896,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            228,
+            854,
+            187,
+            184
+          ]
+        },
+        {
+          "x": 544,
+          "y": 896,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            414,
+            847,
+            188,
+            191
+          ]
+        },
+        {
+          "x": 816,
+          "y": 896,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            616,
+            859,
+            212,
+            180
+          ]
+        },
+        {
+          "x": 1088,
+          "y": 896,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            855,
+            857,
+            191,
+            182
+          ]
+        },
+        {
+          "x": 1360,
+          "y": 896,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            1067,
+            855,
+            187,
+            183
+          ]
+        }
+      ]
+    },
+    "defeat": {
+      "name": "Derrota",
+      "loop": false,
+      "durations": [
+        100,
+        130,
+        150,
+        170,
+        220,
+        450
+      ],
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 1120,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            21,
+            1060,
+            188,
+            187
+          ]
+        },
+        {
+          "x": 272,
+          "y": 1120,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            223,
+            1080,
+            190,
+            167
+          ]
+        },
+        {
+          "x": 544,
+          "y": 1120,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            421,
+            1100,
+            201,
+            148
+          ]
+        },
+        {
+          "x": 816,
+          "y": 1120,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            626,
+            1131,
+            208,
+            119
+          ]
+        },
+        {
+          "x": 1088,
+          "y": 1120,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            834,
+            1163,
+            208,
+            87
+          ]
+        },
+        {
+          "x": 1360,
+          "y": 1120,
+          "width": 272,
+          "height": 224,
+          "anchorX": 137,
+          "anchorY": 203,
+          "sourceBox": [
+            1040,
+            1178,
+            214,
+            72
+          ]
+        }
+      ]
+    }
+  }
+}

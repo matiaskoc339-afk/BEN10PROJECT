@@ -1,0 +1,218 @@
+{
+  "roles": [
+    {
+      "id": "melee",
+      "label": "Físico",
+      "name": "Espadachín"
+    },
+    {
+      "id": "ranged",
+      "label": "A distancia",
+      "name": "Ballestero"
+    },
+    {
+      "id": "support",
+      "label": "Soporte",
+      "name": "Artificiero"
+    },
+    {
+      "id": "agile",
+      "label": "Ágil",
+      "name": "Explorador"
+    },
+    {
+      "id": "defender",
+      "label": "Defensivo",
+      "name": "Baluarte"
+    }
+  ],
+  "units": [
+    {
+      "id": "melee-recruit",
+      "role": "melee",
+      "roleLabel": "Físico",
+      "name": "Espadachín",
+      "tier": "recruit",
+      "tierLabel": "Recluta",
+      "kind": "soldier",
+      "bodyHeight": 88,
+      "reference": "assets/reference/melee-recruit.png"
+    },
+    {
+      "id": "ranged-recruit",
+      "role": "ranged",
+      "roleLabel": "A distancia",
+      "name": "Ballestero",
+      "tier": "recruit",
+      "tierLabel": "Recluta",
+      "kind": "soldier",
+      "bodyHeight": 88,
+      "reference": "assets/reference/ranged-recruit.png"
+    },
+    {
+      "id": "support-recruit",
+      "role": "support",
+      "roleLabel": "Soporte",
+      "name": "Artificiero",
+      "tier": "recruit",
+      "tierLabel": "Recluta",
+      "kind": "soldier",
+      "bodyHeight": 88,
+      "reference": "assets/reference/support-recruit.png"
+    },
+    {
+      "id": "agile-recruit",
+      "role": "agile",
+      "roleLabel": "Ágil",
+      "name": "Explorador",
+      "tier": "recruit",
+      "tierLabel": "Recluta",
+      "kind": "soldier",
+      "bodyHeight": 88,
+      "reference": "assets/reference/agile-recruit.png"
+    },
+    {
+      "id": "defender-recruit",
+      "role": "defender",
+      "roleLabel": "Defensivo",
+      "name": "Baluarte",
+      "tier": "recruit",
+      "tierLabel": "Recluta",
+      "kind": "soldier",
+      "bodyHeight": 88,
+      "reference": "assets/reference/defender-recruit.png"
+    },
+    {
+      "id": "melee-elite",
+      "role": "melee",
+      "roleLabel": "Físico",
+      "name": "Espadachín",
+      "tier": "elite",
+      "tierLabel": "Veterano",
+      "kind": "soldier",
+      "bodyHeight": 98,
+      "reference": "assets/reference/melee-elite.png"
+    },
+    {
+      "id": "ranged-elite",
+      "role": "ranged",
+      "roleLabel": "A distancia",
+      "name": "Ballestero",
+      "tier": "elite",
+      "tierLabel": "Veterano",
+      "kind": "soldier",
+      "bodyHeight": 98,
+      "reference": "assets/reference/ranged-elite.png"
+    },
+    {
+      "id": "support-elite",
+      "role": "support",
+      "roleLabel": "Soporte",
+      "name": "Artificiero",
+      "tier": "elite",
+      "tierLabel": "Veterano",
+      "kind": "soldier",
+      "bodyHeight": 98,
+      "reference": "assets/reference/support-elite.png"
+    },
+    {
+      "id": "agile-elite",
+      "role": "agile",
+      "roleLabel": "Ágil",
+      "name": "Explorador",
+      "tier": "elite",
+      "tierLabel": "Veterano",
+      "kind": "soldier",
+      "bodyHeight": 98,
+      "reference": "assets/reference/agile-elite.png"
+    },
+    {
+      "id": "defender-elite",
+      "role": "defender",
+      "roleLabel": "Defensivo",
+      "name": "Baluarte",
+      "tier": "elite",
+      "tierLabel": "Veterano",
+      "kind": "soldier",
+      "bodyHeight": 98,
+      "reference": "assets/reference/defender-elite.png"
+    },
+    {
+      "id": "melee-crystal",
+      "role": "melee",
+      "roleLabel": "Físico",
+      "name": "Espadachín",
+      "tier": "crystal",
+      "tierLabel": "ADN de Diamante",
+      "kind": "soldier",
+      "bodyHeight": 104,
+      "reference": "assets/reference/melee-crystal.png"
+    },
+    {
+      "id": "ranged-crystal",
+      "role": "ranged",
+      "roleLabel": "A distancia",
+      "name": "Ballestero",
+      "tier": "crystal",
+      "tierLabel": "ADN de Diamante",
+      "kind": "soldier",
+      "bodyHeight": 104,
+      "reference": "assets/reference/ranged-crystal.png"
+    },
+    {
+      "id": "support-crystal",
+      "role": "support",
+      "roleLabel": "Soporte",
+      "name": "Artificiero",
+      "tier": "crystal",
+      "tierLabel": "ADN de Diamante",
+      "kind": "soldier",
+      "bodyHeight": 104,
+      "reference": "assets/reference/support-crystal.png"
+    },
+    {
+      "id": "agile-crystal",
+      "role": "agile",
+      "roleLabel": "Ágil",
+      "name": "Explorador",
+      "tier": "crystal",
+      "tierLabel": "ADN de Diamante",
+      "kind": "soldier",
+      "bodyHeight": 104,
+      "reference": "assets/reference/agile-crystal.png"
+    },
+    {
+      "id": "defender-crystal",
+      "role": "defender",
+      "roleLabel": "Defensivo",
+      "name": "Baluarte",
+      "tier": "crystal",
+      "tierLabel": "ADN de Diamante",
+      "kind": "soldier",
+      "bodyHeight": 104,
+      "reference": "assets/reference/defender-crystal.png"
+    },
+    {
+      "id": "champion-normal",
+      "role": "champion",
+      "roleLabel": "Minijefe",
+      "name": "Campeón del hacha",
+      "tier": "normal",
+      "tierLabel": "Armadura normal",
+      "kind": "miniboss",
+      "bodyHeight": 142,
+      "reference": "assets/reference/champion-normal.png"
+    },
+    {
+      "id": "champion-crystal",
+      "role": "champion",
+      "roleLabel": "Minijefe",
+      "name": "Campeón del hacha",
+      "tier": "crystal",
+      "tierLabel": "ADN de Diamante",
+      "kind": "miniboss",
+      "bodyHeight": 148,
+      "reference": "assets/reference/champion-crystal.png"
+    }
+  ]
+}

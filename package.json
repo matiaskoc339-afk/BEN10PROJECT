@@ -49,7 +49,10 @@
     "test:maps:browser": "node tests/map-pack-browser.cjs",
     "build:campaign": "node scripts/embed-evolution.cjs && node scripts/embed-campaign.cjs",
     "test:campaign": "node --test tests/campaign-world.test.cjs && node tests/campaign-browser.cjs",
-    "package:campaign": "python3 scripts/package-campaign.py"
+    "package:campaign": "python3 scripts/package-campaign.py",
+    "build:enemies": "python3 scripts/build-enemy-sprites.py",
+    "test:enemies": "python3 scripts/validate-enemy-sprites.py && node tests/enemy-sprites-browser.cjs",
+    "package:enemies": "python3 scripts/package-enemy-sprites.py"
   },
   "devDependencies": {
     "playwright": "1.62.1"

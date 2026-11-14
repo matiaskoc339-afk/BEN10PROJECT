@@ -1,0 +1,631 @@
+{
+  "id": "support-recruit",
+  "role": "support",
+  "roleLabel": "Soporte",
+  "name": "Artificiero",
+  "tier": "recruit",
+  "tierLabel": "Recluta",
+  "kind": "soldier",
+  "bodyHeight": 88,
+  "reference": "assets/reference/support-recruit.png",
+  "description": "Placas ligeras, articulaciones de tela y equipo de rango bajo.",
+  "atlas": "assets/atlases/support-recruit.png",
+  "poster": "assets/posters/support-recruit.png",
+  "source": "assets/source/support-recruit.png",
+  "sourceSha256": "b8255acc69275a2f0ff620d18984599fa3e9a1b084f571548d7495bdfc8e84d4",
+  "cellWidth": 224,
+  "cellHeight": 208,
+  "anchorX": 93,
+  "anchorY": 154,
+  "nativeBodyHeight": 128,
+  "columns": 6,
+  "rows": 6,
+  "directions": {
+    "right": {
+      "flipX": false
+    },
+    "left": {
+      "flipX": true
+    }
+  },
+  "animations": {
+    "idle": {
+      "name": "Reposo",
+      "loop": true,
+      "durations": [
+        150,
+        150,
+        150,
+        150,
+        150,
+        150
+      ],
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            32,
+            7,
+            171,
+            193
+          ]
+        },
+        {
+          "x": 224,
+          "y": 0,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            241,
+            9,
+            169,
+            191
+          ]
+        },
+        {
+          "x": 448,
+          "y": 0,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            447,
+            10,
+            171,
+            190
+          ]
+        },
+        {
+          "x": 672,
+          "y": 0,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            655,
+            10,
+            170,
+            189
+          ]
+        },
+        {
+          "x": 896,
+          "y": 0,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            861,
+            11,
+            172,
+            188
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 0,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            1069,
+            9,
+            168,
+            191
+          ]
+        }
+      ]
+    },
+    "walk": {
+      "name": "Caminata",
+      "loop": true,
+      "durations": [
+        95,
+        95,
+        95,
+        95,
+        95,
+        95
+      ],
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 208,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            28,
+            219,
+            172,
+            191
+          ]
+        },
+        {
+          "x": 224,
+          "y": 208,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            243,
+            219,
+            163,
+            191
+          ]
+        },
+        {
+          "x": 448,
+          "y": 208,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            449,
+            219,
+            166,
+            189
+          ]
+        },
+        {
+          "x": 672,
+          "y": 208,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            660,
+            220,
+            162,
+            189
+          ]
+        },
+        {
+          "x": 896,
+          "y": 208,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            869,
+            218,
+            163,
+            190
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 208,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            1078,
+            218,
+            164,
+            190
+          ]
+        }
+      ]
+    },
+    "attack": {
+      "name": "Pulso del emisor",
+      "loop": false,
+      "durations": [
+        110,
+        130,
+        80,
+        80,
+        120,
+        160
+      ],
+      "contactFrames": [
+        3
+      ],
+      "frames": [
+        {
+          "x": 0,
+          "y": 416,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            30,
+            426,
+            169,
+            192
+          ]
+        },
+        {
+          "x": 224,
+          "y": 416,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            233,
+            428,
+            164,
+            190
+          ]
+        },
+        {
+          "x": 448,
+          "y": 416,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            431,
+            430,
+            183,
+            187
+          ]
+        },
+        {
+          "x": 672,
+          "y": 416,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            635,
+            432,
+            198,
+            185
+          ]
+        },
+        {
+          "x": 896,
+          "y": 416,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            843,
+            430,
+            183,
+            187
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 416,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            1067,
+            427,
+            172,
+            191
+          ]
+        }
+      ]
+    },
+    "secondary": {
+      "name": "Canalización de apoyo",
+      "loop": false,
+      "durations": [
+        140,
+        180,
+        100,
+        90,
+        150,
+        190
+      ],
+      "contactFrames": [
+        3
+      ],
+      "frames": [
+        {
+          "x": 0,
+          "y": 624,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            32,
+            639,
+            168,
+            188
+          ]
+        },
+        {
+          "x": 224,
+          "y": 624,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            232,
+            664,
+            169,
+            164
+          ]
+        },
+        {
+          "x": 448,
+          "y": 624,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            436,
+            648,
+            173,
+            180
+          ]
+        },
+        {
+          "x": 672,
+          "y": 624,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            644,
+            622,
+            161,
+            206
+          ]
+        },
+        {
+          "x": 896,
+          "y": 624,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            852,
+            628,
+            150,
+            200
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 624,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            1066,
+            649,
+            168,
+            179
+          ]
+        }
+      ]
+    },
+    "hurt": {
+      "name": "Reacción al golpe",
+      "loop": false,
+      "durations": [
+        60,
+        80,
+        90,
+        90,
+        90,
+        110
+      ],
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 832,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            32,
+            847,
+            167,
+            189
+          ]
+        },
+        {
+          "x": 224,
+          "y": 832,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            227,
+            855,
+            152,
+            182
+          ]
+        },
+        {
+          "x": 448,
+          "y": 832,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            424,
+            855,
+            157,
+            182
+          ]
+        },
+        {
+          "x": 672,
+          "y": 832,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            619,
+            855,
+            192,
+            181
+          ]
+        },
+        {
+          "x": 896,
+          "y": 832,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            847,
+            857,
+            171,
+            179
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 832,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            1068,
+            848,
+            170,
+            189
+          ]
+        }
+      ]
+    },
+    "defeat": {
+      "name": "Derrota",
+      "loop": false,
+      "durations": [
+        100,
+        130,
+        150,
+        170,
+        220,
+        450
+      ],
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 1040,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            32,
+            1056,
+            168,
+            189
+          ]
+        },
+        {
+          "x": 224,
+          "y": 1040,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            238,
+            1074,
+            163,
+            172
+          ]
+        },
+        {
+          "x": 448,
+          "y": 1040,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            430,
+            1093,
+            173,
+            154
+          ]
+        },
+        {
+          "x": 672,
+          "y": 1040,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            621,
+            1137,
+            206,
+            112
+          ]
+        },
+        {
+          "x": 896,
+          "y": 1040,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            835,
+            1156,
+            206,
+            93
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 1040,
+          "width": 224,
+          "height": 208,
+          "anchorX": 93,
+          "anchorY": 154,
+          "sourceBox": [
+            1045,
+            1170,
+            205,
+            79
+          ]
+        }
+      ]
+    }
+  }
+}

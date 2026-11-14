@@ -1,0 +1,631 @@
+{
+  "id": "champion-crystal",
+  "role": "champion",
+  "roleLabel": "Minijefe",
+  "name": "Campeón del hacha",
+  "tier": "crystal",
+  "tierLabel": "ADN de Diamante",
+  "kind": "miniboss",
+  "bodyHeight": 148,
+  "reference": "assets/reference/champion-crystal.png",
+  "description": "Placas facetadas de ADN petrosapien integradas en la armadura y el arma.",
+  "atlas": "assets/atlases/champion-crystal.png",
+  "poster": "assets/posters/champion-crystal.png",
+  "source": "assets/source/champion-crystal.png",
+  "sourceSha256": "9b7a1e08f6459647b9b848961f71257250287d5a172413f3431b97bbdf9b98a0",
+  "cellWidth": 280,
+  "cellHeight": 248,
+  "anchorX": 134,
+  "anchorY": 217,
+  "nativeBodyHeight": 176,
+  "columns": 6,
+  "rows": 6,
+  "directions": {
+    "right": {
+      "flipX": false
+    },
+    "left": {
+      "flipX": true
+    }
+  },
+  "animations": {
+    "idle": {
+      "name": "Reposo",
+      "loop": true,
+      "durations": [
+        150,
+        150,
+        150,
+        150,
+        150,
+        150
+      ],
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            25,
+            17,
+            187,
+            186
+          ]
+        },
+        {
+          "x": 280,
+          "y": 0,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            235,
+            17,
+            186,
+            186
+          ]
+        },
+        {
+          "x": 560,
+          "y": 0,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            443,
+            16,
+            184,
+            186
+          ]
+        },
+        {
+          "x": 840,
+          "y": 0,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            652,
+            21,
+            182,
+            182
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 0,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            860,
+            29,
+            182,
+            174
+          ]
+        },
+        {
+          "x": 1400,
+          "y": 0,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            1069,
+            28,
+            182,
+            175
+          ]
+        }
+      ]
+    },
+    "walk": {
+      "name": "Caminata",
+      "loop": true,
+      "durations": [
+        150,
+        150,
+        150,
+        150,
+        150,
+        150
+      ],
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 248,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            24,
+            228,
+            188,
+            183
+          ]
+        },
+        {
+          "x": 280,
+          "y": 248,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            239,
+            228,
+            182,
+            180
+          ]
+        },
+        {
+          "x": 560,
+          "y": 248,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            446,
+            230,
+            180,
+            179
+          ]
+        },
+        {
+          "x": 840,
+          "y": 248,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            658,
+            233,
+            175,
+            175
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 248,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            869,
+            230,
+            172,
+            180
+          ]
+        },
+        {
+          "x": 1400,
+          "y": 248,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            1074,
+            229,
+            177,
+            182
+          ]
+        }
+      ]
+    },
+    "attack": {
+      "name": "Hachazo vertical",
+      "loop": false,
+      "durations": [
+        180,
+        260,
+        120,
+        120,
+        180,
+        220
+      ],
+      "contactFrames": [
+        3
+      ],
+      "frames": [
+        {
+          "x": 0,
+          "y": 496,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            24,
+            448,
+            185,
+            173
+          ]
+        },
+        {
+          "x": 280,
+          "y": 496,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            229,
+            437,
+            184,
+            184
+          ]
+        },
+        {
+          "x": 560,
+          "y": 496,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            425,
+            413,
+            168,
+            208
+          ]
+        },
+        {
+          "x": 840,
+          "y": 496,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            638,
+            423,
+            185,
+            198
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 496,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            837,
+            481,
+            217,
+            144
+          ]
+        },
+        {
+          "x": 1400,
+          "y": 496,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            1064,
+            461,
+            190,
+            164
+          ]
+        }
+      ]
+    },
+    "secondary": {
+      "name": "Barrido del hacha",
+      "loop": false,
+      "durations": [
+        140,
+        180,
+        100,
+        90,
+        150,
+        190
+      ],
+      "contactFrames": [
+        3
+      ],
+      "frames": [
+        {
+          "x": 0,
+          "y": 744,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            24,
+            652,
+            182,
+            178
+          ]
+        },
+        {
+          "x": 280,
+          "y": 744,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            208,
+            641,
+            186,
+            189
+          ]
+        },
+        {
+          "x": 560,
+          "y": 744,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            411,
+            650,
+            184,
+            180
+          ]
+        },
+        {
+          "x": 840,
+          "y": 744,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            612,
+            658,
+            245,
+            172
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 744,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            835,
+            663,
+            222,
+            167
+          ]
+        },
+        {
+          "x": 1400,
+          "y": 744,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            1067,
+            652,
+            184,
+            178
+          ]
+        }
+      ]
+    },
+    "hurt": {
+      "name": "Reacción al golpe",
+      "loop": false,
+      "durations": [
+        60,
+        80,
+        90,
+        90,
+        90,
+        110
+      ],
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 992,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            14,
+            862,
+            191,
+            177
+          ]
+        },
+        {
+          "x": 280,
+          "y": 992,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            211,
+            863,
+            188,
+            175
+          ]
+        },
+        {
+          "x": 560,
+          "y": 992,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            410,
+            857,
+            192,
+            182
+          ]
+        },
+        {
+          "x": 840,
+          "y": 992,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            642,
+            864,
+            190,
+            175
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 992,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            849,
+            864,
+            185,
+            175
+          ]
+        },
+        {
+          "x": 1400,
+          "y": 992,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            1067,
+            860,
+            184,
+            179
+          ]
+        }
+      ]
+    },
+    "defeat": {
+      "name": "Derrota",
+      "loop": false,
+      "durations": [
+        100,
+        130,
+        150,
+        170,
+        220,
+        450
+      ],
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 1240,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            24,
+            1059,
+            186,
+            188
+          ]
+        },
+        {
+          "x": 280,
+          "y": 1240,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            232,
+            1077,
+            187,
+            169
+          ]
+        },
+        {
+          "x": 560,
+          "y": 1240,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            416,
+            1094,
+            210,
+            153
+          ]
+        },
+        {
+          "x": 840,
+          "y": 1240,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            622,
+            1122,
+            211,
+            129
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 1240,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            838,
+            1164,
+            203,
+            88
+          ]
+        },
+        {
+          "x": 1400,
+          "y": 1240,
+          "width": 280,
+          "height": 248,
+          "anchorX": 134,
+          "anchorY": 217,
+          "sourceBox": [
+            1043,
+            1179,
+            211,
+            72
+          ]
+        }
+      ]
+    }
+  }
+}

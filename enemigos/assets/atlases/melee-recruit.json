@@ -1,0 +1,631 @@
+{
+  "id": "melee-recruit",
+  "role": "melee",
+  "roleLabel": "Físico",
+  "name": "Espadachín",
+  "tier": "recruit",
+  "tierLabel": "Recluta",
+  "kind": "soldier",
+  "bodyHeight": 88,
+  "reference": "assets/reference/melee-recruit.png",
+  "description": "Placas ligeras, articulaciones de tela y equipo de rango bajo.",
+  "atlas": "assets/atlases/melee-recruit.png",
+  "poster": "assets/posters/melee-recruit.png",
+  "source": "assets/source/melee-recruit.png",
+  "sourceSha256": "e0692027194b73440b863d0303d99fde94d71b4514ca5eadf070e5388bebd65f",
+  "cellWidth": 224,
+  "cellHeight": 208,
+  "anchorX": 94,
+  "anchorY": 150,
+  "nativeBodyHeight": 128,
+  "columns": 6,
+  "rows": 6,
+  "directions": {
+    "right": {
+      "flipX": false
+    },
+    "left": {
+      "flipX": true
+    }
+  },
+  "animations": {
+    "idle": {
+      "name": "Reposo",
+      "loop": true,
+      "durations": [
+        150,
+        150,
+        150,
+        150,
+        150,
+        150
+      ],
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            42,
+            14,
+            155,
+            183
+          ]
+        },
+        {
+          "x": 224,
+          "y": 0,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            252,
+            10,
+            152,
+            187
+          ]
+        },
+        {
+          "x": 448,
+          "y": 0,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            460,
+            8,
+            152,
+            189
+          ]
+        },
+        {
+          "x": 672,
+          "y": 0,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            669,
+            9,
+            147,
+            188
+          ]
+        },
+        {
+          "x": 896,
+          "y": 0,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            873,
+            13,
+            147,
+            184
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 0,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            1078,
+            15,
+            148,
+            182
+          ]
+        }
+      ]
+    },
+    "walk": {
+      "name": "Caminata",
+      "loop": true,
+      "durations": [
+        95,
+        95,
+        95,
+        95,
+        95,
+        95
+      ],
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 208,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            51,
+            222,
+            145,
+            185
+          ]
+        },
+        {
+          "x": 224,
+          "y": 208,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            267,
+            216,
+            134,
+            191
+          ]
+        },
+        {
+          "x": 448,
+          "y": 208,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            462,
+            218,
+            142,
+            189
+          ]
+        },
+        {
+          "x": 672,
+          "y": 208,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            678,
+            218,
+            131,
+            189
+          ]
+        },
+        {
+          "x": 896,
+          "y": 208,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            874,
+            220,
+            145,
+            187
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 208,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            1093,
+            221,
+            132,
+            186
+          ]
+        }
+      ]
+    },
+    "attack": {
+      "name": "Tajo de espada",
+      "loop": false,
+      "durations": [
+        110,
+        130,
+        80,
+        80,
+        120,
+        160
+      ],
+      "contactFrames": [
+        3
+      ],
+      "frames": [
+        {
+          "x": 0,
+          "y": 416,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            43,
+            432,
+            154,
+            183
+          ]
+        },
+        {
+          "x": 224,
+          "y": 416,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            243,
+            433,
+            157,
+            181
+          ]
+        },
+        {
+          "x": 448,
+          "y": 416,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            434,
+            420,
+            168,
+            194
+          ]
+        },
+        {
+          "x": 672,
+          "y": 416,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            641,
+            429,
+            194,
+            185
+          ]
+        },
+        {
+          "x": 896,
+          "y": 416,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            835,
+            438,
+            246,
+            177
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 416,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            1076,
+            433,
+            150,
+            182
+          ]
+        }
+      ]
+    },
+    "secondary": {
+      "name": "Estocada",
+      "loop": false,
+      "durations": [
+        140,
+        180,
+        100,
+        90,
+        150,
+        190
+      ],
+      "contactFrames": [
+        3
+      ],
+      "frames": [
+        {
+          "x": 0,
+          "y": 624,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            43,
+            648,
+            154,
+            174
+          ]
+        },
+        {
+          "x": 224,
+          "y": 624,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            249,
+            647,
+            142,
+            175
+          ]
+        },
+        {
+          "x": 448,
+          "y": 624,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            429,
+            645,
+            198,
+            177
+          ]
+        },
+        {
+          "x": 672,
+          "y": 624,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            634,
+            647,
+            241,
+            175
+          ]
+        },
+        {
+          "x": 896,
+          "y": 624,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            845,
+            652,
+            228,
+            170
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 624,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            1075,
+            645,
+            151,
+            177
+          ]
+        }
+      ]
+    },
+    "hurt": {
+      "name": "Reacción al golpe",
+      "loop": false,
+      "durations": [
+        60,
+        80,
+        90,
+        90,
+        90,
+        110
+      ],
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 832,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            43,
+            851,
+            154,
+            182
+          ]
+        },
+        {
+          "x": 224,
+          "y": 832,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            251,
+            849,
+            142,
+            183
+          ]
+        },
+        {
+          "x": 448,
+          "y": 832,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            441,
+            845,
+            154,
+            187
+          ]
+        },
+        {
+          "x": 672,
+          "y": 832,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            647,
+            849,
+            164,
+            183
+          ]
+        },
+        {
+          "x": 896,
+          "y": 832,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            864,
+            850,
+            145,
+            182
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 832,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            1074,
+            851,
+            152,
+            181
+          ]
+        }
+      ]
+    },
+    "defeat": {
+      "name": "Derrota",
+      "loop": false,
+      "durations": [
+        100,
+        130,
+        150,
+        170,
+        220,
+        450
+      ],
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 1040,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            51,
+            1056,
+            145,
+            185
+          ]
+        },
+        {
+          "x": 224,
+          "y": 1040,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            240,
+            1080,
+            161,
+            162
+          ]
+        },
+        {
+          "x": 448,
+          "y": 1040,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            429,
+            1102,
+            177,
+            140
+          ]
+        },
+        {
+          "x": 672,
+          "y": 1040,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            620,
+            1138,
+            204,
+            109
+          ]
+        },
+        {
+          "x": 896,
+          "y": 1040,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            837,
+            1164,
+            204,
+            82
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 1040,
+          "width": 224,
+          "height": 208,
+          "anchorX": 94,
+          "anchorY": 150,
+          "sourceBox": [
+            1044,
+            1176,
+            203,
+            71
+          ]
+        }
+      ]
+    }
+  }
+}

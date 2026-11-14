@@ -62,3 +62,7 @@ Los sistemas de V33 están en `systems/skill-choreography-v33.js` y `systems/ski
 - `npm run package:campaign`: prepara la demo PC completa en `/workspace/outputs`.
 
 El [visor de arte](mapas/index.html) y la [documentación de capas](mapas/README.md) siguen disponibles para revisar los fondos por separado. El juego utiliza esos mismos panoramas.
+
+## Biblioteca de enemigos en preparación
+
+Los [sprites de Caballeros Eternos](enemigos/index.html) se revisan en un visor separado: cinco especialidades con tres rangos y dos campeones con hacha, con reposo, caminata, dos acciones, golpe y derrota. El [catálogo](enemigos/catalogo.html) permite ver las 17 variantes juntas. Esta biblioteca aún no añade enemigos al combate. Consulta [los archivos y sus anclajes](enemigos/README.md) para su integración posterior.

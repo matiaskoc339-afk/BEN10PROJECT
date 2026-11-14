@@ -1,0 +1,631 @@
+{
+  "id": "ranged-elite",
+  "role": "ranged",
+  "roleLabel": "A distancia",
+  "name": "Ballestero",
+  "tier": "elite",
+  "tierLabel": "Veterano",
+  "kind": "soldier",
+  "bodyHeight": 98,
+  "reference": "assets/reference/ranged-elite.png",
+  "description": "Coraza cerrada, hombreras y grebas más sólidas; remates de rango.",
+  "atlas": "assets/atlases/ranged-elite.png",
+  "poster": "assets/posters/ranged-elite.png",
+  "source": "assets/source/ranged-elite.png",
+  "sourceSha256": "0748239dbd5bbf467f7e8f1a9567782ad4a4ecdb2b560ceb566db5583db810c3",
+  "cellWidth": 224,
+  "cellHeight": 208,
+  "anchorX": 97,
+  "anchorY": 148,
+  "nativeBodyHeight": 128,
+  "columns": 6,
+  "rows": 6,
+  "directions": {
+    "right": {
+      "flipX": false
+    },
+    "left": {
+      "flipX": true
+    }
+  },
+  "animations": {
+    "idle": {
+      "name": "Reposo",
+      "loop": true,
+      "durations": [
+        150,
+        150,
+        150,
+        150,
+        150,
+        150
+      ],
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            28,
+            9,
+            173,
+            191
+          ]
+        },
+        {
+          "x": 224,
+          "y": 0,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            238,
+            6,
+            172,
+            194
+          ]
+        },
+        {
+          "x": 448,
+          "y": 0,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            448,
+            2,
+            172,
+            198
+          ]
+        },
+        {
+          "x": 672,
+          "y": 0,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            658,
+            8,
+            167,
+            192
+          ]
+        },
+        {
+          "x": 896,
+          "y": 0,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            868,
+            14,
+            167,
+            186
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 0,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            1075,
+            10,
+            168,
+            190
+          ]
+        }
+      ]
+    },
+    "walk": {
+      "name": "Caminata",
+      "loop": true,
+      "durations": [
+        110,
+        110,
+        110,
+        110,
+        110,
+        110
+      ],
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 208,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            41,
+            216,
+            162,
+            192
+          ]
+        },
+        {
+          "x": 224,
+          "y": 208,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            250,
+            213,
+            159,
+            195
+          ]
+        },
+        {
+          "x": 448,
+          "y": 208,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            466,
+            213,
+            154,
+            196
+          ]
+        },
+        {
+          "x": 672,
+          "y": 208,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            652,
+            213,
+            177,
+            195
+          ]
+        },
+        {
+          "x": 896,
+          "y": 208,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            864,
+            215,
+            173,
+            194
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 208,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            1092,
+            215,
+            153,
+            194
+          ]
+        }
+      ]
+    },
+    "attack": {
+      "name": "Disparo de ballesta",
+      "loop": false,
+      "durations": [
+        110,
+        130,
+        80,
+        80,
+        120,
+        160
+      ],
+      "contactFrames": [
+        3
+      ],
+      "frames": [
+        {
+          "x": 0,
+          "y": 416,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            25,
+            427,
+            169,
+            192
+          ]
+        },
+        {
+          "x": 224,
+          "y": 416,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            239,
+            427,
+            162,
+            192
+          ]
+        },
+        {
+          "x": 448,
+          "y": 416,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            447,
+            426,
+            166,
+            193
+          ]
+        },
+        {
+          "x": 672,
+          "y": 416,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            651,
+            427,
+            207,
+            192
+          ]
+        },
+        {
+          "x": 896,
+          "y": 416,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            864,
+            426,
+            163,
+            192
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 416,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            1075,
+            426,
+            157,
+            192
+          ]
+        }
+      ]
+    },
+    "secondary": {
+      "name": "Disparo arrodillado",
+      "loop": false,
+      "durations": [
+        140,
+        180,
+        100,
+        90,
+        150,
+        190
+      ],
+      "contactFrames": [
+        3
+      ],
+      "frames": [
+        {
+          "x": 0,
+          "y": 624,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            27,
+            641,
+            164,
+            187
+          ]
+        },
+        {
+          "x": 224,
+          "y": 624,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            232,
+            656,
+            165,
+            172
+          ]
+        },
+        {
+          "x": 448,
+          "y": 624,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            437,
+            666,
+            172,
+            162
+          ]
+        },
+        {
+          "x": 672,
+          "y": 624,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            643,
+            668,
+            211,
+            160
+          ]
+        },
+        {
+          "x": 896,
+          "y": 624,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            854,
+            662,
+            171,
+            166
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 624,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            1069,
+            644,
+            168,
+            184
+          ]
+        }
+      ]
+    },
+    "hurt": {
+      "name": "Reacción al golpe",
+      "loop": false,
+      "durations": [
+        60,
+        80,
+        90,
+        90,
+        90,
+        110
+      ],
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 832,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            29,
+            847,
+            166,
+            190
+          ]
+        },
+        {
+          "x": 224,
+          "y": 832,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            231,
+            848,
+            169,
+            190
+          ]
+        },
+        {
+          "x": 448,
+          "y": 832,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            420,
+            853,
+            182,
+            184
+          ]
+        },
+        {
+          "x": 672,
+          "y": 832,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            645,
+            847,
+            159,
+            191
+          ]
+        },
+        {
+          "x": 896,
+          "y": 832,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            865,
+            847,
+            160,
+            190
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 832,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            1075,
+            844,
+            171,
+            193
+          ]
+        }
+      ]
+    },
+    "defeat": {
+      "name": "Derrota",
+      "loop": false,
+      "durations": [
+        100,
+        130,
+        150,
+        170,
+        220,
+        450
+      ],
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 1040,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            20,
+            1056,
+            161,
+            190
+          ]
+        },
+        {
+          "x": 224,
+          "y": 1040,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            230,
+            1078,
+            160,
+            168
+          ]
+        },
+        {
+          "x": 448,
+          "y": 1040,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            425,
+            1096,
+            187,
+            150
+          ]
+        },
+        {
+          "x": 672,
+          "y": 1040,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            612,
+            1128,
+            211,
+            120
+          ]
+        },
+        {
+          "x": 896,
+          "y": 1040,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            824,
+            1165,
+            219,
+            82
+          ]
+        },
+        {
+          "x": 1120,
+          "y": 1040,
+          "width": 224,
+          "height": 208,
+          "anchorX": 97,
+          "anchorY": 148,
+          "sourceBox": [
+            1040,
+            1178,
+            211,
+            70
+          ]
+        }
+      ]
+    }
+  }
+}
