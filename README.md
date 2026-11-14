@@ -1,4 +1,6 @@
-# Ben 10 — Demo PC V38 · El Rey Eterno
+# Ben 10 — Demo PC V39 · El Rey Eterno
+
+V39 mantiene en secreto los ADN no recuperados. El reloj usa un nuevo retrato incógnito común y el mensaje «ADN desconocido», sin mostrar las caras, nombres ni siluetas reales. «Tus aliens» contiene únicamente las formas conseguidas; las demás no tienen opciones ocultas ni árboles accesibles. Al recuperar un ADN se revelan su casilla, nombre, retrato y árbol, conservando sus mejoras anteriores. Consulta [los detalles del sistema de descubrimiento](docs/v39-adn-secreto.md).
 
 V38 renueva la ventana de habilidades con el estilo arcade del juego: marco metálico, emblema del Omnitrix, retratos de los aliens, indicadores de ADN y una plataforma para la vista previa de combate. Los nodos tienen iconos propios, costes legibles y una marca al aprenderlos. El árbol se abre completo y se acerca al seleccionar una mejora; el progreso de cada alien aparece junto al título. Consulta [los controles y la validación del nuevo HUD](docs/v38-hud.md).
 
@@ -73,7 +75,7 @@ El [visor de arte](mapas/index.html) y la [documentación de capas](mapas/README
 
 Los [sprites de Caballeros Eternos](enemigos/index.html) se revisan en un visor separado: cinco especialidades con tres rangos y dos campeones con hacha, con reposo, caminata, dos acciones, golpe y derrota. El [catálogo](enemigos/catalogo.html) permite ver las 17 variantes juntas. El juego utiliza sus atlas y animaciones en el combate. Consulta [los archivos y sus anclajes](enemigos/README.md).
 
-Consulta [el combate del jefe y los desbloqueos de V37](docs/v37-rey-eterno.md), [los ajustes de vida, reloj e IA de V36](docs/v36-balance.md) y [el sistema de encuentros](docs/v35-combate.md). Las pruebas de combate se ejecutan con `npm run test:combat` y `npm run test:boss`; `npm run package:campaign` genera el ZIP completo de V38 para jugar sin conexión.
+Consulta [el combate del jefe y los desbloqueos de V37](docs/v37-rey-eterno.md), [los ajustes de vida, reloj e IA de V36](docs/v36-balance.md) y [el sistema de encuentros](docs/v35-combate.md). Las pruebas de combate se ejecutan con `npm run test:combat` y `npm run test:boss`; `npm run test:secrets` comprueba las identidades ocultas. `npm run package:campaign` genera el ZIP completo de V39 para jugar sin conexión.
 
 ## Rey Eterno · arte del jefe final
 

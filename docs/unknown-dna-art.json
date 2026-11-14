@@ -1,0 +1,10 @@
+{
+  "file": "assets/ui/unknown-alien.png",
+  "source": "Image-generation original, retained without editing.",
+  "prompt": "Create ONE compact game UI sprite, transparent background, a polished 96x96 pixel-art UNKNOWN ALIEN PORTRAIT for a classic Ben 10 Omnitrix selection menu. Single centered chest-up generic anonymous silhouette, not an identifiable character. Head is a very plain smooth rounded block with no visible face, eyes or identifiable features; two ordinary shoulders and two arms in a subtle guarded stance, no horns, wings, tail, extra limbs, flame, crystals, helmet, ears, cape or character costume. Black-green shadow body, a few dark forest-green stepped highlight clusters along the silhouette, one crisp lime-green QUESTION MARK centered on its anonymous face/chest, small pale lime pixels as highlight. Make the question mark very readable at 48 pixels display size. Visual language of a 2D arcade pixel-art game: deliberate chunky pixel clusters, strong dark outline, 4-6 color limited palette, no gradients, no 3D, no blurry bloom. Complete silhouette contained within an invisible square cell with generous transparent padding all around. No frame, no card, no panel, no lettering other than the question mark, no background, no watermark. This exact SAME icon will conceal every undiscovered alien, so it must suggest no particular alien species. High quality clean game asset, sufficiently broad shoulders to read at tiny size without becoming a specific monster.",
+  "sha256": "4c76f7d12f6cb2e35e475b31d7f7f266f2234b4a91cbaf98008f25983f3063ff",
+  "size": [
+    1254,
+    1254
+  ]
+}

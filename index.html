@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="theme-color" content="#101b17" />
-<title>Ben 10 — V38 · El Rey Eterno</title>
+<title>Ben 10 — V39 · El Rey Eterno</title>
 <style>
 :root { color-scheme: dark; --green:#aaff55; --forest:#1c2e25; --edge:#6dc94a; --ink:#0b100e; }
 * { box-sizing:border-box;  }
@@ -92,6 +92,8 @@ body.wheel-active #hud * { animation-play-state:paused!important; }
 @media(max-height:800px){.evo-header{height:72px;min-height:72px;padding-top:5px;padding-bottom:5px}.evo-omnitrix{width:51px;height:51px}.evo-wordmark{font-size:22px}.evo-map-head{padding-top:10px;padding-bottom:10px}.evo-preview-stage{height:195px;min-height:195px}#evoPreview{height:204px;transform:translateY(-5px)}.evo-inspector-content{padding-top:13px}.evo-tab{min-height:51px}.evo-learn-wrap{padding-top:10px;padding-bottom:11px}}
 @media(max-width:1250px){#evolutionLayer{padding:12px}.evo-workspace{grid-template-columns:176px minmax(0,1fr) 288px}.evo-header{gap:12px;padding-left:15px;padding-right:15px}.evo-wordmark{min-width:233px;gap:8px;font-size:22px}.evo-header-note{font-size:8px;padding-left:12px}.evo-header-note small{font-size:8px}.evo-wallet{min-width:128px;gap:12px;padding-left:11px;padding-right:11px}.evo-tab{gap:6px}.evo-tab-name{font-size:9px}.evo-map-head{padding-left:16px;padding-right:16px}.evo-map-head h1{font-size:25px}.evo-inspector-content{padding-left:15px;padding-right:15px}.evo-legend{gap:10px;padding:0 12px}.evo-legend>span:last-child{display:none}}
 @media(prefers-reduced-motion:reduce){#evolutionLayer *{animation:none!important;transition:none!important}}
+
+.evo-discovery{padding:22px 10px 18px;text-align:center;margin-top:16px;border-top:1px solid #3c5639;color:#a9c98c}.evo-discovery img{display:block;margin:0 auto 12px;width:56px;height:56px;image-rendering:pixelated}.evo-discovery strong{display:block;font:bold 8px Consolas,monospace;letter-spacing:1px}.evo-discovery>span{display:block;font:9px/1.6 Consolas,monospace;color:#829b75;margin-top:7px}.evo-discovery[hidden]{display:none}
 
 /* Red warning belongs to the watch, so life and XP keep their own appearance. */
 #hud.is-energy-denied #hudHourglassBase{fill:#b22940;stroke:#ff8590;filter:drop-shadow(0 0 9px #ff304b);animation:energyDeniedPulse .36s ease-in-out 2 alternate}
@@ -293,15 +295,15 @@ body.king-combat #toast{top:36%}
 
 <div id="toast"></div>
 <div id="wheelLayer" role="dialog" aria-label="Rueda del Omnitrix">
- <div id="wheelTitle">OMNITRIX <small>SELECCIÓN DE ADN · 10 ALIENS</small></div>
- <div class="wheel-wrap"><canvas id="wheelCanvas" width="600" height="600" aria-label="Selector de 10 alienígenas. Cada sección contiene una cara. El centro del reloj permite volver a Ben."></canvas><div class="wheel-caption">CENTRO O T: VOLVER A BEN · R: CERRAR</div></div>
+ <div id="wheelTitle">OMNITRIX <small>SELECCIÓN DE ADN</small></div>
+ <div class="wheel-wrap"><canvas id="wheelCanvas" width="600" height="600" aria-label="Selector de ADN. Las formas desconocidas muestran una silueta anónima. El centro permite volver a Ben."></canvas><div class="wheel-caption">CENTRO O T: VOLVER A BEN · R: CERRAR</div></div>
  <button id="wheelClose">CERRAR ✕</button>
 </div>
 <div id="evolutionLayer" role="dialog" aria-modal="true" aria-label="Evolución del ADN" aria-hidden="true">
  <section id="evolutionShell">
   <header class="evo-header"><div class="evo-wordmark"><svg class="evo-omnitrix" viewBox="0 0 64 64" aria-hidden="true"><path fill="#07120e" stroke="#172a20" stroke-width="4" d="M18 3h28l15 15v28L46 61H18L3 46V18Z"/><path fill="#829b89" d="M20 7h24l13 13v24L44 57H20L7 44V20Z"/><path fill="#344d3c" d="M22 11h20l11 11v20L42 53H22L11 42V22Z"/><path fill="#101d15" d="M24 16h16l9 9v14l-9 9H24l-9-9V25Z"/><path fill="#a4ed58" d="M20 19h24L34 32l10 13H20l10-13Z"/><path fill="#cbffa4" d="M29 5h6v6h-6Zm24 24h6v6h-6ZM29 53h6v6h-6ZM5 29h6v6H5Z"/></svg><div>OMNITRIX<small>EVOLUCIÓN DEL ADN</small></div></div><div class="evo-header-note"><span>ENTRENA. EVOLUCIONA.</span><small>Tu ADN. Tu forma de luchar.</small></div><div class="evo-wallet"><small>PUNTOS DE<br>MEJORA</small><b id="evoPointCount">0</b></div><button type="button" id="evoAdminOpen" title="Panel de pruebas · F9">F9</button><button type="button" id="evoClose" aria-label="Cerrar árbol de habilidades"><span aria-hidden="true">×</span> CERRAR <kbd>K</kbd></button></header>
   <div class="evo-workspace">
-   <nav class="evo-roster"><div class="evo-section-label">TUS ALIENS <span id="evoDnaCount">2 / 10</span></div><div id="evoTabs" role="tablist" aria-label="Elegir árbol de alien"></div><div class="evo-roster-foot"><span>EXPERIENCIA DE COMBATE</span><div class="evo-level" id="evoLevel">NIVEL 1</div></div></nav>
+   <nav class="evo-roster"><div class="evo-section-label">TUS ALIENS <span id="evoDnaCount">2</span></div><div id="evoTabs" role="tablist" aria-label="Elegir árbol de alien"></div><div id="evoDiscovery" class="evo-discovery"><img src="assets/ui/unknown-alien.png" alt="" width="56" height="56"><strong>ADN POR DESCUBRIR</strong><span>Explora y recupera nuevas formas.</span></div><div class="evo-roster-foot"><span>EXPERIENCIA DE COMBATE</span><div class="evo-level" id="evoLevel">NIVEL 1</div></div></nav>
    <main class="evo-map">
     <header class="evo-map-head"><div><small id="evoSubtitle">FUERZA TETRAMAND</small><h1 id="evoTreeLabel">Cuatro Brazos</h1><span id="evoDnaStatus" class="evo-dna-status">ADN RECUPERADO</span></div><div class="evo-map-tools"><span id="evoProgress">0 / 24 APRENDIDOS</span><div class="evo-tree-track" aria-hidden="true"><i id="evoTreeProgress"></i></div><div><button type="button" id="evoZoomOut" aria-label="Alejar árbol">−</button><button type="button" id="evoFit">VER FORMA</button><button type="button" id="evoZoomIn" aria-label="Acercar árbol">+</button></div></div></header>
     <div id="evoMigration" hidden>Árboles renovados: tus puntos anteriores están disponibles de nuevo. Conservas tu nivel y XP.</div>
@@ -1194,6 +1196,18 @@ body.king-combat #toast{top:36%}
 
 </script>
 <script>
+/* One anonymous portrait conceals every undiscovered form. */
+(function(root){
+ 'use strict';
+ const image=new Image(),file='assets/ui/unknown-alien.png';
+ const ready=new Promise((resolve,reject)=>{image.onload=()=>resolve();image.onerror=()=>reject(Error('No se pudo cargar el ADN desconocido'));});
+ image.src=file;
+ function draw(ctx,size=82){if(!image.complete||!image.naturalWidth)return;ctx.save();ctx.imageSmoothingEnabled=false;ctx.drawImage(image,-size/2,-size/2,size,size);ctx.restore();}
+ root.Ben10SecretDNA={ready,draw,file};
+})(typeof globalThis==='undefined'?this:globalThis);
+
+</script>
+<script>
 /* Deterministic ground-plane enemy AI and encounter director. No browser globals. */
 (function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory();else root.Ben10Eternals=factory()})(typeof globalThis==='undefined'?this:globalThis,function(){
  'use strict';
@@ -1938,7 +1952,7 @@ document.getElementById('retryEncounter').addEventListener('click',enemyRetry);
 let campaignUnlockStorage;try{campaignUnlockStorage=localStorage}catch{}
 const campaignUnlocks=new Ben10CampaignUnlocks.Unlocks(campaignUnlockStorage);
 function campaignAlienUnlocked(id){return campaignUnlocks.has(id);}
-function campaignLockedMessage(id){return id==='diamondhead'?'ADN BLOQUEADO · DERROTA AL REY ETERNO':'ADN BLOQUEADO · AÚN NO RECUPERADO';}
+function campaignLockedMessage(){return 'ADN DESCONOCIDO · SIGUE EXPLORANDO';}
 const kingArt=new Ben10KingRenderer(window.BEN10_KING_ART);
 let kingRewardOpen=false,kingEncounterRoom=null,kingLastHUD='';
 const kingUI={hud:document.getElementById('kingHUD'),reward:document.getElementById('kingReward'),health:document.getElementById('kingHealth'),healthText:document.getElementById('kingHealthText'),defense:document.getElementById('kingDefense'),defenseTrack:document.getElementById('kingDefenseRow'),defenseText:document.getElementById('kingDefenseText'),phase:document.getElementById('kingPhase'),state:document.getElementById('kingState')};
@@ -1992,7 +2006,7 @@ function kingCloseReward(){kingRewardOpen=false;kingUI.reward.hidden=true;lastTi
 document.getElementById('kingRewardContinue').addEventListener('click',kingCloseReward);
 document.getElementById('kingRewardTransform').addEventListener('click',()=>{kingCloseReward();returnToBen();stats.energy=stats.config.maxEnergy;stats.rechargeLocked=false;stats.rechargeLeft=0;selectSlot(3)});
 document.addEventListener('keydown',event=>{if(!kingRewardOpen)return;event.preventDefault();event.stopImmediatePropagation();if(['Enter','Escape'].includes(event.key))kingCloseReward();},{capture:true});
-function refreshCampaignAlienLocks(){document.querySelectorAll('.evo-tab').forEach((el,i)=>{const id=SKILL_BOOK[i].id,locked=!campaignAlienUnlocked(id);el.classList.toggle('dna-locked',locked);el.querySelector('i').textContent=locked?'🔒':ROSTER_KEYS[i];el.setAttribute('aria-label',SKILL_BOOK[i].name+(locked?' · '+campaignLockedMessage(id):' · ADN disponible'));});if(typeof evolutionUpdateDnaStatus==='function')evolutionUpdateDnaStatus();if(state.wheel)drawWheel();}
+function refreshCampaignAlienLocks(){if(typeof evolutionRefreshRoster==='function')evolutionRefreshRoster();if(state.wheel)drawWheel();}
 // FINAL_KING_GAME_END
 // CAMPAIGN_GAME_START
 const campaignArt=new Ben10CampaignRenderer(campaign.data);
@@ -3049,10 +3063,10 @@ for(const key of Object.keys(PIXEL_WHEEL_ICON_DATA)){
  pixelWheelIcons[key]=icon;
 }
 function wheelFace(c,key,scale=1){
- const icon=pixelWheelIcons[key];if(!icon||!icon.complete||!icon.naturalWidth)return;
  const size=82*scale,index=ROSTER_KEYS.indexOf(key),id=PLAYABLE_SLOTS.get(index)?.id,locked=!campaignAlienUnlocked(id);
- c.save();c.imageSmoothingEnabled=false;if(locked){c.globalAlpha=.22;c.filter='grayscale(1)'}c.drawImage(icon,-size/2,-size/2,size,size);c.restore();
- if(locked){c.save();c.scale(scale,scale);c.strokeStyle='#a3b3a8';c.fillStyle='#13251c';c.lineWidth=3;c.beginPath();c.arc(0,15,8,Math.PI,0);c.stroke();c.fillRect(-11,15,22,18);c.strokeRect(-11,15,22,18);c.fillStyle='#a3b3a8';c.fillRect(-2,21,4,6);c.restore()}
+ if(locked){Ben10SecretDNA.draw(c,size);return;}
+ const icon=pixelWheelIcons[key];if(!icon||!icon.complete||!icon.naturalWidth)return;
+ c.save();c.imageSmoothingEnabled=false;c.drawImage(icon,-size/2,-size/2,size,size);c.restore();
 }
 
 function wheelRing(c,angle,theme){
@@ -3097,12 +3111,12 @@ function drawWheel(){
   c.save();c.translate(x,y);if(selected){c.shadowColor=theme.bright;c.shadowBlur=9;}
   wheelFace(c,ROSTER_KEYS[i],.96);c.shadowBlur=0;c.restore();
   c.fillStyle=selected?theme.soft:'#a8cf9a';c.textAlign='center';c.textBaseline='middle';c.font='bold 13px Consolas,monospace';
-  c.fillText(ROSTER_KEYS[i],Math.cos(mid)*253,Math.sin(mid)*253);
+  c.fillText(campaignAlienUnlocked(PLAYABLE_SLOTS.get(i)?.id)?ROSTER_KEYS[i]:'?',Math.cos(mid)*253,Math.sin(mid)*253);
  }
  c.strokeStyle=theme.red?'#d44e4f':'#75d73e';c.lineWidth=5;c.beginPath();c.arc(0,0,272,0,Math.PI*2);c.stroke();
  wheelRing(c,wheelVisual.rotation,theme);
  c.restore();
- const caption=state.wheelHover>=0?CLASSIC_ALIENS[state.wheelHover]+(campaignAlienUnlocked(PLAYABLE_SLOTS.get(state.wheelHover)?.id)?'':' · ADN BLOQUEADO'):stats.rechargeLocked?'RELOJ BLOQUEADO · ESPERA LA RECARGA COMPLETA':wheelInAlert()?'PRIMERO VUELVE A BEN':stats.transformed?'CENTRO PARA VOLVER A BEN':'ELIGE UN ALIEN';
+ const caption=state.wheelHover>=0?(campaignAlienUnlocked(PLAYABLE_SLOTS.get(state.wheelHover)?.id)?CLASSIC_ALIENS[state.wheelHover]:'ADN DESCONOCIDO'):stats.rechargeLocked?'RELOJ BLOQUEADO · ESPERA LA RECARGA COMPLETA':wheelInAlert()?'PRIMERO VUELVE A BEN':stats.transformed?'CENTRO PARA VOLVER A BEN':'ELIGE UN ALIEN';
  const hint=document.querySelector('.wheel-caption');if(hint&&hint.textContent!==caption)hint.textContent=caption;
  wheelVisual.lastAlert=theme.red;
 }
@@ -3129,7 +3143,7 @@ function toggleWheel(force){let open=force===undefined?!state.wheel:force;if(pla
 function selectSlot(i){
  if(i<0||i>=CLASSIC_ALIENS.length||!assetsReady)return;
  const form=PLAYABLE_SLOTS.get(i);
- if(!form){showToast(CLASSIC_ALIENS[i]+' · AÚN NO DISPONIBLE');return;}
+ if(!form){showToast(campaignLockedMessage());return;}
  if(!campaignAlienUnlocked(form.id)){showToast(campaignLockedMessage(form.id));return;}
  if(stats.transformed){triggerWheelAlert('PRIMERO VUELVE A BEN · T O CENTRO DEL RELOJ');return;}
  if(stats.rechargeLocked){triggerWheelAlert('RELOJ ROJO · ESPERA AL 100%');return;}
@@ -3663,12 +3677,22 @@ function evolutionDrawEffects(){
 // UI: constellation map, a live preview, clear costs and before/after statistics.
 function evolutionPanelPortrait(canvas,index){if(!canvas)return;const c=canvas.getContext('2d');c.clearRect(0,0,canvas.width,canvas.height);const icon=pixelWheelIcons[ROSTER_KEYS[index]];if(icon?.complete){c.imageSmoothingEnabled=false;c.drawImage(icon,0,0,canvas.width,canvas.height)}}
 function evolutionSetPortraits(){document.querySelectorAll('.evo-face').forEach(c=>evolutionPanelPortrait(c,+c.dataset.index))}
+function evolutionDnaKnown(index){return !!SKILL_BOOK[index]&&(typeof campaignAlienUnlocked!=='function'||campaignAlienUnlocked(SKILL_BOOK[index].id))}
+function evolutionAvailableIndices(){return SKILL_BOOK.map((_,i)=>i).filter(evolutionDnaKnown)}
 function evolutionUpdateDnaStatus(){
- const unlocked=id=>typeof campaignAlienUnlocked!=='function'||campaignAlienUnlocked(id),spec=SKILL_BOOK[progression.selected],available=unlocked(spec.id),badge=document.getElementById('evoDnaStatus');
- if(badge){badge.textContent=available?'ADN RECUPERADO':spec.id==='diamondhead'?'ADN EN PODER DEL REY':'ADN BLOQUEADO';badge.classList.toggle('locked',!available);}
- const count=document.getElementById('evoDnaCount');if(count)count.textContent=SKILL_BOOK.filter(s=>unlocked(s.id)).length+' / '+SKILL_BOOK.length;
- document.querySelectorAll('.evo-tab small').forEach((el,i)=>{el.textContent=unlocked(SKILL_BOOK[i].id)?'ADN RECUPERADO':'ADN BLOQUEADO'});
+ const available=evolutionAvailableIndices(),badge=document.getElementById('evoDnaStatus');
+ if(badge){badge.textContent='ADN RECUPERADO';badge.classList.remove('locked');}
+ const count=document.getElementById('evoDnaCount');if(count)count.textContent=String(available.length);
+ const hint=document.getElementById('evoDiscovery');if(hint)hint.hidden=available.length===SKILL_BOOK.length;
 }
+function evolutionRenderRoster(){
+ const host=document.getElementById('evoTabs'),available=evolutionAvailableIndices(),signature=available.join(',');
+ if(host.dataset.roster===signature)return;
+ host.dataset.roster=signature;host.replaceChildren();
+ for(const i of available){const s=SKILL_BOOK[i],b=document.createElement('button');b.type='button';b.className='evo-tab';b.dataset.index=String(i);b.setAttribute('role','tab');b.setAttribute('aria-label',s.name+' · ADN disponible');b.setAttribute('aria-selected',String(i===progression.selected));b.classList.toggle('current',i===progression.selected);b.innerHTML='<span class="evo-avatar"><canvas width="42" height="42" class="evo-face" data-index="'+i+'"></canvas></span><span class="evo-tab-name">'+s.name+'<small>ADN RECUPERADO</small></span><i>'+ROSTER_KEYS[i]+'</i>';b.addEventListener('click',()=>evolutionChangeAlien(i));host.appendChild(b)}
+ evolutionSetPortraits();
+}
+function evolutionRefreshRoster(){evolutionRenderRoster();if(!evolutionDnaKnown(progression.selected))evolutionChangeAlien(evolutionAvailableIndices()[0]);evolutionUpdateDnaStatus();}
 function evolutionNodeIcon(n){
  if(n.type==='active')return 'F';
  const paths={combo:'M3 2h4l7 8-3 3-8-7Zm14 0h4v4l-8 8-3-3Zm-9 12 3 3-5 5H2v-4Zm7 0 7 7-1 1-7-7Z',mastery:'M2 6l5 5 5-8 5 8 5-5-2 13H4Zm3 15h14v2H5Z',atk:'M4 10V6h3V3h4v2h3v2h3v3h3v8l-5 4H8l-5-5V9h3v5h2v-4Z',vel:'M9 2h8v6l-3 3 2 5h5v5H6v-3H3v-4h7l1-4-5-3Z',def:'M12 2 22 6v7l-4 6-6 4-6-4-4-6V6Zm0 4v13l5-4 2-5V8Z'};
@@ -3679,6 +3703,7 @@ function evolutionSelectedNode(){return evolutionNodes(progression.selected).fin
 function evolutionSkillForNode(n){return SKILL_BOOK[progression.selected].skills.find(s=>s.id===n.skill)}
 function evolutionInputHTML(sequence){return sequence.split('').map(s=>'<kbd>'+({L:'LEVE',H:'FUERTE',F:'F'}[s])+'</kbd>').join('<span>→</span>')}
 function evolutionUpdateDetails(){
+ if(!evolutionDnaKnown(progression.selected)){evolutionChangeAlien(evolutionAvailableIndices()[0]);return;}
  const i=progression.selected,s=SKILL_BOOK[i],n=evolutionSelectedNode(),owned=evolutionOwned(s.id,n.id),met=evolutionReqMet(s,n),skill=evolutionSkillForNode(n),b=evolutionBonus(s.id),free=evolutionFreePoints();
  document.getElementById('evoPointCount').textContent=free;document.getElementById('evoLevel').textContent='NIVEL '+stats.level;
  document.getElementById('evoInfoTitle').textContent=n.title;document.getElementById('evoNodeType').textContent=({stat:'ATRIBUTO PERMANENTE',combo:'NUEVA TÉCNICA',active:'HABILIDAD · F',mastery:'MAESTRÍA'}[n.type]);
@@ -3689,7 +3714,7 @@ function evolutionUpdateDetails(){
  const reqNames=n.req.map(g=>g.split('|').map(id=>evolutionNodes(i).find(n=>n.id===id)?.title).join(' o '));
  document.getElementById('evoInfoRequirements').textContent=owned?'✓ MEJORA APRENDIDA':!met?'Requiere: '+reqNames.join(' + '):'Camino disponible · '+n.cost+' punto'+(n.cost>1?'s':'');
  const buy=document.getElementById('evoBuy');buy.textContent=owned?'APRENDIDO':!met?'CAMINO BLOQUEADO':free<n.cost?'FALTAN '+(n.cost-free)+' PUNTOS':'APRENDER · '+n.cost+' PT';buy.disabled=owned||!met||free<n.cost;
- if(typeof campaignAlienUnlocked==='function'&&!campaignAlienUnlocked(s.id)){buy.disabled=true;buy.textContent='ADN BLOQUEADO';document.getElementById('evoInfoRequirements').textContent=campaignLockedMessage(s.id);}
+ if(typeof campaignAlienUnlocked==='function'&&!campaignAlienUnlocked(s.id)){buy.disabled=true;buy.textContent='ADN DESCONOCIDO';document.getElementById('evoInfoRequirements').textContent=campaignLockedMessage(s.id);}
  const changes=[];for(const [key,label] of [['atk','ATQ'],['vel','VEL'],['def','DEF']]){const value=b[key],add=!owned?(n.fx[key]||0):0;changes.push('<div class="evo-attribute"><span>'+label+'</span><div class="evo-meter"><i style="width:'+Math.min(100,value/2*100)+'%"></i>'+(add?'<em style="left:'+Math.min(100,value/2*100)+'%;width:'+Math.min(100,add/2*100)+'%"></em>':'')+'</div><b>'+Math.round(value*100)+'%'+(add?'<small> +'+Math.round(add*100)+'</small>':'')+'</b></div>')}
  document.getElementById('evoStats').innerHTML=changes.join('');
  document.getElementById('evoProgress').textContent=(progression.owned[s.id]?.length||0)+' / '+evolutionNodes(i).length+' APRENDIDOS';
@@ -3709,10 +3734,10 @@ function evolutionDrawTree(){
  for(const n of nodes){const el=document.createElement('button');el.type='button';el.dataset.id=n.id;el.title=n.title;el.className='evo-node '+n.type+(evolutionOwned(s.id,n.id)?' owned':evolutionReqMet(s,n)?' available':' locked');el.style.left=n.x+'px';el.style.top=n.y+'px';const icon=evolutionNodeIcon(n);el.innerHTML='<span class="evo-node-orb">'+icon+'</span><span class="evo-node-name">'+n.title+'</span><small>'+(evolutionOwned(s.id,n.id)?'✓':n.cost+' PT')+'</small>';el.setAttribute('aria-label',n.title+', '+n.cost+' puntos'+(evolutionOwned(s.id,n.id)?', aprendido':''));el.addEventListener('click',()=>evolutionFocusNode(n.id));graph.appendChild(el)}
  evolutionUpdateDetails();
 }
-function evolutionChangeAlien(index){progression.selected=index;progression.focused='core';progression.previewStart=performance.now();const s=SKILL_BOOK[index];document.getElementById('evolutionShell').style.setProperty('--alien',s.color);document.getElementById('evoTreeLabel').textContent=s.name;document.getElementById('evoSubtitle').textContent=s.subtitle;document.getElementById('evoGraph').dataset.form=s.id;document.querySelectorAll('.evo-tab').forEach((el,i)=>{el.classList.toggle('current',i===index);el.setAttribute('aria-selected',String(i===index))});evolutionDrawTree();const scroller=document.getElementById('evoGraphScroll');if(scroller.clientHeight)evolutionZoom(progression.zoom||1)}
+function evolutionChangeAlien(index){if(!evolutionDnaKnown(index))return false;progression.selected=index;progression.focused='core';progression.previewStart=performance.now();const s=SKILL_BOOK[index];document.getElementById('evolutionShell').style.setProperty('--alien',s.color);document.getElementById('evoTreeLabel').textContent=s.name;document.getElementById('evoSubtitle').textContent=s.subtitle;document.getElementById('evoGraph').dataset.form=s.id;document.querySelectorAll('.evo-tab').forEach((el,i)=>{el.classList.toggle('current',+el.dataset.index===index);el.setAttribute('aria-selected',String(+el.dataset.index===index))});evolutionDrawTree();const scroller=document.getElementById('evoGraphScroll');if(scroller.clientHeight)evolutionZoom(progression.zoom||1)}
 function evolutionPurchase(){const s=SKILL_BOOK[progression.selected],n=evolutionSelectedNode();if(typeof campaignAlienUnlocked==='function'&&!campaignAlienUnlocked(s.id)){showToast(campaignLockedMessage(s.id));return;}if(evolutionOwned(s.id,n.id)||!evolutionReqMet(s,n)||evolutionFreePoints()<n.cost)return;progression.owned[s.id]??=[];progression.owned[s.id].push(n.id);evolutionSave();evolutionDrawTree();const el=document.querySelector('.evo-node[data-id="'+n.id+'"]');el?.classList.add('just-learned');showToast(n.title.toUpperCase()+' · APRENDIDO')}
-function toggleProgressionPanel(force){const open=force===undefined?!progressionPanelOpen:!!force;if(open===progressionPanelOpen)return;const preferredZoom=progression.zoom||'fit';if(open){toggleWheel(false);keys.clear();evolutionSetPortraits();evolutionChangeAlien(evolutionIndex[stats.form?.id]??progression.selected)}progressionPanelOpen=open;const layer=document.getElementById('evolutionLayer');layer.classList.toggle('open',open);layer.setAttribute('aria-hidden',String(!open));if(open)requestAnimationFrame(()=>evolutionZoom(preferredZoom));lastTime=performance.now();if(!open)document.activeElement?.blur()}
-function evolutionDrawPreview(now){if(!progressionPanelOpen)return;const canvas=document.getElementById('evoPreview'),c=canvas.getContext('2d'),i=progression.selected,n=evolutionSelectedNode(),s=SKILL_BOOK[i],skill=evolutionSkillForNode(n)||s.skills[0];
+function toggleProgressionPanel(force){const open=force===undefined?!progressionPanelOpen:!!force;if(open===progressionPanelOpen)return;const preferredZoom=progression.zoom||'fit';if(open){if(!evolutionDnaKnown(progression.selected))progression.selected=evolutionAvailableIndices()[0];toggleWheel(false);keys.clear();evolutionSetPortraits();evolutionChangeAlien(evolutionIndex[stats.form?.id]??progression.selected)}progressionPanelOpen=open;const layer=document.getElementById('evolutionLayer');layer.classList.toggle('open',open);layer.setAttribute('aria-hidden',String(!open));if(open)requestAnimationFrame(()=>evolutionZoom(preferredZoom));lastTime=performance.now();if(!open)document.activeElement?.blur()}
+function evolutionDrawPreview(now){if(!progressionPanelOpen||!evolutionDnaKnown(progression.selected))return;const canvas=document.getElementById('evoPreview'),c=canvas.getContext('2d'),i=progression.selected,n=evolutionSelectedNode(),s=SKILL_BOOK[i],skill=evolutionSkillForNode(n)||s.skills[0];
  c.clearRect(0,0,canvas.width,canvas.height);
  c.strokeStyle='#6c8a4f35';c.lineWidth=1;for(let j=0;j<5;j++){c.beginPath();c.moveTo(15+j*68,185);c.lineTo(-20+j*85,220);c.stroke()}
  c.fillStyle='#08150d';c.fillRect(64,201,176,10);c.fillStyle='#4d6744';c.fillRect(68,197,168,6);c.fillStyle='#243a26';c.fillRect(74,191,156,6);c.fillStyle=s.color;c.fillRect(91,198,24,2);c.fillRect(189,198,24,2);
@@ -3720,7 +3745,7 @@ function evolutionDrawPreview(now){if(!progressionPanelOpen)return;const canvas=
  c.fillStyle='#0005';c.beginPath();c.ellipse(canvas.width/2,205,44,10,0,0,7);c.fill();if(n.skill&&skill.layout){const box=skill.layout,scale=Math.min((canvas.width-28)/box.cellWidth,178/box.cellHeight,150/160),x=(canvas.width-box.cellWidth*scale)/2+box.anchorX*scale,y=18+box.anchorY*scale;evolutionPaintSkill(c,i,skill,p,'right',x,y,160*scale)}else Ben10SkillArt.draw(c,s.id,'idle',(seconds%2)/2,'right',canvas.width/2,205,150);
  c.font='10px Consolas';c.textAlign='center';c.fillStyle='#bed0c1';c.fillText(n.skill?'ANIMACIÓN DE LA TÉCNICA':'VISTA DE '+s.name.toUpperCase(),canvas.width/2,231);
 }
-function evolutionInstallPanel(){const host=document.getElementById('evoTabs');SKILL_BOOK.forEach((s,i)=>{const b=document.createElement('button');b.type='button';b.className='evo-tab';b.setAttribute('role','tab');b.innerHTML='<span class="evo-avatar"><canvas width="42" height="42" class="evo-face" data-index="'+i+'"></canvas></span><span class="evo-tab-name">'+s.name+'<small>'+s.subtitle.split(' ')[0]+'</small></span><i>'+ROSTER_KEYS[i]+'</i>';b.addEventListener('click',()=>evolutionChangeAlien(i));host.appendChild(b)});document.getElementById('evoClose').addEventListener('click',()=>toggleProgressionPanel(false));document.getElementById('evoBuy').addEventListener('click',evolutionPurchase);document.getElementById('evoFit').addEventListener('click',()=>evolutionZoom((progression.zoom||1)<.7?1:'fit'));document.getElementById('evoZoomOut').addEventListener('click',()=>evolutionZoom((progression.zoom||1)-.15));document.getElementById('evoZoomIn').addEventListener('click',()=>evolutionZoom((progression.zoom||1)+.15));evolutionChangeAlien(0);new ResizeObserver(()=>{if(progressionPanelOpen&&(progression.zoom||1)<.7)evolutionZoom('fit')}).observe(document.getElementById('evoGraphScroll'))}
+function evolutionInstallPanel(){evolutionRenderRoster();document.getElementById('evoClose').addEventListener('click',()=>toggleProgressionPanel(false));document.getElementById('evoBuy').addEventListener('click',evolutionPurchase);document.getElementById('evoFit').addEventListener('click',()=>evolutionZoom((progression.zoom||1)<.7?1:'fit'));document.getElementById('evoZoomOut').addEventListener('click',()=>evolutionZoom((progression.zoom||1)-.15));document.getElementById('evoZoomIn').addEventListener('click',()=>evolutionZoom((progression.zoom||1)+.15));evolutionChangeAlien(0);new ResizeObserver(()=>{if(progressionPanelOpen&&(progression.zoom||1)<.7)evolutionZoom('fit')}).observe(document.getElementById('evoGraphScroll'))}
 evolutionLoad();evolutionInstallPanel();
 const nativeDrawDummy=drawDummy;drawDummy=function(d){if(d.skillHidden)return;ctx.save();ctx.translate(0,-(d.skillLift||0));nativeDrawDummy(d);ctx.restore()};
 
@@ -3843,7 +3868,7 @@ document.body.classList.add('comic-active');comicUpdateUI();comicImage.src='asse
 
 // EVOLUTION_PANEL_V32_END
 
-const readyPromise=Promise.all([kingArt.ready,enemyArt.ready,campaignArt.ready,loadImage(sheet),loadImage(verticalSheet),loadImage(watchSheet),loadImage(fourArmsSheet),loadImage(heatblastSheet),loadImage(diamondheadSheet),loadImage(xlr8Sheet),loadImage(cannonboltSheet),loadImage(ghostfreakSheet),loadImage(stinkflySheet),loadImage(wildvineSheet),loadImage(wildThornSheet),loadImage(blitzwolferSheet),loadImage(upgradeSheet)]).then(()=>{
+const readyPromise=Promise.all([Ben10SecretDNA.ready,kingArt.ready,enemyArt.ready,campaignArt.ready,loadImage(sheet),loadImage(verticalSheet),loadImage(watchSheet),loadImage(fourArmsSheet),loadImage(heatblastSheet),loadImage(diamondheadSheet),loadImage(xlr8Sheet),loadImage(cannonboltSheet),loadImage(ghostfreakSheet),loadImage(stinkflySheet),loadImage(wildvineSheet),loadImage(wildThornSheet),loadImage(blitzwolferSheet),loadImage(upgradeSheet)]).then(()=>{
  mainAtlas=prepareAtlas(sheet,8,14,[8,8,8,8,4,4,4,6,6,5,8,4,6,8]);
  verticalAtlas=prepareAtlas(verticalSheet,8,4,[8,8,8,8]);
  const up=mainAtlas.rows[ROW.up][0].bodyHeight,down=mainAtlas.rows[ROW.down][0].bodyHeight;

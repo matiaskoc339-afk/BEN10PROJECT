@@ -9,14 +9,14 @@ function block(begin,end,value,before){
 function between(begin,end,value){const a=html.indexOf(begin),b=html.indexOf(end,a);if(a<0||b<a)throw Error('Missing game anchor '+begin);html=html.slice(0,a)+value+'\n'+html.slice(b);}
 const css='/* CAMPAIGN_STYLE_START */\n'+read('systems/campaign.css')+'\n'+read('systems/enemy-ui.css')+'\n/* CAMPAIGN_STYLE_END */';
 block('/* CAMPAIGN_STYLE_START */','/* CAMPAIGN_STYLE_END */',css,'</style>');
-const modules='<!-- CAMPAIGN_MODULES_START -->\n<script>window.BEN10_CAMPAIGN_DATA='+JSON.stringify(JSON.parse(read('mapas/data/recorrido.json')))+';window.BEN10_ENEMY_DATA='+JSON.stringify(JSON.parse(read('enemigos/data/manifest.json')))+';window.BEN10_KING_ART='+JSON.stringify(JSON.parse(read('jefe-final/data/manifest.json')))+';</script>\n'+['mapas/world.js','systems/campaign-world.js','systems/campaign-renderer.js','systems/combat-balance.js','systems/campaign-unlocks.js','systems/eternal-enemies.js','systems/enemy-renderer.js','systems/final-king.js','systems/final-king-renderer.js'].map(file=>'<script>\n'+read(file)+'\n</script>').join('\n')+'\n<!-- CAMPAIGN_MODULES_END -->';
+const modules='<!-- CAMPAIGN_MODULES_START -->\n<script>window.BEN10_CAMPAIGN_DATA='+JSON.stringify(JSON.parse(read('mapas/data/recorrido.json')))+';window.BEN10_ENEMY_DATA='+JSON.stringify(JSON.parse(read('enemigos/data/manifest.json')))+';window.BEN10_KING_ART='+JSON.stringify(JSON.parse(read('jefe-final/data/manifest.json')))+';</script>\n'+['mapas/world.js','systems/campaign-world.js','systems/campaign-renderer.js','systems/combat-balance.js','systems/campaign-unlocks.js','systems/secret-dna.js','systems/eternal-enemies.js','systems/enemy-renderer.js','systems/final-king.js','systems/final-king-renderer.js'].map(file=>'<script>\n'+read(file)+'\n</script>').join('\n')+'\n<!-- CAMPAIGN_MODULES_END -->';
 block('<!-- CAMPAIGN_MODULES_START -->','<!-- CAMPAIGN_MODULES_END -->',modules,"<script>\n\n(()=>{'use strict';");
 const ui='<!-- CAMPAIGN_UI_START -->\n'+read('systems/campaign-ui.html')+read('systems/enemy-ui.html')+'<!-- CAMPAIGN_UI_END -->';
 block('<!-- CAMPAIGN_UI_START -->','<!-- CAMPAIGN_UI_END -->',ui,'<div id="combo">');
 html=html.replace(/<div id="enemyCount">[^\n]+\n/,'').replace(/^#enemyCount \{[^\n]+\n/m,'');
 html=html.replace(/#enemyCount\{[^}]+\}/g,'').replace('body.comic-active #enemyCount,','');
 html=html.replace('aria-label="Campo de pruebas jugable"','aria-label="Recorrido jugable: calles, castillo y laboratorio"');
-html=html.replace(/<title>[^<]+<\/title>/,'<title>Ben 10 — V38 · El Rey Eterno</title>');
+html=html.replace(/<title>[^<]+<\/title>/,'<title>Ben 10 — V39 · El Rey Eterno</title>');
 html=html.replace('const stats=new Ben10Stats.PlayerStats();','const stats=Ben10Balance.createPlayerStats(Ben10Stats);');
 html=html.replace('speed:247,health:100,mode:', 'speed:247,health:Ben10Balance.PLAYER_CONFIG.maxHealth,mode:');
 html=html.replace('let damage=special?75:heavy?20:player.lightN===3?12:8,reach=', 'let damage=Ben10Balance.humanAttackDamage({special,heavy,combo:player.lightN}),reach=');
@@ -26,7 +26,12 @@ else block('// CAMPAIGN_GAME_START','// CAMPAIGN_GAME_END',read('systems/campaig
 block('// ENEMY_GAME_START','// ENEMY_GAME_END',read('systems/enemy-game.js').trim(),'// CAMPAIGN_GAME_START');
 block('// FINAL_KING_GAME_START','// FINAL_KING_GAME_END',read('systems/final-king-game.js').trim(),'// CAMPAIGN_GAME_START');
 between('function wheelFace(','function wheelRing(',read('systems/campaign-wheel-face.js'));
-html=html.replace('const caption=state.wheelHover>=0?CLASSIC_ALIENS[state.wheelHover]:',"const caption=state.wheelHover>=0?CLASSIC_ALIENS[state.wheelHover]+(campaignAlienUnlocked(PLAYABLE_SLOTS.get(state.wheelHover)?.id)?'':' · ADN BLOQUEADO'):");
+html=html.replace(/const caption=state\.wheelHover>=0\?[^\n]+;/,"const caption=state.wheelHover>=0?(campaignAlienUnlocked(PLAYABLE_SLOTS.get(state.wheelHover)?.id)?CLASSIC_ALIENS[state.wheelHover]:'ADN DESCONOCIDO'):stats.rechargeLocked?'RELOJ BLOQUEADO · ESPERA LA RECARGA COMPLETA':wheelInAlert()?'PRIMERO VUELVE A BEN':stats.transformed?'CENTRO PARA VOLVER A BEN':'ELIGE UN ALIEN';");
+html=html.replace("if(!form){showToast(CLASSIC_ALIENS[i]+' · AÚN NO DISPONIBLE');return;}","if(!form){showToast(campaignLockedMessage());return;}");
+html=html.replace("c.fillText(ROSTER_KEYS[i],Math.cos(mid)*253,Math.sin(mid)*253);","c.fillText(campaignAlienUnlocked(PLAYABLE_SLOTS.get(i)?.id)?ROSTER_KEYS[i]:'?',Math.cos(mid)*253,Math.sin(mid)*253);");
+html=html.replace('SELECCIÓN DE ADN · 10 ALIENS','SELECCIÓN DE ADN');
+html=html.replace('Selector de 10 alienígenas. Cada sección contiene una cara. El centro del reloj permite volver a Ben.','Selector de ADN. Las formas desconocidas muestran una silueta anónima. El centro permite volver a Ben.');
+if(!html.includes('Ben10SecretDNA.ready,kingArt.ready'))html=html.replace('kingArt.ready,enemyArt.ready','Ben10SecretDNA.ready,kingArt.ready,enemyArt.ready');
 if(!html.includes('if(!campaignAlienUnlocked(form.id)){showToast('))html=html.replace("if(!form){showToast(CLASSIC_ALIENS[i]+' · AÚN NO DISPONIBLE');return;}","if(!form){showToast(CLASSIC_ALIENS[i]+' · AÚN NO DISPONIBLE');return;}\n if(!campaignAlienUnlocked(form.id)){showToast(campaignLockedMessage(form.id));return;}");
 if(!html.includes('if(!campaignAlienUnlocked(form.id)){player.pendingForm=null;'))html=html.replace("if(!form)return;\n const metrics=form.id===HEATBLAST.id?", "if(!form)return;\n if(!campaignAlienUnlocked(form.id)){player.pendingForm=null;player.selectedAlien=-1;player.mode='idle';return;}\n const metrics=form.id===HEATBLAST.id?");
 html=html.replace("if(comicOpen||state.wheel||progressionPanelOpen||adminPanelOpen||!assetsReady)","if(comicOpen||state.wheel||progressionPanelOpen||adminPanelOpen||kingRewardOpen||!assetsReady)");
@@ -66,4 +71,4 @@ for(const [name,file] of [['SPEED_ROUTE','systems/speed-route.js'],['FIRE_PROJEC
 }
 for(const [name,file] of [['XLR8_GAME','systems/xlr8-game.js'],['STINKFLY_GAME','systems/stinkfly-game.js']])block('// '+name+'_START','// '+name+'_END','// '+name+'_START\n'+read(file)+'// '+name+'_END','function update(dt){');
 fs.writeFileSync(target,html);
-console.log('Embedded V38: final king encounter, three phases, locked DNA and persistent Diamondhead reward.');
+console.log('Embedded V39: final king encounter, three phases, locked DNA and persistent Diamondhead reward.');

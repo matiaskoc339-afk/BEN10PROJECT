@@ -2,7 +2,7 @@
 let campaignUnlockStorage;try{campaignUnlockStorage=localStorage}catch{}
 const campaignUnlocks=new Ben10CampaignUnlocks.Unlocks(campaignUnlockStorage);
 function campaignAlienUnlocked(id){return campaignUnlocks.has(id);}
-function campaignLockedMessage(id){return id==='diamondhead'?'ADN BLOQUEADO · DERROTA AL REY ETERNO':'ADN BLOQUEADO · AÚN NO RECUPERADO';}
+function campaignLockedMessage(){return 'ADN DESCONOCIDO · SIGUE EXPLORANDO';}
 const kingArt=new Ben10KingRenderer(window.BEN10_KING_ART);
 let kingRewardOpen=false,kingEncounterRoom=null,kingLastHUD='';
 const kingUI={hud:document.getElementById('kingHUD'),reward:document.getElementById('kingReward'),health:document.getElementById('kingHealth'),healthText:document.getElementById('kingHealthText'),defense:document.getElementById('kingDefense'),defenseTrack:document.getElementById('kingDefenseRow'),defenseText:document.getElementById('kingDefenseText'),phase:document.getElementById('kingPhase'),state:document.getElementById('kingState')};
@@ -56,5 +56,5 @@ function kingCloseReward(){kingRewardOpen=false;kingUI.reward.hidden=true;lastTi
 document.getElementById('kingRewardContinue').addEventListener('click',kingCloseReward);
 document.getElementById('kingRewardTransform').addEventListener('click',()=>{kingCloseReward();returnToBen();stats.energy=stats.config.maxEnergy;stats.rechargeLocked=false;stats.rechargeLeft=0;selectSlot(3)});
 document.addEventListener('keydown',event=>{if(!kingRewardOpen)return;event.preventDefault();event.stopImmediatePropagation();if(['Enter','Escape'].includes(event.key))kingCloseReward();},{capture:true});
-function refreshCampaignAlienLocks(){document.querySelectorAll('.evo-tab').forEach((el,i)=>{const id=SKILL_BOOK[i].id,locked=!campaignAlienUnlocked(id);el.classList.toggle('dna-locked',locked);el.querySelector('i').textContent=locked?'🔒':ROSTER_KEYS[i];el.setAttribute('aria-label',SKILL_BOOK[i].name+(locked?' · '+campaignLockedMessage(id):' · ADN disponible'));});if(typeof evolutionUpdateDnaStatus==='function')evolutionUpdateDnaStatus();if(state.wheel)drawWheel();}
+function refreshCampaignAlienLocks(){if(typeof evolutionRefreshRoster==='function')evolutionRefreshRoster();if(state.wheel)drawWheel();}
 // FINAL_KING_GAME_END

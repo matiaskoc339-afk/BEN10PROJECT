@@ -8,7 +8,7 @@ version=json.loads((root/'package.json').read_text())['version'].split('.')[1]
 output=Path(f'/workspace/outputs/BEN10_DEMO_PC_V{version}.zip')
 stage=Path(f'/workspace/BEN10-DEMO-V{version}')
 data=json.loads((root/'mapas/data/recorrido.json').read_text())
-files={'index.html','LEEME.txt','assets/prologo-comic.png','assets/skills/catalog.json','assets/skills/atlas-manifest.json'}
+files={'index.html','LEEME.txt','assets/prologo-comic.png','assets/ui/unknown-alien.png','assets/skills/catalog.json','assets/skills/atlas-manifest.json'}
 files.update(str(p.relative_to(root)) for p in (root/'assets/skills').glob('*.png'))
 for chapter in data['chapters']:
 
@@ -29,7 +29,7 @@ king=json.loads((root/'jefe-final/data/manifest.json').read_text())
 files.update('jefe-final/'+phase['atlas'] for phase in king['phases'])
 
 reports={}
-for name,file in [('combat',f'artifacts/v{version}/combat-review.json'),('boss',f'artifacts/v{version}/boss-review.json'),('hud',f'artifacts/v{version}/hud-review.json'),('campaign','artifacts/campaign/browser-review.json'),('skills','artifacts/v33/browser-review.json'),('render','artifacts/v33/final-render-review.json'),('targeting','artifacts/targeting/browser-review.json')]:
+for name,file in [('combat',f'artifacts/v{version}/combat-review.json'),('boss',f'artifacts/v{version}/boss-review.json'),('hud',f'artifacts/v{version}/hud-review.json'),('secrets',f'artifacts/v{version}/secrets-review.json'),('campaign','artifacts/campaign/browser-review.json'),('skills','artifacts/v33/browser-review.json'),('render','artifacts/v33/final-render-review.json'),('targeting','artifacts/targeting/browser-review.json')]:
     reports[name]=json.loads((root/file).read_text())
     assert reports[name].get('passed'),f'Validation missing: {name}'
 assert len(reports['skills']['skills'])==70
@@ -47,6 +47,9 @@ assert reports['boss']['phases']==[1,2,3]
 assert reports['boss']['royalFallAndReward'] and reports['boss']['unlockSurvivesReload'] and reports['boss']['diamondheadPlayable']
 assert reports['hud']['purchaseAndProgress'] and reports['hud']['saveRetained'] and reports['hud']['realDnaLocks']
 assert len(reports['hud']['viewports'])==4
+assert reports['secrets']['identicalUnknownPortraits'] and reports['secrets']['rosterContainsOnlyDiscoveries']
+assert reports['secrets']['noHoverOrKeyboardSpoilers'] and reports['secrets']['savedRewardRevealsCorrectSlot']
+assert reports['boss']['revealedOnlyAfterVictory']
 assert data['renderMode']=='hd-tiles'
 output.parent.mkdir(parents=True,exist_ok=True)
 for file in sorted(files):

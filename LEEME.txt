@@ -1,62 +1,49 @@
-BEN 10 — DEMO PC V38 · EL REY ETERNO
+BEN 10 — DEMO PC V39 · EL REY ETERNO
 
 Extrae TODA la carpeta y abre index.html en Chrome, Edge o Firefox de PC.
-Conserva assets, mapas y enemigos junto al HTML. Funciona sin conexión.
-Conserva también jefe-final: contiene las armaduras y animaciones del rey.
+Conserva assets, mapas, enemigos y jefe-final junto al HTML.
+Funciona sin conexión. No abras el HTML desde dentro del ZIP.
 
-NUEVA VENTANA DE HABILIDADES · K
-Marco metálico y emblema del Omnitrix, retratos, estado del ADN e iconos
-de atributos y técnicas. El árbol se abre completo; selecciona una mejora
-para verla de cerca. Usa +, - y Ver forma para explorar. La vista previa
-muestra la animación de la técnica y su combinación de ataques.
-Los costes, puntos, requisitos y mejoras aprendidas aparecen en el panel.
-Se conservan los árboles, las compras y los desbloqueos de la V37.
+ADN POR DESCUBRIR
+Comienzas con Cuatro Brazos y Fuego. Las demás formas son una incógnita:
+no aparecen en Tus aliens y el reloj muestra una silueta con interrogación,
+sin sus nombres ni sus retratos. Al recuperar un ADN nuevo, su identidad
+se revela y su árbol aparece en la ventana de habilidades.
+El desbloqueo y las mejoras aprendidas se guardan automáticamente.
 
-Calles y parques → castillo → laboratorio de ADN de Diamante.
+VENTANA DE HABILIDADES · K
+El árbol se abre completo. Selecciona una mejora para verla de cerca;
+usa +, - y Ver forma para explorar. La vista previa muestra su animación,
+la combinación de ataques y su coste de energía. Los puntos, requisitos
+y mejoras aprendidas aparecen en el panel. Conservas tus compras anteriores.
+
+EL RECORRIDO
+Calles y parques -> castillo -> laboratorio oculto.
 Cada emboscada bloquea el paso hasta terminar todas sus oleadas.
 Hay 16 combates, 28 oleadas y un minijefe con hacha al final de cada fase.
-El campeón del laboratorio lleva armadura cristalina. Después de la última
-oleada, avanza al tramo final para enfrentarte al Rey Eterno en tres fases.
-El espacio del puzzle queda reservado.
-
-ADN DISPONIBLE: CUATRO BRAZOS Y FUEGO
-Las otras transformaciones están bloqueadas. El Rey Eterno libera el ADN de
-Diamante al caer: el juego muestra la recompensa y guarda el desbloqueo.
-Puedes probarlo desde esa pantalla o seleccionarlo después con R -> 4.
-Las mejoras guardadas de otros aliens no evitan el bloqueo de su ADN.
-
-REY ETERNO
-Tiene 900 PV. Rompe su defensa cristalina para poder dañarlo; Fuego desgasta
-la defensa más rápido. Al 68% de vida se vuelve más agresivo, embiste y
-esquiva. Al 30% pierde su coraza y llama a soldados básicos mientras huye.
-Sus ayudantes mueren cuando él cae. Espera a que termine su caída real para
-recibir el ADN. Si caes, reintentas el jefe sin repetir la última oleada.
+Tras la última oleada del laboratorio, avanza al tramo final para
+enfrentarte al Rey Eterno. El espacio del puzzle queda reservado.
 
 DIFICULTAD: DIFÍCIL
-Ben y todos sus aliens comparten 50 PV. Transformarse conserva la vida
+Ben y todos sus aliens comparten 50 PV. Transformarte conserva la vida
 restante; cada alien mantiene su propia defensa. El reloj tiene 90 de
 energía y los ataques de Ben hacen menos daño.
-Al avanzar, los caballeros flanquean, protegen a sus apoyos y coordinan
-sus ataques. En el laboratorio, los heridos buscan una cura brevemente.
-Los apoyos curan y potencian a los aliados más importantes: interrúmpelos.
-Rompe los escudos con fuertes o ataca por detrás. Esquiva las señales del
-hacha y las líneas de tiro. El reloj y las mejoras del árbol importan.
+Los caballeros coordinan flanqueos y protegen a sus apoyos. Interrumpe sus
+curas, rompe los escudos con fuertes y esquiva las líneas de tiro.
 Cada combate despejado devuelve un poco de vida y energía.
-Al caer puedes reintentar ese combate con vida y energía completas;
-conservas nivel, XP y mejoras. La vida se conserva al cambiar de fase.
+
+REY ETERNO
+Tiene tres fases. Rompe su defensa cristalina para poder dañarlo; Fuego
+desgasta esa defensa más rápido. Cuando pierde vida se vuelve más agresivo,
+embiste y esquiva. Al perder su coraza llama soldados básicos mientras huye.
+Sus ayudantes caen cuando él muere. Espera a que termine la caída para
+descubrir tu recompensa. Si pierdes, reintentas el jefe sin repetir la
+última oleada. Conservas nivel, experiencia y mejoras.
 
 WASD / flechas: moverse.
 Clic izquierdo: leve. Clic derecho: fuerte. Espacio: dash / esquivar.
-R: Omnitrix. Dentro del reloj, 1–9 y 0: elegir alien.
-T: volver a Ben. K: árbol del alien. F: habilidad aprendida.
-E o botón de entrada: entrar al castillo o al laboratorio tras despejarlo.
+R: Omnitrix. Dentro del reloj, usa la tecla de un ADN conocido para elegirlo.
+T: volver a Ben. K: habilidades del alien. F: habilidad aprendida.
+E o botón de entrada: pasar al castillo o al laboratorio tras despejarlo.
 Esc: salir de la intro o cerrar paneles.
 F9: panel de pruebas para añadir puntos, conservado de la demo.
-
-Se conserva el catálogo de diez aliens, sus sprites y las 70 técnicas de los
-árboles; solo puedes transformarte en los aliens cuyo ADN hayas recuperado.
-Se conservan los fondos detallados, 17 variantes de caballeros con animaciones,
-objetos recolocados y agua animada en la fuente del fondo.
-
-Si falta una imagen o el navegador muestra una pantalla vacía, comprueba que
-extrajiste todas las carpetas: no abras index.html desde el interior del ZIP.
