@@ -1,4 +1,6 @@
-# BEN 10: Omnitrix Fragmentado · Demo PC V41
+# BEN 10: Omnitrix Fragmentado · Demo PC V42
+
+V42 añade sonidos propios por material y acción: golpes, transformaciones, fuego, cristal, poderes de los diez aliens, pasos, enemigos, jefe e interfaz. Las 70 técnicas suenan en sus contactos y los efectos sostenidos se detienen al cancelar o pausar. Incluye volumen y silencio con **M**. Las cápsulas curan **12/16/20 PV** al avanzar por las tres fases. Consulta [el diseño de sonido y sus controles](docs/v42-sonido-y-curacion.md).
 
 V41 elimina los saltos del fondo del menú, conserva la vida de Ben antes de transformarse y añade cápsulas de salud flotantes con probabilidad baja que aumenta si Ben está herido. Un alien derrotado vuelve a Ben y bloquea el reloj hasta recargar. Los avisos de combate tienen el estilo del Omnitrix; una flecha temporal señala el camino al despejar una zona. Consulta [la vida, las cápsulas y la revisión de combate](docs/v41-vida-y-combate.md).
 
@@ -26,6 +28,8 @@ Extrae toda la carpeta y abre [index.html](index.html) en Chrome, Edge o Firefox
 | --- | --- |
 | Elegir partida | Clic, 1–3 o flechas y Enter |
 | Pausar / guardar y volver al inicio | P o Menú |
+| Ajustar sonido | Sonido en el inicio o P → Sonido |
+| Silenciar / activar efectos | M |
 | Moverse | WASD / flechas |
 | Entrar al castillo / laboratorio | E o botón de entrada |
 | Ataque leve / fuerte | Clic izquierdo / derecho |
@@ -63,6 +67,8 @@ La coreografía implementa agarres y caídas reales, desplazamientos barridos, �
 - `npm test`: progresión y combate, validación de los 1.260 fotogramas, ejecución de las 70 técnicas en Chromium y revisión de direcciones y arranque independiente.
 - `npm run build:evolution`: incrusta catálogo, interfaz y código editable en el HTML.
 - `npm run build:skill-sprites`: extrae y registra las láminas nuevas, empaqueta los atlas e incrusta sus metadatos. Requiere Python 3, Pillow, NumPy y SciPy.
+- `npm run test:audio`: materiales, 70 técnicas, contactos, mezcla, pausa y volumen persistente.
+- `npm run build:audio`: prepara las grabaciones CC0 y el banco que se incrusta al construir la demo.
 - `npm run test:recovery`: reserva de vida, cápsulas, continuidad del fondo y señales de combate.
 - `npm run test:menu`: animación del título, tres partidas, migración, pausa, recarga y puntos de control.
 - `python3 scripts/bake-title-mask.py`: calcula la máscara del cero a partir del PNG original antes de `npm run build:campaign`.

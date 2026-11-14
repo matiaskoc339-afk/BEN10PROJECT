@@ -1,0 +1,392 @@
+{
+  "step0": {
+    "file": "samples/step0.ogg",
+    "source": "source/impact-sounds/footstep_concrete_000.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.08890625,
+    "rms": 0.07265380769968033,
+    "peak": 0.5072342753410339,
+    "sourceSha256": "d7267e183067757c92c169de2a379abea592cfca6b39bb2e8feea15221ad79fe",
+    "sha256": "013ff6d7fcc7ca019ca393914d18a2e4ea97e2900ff79ecfa0a416e5e896aa37"
+  },
+  "step1": {
+    "file": "samples/step1.ogg",
+    "source": "source/impact-sounds/footstep_concrete_001.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.09234375,
+    "rms": 0.05467754602432251,
+    "peak": 0.34220004081726074,
+    "sourceSha256": "507a75eb19b897087855a3be3cf11a12d7fa37d143ad535eeebe0b8031c7325d",
+    "sha256": "0e68ec838ad1138729950cafff8c693e6a7a800c6313181aaebe6617965f47ed"
+  },
+  "step2": {
+    "file": "samples/step2.ogg",
+    "source": "source/impact-sounds/footstep_concrete_002.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.09234375,
+    "rms": 0.05535315349698067,
+    "peak": 0.35102957487106323,
+    "sourceSha256": "b21fa546d74941196b25da8a20b7010abd8c05c4fcf93545d1f344e66a664e13",
+    "sha256": "1e9d78102a5bd77b0a3437038b507a5130c58e775b3b7487493093e50d1965c7"
+  },
+  "step3": {
+    "file": "samples/step3.ogg",
+    "source": "source/impact-sounds/footstep_concrete_003.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.08909375,
+    "rms": 0.06137722358107567,
+    "peak": 0.36000117659568787,
+    "sourceSha256": "8b513c2f0316324060b9174b8f28df6c2147418c506e6a53b77f18e149a5547b",
+    "sha256": "c6e2752655e58dd4e22c8985fe24d32b1dcb09962aa605b5978c476d457640f8"
+  },
+  "grass0": {
+    "file": "samples/grass0.ogg",
+    "source": "source/impact-sounds/footstep_grass_000.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.18328125,
+    "rms": 0.044951289892196655,
+    "peak": 0.39617589116096497,
+    "sourceSha256": "9d49497777405d78d7cf7f2888e28277f3a23192300cfd1d79d54876b20f479f",
+    "sha256": "beb85ead434b2d17bd46fc295f19b9a76f90792ac011a8493f286547a4917260"
+  },
+  "grass1": {
+    "file": "samples/grass1.ogg",
+    "source": "source/impact-sounds/footstep_grass_001.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.1715625,
+    "rms": 0.05608062446117401,
+    "peak": 0.3849759101867676,
+    "sourceSha256": "fb28781bd22b2eefdc14077f1adf5c94d7fe9c3a130194633b55f3e0d39d9f04",
+    "sha256": "b80fa600fa8a4e448220a057c6b4ad01490db7255210d7f55eff26f58b2eb33d"
+  },
+  "grass2": {
+    "file": "samples/grass2.ogg",
+    "source": "source/impact-sounds/footstep_grass_002.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.17540625,
+    "rms": 0.052377842366695404,
+    "peak": 0.42112329602241516,
+    "sourceSha256": "73a520139f5be716a403bfe9c80e0e94d1e61d8e9de04a354b336392164b53dc",
+    "sha256": "e155f4daf2306e9712d050b2832ef4d22748bfa4ff9c08ba2a02c09463b36d52"
+  },
+  "punch0": {
+    "file": "samples/punch0.ogg",
+    "source": "source/impact-sounds/impactPunch_medium_000.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.3138125,
+    "rms": 0.12872281670570374,
+    "peak": 0.7799999713897705,
+    "sourceSha256": "486988aa2d6440ffc4c62a0e8ccf3c23673ba84424bd4723378d451b7255eb5c",
+    "sha256": "1215ae2fb915482a6b2d8287f6a61be3400dbce40d4e74fa3dd644836dfbf9e5"
+  },
+  "punch1": {
+    "file": "samples/punch1.ogg",
+    "source": "source/impact-sounds/impactPunch_medium_001.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.29703125,
+    "rms": 0.13420329988002777,
+    "peak": 0.7800000309944153,
+    "sourceSha256": "e71d23abcc3f10d9d6bc9615b2a431fff70b12333a5fcdd9964457564ace4349",
+    "sha256": "a38c4b6a38f565bbd4923e992114188b7d787086dcadf775f8d9891914bc873b"
+  },
+  "punch2": {
+    "file": "samples/punch2.ogg",
+    "source": "source/impact-sounds/impactPunch_medium_002.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.38528125,
+    "rms": 0.12449294328689575,
+    "peak": 0.7799999713897705,
+    "sourceSha256": "6492f9ccbc8d24dcef607bb1b48790b7870961474561f7fe5601e1c73a3018ef",
+    "sha256": "70978957c9f2c360f9444e4f68a94a92cf1cc2a5129db06e7ad76948627e473d"
+  },
+  "heavy0": {
+    "file": "samples/heavy0.ogg",
+    "source": "source/impact-sounds/impactPunch_heavy_000.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.57390625,
+    "rms": 0.0860934928059578,
+    "peak": 0.7800000309944153,
+    "sourceSha256": "b33a8f14068aec24ec69ba85e5e87fdc41228975f6a1a3e44a6e7d6fc3d9f8d8",
+    "sha256": "46404fe8b67254e34f3025725986e6dec76495f4ae86fc2cae79597f5cfdaf6d"
+  },
+  "heavy1": {
+    "file": "samples/heavy1.ogg",
+    "source": "source/impact-sounds/impactPunch_heavy_001.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.4848125,
+    "rms": 0.08787112683057785,
+    "peak": 0.7799999713897705,
+    "sourceSha256": "f92f5cb6ba4ff2766497292ffd90865654317eeca976f5652e0708dbdcdc0dd9",
+    "sha256": "9a04e688648f7056145bccbd09676156ed2b7e3470added7d24141ed16a22aa1"
+  },
+  "metal0": {
+    "file": "samples/metal0.ogg",
+    "source": "source/impact-sounds/impactMetal_light_000.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.2794375,
+    "rms": 0.0893167108297348,
+    "peak": 0.724465012550354,
+    "sourceSha256": "33b5e6e37c6e9d54e07bf5a89b12c76e879f40c1ea83cdd82714df1d6f9fec6d",
+    "sha256": "7e8fa67af1984db1f889f889dfee56db38a88b59a0c82e27d180f1c2ad73680f"
+  },
+  "metal1": {
+    "file": "samples/metal1.ogg",
+    "source": "source/impact-sounds/impactMetal_light_001.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.20971875,
+    "rms": 0.09280174970626831,
+    "peak": 0.6940299868583679,
+    "sourceSha256": "fba69c467ddd85da7b1d82e259f936b876d9ba6a3d6f1b24bdd10468e46bfe08",
+    "sha256": "8d8014fc4d1cd23b5e105e49b83346ffbf1b40f35febb3815755c1409be395cf"
+  },
+  "metal2": {
+    "file": "samples/metal2.ogg",
+    "source": "source/impact-sounds/impactMetal_light_002.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.1939375,
+    "rms": 0.09022615104913712,
+    "peak": 0.7102141380310059,
+    "sourceSha256": "25a96f90a9a1f88a531e824e126f0519504625e5635e65a72e4f31611428db29",
+    "sha256": "8627b141175b6dcf45eb8821646ffa127d297a80187101766eaabed39acd53d1"
+  },
+  "armor0": {
+    "file": "samples/armor0.ogg",
+    "source": "source/impact-sounds/impactMetal_heavy_000.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.12778125,
+    "rms": 0.1082405149936676,
+    "peak": 0.7800000309944153,
+    "sourceSha256": "e07045693e4a2b3d165c424e3dab4c781d9ff8880a386880ac89a51315d7f831",
+    "sha256": "acdae6f49e533236a0fbaa7c95baa843f4858e5c4fa53094a70a0cb96e4c0182"
+  },
+  "armor1": {
+    "file": "samples/armor1.ogg",
+    "source": "source/impact-sounds/impactMetal_heavy_001.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.2293125,
+    "rms": 0.0855528935790062,
+    "peak": 0.7573376297950745,
+    "sourceSha256": "83554049f81f4db9209379e103c30bfa63f65c42189a03f300b045c2c82e23ae",
+    "sha256": "6c472abdb6a1cad8364f51890b7f00a9743793266c552ae2de3b8619d144a5db"
+  },
+  "glass0": {
+    "file": "samples/glass0.ogg",
+    "source": "source/impact-sounds/impactGlass_light_000.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.17090625,
+    "rms": 0.0872802585363388,
+    "peak": 0.5966453552246094,
+    "sourceSha256": "d750cf88097d0c3e69920e6e14496e1444e1a9da01aa4cca8f5ec8cb44c57b4f",
+    "sha256": "bb3c0c63886cb81312b7911d06e3d975c3680509c6a66ee4f30f02cb363a9aca"
+  },
+  "glass1": {
+    "file": "samples/glass1.ogg",
+    "source": "source/impact-sounds/impactGlass_light_001.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.17153125,
+    "rms": 0.07931488007307053,
+    "peak": 0.617942214012146,
+    "sourceSha256": "05e513fbd42829060eb37855f8c3866722ec5c39a8937c9bfde518cc609effa2",
+    "sha256": "7b4d3f4775e90fda1fa767a28bae4e8c6e2f154142ad0033b1ad40109b7fa42c"
+  },
+  "glass2": {
+    "file": "samples/glass2.ogg",
+    "source": "source/impact-sounds/impactGlass_light_002.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.1860625,
+    "rms": 0.09688028693199158,
+    "peak": 0.6574578881263733,
+    "sourceSha256": "710db7451bb7857b9140dfe6afe4621ea2188ad65eda3919c569d1bb285b933d",
+    "sha256": "7be168508c022a4107c42bd22b980d7b5ffd8af4034fed421084afa42e1d5b12"
+  },
+  "shatter": {
+    "file": "samples/shatter.ogg",
+    "source": "source/impact-sounds/impactGlass_heavy_000.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.23834375,
+    "rms": 0.07856936752796173,
+    "peak": 0.6002217531204224,
+    "sourceSha256": "b44b39a940e8948e74b9bd3776bff980df43cf220abdaf0d467dc4c43c0244a5",
+    "sha256": "b378d85e561a4ad7de6debe8a0dcc4fceeda18e850be0b037d70e3c0e95462ea"
+  },
+  "stone0": {
+    "file": "samples/stone0.ogg",
+    "source": "source/impact-sounds/impactMining_000.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.7,
+    "rms": 0.09400624781847,
+    "peak": 0.7800000309944153,
+    "sourceSha256": "36b4ea107222d073c67ca64dde26944975609202d5090b2f2021213c1a7e35cd",
+    "sha256": "bb686c2d317f1de91384eca99e681792559547a8e75b5493f3fb634fff248c05"
+  },
+  "stone1": {
+    "file": "samples/stone1.ogg",
+    "source": "source/impact-sounds/impactMining_001.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.7,
+    "rms": 0.08357223868370056,
+    "peak": 0.7799999713897705,
+    "sourceSha256": "61235a18de3f3d92118235398222dbf51d448f1be70b1c8bc962b10b86f2d9c6",
+    "sha256": "d3abb249e4140f24874997c96ec92c10dc7eb19b6ed81748202e6be7299d4b05"
+  },
+  "wood": {
+    "file": "samples/wood.ogg",
+    "source": "source/impact-sounds/impactWood_light_000.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.15271875,
+    "rms": 0.09265335649251938,
+    "peak": 0.7799999713897705,
+    "sourceSha256": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3",
+    "sha256": "446465352b30f19d94b8d65ab2f78ef2b251a28e876708ba4c5df0794b123400"
+  },
+  "slice": {
+    "file": "samples/slice.ogg",
+    "source": "source/rpg-audio/knifeSlice.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.41534375,
+    "rms": 0.1031404361128807,
+    "peak": 0.7800000309944153,
+    "sourceSha256": "4cd96dc630bed9840c15f1dd2306da2cc56a4da26a5d3f1a03c5a7265ac5e54f",
+    "sha256": "92f6da151fc388afb1b09717f3b6e1eda69be951f444aeb73f0e1f8ecd2e0fdd"
+  },
+  "draw": {
+    "file": "samples/draw.ogg",
+    "source": "source/rpg-audio/drawKnife1.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.26421875,
+    "rms": 0.10894718766212463,
+    "peak": 0.7800000309944153,
+    "sourceSha256": "276403e72c3b71c47bc24db3083970c23f8e5551ffa78f436f83483c56f3f0bb",
+    "sha256": "ea0686f318fe7b4cab4e78c7504d5943bd28b46e5e04fa71fe5f5ac63a965903"
+  },
+  "cloth0": {
+    "file": "samples/cloth0.ogg",
+    "source": "source/rpg-audio/cloth1.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.61553125,
+    "rms": 0.061605650931596756,
+    "peak": 0.7800000309944153,
+    "sourceSha256": "ddb93a3671233f95da0e0b10367f082f7eb42fa6caaddcf776410aa8833c747d",
+    "sha256": "cb1aa8cd9ab89e062ff43894ea8ed5efd72a66135cf3affb5a816d5ca73495f9"
+  },
+  "cloth1": {
+    "file": "samples/cloth1.ogg",
+    "source": "source/rpg-audio/cloth2.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.3735,
+    "rms": 0.08708760142326355,
+    "peak": 0.7800000309944153,
+    "sourceSha256": "8a7451193c38bc05483aec25dd193e163a15d44cf7fff04ac7912573231b0201",
+    "sha256": "6f7af99004045c4b052aeaae6219b0b9ef43670211b01069ef2f9daecf81e781"
+  },
+  "creak": {
+    "file": "samples/creak.ogg",
+    "source": "source/rpg-audio/creak1.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.60621875,
+    "rms": 0.10581684857606888,
+    "peak": 0.7800000309944153,
+    "sourceSha256": "8a346186fd297254248cab8e8117060a52a5cf2a84f603153a762108550ea95e",
+    "sha256": "b2be982fa5801dcc01db27bcb8c748042da03c724c87017f6be5425bb433a762"
+  },
+  "slime0": {
+    "file": "samples/slime0.ogg",
+    "source": "source/sci-fi-sounds/slime_000.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.5,
+    "rms": 0.04174913465976715,
+    "peak": 0.7800000309944153,
+    "sourceSha256": "480ee82b690136ea9db6966a3c3033356b8274752795c4e37afd6b6defcfacff",
+    "sha256": "a172cab6b49f52a436420494e28167b03bd12c1bcd4fb64de11376d30af6016b"
+  },
+  "slime1": {
+    "file": "samples/slime1.ogg",
+    "source": "source/sci-fi-sounds/slime_001.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.65,
+    "rms": 0.06461362540721893,
+    "peak": 0.7799999713897705,
+    "sourceSha256": "822ca475d71e18ef6bba707dbe6bff2bd493d3457b2552f7473d23022c1257ca",
+    "sha256": "38d2a1a5f1941e4cdbf1e9927470d5ac7a99e8e5741e1fb409ad9d044e6b0628"
+  },
+  "fire0": {
+    "file": "samples/fire0.ogg",
+    "source": "source/sci-fi-sounds/thrusterFire_000.ogg",
+    "license": "CC0-1.0",
+    "duration": 1.6,
+    "rms": 0.12403620034456253,
+    "peak": 0.7800000309944153,
+    "sourceSha256": "0fdc474d93f209debf1fc4ea77765a669dcb7676db31b4d8a0a509685bccf374",
+    "sha256": "c2b15bc7d69268348783ef5c4b668e15ab600baf13e0c9cdeb04516cd0704efe"
+  },
+  "fire1": {
+    "file": "samples/fire1.ogg",
+    "source": "source/sci-fi-sounds/thrusterFire_001.ogg",
+    "license": "CC0-1.0",
+    "duration": 1.6,
+    "rms": 0.13002252578735352,
+    "peak": 0.7800000309944153,
+    "sourceSha256": "924636edc923fe4aab5829b69dc5dc1c5d659dec5739865434dabee752a3bb79",
+    "sha256": "31c596d413a7d849766d97a0ef214499b6d5a4c1f41657708e86c92e11c32cc2"
+  },
+  "laserSmall": {
+    "file": "samples/laserSmall.ogg",
+    "source": "source/sci-fi-sounds/laserSmall_000.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.23628125,
+    "rms": 0.13661052286624908,
+    "peak": 0.6314507722854614,
+    "sourceSha256": "72b589eadd41781257ac859e4f4d030222e623390e4a1a83f6d05329a6e026f1",
+    "sha256": "c20ba310aef8fe5c53db5b1e7e29af9ee1c85bb326960e5e7257de1b805d24ec"
+  },
+  "laserLarge": {
+    "file": "samples/laserLarge.ogg",
+    "source": "source/sci-fi-sounds/laserLarge_000.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.5731875,
+    "rms": 0.139047309756279,
+    "peak": 0.7799999713897705,
+    "sourceSha256": "a56d95794cd732d6c2d66ce488c14cf557fe526c282897c9a77675c2bd9b77e6",
+    "sha256": "44c13c174a19c5e694f4ebc000ff7159f06a3ee2bfe36b5b94e7e39f7a94893f"
+  },
+  "shield": {
+    "file": "samples/shield.ogg",
+    "source": "source/sci-fi-sounds/forceField_000.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.826125,
+    "rms": 0.13999995589256287,
+    "peak": 0.5391054153442383,
+    "sourceSha256": "c2916f2a062c8ddd1aca2826d134fe90847037db31342726ffb0f9097afe339c",
+    "sha256": "978e888cc4abd7eac259ea3445b0415f9c95830670d6afaf3118752f85432332"
+  },
+  "blast": {
+    "file": "samples/blast.ogg",
+    "source": "source/sci-fi-sounds/explosionCrunch_000.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.77746875,
+    "rms": 0.13886283338069916,
+    "peak": 0.6952906847000122,
+    "sourceSha256": "4b597d658d0ae101f0a030fbeea5fc3a4292ab85f017470a8254a8e7959cbd69",
+    "sha256": "09541f6209a79e983eb87dd1f81fee3dafa819358571e408a3af7946a949d3bd"
+  },
+  "engine": {
+    "file": "samples/engine.ogg",
+    "source": "source/sci-fi-sounds/engineCircular_000.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.9,
+    "rms": 0.10667688399553299,
+    "peak": 0.7799999713897705,
+    "sourceSha256": "8ab85f9fa85e9e692287f98acb36b9ac3ba15313b007c039055e286b736f4e3a",
+    "sha256": "43de9b5c23e5ee467553e9768a55eebdecb536f755886e85a38acf6f3cb1650f"
+  },
+  "door": {
+    "file": "samples/door.ogg",
+    "source": "source/sci-fi-sounds/doorOpen_000.ogg",
+    "license": "CC0-1.0",
+    "duration": 0.531625,
+    "rms": 0.1385890692472458,
+    "peak": 0.7335429191589355,
+    "sourceSha256": "5b7e07eccd4413ad9ef3720c2d14f9cc699f4c50111e9b2f48bd60e6f1a164c3",
+    "sha256": "8b8e82d3cf36ffffce20b259d8339b96d94a4b7b7ae1e75294a1ae1863ba5b30"
+  }
+}

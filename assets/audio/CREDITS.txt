@@ -1,0 +1,5 @@
+Sound recordings: Kenney (https://kenney.nl), CC0 1.0.
+Sources: https://kenney.nl/assets/impact-sounds
+https://kenney.nl/assets/sci-fi-sounds
+https://kenney.nl/assets/rpg-audio
+Original licenses are included. Selected recordings are trimmed, normalized and layered with original procedural effects for this demo. No voices or music from the series are used.

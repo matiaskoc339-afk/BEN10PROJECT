@@ -1,0 +1,197 @@
+{
+  "step0": {
+    "source": "source/impact-sounds/footstep_concrete_000.ogg",
+    "maxSeconds": 0.4,
+    "pack": "impact-sounds"
+  },
+  "step1": {
+    "source": "source/impact-sounds/footstep_concrete_001.ogg",
+    "maxSeconds": 0.4,
+    "pack": "impact-sounds"
+  },
+  "step2": {
+    "source": "source/impact-sounds/footstep_concrete_002.ogg",
+    "maxSeconds": 0.4,
+    "pack": "impact-sounds"
+  },
+  "step3": {
+    "source": "source/impact-sounds/footstep_concrete_003.ogg",
+    "maxSeconds": 0.4,
+    "pack": "impact-sounds"
+  },
+  "grass0": {
+    "source": "source/impact-sounds/footstep_grass_000.ogg",
+    "maxSeconds": 0.4,
+    "pack": "impact-sounds"
+  },
+  "grass1": {
+    "source": "source/impact-sounds/footstep_grass_001.ogg",
+    "maxSeconds": 0.4,
+    "pack": "impact-sounds"
+  },
+  "grass2": {
+    "source": "source/impact-sounds/footstep_grass_002.ogg",
+    "maxSeconds": 0.4,
+    "pack": "impact-sounds"
+  },
+  "punch0": {
+    "source": "source/impact-sounds/impactPunch_medium_000.ogg",
+    "maxSeconds": 0.45,
+    "pack": "impact-sounds"
+  },
+  "punch1": {
+    "source": "source/impact-sounds/impactPunch_medium_001.ogg",
+    "maxSeconds": 0.45,
+    "pack": "impact-sounds"
+  },
+  "punch2": {
+    "source": "source/impact-sounds/impactPunch_medium_002.ogg",
+    "maxSeconds": 0.45,
+    "pack": "impact-sounds"
+  },
+  "heavy0": {
+    "source": "source/impact-sounds/impactPunch_heavy_000.ogg",
+    "maxSeconds": 0.6,
+    "pack": "impact-sounds"
+  },
+  "heavy1": {
+    "source": "source/impact-sounds/impactPunch_heavy_001.ogg",
+    "maxSeconds": 0.6,
+    "pack": "impact-sounds"
+  },
+  "metal0": {
+    "source": "source/impact-sounds/impactMetal_light_000.ogg",
+    "maxSeconds": 0.5,
+    "pack": "impact-sounds"
+  },
+  "metal1": {
+    "source": "source/impact-sounds/impactMetal_light_001.ogg",
+    "maxSeconds": 0.5,
+    "pack": "impact-sounds"
+  },
+  "metal2": {
+    "source": "source/impact-sounds/impactMetal_light_002.ogg",
+    "maxSeconds": 0.5,
+    "pack": "impact-sounds"
+  },
+  "armor0": {
+    "source": "source/impact-sounds/impactMetal_heavy_000.ogg",
+    "maxSeconds": 0.7,
+    "pack": "impact-sounds"
+  },
+  "armor1": {
+    "source": "source/impact-sounds/impactMetal_heavy_001.ogg",
+    "maxSeconds": 0.7,
+    "pack": "impact-sounds"
+  },
+  "glass0": {
+    "source": "source/impact-sounds/impactGlass_light_000.ogg",
+    "maxSeconds": 0.65,
+    "pack": "impact-sounds"
+  },
+  "glass1": {
+    "source": "source/impact-sounds/impactGlass_light_001.ogg",
+    "maxSeconds": 0.65,
+    "pack": "impact-sounds"
+  },
+  "glass2": {
+    "source": "source/impact-sounds/impactGlass_light_002.ogg",
+    "maxSeconds": 0.65,
+    "pack": "impact-sounds"
+  },
+  "shatter": {
+    "source": "source/impact-sounds/impactGlass_heavy_000.ogg",
+    "maxSeconds": 1,
+    "pack": "impact-sounds"
+  },
+  "stone0": {
+    "source": "source/impact-sounds/impactMining_000.ogg",
+    "maxSeconds": 0.7,
+    "pack": "impact-sounds"
+  },
+  "stone1": {
+    "source": "source/impact-sounds/impactMining_001.ogg",
+    "maxSeconds": 0.7,
+    "pack": "impact-sounds"
+  },
+  "wood": {
+    "source": "source/impact-sounds/impactWood_light_000.ogg",
+    "maxSeconds": 0.5,
+    "pack": "impact-sounds"
+  },
+  "slice": {
+    "source": "source/rpg-audio/knifeSlice.ogg",
+    "maxSeconds": 0.8,
+    "pack": "rpg-audio"
+  },
+  "draw": {
+    "source": "source/rpg-audio/drawKnife1.ogg",
+    "maxSeconds": 0.8,
+    "pack": "rpg-audio"
+  },
+  "cloth0": {
+    "source": "source/rpg-audio/cloth1.ogg",
+    "maxSeconds": 0.8,
+    "pack": "rpg-audio"
+  },
+  "cloth1": {
+    "source": "source/rpg-audio/cloth2.ogg",
+    "maxSeconds": 0.8,
+    "pack": "rpg-audio"
+  },
+  "creak": {
+    "source": "source/rpg-audio/creak1.ogg",
+    "maxSeconds": 0.8,
+    "pack": "rpg-audio"
+  },
+  "slime0": {
+    "source": "source/sci-fi-sounds/slime_000.ogg",
+    "maxSeconds": 0.65,
+    "pack": "sci-fi-sounds"
+  },
+  "slime1": {
+    "source": "source/sci-fi-sounds/slime_001.ogg",
+    "maxSeconds": 0.65,
+    "pack": "sci-fi-sounds"
+  },
+  "fire0": {
+    "source": "source/sci-fi-sounds/thrusterFire_000.ogg",
+    "maxSeconds": 1.6,
+    "pack": "sci-fi-sounds"
+  },
+  "fire1": {
+    "source": "source/sci-fi-sounds/thrusterFire_001.ogg",
+    "maxSeconds": 1.6,
+    "pack": "sci-fi-sounds"
+  },
+  "laserSmall": {
+    "source": "source/sci-fi-sounds/laserSmall_000.ogg",
+    "maxSeconds": 0.6,
+    "pack": "sci-fi-sounds"
+  },
+  "laserLarge": {
+    "source": "source/sci-fi-sounds/laserLarge_000.ogg",
+    "maxSeconds": 1,
+    "pack": "sci-fi-sounds"
+  },
+  "shield": {
+    "source": "source/sci-fi-sounds/forceField_000.ogg",
+    "maxSeconds": 0.9,
+    "pack": "sci-fi-sounds"
+  },
+  "blast": {
+    "source": "source/sci-fi-sounds/explosionCrunch_000.ogg",
+    "maxSeconds": 1.1,
+    "pack": "sci-fi-sounds"
+  },
+  "engine": {
+    "source": "source/sci-fi-sounds/engineCircular_000.ogg",
+    "maxSeconds": 0.9,
+    "pack": "sci-fi-sounds"
+  },
+  "door": {
+    "source": "source/sci-fi-sounds/doorOpen_000.ogg",
+    "maxSeconds": 0.8,
+    "pack": "sci-fi-sounds"
+  }
+}

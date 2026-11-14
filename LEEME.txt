@@ -1,15 +1,23 @@
-BEN 10: OMNITRIX FRAGMENTADO — DEMO PC V41
+BEN 10: OMNITRIX FRAGMENTADO — DEMO PC V42
 
 Extrae TODA la carpeta y abre index.html en Chrome, Edge o Firefox de PC.
 Conserva assets, mapas, enemigos y jefe-final junto al HTML.
 Funciona sin conexión. No abras el HTML desde dentro del ZIP.
+
+SONIDO
+Sonido en la pantalla de inicio o P -> Sonido: volumen y silencio.
+M: silenciar o activar los efectos. Los ajustes se conservan.
+El audio se activa al elegir la partida y funciona sin internet.
+Incluye transformaciones, ataques, impactos, poderes, pasos, armaduras
+y avisos del Omnitrix. Los efectos se detienen al pausar o cancelar.
 
 VIDA Y CÁPSULAS
 Si Ben tiene 25/50, su alien empieza con 25/50. Al regresar, Ben conserva
 los 25/50 que tenía antes, aunque el alien haya recibido más daño.
 Si cae el alien vuelves a Ben; el reloj se vacía y debe recargarse.
 Solo perder toda la vida como Ben termina el combate.
-Los caballeros pueden soltar cápsulas flotantes: cura 8 PV al recogerlas.
+Los caballeros pueden soltar cápsulas flotantes: curan 12 PV en las calles,
+16 en el castillo y 20 en el laboratorio al recogerlas.
 La probabilidad es baja, del 7% al 18%, y aumenta si Ben está herido.
 Recogerlas como alien también cura la reserva de Ben.
 

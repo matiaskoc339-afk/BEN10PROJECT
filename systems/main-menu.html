@@ -1,7 +1,7 @@
 <!-- MAIN_MENU_UI_START -->
 <section id="mainMenu" role="dialog" aria-modal="true" aria-label="BEN 10: Omnitrix Fragmentado" class="main-menu">
  <canvas id="menuBackdrop" aria-hidden="true"></canvas><div class="menu-vignette"></div>
- <header class="menu-topline"><span>EL PODER ESTÁ EN TU ADN</span><small>DEMO PC</small></header>
+ <header class="menu-topline"><span>EL PODER ESTÁ EN TU ADN</span><span class="menu-top-actions"><button id="soundButton" type="button" aria-controls="audioSettings">SONIDO</button><small>DEMO PC</small></span></header>
  <div class="menu-composition">
   <div class="menu-brand"><canvas id="menuLogo" width="720" height="720" role="img" aria-label="BEN 10, con burbujas animadas dentro del cero"></canvas><h1><span>OMNITRIX</span>FRAGMENTADO</h1><p>Recupera el poder del Omnitrix.</p></div>
   <section class="menu-files" aria-labelledby="saveFilesTitle"><div class="menu-files-heading"><span class="menu-eyebrow">TU AVENTURA</span><h2 id="saveFilesTitle">Elige tu partida</h2><p>Tres espacios. Tres caminos.</p></div><div id="saveSlotList"></div><div id="menuSaveNotice" role="status"></div><p id="menuLoadStatus">Preparando el Omnitrix…</p></section>
@@ -9,6 +9,6 @@
  <footer class="menu-footer"><span><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> Elegir partida <i>·</i> <kbd>ENTER</kbd> Comenzar</span><span>GUARDADO AUTOMÁTICO</span></footer>
 </section>
 <button id="gameMenuButton" type="button" hidden>MENÚ <kbd>P</kbd></button><div id="gameSaveStatus" role="status" aria-live="polite"></div>
-<section id="gamePause" class="menu-modal" role="dialog" aria-modal="true" aria-labelledby="gamePauseTitle" hidden><div class="menu-dialog-panel"><span class="menu-eyebrow">OMNITRIX EN ESPERA</span><h2 id="gamePauseTitle">Partida en pausa</h2><p>Tu aventura continúa cuando tú quieras.</p><button id="gameResume" class="menu-primary" type="button">Seguir jugando</button><button id="gameSaveExit" class="menu-secondary" type="button">Guardar y volver al inicio</button><small>Continúas desde el punto de control.</small></div></section>
+<section id="gamePause" class="menu-modal" role="dialog" aria-modal="true" aria-labelledby="gamePauseTitle" hidden><div class="menu-dialog-panel"><span class="menu-eyebrow">OMNITRIX EN ESPERA</span><h2 id="gamePauseTitle">Partida en pausa</h2><p>Tu aventura continúa cuando tú quieras.</p><button id="gameResume" class="menu-primary" type="button">Seguir jugando</button><button id="gameSaveExit" class="menu-secondary" type="button">Guardar y volver al inicio</button><button id="pauseSoundButton" class="menu-secondary" type="button" aria-controls="audioSettings">Sonido</button><small>Continúas desde el punto de control.</small></div></section>
 <section id="saveDeleteDialog" class="menu-modal" role="dialog" aria-modal="true" aria-labelledby="saveDeleteTitle" hidden><div class="menu-dialog-panel"><span class="menu-eyebrow">ARCHIVO DE PARTIDA</span><h2 id="saveDeleteTitle">¿Borrar esta partida?</h2><p id="saveDeleteDescription"></p><button id="saveDeleteCancel" class="menu-primary" type="button">Conservar partida</button><button id="saveDeleteConfirm" class="menu-danger" type="button">Borrar este espacio</button></div></section>
 <!-- MAIN_MENU_UI_END -->
