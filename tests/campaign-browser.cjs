@@ -21,7 +21,7 @@ const server=http.createServer((req,res)=>{const name=decodeURIComponent(new URL
 (async()=>{
  await new Promise(r=>server.listen(8831,'127.0.0.1',r));browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox']});
  const context=await browser.newContext({viewport:{width:1440,height:960}}),page=await context.newPage();page.on('pageerror',e=>report.errors.push(e.stack));page.on('requestfailed',r=>report.failed.push(r.url()));page.on('response',r=>{if(r.status()>=400)report.httpErrors.push({url:r.url(),status:r.status()})});
- await page.goto('http://127.0.0.1:8831/inspect.html',{waitUntil:'load',timeout:90000});await page.waitForFunction(()=>window.__campaign?.ready(),{},{timeout:90000});await page.keyboard.press('Escape');await page.evaluate(()=>__campaign.hold(true));
+ await page.goto('http://127.0.0.1:8831/inspect.html',{waitUntil:'load',timeout:90000});await require('./launch-save-slot.cjs')(page);await page.waitForFunction(()=>window.__campaign?.ready(),{},{timeout:90000});await page.keyboard.press('Escape');await page.evaluate(()=>__campaign.hold(true));
  assert.equal(await page.locator('#enemyCount').count(),0);let s=await page.evaluate(()=>__campaign.snapshot());assert.equal(s.dummies,0);assert.equal(s.legacyProps,0);assert.ok(s.onFloor);await page.screenshot({path:out+'/01-calles.png'});
  await page.evaluate(()=>__campaign.hold(false));await page.keyboard.down('d');await page.waitForTimeout(400);await page.keyboard.up('d');await page.evaluate(()=>__campaign.hold(true));assert.ok((await page.evaluate(()=>__campaign.snapshot())).player.x>s.player.x+35);
  for(let phase=0;phase<3;phase++){

@@ -1,0 +1,1 @@
+module.exports=async(page,index=0)=>{await page.waitForFunction(()=>window.Ben10MainMenu?.state.ready,{},{timeout:90000});if(await page.locator('#mainMenu').isVisible()){await page.locator('[data-save-slot="'+index+'"]').click();await page.locator('#mainMenu').waitFor({state:'hidden'})}};

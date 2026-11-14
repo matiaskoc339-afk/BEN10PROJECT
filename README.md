@@ -1,4 +1,6 @@
-# Ben 10 — Demo PC V39 · El Rey Eterno
+# BEN 10: Omnitrix Fragmentado · Demo PC V40
+
+V40 añade la pantalla principal con logo clásico, motas animadas dentro del cero y un fondo de hélices de ADN, burbujas y masas verdes en movimiento. Tres espacios independientes guardan nivel, mejoras, ADN y puntos de control. Pulsa **P** para pausar o guardar y volver al inicio. El progreso anterior se importa al primer espacio. Consulta [los controles y detalles del guardado](docs/v40-menu-y-guardados.md).
 
 V39 mantiene en secreto los ADN no recuperados. El reloj usa un nuevo retrato incógnito común y el mensaje «ADN desconocido», sin mostrar las caras, nombres ni siluetas reales. «Tus aliens» contiene únicamente las formas conseguidas; las demás no tienen opciones ocultas ni árboles accesibles. Al recuperar un ADN se revelan su casilla, nombre, retrato y árbol, conservando sus mejoras anteriores. Consulta [los detalles del sistema de descubrimiento](docs/v39-adn-secreto.md).
 
@@ -20,6 +22,8 @@ Extrae toda la carpeta y abre [index.html](index.html) en Chrome, Edge o Firefox
 
 | Acción | Control |
 | --- | --- |
+| Elegir partida | Clic, 1–3 o flechas y Enter |
+| Pausar / guardar y volver al inicio | P o Menú |
 | Moverse | WASD / flechas |
 | Entrar al castillo / laboratorio | E o botón de entrada |
 | Ataque leve / fuerte | Clic izquierdo / derecho |
@@ -57,6 +61,8 @@ La coreografía implementa agarres y caídas reales, desplazamientos barridos, �
 - `npm test`: progresión y combate, validación de los 1.260 fotogramas, ejecución de las 70 técnicas en Chromium y revisión de direcciones y arranque independiente.
 - `npm run build:evolution`: incrusta catálogo, interfaz y código editable en el HTML.
 - `npm run build:skill-sprites`: extrae y registra las láminas nuevas, empaqueta los atlas e incrusta sus metadatos. Requiere Python 3, Pillow, NumPy y SciPy.
+- `npm run test:menu`: animación del título, tres partidas, migración, pausa, recarga y puntos de control.
+- `python3 scripts/bake-title-mask.py`: calcula la máscara del cero a partir del PNG original antes de `npm run build:campaign`.
 - `npm run test:legacy`: pruebas históricas; algunas expectativas de interfaz y balance pertenecen a versiones anteriores.
 
 Los sistemas de V33 están en `systems/skill-choreography-v33.js` y `systems/skill-effects-v33.js`. La interfaz y progresión siguen en `systems/evolution-v32.js`; el nombre se conserva para mantener las herramientas existentes.

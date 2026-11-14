@@ -37,7 +37,7 @@ function campaignSetPhase(index,initial=false){
  enemyResetPhase(index);
  campaignExitReady=false;campaignUI.campaignExit.hidden=true;keys.clear();pointer.active=false;
  cam.x=0;cam.y=campaign.offsetY;
- if(!initial){campaignUpdateUI();campaignCamera(0,true);game.focus({preventScroll:true});}
+ if(!initial){campaignUpdateUI();campaignCamera(0,true);game.focus({preventScroll:true});if(typeof gameSaveCurrent==='function')gameSaveCurrent();}
 }
 function campaignEnter(){
  if(!campaignExitReady||!campaignCanEnter())return false;

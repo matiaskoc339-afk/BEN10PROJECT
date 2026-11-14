@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="theme-color" content="#101b17" />
-<title>Ben 10 — V39 · El Rey Eterno</title>
+<title>BEN 10 — Omnitrix Fragmentado · V40</title>
 <style>
 :root { color-scheme: dark; --green:#aaff55; --forest:#1c2e25; --edge:#6dc94a; --ink:#0b100e; }
 * { box-sizing:border-box;  }
@@ -143,6 +143,28 @@ body.comic-active #hud,body.comic-active #combo,body.comic-active #help,body.com
 body.king-combat #toast{top:36%}
 
 /* CAMPAIGN_STYLE_END */
+/* MAIN_MENU_STYLE_START */
+.main-menu{position:fixed;inset:0;z-index:100;background:#092c15;color:#edffd7;overflow:hidden;font-family:'Trebuchet MS',Arial,sans-serif}#mainMenu[hidden],#gameMenuButton[hidden],.menu-modal[hidden]{display:none}
+#menuBackdrop{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.menu-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at 38% 45%,transparent 5%,#00100655 68%,#000c06ce),linear-gradient(90deg,#061a0a20,transparent 45%,#03120973);pointer-events:none}
+.menu-topline{position:absolute;top:28px;left:4.5%;right:4.5%;display:flex;justify-content:space-between;align-items:center;font:9px Consolas,monospace;letter-spacing:2.8px;color:#a0ca75}.menu-topline small{font:8px Consolas,monospace;letter-spacing:2px;border:1px solid #7ca75e66;padding:6px 9px;color:#c9e7ae}
+.menu-composition{position:relative;display:grid;grid-template-columns:minmax(0,1.18fr) minmax(340px,.85fr);gap:78px;align-items:center;width:min(1240px,91vw);height:100%;margin:auto;padding:55px 0 58px}
+.menu-brand{text-align:center;align-self:center;position:relative;max-width:650px}.menu-brand::before{content:'';position:absolute;inset:12% -9% 17%;background:radial-gradient(ellipse,#83eb2d1a,transparent 67%);pointer-events:none}
+#menuLogo{display:block;width:100%;max-height:61vh;aspect-ratio:1;object-fit:contain;filter:drop-shadow(0 8px 0 #010a0255) drop-shadow(0 0 38px #71e62c20)}
+.menu-brand h1{font:1000 clamp(24px,2.8vw,42px)/1.02 'Trebuchet MS',sans-serif;letter-spacing:5px;margin:-1% 0 17px;color:#eaffce;text-shadow:0 4px #041b07,0 0 25px #caff7c22}.menu-brand h1>span{display:block;font-size:.48em;letter-spacing:10px;color:#acd66b;margin-bottom:9px}.menu-brand>p{font:11px Consolas,monospace;letter-spacing:1.8px;color:#a9ca8b;margin:0}
+.menu-files{width:100%;max-width:430px;margin-left:auto}.menu-eyebrow{font:9px Consolas,monospace;letter-spacing:2.3px;color:#b8e285}.menu-files-heading h2{font:900 33px/1.1 'Trebuchet MS',sans-serif;margin:10px 0;color:#f0fbdc;letter-spacing:-.6px;text-shadow:0 2px #031006}.menu-files-heading>p{font:11px Consolas,monospace;color:#8fb27c;margin:0 0 24px}
+#saveSlotList{display:flex;flex-direction:column;gap:13px}.save-card{position:relative;background:linear-gradient(110deg,#142c19eb,#06170dee);border:1px solid #709254;border-left:4px solid #779e4b;box-shadow:inset 0 1px #bad98833,0 6px 20px #0004;transition:border-color .15s,transform .15s}.save-card:hover,.save-card:focus-within{border-color:#cff18b;transform:translateX(-4px);background:linear-gradient(110deg,#294b23f5,#0c2613f5)}
+.save-card.empty{border-color:#567b456e;border-left-color:#4e7040;background:#071b0b9c}.save-card>button[data-save-slot]{display:grid;grid-template-columns:50px 1fr;gap:15px;align-items:center;text-align:left;border:0;background:transparent;color:inherit;padding:20px 21px;width:100%;min-height:117px;cursor:pointer}.save-card>button:disabled{opacity:.5;cursor:wait}.save-card>button:focus-visible{outline:2px solid #e7ffb6;outline-offset:5px}
+.save-number{font:1000 31px 'Trebuchet MS',sans-serif;color:#a9cf6b;border-right:1px solid #789e5945;padding-right:15px}.save-body{display:block;min-width:0}.save-body>small{display:block;font:8px Consolas,monospace;letter-spacing:1.7px;color:#85ac70;margin-bottom:8px}.save-body>strong{display:block;font:900 18px 'Trebuchet MS',sans-serif;color:#e8f8cf;letter-spacing:.2px}.save-body>span{display:block;margin-top:8px;font:9px Consolas,monospace;color:#abc19b}.save-body>.save-meta{color:#7e9d70;font-size:8px}.save-card.empty .save-number{color:#5b7c48}.save-card.empty .save-body>strong{color:#9fbd86;font-size:17px}.save-card.empty .save-body>span{color:#729363}
+.save-delete{position:absolute;right:10px;top:10px;padding:5px 6px;font:8px Consolas,monospace;color:#93ad83;background:#112519;border:1px solid #5b75504d;cursor:pointer}.save-delete:hover{color:#ffe6ce;border-color:#bf927a;background:#482c21}
+#menuLoadStatus{font:9px Consolas,monospace;color:#c5e39b;margin:20px 0 0;text-align:center;letter-spacing:.8px;min-height:12px}#menuSaveNotice{font:10px/1.5 Consolas,monospace;color:#ffd394;margin-top:14px}#menuSaveNotice:empty{display:none}
+.menu-footer{position:absolute;bottom:25px;left:4.5%;right:4.5%;display:flex;justify-content:space-between;align-items:center;gap:20px;font:8px Consolas,monospace;color:#93b27b;letter-spacing:.7px}.menu-footer kbd,#gameMenuButton kbd{font:inherit;color:#cfe4ad;border:1px solid #6e8f5366;padding:3px 5px;margin-right:4px;background:#12321b55}.menu-footer i{font-style:normal;margin:0 9px;color:#659251}.menu-footer>span:last-child{font-size:8px;color:#6e9762;letter-spacing:1.5px}
+#gameMenuButton{position:fixed;left:19px;bottom:20px;z-index:8;border:1px solid #7a9c60;color:#d6ecc3;background:#0c251be8;padding:9px 11px;font:9px Consolas,monospace;letter-spacing:1px;cursor:pointer}#gameMenuButton kbd{margin:0 0 0 7px}#gameSaveStatus{position:fixed;right:22px;bottom:17px;z-index:9;color:#c6e998;font:9px Consolas,monospace;letter-spacing:1px;pointer-events:none;text-shadow:0 1px 4px #000;transition:opacity .2s;opacity:0}#gameSaveStatus.show{opacity:1}
+.menu-modal{position:fixed;inset:0;z-index:110;display:grid;place-items:center;background:#001307dd;backdrop-filter:blur(5px);font-family:'Trebuchet MS',Arial,sans-serif}.menu-dialog-panel{width:min(460px,88vw);padding:37px;border:2px solid #89ab63;background:linear-gradient(#213f25,#0c2315);box-shadow:inset 0 0 0 3px #102419,0 0 60px #0008;color:#e5f5d0;text-align:center}.menu-dialog-panel h2{font-size:29px;line-height:1.1;margin:16px 0}.menu-dialog-panel p{font:12px/1.8 'Trebuchet MS',sans-serif;color:#acc89a;margin:0 0 28px}.menu-dialog-panel button{display:block;width:100%;padding:13px;border:1px solid #bbd68e;font:700 12px 'Trebuchet MS',sans-serif;cursor:pointer;margin-top:10px}.menu-primary{color:#142716;background:linear-gradient(#dbf5ab,#a0cb70);box-shadow:inset 0 2px #edffce}.menu-secondary{color:#d7e9bf;background:#24422a;border-color:#72965a!important}.menu-danger{background:#4a2c25;color:#f1c7aa;border-color:#a2735c!important}.menu-dialog-panel small{display:block;font:9px Consolas,monospace;color:#839f70;margin-top:19px}
+body.main-menu-active #hud,body.main-menu-active #campaignStatus,body.main-menu-active #kingHUD,body.main-menu-active #championHUD,body.main-menu-active #waveBanner,body.main-menu-active #toast,body.main-menu-active #combo,body.main-menu-active #gameMenuButton,body.comic-active #gameMenuButton{visibility:hidden}
+@media(max-width:1120px){.menu-composition{gap:30px;grid-template-columns:minmax(0,1fr) 355px;width:92vw}.menu-files-heading h2{font-size:29px}.menu-brand h1{font-size:29px;letter-spacing:3px}.menu-brand h1>span{letter-spacing:7px}.menu-brand>p{font-size:9px}.save-card>button[data-save-slot]{padding:17px 16px;gap:10px;min-height:108px}}
+@media(max-height:760px){.menu-composition{padding-top:53px;padding-bottom:44px}.menu-files-heading>p{margin-bottom:15px}.menu-files-heading h2{font-size:28px;margin:8px 0}.save-card>button[data-save-slot]{min-height:99px;padding-top:13px;padding-bottom:13px}.save-body>strong{font-size:16px}#saveSlotList{gap:10px}.save-body>small{margin-bottom:5px}.save-body>span{margin-top:6px}.menu-footer{bottom:18px}.menu-topline{top:20px}.menu-brand h1{margin-bottom:13px}}
+@media(prefers-reduced-motion:reduce){.save-card,#gameSaveStatus{transition:none}}
+/* MAIN_MENU_STYLE_END */
 </style>
 </head>
 <body>
@@ -287,6 +309,20 @@ body.king-combat #toast{top:36%}
 <section id="kingReward" role="dialog" aria-modal="true" aria-labelledby="kingRewardTitle" hidden><div><span>ADN PETROSAPIEN RECUPERADO</span><canvas id="kingRewardPortrait" width="128" height="128" aria-label="Diamante"></canvas><h1 id="kingRewardTitle">¡Diamante desbloqueado!</h1><p>El Rey Eterno ha caído. Su ejército se derrumba.<br>El ADN vuelve al Omnitrix.</p><button id="kingRewardTransform" type="button">Probar a Diamante</button><button id="kingRewardContinue" type="button">Continuar</button><small>Disponible con R → 4. El desbloqueo se guarda.</small></div></section>
 <section id="defeatLayer" role="dialog" aria-modal="true" aria-labelledby="defeatTitle" hidden><div><span>EL CAMINO DE LOS ETERNOS</span><h1 id="defeatTitle">Has caído</h1><p>La patrulla conserva el paso. Vuelve a intentarlo desde este combate.</p><button id="retryEncounter" type="button">Reintentar combate</button><small>Conservas tus mejoras y experiencia.</small></div></section>
 <!-- CAMPAIGN_UI_END -->
+<!-- MAIN_MENU_UI_START -->
+<section id="mainMenu" role="dialog" aria-modal="true" aria-label="BEN 10: Omnitrix Fragmentado" class="main-menu">
+ <canvas id="menuBackdrop" aria-hidden="true"></canvas><div class="menu-vignette"></div>
+ <header class="menu-topline"><span>EL PODER ESTÁ EN TU ADN</span><small>DEMO PC</small></header>
+ <div class="menu-composition">
+  <div class="menu-brand"><canvas id="menuLogo" width="720" height="720" role="img" aria-label="BEN 10, con burbujas animadas dentro del cero"></canvas><h1><span>OMNITRIX</span>FRAGMENTADO</h1><p>Recupera el poder del Omnitrix.</p></div>
+  <section class="menu-files" aria-labelledby="saveFilesTitle"><div class="menu-files-heading"><span class="menu-eyebrow">TU AVENTURA</span><h2 id="saveFilesTitle">Elige tu partida</h2><p>Tres espacios. Tres caminos.</p></div><div id="saveSlotList"></div><div id="menuSaveNotice" role="status"></div><p id="menuLoadStatus">Preparando el Omnitrix…</p></section>
+ </div>
+ <footer class="menu-footer"><span><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> Elegir partida <i>·</i> <kbd>ENTER</kbd> Comenzar</span><span>GUARDADO AUTOMÁTICO</span></footer>
+</section>
+<button id="gameMenuButton" type="button" hidden>MENÚ <kbd>P</kbd></button><div id="gameSaveStatus" role="status" aria-live="polite"></div>
+<section id="gamePause" class="menu-modal" role="dialog" aria-modal="true" aria-labelledby="gamePauseTitle" hidden><div class="menu-dialog-panel"><span class="menu-eyebrow">OMNITRIX EN ESPERA</span><h2 id="gamePauseTitle">Partida en pausa</h2><p>Tu aventura continúa cuando tú quieras.</p><button id="gameResume" class="menu-primary" type="button">Seguir jugando</button><button id="gameSaveExit" class="menu-secondary" type="button">Guardar y volver al inicio</button><small>Continúas desde el punto de control.</small></div></section>
+<section id="saveDeleteDialog" class="menu-modal" role="dialog" aria-modal="true" aria-labelledby="saveDeleteTitle" hidden><div class="menu-dialog-panel"><span class="menu-eyebrow">ARCHIVO DE PARTIDA</span><h2 id="saveDeleteTitle">¿Borrar esta partida?</h2><p id="saveDeleteDescription"></p><button id="saveDeleteCancel" class="menu-primary" type="button">Conservar partida</button><button id="saveDeleteConfirm" class="menu-danger" type="button">Borrar este espacio</button></div></section>
+<!-- MAIN_MENU_UI_END -->
 <div id="combo"></div>
 
 <div id="speedGuide" hidden role="status" aria-live="polite"><div id="speedGuideTitle"></div><div id="speedGuideHint"></div><div class="speed-timer"><div id="speedGuideFill"></div></div></div>
@@ -1006,6 +1042,100 @@ body.king-combat #toast{top:36%}
  }
  return {roomAt,chapterAt,elevationAt,laneAt,blocked,move};
 });
+
+</script>
+<script>
+/* Three independent, atomic local save records. Legacy keys remain untouched. */
+(function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory();else root.Ben10SaveSlots=factory()})(typeof globalThis==='undefined'?this:globalThis,function(){
+ 'use strict';
+ const KEY='ben10.omnitrix-fragmentado.saves.v1',PROGRESSION='ben10.demo.progression.v11',UNLOCKS='ben10.campaign.v37.unlocks';
+ const copy=x=>JSON.parse(JSON.stringify(x)),number=(v,fallback=0,max=1e9)=>Number.isFinite(v)?Math.max(0,Math.min(max,v)):fallback;
+ function normalize(record){
+  if(!record||typeof record!=='object'||Array.isArray(record))return null;
+  const progression=record.progression&&typeof record.progression==='object'?copy(record.progression):null;
+  if(progression){progression.level=Math.max(1,Math.floor(number(progression.level,1,1000)));progression.xp=number(progression.xp);progression.totalXP=number(progression.totalXP)}
+  const p=record.checkpoint;const checkpoint=p&&typeof p==='object'?{phase:Math.floor(number(p.phase,0,2)),cleared:Math.floor(number(p.cleared,0,6)),x:number(p.x),y:number(p.y),kind:['travel','encounter','boss','victory'].includes(p.kind)?p.kind:'travel',introSeen:!!p.introSeen,kills:Math.floor(number(p.kills))}:null;
+  return {createdAt:number(record.createdAt,Date.now(),1e14),updatedAt:number(record.updatedAt,Date.now(),1e14),playSeconds:number(record.playSeconds,0,1e9),progression,unlocks:{version:1,diamondhead:record.unlocks?.diamondhead===true},checkpoint,imported:!!record.imported};
+ }
+ class Bank{
+  constructor(storage,{now=()=>Date.now()}={}){this.storage=storage;this.now=now;this.slots=[null,null,null];this.active=null;this.loading=false;this.readOnly=false;this.memoryOnly=false;this.error='';
+   try{const raw=storage?.getItem(KEY);if(raw!==null&&raw!==undefined){const d=JSON.parse(raw);if(d?.version!==1||!Array.isArray(d.slots)||d.slots.length!==3)throw Error('Invalid save bank');this.slots=d.slots.map(r=>r===null?null:normalize(r));if(d.slots.some((r,i)=>r!==null&&!this.slots[i]))throw Error('Invalid save record');}
+    else{const progression=JSON.parse(storage?.getItem(PROGRESSION)||'null'),unlocks=JSON.parse(storage?.getItem(UNLOCKS)||'null');const meaningful=progression&&(number(progression.level,1)>1||number(progression.xp)>0||number(progression.adminPoints)>0||Object.values(progression.owned||{}).some(v=>Array.isArray(v)&&v.length));if(meaningful||unlocks?.diamondhead===true){const at=now();this.slots[0]=normalize({createdAt:at,updatedAt:at,progression,unlocks,checkpoint:{phase:0,cleared:0,kind:'travel',introSeen:true},playSeconds:0,imported:true});this.persist(this.slots)}}
+   }catch{this.readOnly=true;this.error='No se pudo leer el guardado. Esta sesión no modificará esos datos.'}
+  }
+  latest(){if(this.memoryOnly||this.readOnly)return copy(this.slots);try{const d=JSON.parse(this.storage?.getItem(KEY)||'null');if(d?.version===1&&Array.isArray(d.slots)&&d.slots.length===3)return d.slots.map(normalize)}catch{}return copy(this.slots)}
+  persist(slots){this.slots=copy(slots);if(this.readOnly)return false;try{if(!this.storage)throw Error('No storage');this.storage.setItem(KEY,JSON.stringify({version:1,slots}));this.memoryOnly=false;this.error='';return true}catch{this.memoryOnly=true;this.error='El guardado solo estará disponible durante esta sesión.';return false}}
+  snapshot(){return copy(this.slots)}
+  activate(index){if(!Number.isInteger(index)||index<0||index>=3)throw Error('Invalid save slot');this.slots=this.latest();let record=this.slots[index],isNew=!record;if(!record){const at=this.now();record=normalize({createdAt:at,updatedAt:at,playSeconds:0,progression:null,unlocks:{diamondhead:false},checkpoint:null});this.slots[index]=record;this.persist(this.slots)}this.active=index;return {record:copy(record),isNew}}
+  commit(data){if(this.active===null||this.loading)return false;const previous=this.slots[this.active],record=normalize({...data,createdAt:previous?.createdAt||this.now(),updatedAt:this.now(),imported:previous?.imported});const slots=this.latest();slots[this.active]=record;return this.persist(slots)}
+  remove(index){if(!Number.isInteger(index)||index<0||index>2)throw Error('Invalid save slot');const slots=this.latest();slots[index]=null;if(this.active===index)this.active=null;return this.persist(slots)}
+  readLegacy(key){if(this.active===null)return null;const record=this.slots[this.active],value=key===PROGRESSION?record?.progression:key===UNLOCKS?record?.unlocks:null;return value?JSON.stringify(value):null}
+  writeLegacy(key,value){if(this.active===null||this.loading)return;try{const record=copy(this.slots[this.active]);if(key===UNLOCKS)record.unlocks=JSON.parse(value);else if(key===PROGRESSION)record.progression=JSON.parse(value);else return;this.commit(record)}catch{}}
+ }
+ return {KEY,PROGRESSION,UNLOCKS,Bank,normalize};
+});
+
+</script>
+<script>
+/* Exact white zero-face mask, baked from the untouched title art. No pixel reads at runtime: file:// works offline. */
+window.Ben10TitleMask={"width":1294,"height":1216,"sha256":"d747f7f4ff0cc0d02028c0add17612fb57af56a149fd81ef8fe6d3a8e9f6dce8","bounds":{"left":318.26893353941267,"right":603.1530139103555,"top":337.5,"bottom":609.8684210526316,"pixels":67312},"runs":[[863,570,86],[846,571,113],[835,572,131],[824,573,149],[814,574,164],[805,575,177],[796,576,191],[787,577,203],[779,578,214],[772,579,224],[765,580,234],[758,581,244],[751,582,254],[745,583,262],[740,584,270],[734,585,278],[729,586,285],[725,587,291],[720,588,298],[716,589,304],[712,590,310],[708,591,315],[704,592,321],[700,593,327],[697,594,331],[694,595,336],[690,596,341],[687,597,345],[685,598,349],[682,599,353],[679,600,357],[677,601,361],[674,602,365],[672,603,368],[670,604,371],[668,605,374],[666,606,377],[664,607,380],[662,608,383],[660,609,386],[658,610,389],[656,611,392],[655,612,394],[653,613,397],[651,614,400],[650,615,401],[648,616,404],[647,617,406],[645,618,409],[644,619,410],[642,620,413],[641,621,415],[640,622,416],[638,623,419],[637,624,421],[636,625,422],[635,626,424],[633,627,427],[632,628,428],[631,629,430],[630,630,431],[629,631,433],[628,632,434],[627,633,436],[626,634,437],[625,635,439],[624,636,440],[623,637,442],[622,638,443],[621,639,445],[620,640,446],[620,641,447],[619,642,448],[618,643,450],[617,644,451],[616,645,452],[615,646,454],[615,647,454],[614,648,456],[613,649,457],[612,650,458],[612,651,459],[611,652,460],[610,653,462],[610,654,462],[609,655,463],[608,656,465],[608,657,465],[607,658,466],[606,659,468],[606,660,468],[605,661,469],[605,662,470],[604,663,471],[603,664,472],[603,665,472],[602,666,474],[602,667,474],[601,668,475],[601,669,475],[600,670,477],[600,671,477],[599,672,478],[599,673,478],[598,674,480],[598,675,480],[597,676,481],[597,677,481],[596,678,482],[596,679,483],[596,680,483],[595,681,484],[595,682,484],[595,683,484],[594,684,486],[594,685,486],[593,686,487],[593,687,487],[593,688,487],[592,689,488],[592,690,489],[591,691,490],[591,692,490],[591,693,490],[590,694,491],[590,695,491],[590,696,491],[589,697,493],[589,698,493],[589,699,493],[588,700,494],[588,701,494],[588,702,494],[588,703,494],[587,704,496],[587,705,496],[587,706,496],[587,707,496],[586,708,497],[586,709,497],[586,710,497],[585,711,498],[585,712,498],[585,713,498],[585,714,499],[585,715,499],[584,716,500],[584,717,500],[584,718,500],[584,719,500],[583,720,501],[583,721,501],[583,722,501],[583,723,501],[583,724,501],[582,725,503],[582,726,503],[582,727,503],[582,728,503],[582,729,503],[582,730,503],[581,731,504],[581,732,504],[581,733,504],[581,734,504],[581,735,504],[580,736,505],[580,737,505],[580,738,505],[580,739,505],[580,740,505],[580,741,505],[580,742,505],[580,743,505],[579,744,506],[579,745,506],[579,746,506],[579,747,506],[579,748,506],[579,749,506],[579,750,506],[579,751,506],[578,752,507],[578,753,507],[578,754,507],[578,755,507],[578,756,507],[578,757,507],[578,758,507],[578,759,507],[577,760,508],[577,761,508],[577,762,508],[577,763,508],[577,764,508],[577,765,508],[577,766,508],[577,767,508],[576,768,509],[576,769,509],[576,770,509],[576,771,509],[576,772,509],[576,773,509],[576,774,509],[576,775,509],[575,776,510],[575,777,510],[575,778,510],[575,779,510],[575,780,510],[575,781,510],[575,782,510],[575,783,510],[575,784,510],[575,785,510],[575,786,510],[574,787,511],[574,788,511],[574,789,511],[574,790,511],[574,791,511],[574,792,511],[574,793,511],[574,794,511],[574,795,511],[574,796,511],[574,797,511],[573,798,512],[573,799,512],[573,800,512],[573,801,511],[573,802,511],[573,803,511],[573,804,511],[573,805,511],[573,806,511],[573,807,511],[573,808,511],[573,809,511],[573,810,511],[573,811,511],[573,812,511],[573,813,511],[572,814,511],[572,815,511],[572,816,511],[572,817,511],[572,818,511],[572,819,511],[572,820,511],[572,821,511],[572,822,511],[572,823,511],[572,824,511],[572,825,510],[572,826,510],[572,827,510],[572,828,510],[572,829,510],[572,830,510],[572,831,510],[572,832,510],[572,833,509],[572,834,509],[572,835,509],[572,836,509],[572,837,509],[572,838,509],[572,839,509],[572,840,508],[572,841,508],[572,842,508],[572,843,508],[572,844,508],[572,845,508],[572,846,507],[572,847,507],[572,848,507],[572,849,507],[572,850,507],[572,851,506],[572,852,506],[572,853,506],[572,854,506],[572,855,506],[572,856,506],[572,857,505],[572,858,505],[572,859,505],[572,860,505],[572,861,504],[573,862,503],[573,863,503],[573,864,503],[573,865,502],[573,866,502],[573,867,502],[573,868,502],[573,869,501],[573,870,501],[573,871,501],[573,872,500],[573,873,500],[573,874,500],[573,875,499],[574,876,498],[574,877,498],[574,878,497],[574,879,497],[574,880,497],[574,881,496],[574,882,496],[574,883,496],[574,884,495],[574,885,495],[574,886,495],[574,887,494],[575,888,493],[575,889,493],[575,890,492],[575,891,492],[575,892,492],[575,893,491],[575,894,491],[575,895,490],[576,896,489],[576,897,489],[576,898,488],[576,899,488],[576,900,487],[576,901,487],[577,902,485],[577,903,485],[577,904,485],[577,905,484],[577,906,484],[577,907,483],[577,908,483],[578,909,482],[578,910,481],[578,911,481],[578,912,480],[578,913,480],[578,914,479],[579,915,478],[579,916,477],[579,917,477],[579,918,476],[579,919,476],[579,920,475],[580,921,474],[580,922,473],[580,923,473],[580,924,472],[580,925,472],[581,926,470],[581,927,469],[581,928,469],[582,929,467],[582,930,467],[582,931,466],[582,932,466],[582,933,465],[583,934,463],[583,935,463],[583,936,462],[584,937,460],[584,938,460],[584,939,459],[584,940,458],[585,941,457],[585,942,456],[585,943,455],[586,944,454],[586,945,453],[587,946,451],[587,947,450],[587,948,450],[588,949,448],[588,950,447],[589,951,445],[589,952,444],[590,953,443],[590,954,442],[590,955,441],[591,956,439],[591,957,438],[592,958,436],[592,959,435],[593,960,433],[594,961,431],[594,962,430],[595,963,428],[595,964,427],[596,965,425],[597,966,423],[597,967,422],[598,968,420],[599,969,418],[599,970,417],[600,971,415],[601,972,412],[602,973,410],[602,974,409],[603,975,406],[604,976,404],[605,977,402],[606,978,399],[606,979,398],[607,980,395],[608,981,393],[609,982,390],[610,983,388],[611,984,385],[612,985,383],[613,986,380],[614,987,377],[615,988,374],[616,989,372],[617,990,369],[619,991,365],[620,992,362],[621,993,359],[622,994,356],[624,995,352],[625,996,348],[626,997,345],[628,998,341],[629,999,338],[630,1000,334],[632,1001,330],[634,1002,325],[635,1003,321],[637,1004,317],[639,1005,312],[641,1006,307],[643,1007,301],[645,1008,296],[647,1009,291],[649,1010,285],[651,1011,279],[653,1012,274],[656,1013,267],[658,1014,261],[661,1015,253],[663,1016,247],[667,1017,238],[670,1018,230],[673,1019,221],[676,1020,213],[680,1021,203],[684,1022,193],[688,1023,182],[693,1024,170],[698,1025,156],[704,1026,140],[711,1027,123],[719,1028,104],[730,1029,80],[743,1030,52]]};
+
+</script>
+<script>
+/* Animated title artwork and the three-slot archive; gameplay is bridged separately. */
+(function(root){'use strict';
+ let storage;try{storage=root.localStorage}catch{}
+ const bank=root.Ben10SaveBank=new Ben10SaveSlots.Bank(storage);
+ root.Ben10GameStorage={getItem:key=>bank.readLegacy(key),setItem:(key,value)=>bank.writeLegacy(key,value)};
+ const $=id=>document.getElementById(id),ui={home:$('mainMenu'),backdrop:$('menuBackdrop'),logo:$('menuLogo'),slots:$('saveSlotList'),notice:$('menuSaveNotice'),load:$('menuLoadStatus'),pause:$('gamePause'),remove:$('saveDeleteDialog'),button:$('gameMenuButton')};
+ const state={screen:'home',ready:false,selected:0,deleting:null,logoReady:false,maskBounds:null};let callbacks={},last=0,clock=0,saveTimer;
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const canvas=()=>document.createElement('canvas'),base=canvas(),mask=canvas(),dots=canvas(),lava=canvas(),logoContext=ui.logo.getContext('2d'),bg=ui.backdrop.getContext('2d');
+ for(const c of [base,mask,dots])c.width=c.height=720;
+ lava.width=128;lava.height=76;const lc=lava.getContext('2d'),pixels=lc.createImageData(128,76);
+ const blobs=Array.from({length:12},(_,i)=>({x:(i*.382)%1,y:(i*.618)%1,r:6+i%4*2,s:.045+i%3*.017,p:i*2.37}));
+ const logoImage=new Image();
+ const logoReady=new Promise(resolve=>{logoImage.onload=()=>{
+  base.getContext('2d').drawImage(logoImage,0,0,720,720);
+  const data=Ben10TitleMask;mask.width=data.width;mask.height=data.height;const mc=mask.getContext('2d');mc.fillStyle='#fff';for(const [x,y,width] of data.runs)mc.fillRect(x,y,width,1);state.maskBounds=data.bounds;state.logoReady=true;drawLogo(0);resolve();
+ };logoImage.onerror=()=>{ui.load.textContent='No se pudo cargar el logo. Puedes entrar a tu partida.';resolve()};logoImage.src='assets/ui/ben10-title.png'});
+ function drawLogo(t){if(!state.logoReady)return;const b=state.maskBounds,c=dots.getContext('2d');c.clearRect(0,0,720,720);c.globalCompositeOperation='source-over';c.fillStyle='#050705';
+  const w=b.right-b.left,h=b.bottom-b.top;
+  for(let i=0;i<15;i++){const x=b.left+w*(.5+.31*Math.sin(i*2.36+t*(.15+i%3*.035))),y=b.top+h*(.5+.34*Math.cos(i*1.71+t*(.18+i%4*.024))),r=7+i%5*5;c.beginPath();c.arc(x,y,r,0,Math.PI*2);c.fill();}
+  c.globalCompositeOperation='destination-in';c.drawImage(mask,0,0,720,720);c.globalCompositeOperation='source-over';logoContext.clearRect(0,0,720,720);logoContext.drawImage(base,0,0);logoContext.drawImage(dots,0,0);
+ }
+ function drawBackground(t){const w=ui.backdrop.width,h=ui.backdrop.height;bg.fillStyle='#07371c';bg.fillRect(0,0,w,h);
+  const points=blobs.map(b=>({x:(b.x+.09*Math.sin(t*.15+b.p))*128,y:((b.y+t*b.s*.38)%1.4-.2)*76,r:b.r*(1+.17*Math.sin(t*.6+b.p))}));
+  for(let y=0;y<76;y++)for(let x=0;x<128;x++){let field=0;for(const b of points)field+=b.r*b.r/(9+(x-b.x)**2+(y-b.y)**2);const n=(y*128+x)*4,edge=Math.max(0,Math.min(1,(field-.8)*2.4)),core=Math.max(0,Math.min(1,(field-1.3)*.65));pixels.data[n]=31+core*41;pixels.data[n+1]=101+core*57;pixels.data[n+2]=32+core*16;pixels.data[n+3]=edge*112;}
+  lc.putImageData(pixels,0,0);bg.imageSmoothingEnabled=true;bg.drawImage(lava,0,0,w,h);
+  const glow=bg.createRadialGradient(w*.36,h*.4,0,w*.36,h*.4,w*.8);glow.addColorStop(0,'#80bb2333');glow.addColorStop(1,'#001f1500');bg.fillStyle=glow;bg.fillRect(0,0,w,h);
+  // The two strands exchange depth as the helix rotates. Rungs share their endpoints.
+  for(let k=0;k<6;k++){const cx=w*(k/5+.03)+Math.sin(t*.07+k)*w*.025,amplitude=w*(.035+k%2*.013),step=h/47,phase=k*1.63+t*(.28+(k%3)*.045),color=k%2?'#a9e342':'#39b97a';
+   bg.lineWidth=Math.max(1,w/1400);for(let i=-5;i<53;i++){const y=(i+t*1.1%1)*step,angle=i*.27+phase,a={x:cx+Math.sin(angle)*amplitude,y},b={x:cx-Math.sin(angle)*amplitude,y:y+step*.8};bg.globalAlpha=.10+.10*(Math.cos(angle)*.5+.5);bg.strokeStyle=color;bg.beginPath();bg.moveTo(a.x,a.y);bg.lineTo(b.x,b.y);bg.stroke();for(let side=0;side<2;side++){const s=side? -1:1,x=cx+s*Math.sin(angle)*amplitude,nx=cx+s*Math.sin(angle+.27)*amplitude;bg.globalAlpha=.13+.17*(.5+.5*s*Math.cos(angle));bg.lineWidth=2.1*(w/1440);bg.beginPath();bg.moveTo(x,y);bg.lineTo(nx,y+step);bg.stroke();bg.beginPath();bg.arc(x,y,1.5*w/1440,0,Math.PI*2);bg.fillStyle=color;bg.fill();}}
+  }
+  bg.globalAlpha=1;
+  for(let i=0;i<25;i++){const x=(i*.731%1)*w+Math.sin(t*.13+i)*18,y=h-((i*.317%1)*h+t*(9+i%4*5))%(h+90),r=(6+i%5*5)*w/1440;bg.strokeStyle='#a0d95728';bg.lineWidth=1.2;bg.beginPath();bg.arc(x,y,r,0,Math.PI*2);bg.stroke();bg.fillStyle='#bef47b22';bg.beginPath();bg.arc(x-r*.3,y-r*.35,Math.max(1,r*.12),0,Math.PI*2);bg.fill();}
+ }
+ function resize(){const d=Math.min(devicePixelRatio||1,1.5);ui.backdrop.width=Math.round(innerWidth*d);ui.backdrop.height=Math.round(innerHeight*d);drawBackground(clock)}
+ function animate(now){const dt=last?Math.min(.07,(now-last)/1000):0;last=now;if(!document.hidden&&state.screen==='home'&&!reduced)clock+=dt;if(!document.hidden&&state.screen==='home'&&(!reduced||!state.lastPaint)&&(now-(state.lastPaint||0)>32||!state.lastPaint)){drawBackground(clock);drawLogo(clock);state.lastPaint=now;}requestAnimationFrame(animate)}
+ function slotLabel(r){if(!r)return 'Nueva partida';if(r.checkpoint?.kind==='victory')return 'Aventura completada';return ['Las calles','Castillo Eterno','Laboratorio oculto'][r.checkpoint?.phase||0]}
+ function renderSlots(){ui.slots.replaceChildren();const records=bank.snapshot();records.forEach((record,index)=>{
+  const card=document.createElement('article');card.className='save-card'+(record?'':' empty');const button=document.createElement('button');button.type='button';button.dataset.saveSlot=index;button.disabled=!state.ready;button.setAttribute('aria-label','Espacio '+(index+1)+': '+slotLabel(record));
+  const number=document.createElement('span');number.className='save-number';number.textContent='0'+(index+1);button.append(number);const body=document.createElement('span');body.className='save-body';
+  const small=document.createElement('small');small.textContent=record?'CONTINUAR PARTIDA':'ESPACIO DISPONIBLE';const name=document.createElement('strong');name.textContent=slotLabel(record);const details=document.createElement('span');details.textContent=record?'Nivel '+(record.progression?.level||1)+' · '+(record.unlocks.diamondhead?'3':'2')+' ADN recuperados':'Comienza una nueva aventura';body.append(small,name,details);
+  if(record){const meta=document.createElement('span');meta.className='save-meta';const p=record.checkpoint;meta.textContent=(p?.kind==='boss'?'Jefe final':p?.kind==='victory'?'El Rey ha caído':p?.kind==='encounter'?'Punto de control · combate':'Punto de control '+((p?.cleared||0)+1))+' · '+Math.floor(record.playSeconds/60)+' min';body.append(meta)}button.append(body);button.addEventListener('focus',()=>state.selected=index);button.addEventListener('click',()=>choose(index));card.append(button);
+  if(record){const del=document.createElement('button');del.type='button';del.className='save-delete';del.textContent='BORRAR';del.setAttribute('aria-label','Borrar espacio '+(index+1));del.addEventListener('click',()=>confirmDelete(index));card.append(del)}ui.slots.append(card);
+ });ui.notice.textContent=bank.error;ui.load.textContent=state.ready?'Selecciona un espacio para entrar.':'Preparando el Omnitrix…'}
+ function choose(i){if(!state.ready||state.screen!=='home'||state.deleting!==null)return;state.selected=i;callbacks.start?.(i)}
+ function setScreen(screen){state.screen=screen;ui.home.hidden=screen!=='home';ui.pause.hidden=screen!=='pause';ui.button.hidden=screen!=='game';document.body.classList.toggle('main-menu-active',screen==='home');document.getElementById('game').inert=screen!=='game';if(screen==='home'){renderSlots();ui.slots.querySelector('[data-save-slot="'+state.selected+'"]').focus({preventScroll:true})}if(screen==='pause')$('gameResume').focus({preventScroll:true});}
+ function confirmDelete(index){state.deleting=index;$('saveDeleteDescription').textContent='Se eliminará únicamente el espacio '+(index+1)+', con sus mejoras y su avance.';ui.remove.hidden=false;$('saveDeleteCancel').focus()}
+ function cancelDelete(){ui.remove.hidden=true;state.deleting=null;ui.slots.querySelector('[data-save-slot="'+state.selected+'"]')?.focus()}
+ $('saveDeleteCancel').onclick=cancelDelete;$('saveDeleteConfirm').onclick=()=>{if(state.deleting===null)return;bank.remove(state.deleting);renderSlots();cancelDelete()};
+ $('gameResume').onclick=()=>callbacks.resume?.();$('gameSaveExit').onclick=()=>callbacks.exit?.();ui.button.onclick=()=>callbacks.pause?.();
+ document.addEventListener('keydown',e=>{if(state.screen==='game'){if(e.key.toLowerCase()==='p'&&!e.repeat&&callbacks.canPause?.()){e.preventDefault();e.stopImmediatePropagation();callbacks.pause()}return}if(e.ctrlKey||e.metaKey||e.altKey)return;if(e.key==='Tab'){const dialog=state.deleting!==null?ui.remove:state.screen==='pause'?ui.pause:ui.home,buttons=[...dialog.querySelectorAll('button:not(:disabled)')];const first=buttons[0],lastButton=buttons.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();lastButton?.focus()}else if(!e.shiftKey&&document.activeElement===lastButton){e.preventDefault();first?.focus()}e.stopImmediatePropagation();return;}if(state.deleting!==null){if(e.key==='Escape'){e.preventDefault();cancelDelete()}if(e.key==='Enter'||e.key===' ')return;}else if(state.screen==='pause'){if(e.key==='Escape'||e.key.toLowerCase()==='p'){e.preventDefault();callbacks.resume?.()}if(e.key==='Enter'||e.key===' ')return;}else{if(/^[123]$/.test(e.key))choose(Number(e.key)-1);if(['ArrowDown','ArrowUp'].includes(e.key)){state.selected=(state.selected+(e.key==='ArrowDown'?1:2))%3;ui.slots.querySelector('[data-save-slot="'+state.selected+'"]').focus()}if(e.key==='Enter'||e.key===' ')return;}e.preventDefault();e.stopImmediatePropagation();},{capture:true});
+ root.Ben10MainMenu={state,logoReady,bind:fn=>callbacks=fn,enable(){state.ready=true;renderSlots();if(state.screen==='home')ui.slots.querySelector('[data-save-slot="'+state.selected+'"]').focus({preventScroll:true})},setScreen,renderSlots,notify(message){const el=$('gameSaveStatus');el.textContent=message;el.classList.add('show');clearTimeout(saveTimer);saveTimer=setTimeout(()=>el.classList.remove('show'),2200)}};
+ addEventListener('resize',resize);addEventListener('storage',e=>{if(e.key===Ben10SaveSlots.KEY&&state.screen==='home'){bank.slots=bank.latest();renderSlots()}});resize();renderSlots();document.body.classList.add('main-menu-active');requestAnimationFrame(animate);
+})(window);
 
 </script>
 <script>
@@ -1908,7 +2038,7 @@ function enemyPlayerHit(hit){
 const enemyBattle=new Ben10Eternals.Battle({onEvent:enemyEvent,onPlayerHit:enemyPlayerHit});
 const encounters=new Ben10Eternals.Director(campaign.data,{scale:campaign.scale,onEvent:event=>{
  if(event.type==='wave-start')enemyBanner(event.encounter.index===encounters.plan.length-1?'GUARDIÁN DEL PASO':'EMBOSCADA',event.encounter.name+' · OLEADA '+event.wave+' / '+event.total);
- if(event.type==='encounter-clear'){enemyBanner(event.phaseComplete?'ZONA DESPEJADA':'¡AVANZA!',event.phaseComplete?'El camino a la entrada está libre':'Busca el siguiente paso');stats.setHealth(stats.health+(event.phaseComplete?12:6));stats.energy=Math.min(stats.config.maxEnergy,stats.energy+(event.phaseComplete?18:10));}
+ if(event.type==='encounter-clear'){enemyBanner(event.phaseComplete?'ZONA DESPEJADA':'¡AVANZA!',event.phaseComplete?'El camino a la entrada está libre':'Busca el siguiente paso');stats.setHealth(stats.health+(event.phaseComplete?12:6));stats.energy=Math.min(stats.config.maxEnergy,stats.energy+(event.phaseComplete?18:10));if(typeof gameSaveCurrent==='function')gameSaveCurrent(true);}
 }});
 function enemyPhysics(){return {move:(p,dx,dy,r)=>campaign.move(p,dx,dy,r,props),clipSegment:(a,b,r)=>campaign.clipSegment(a,b,r,props),clampPoint:(p,r)=>campaign.clampPoint(p,r,props),captured:ghostAction.grab?.target};}
 function enemyResetPhase(index){enemyBattle.reset(index);encounters.setPhase(index);campaign.arena=null;kingResetPhase();dummyList=enemyBattle.enemies;enemyInvulUntil=0;enemyStaggerUntil=0;enemyBannerLeft=0;enemyUI.banner.classList.remove('show');enemyUI.defeat.hidden=true;enemySyncUI();}
@@ -1949,7 +2079,7 @@ function enemyRetry(){
 document.getElementById('retryEncounter').addEventListener('click',enemyRetry);
 // ENEMY_GAME_END
 // FINAL_KING_GAME_START
-let campaignUnlockStorage;try{campaignUnlockStorage=localStorage}catch{}
+let campaignUnlockStorage;try{campaignUnlockStorage=typeof Ben10GameStorage==='undefined'?localStorage:Ben10GameStorage}catch{}
 const campaignUnlocks=new Ben10CampaignUnlocks.Unlocks(campaignUnlockStorage);
 function campaignAlienUnlocked(id){return campaignUnlocks.has(id);}
 function campaignLockedMessage(){return 'ADN DESCONOCIDO · SIGUE EXPLORANDO';}
@@ -1984,7 +2114,7 @@ function kingEvent(event){
 function kingGameTick(dt){
  if(campaign.phaseIndex!==2)return;
  const room=campaign.rooms.at(-1),trigger=(room.x-campaign.phase.x+room.width*.30)*campaign.scale;
- if(!kingEncounter.boss&&encounters.complete&&player.x>=trigger)kingStart();
+ if(!kingEncounter.boss&&!kingEncounter.completed&&encounters.complete&&player.x>=trigger)kingStart();
  if(kingEncounter.boss)kingEncounter.update(dt,player,enemyPhysics(),{helpers:enemyBattle.living.filter(e=>e.bossHelper).length});
  kingSyncUI();
 }
@@ -2047,7 +2177,7 @@ function campaignSetPhase(index,initial=false){
  enemyResetPhase(index);
  campaignExitReady=false;campaignUI.campaignExit.hidden=true;keys.clear();pointer.active=false;
  cam.x=0;cam.y=campaign.offsetY;
- if(!initial){campaignUpdateUI();campaignCamera(0,true);game.focus({preventScroll:true});}
+ if(!initial){campaignUpdateUI();campaignCamera(0,true);game.focus({preventScroll:true});if(typeof gameSaveCurrent==='function')gameSaveCurrent();}
 }
 function campaignEnter(){
  if(!campaignExitReady||!campaignCanEnter())return false;
@@ -2700,7 +2830,7 @@ function drawWildThorn(node,wave){
  ctx.save();ctx.translate(Math.round(node.x),Math.round(node.y));if(node.index%2)ctx.scale(-1,1);ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';drawRegisteredFrame(ctx,f,-f.anchorX*scale,-f.anchorY*scale,scale);ctx.restore();
 }
 // WILDVINE_GAME_END
-function update(dt){if(stats.health<=0&&assetsReady&&!comicOpen){t+=dt;player.mode='defeat';player.modeDur=1.2;player.modeTime=Math.min(1.2,player.modeTime+dt);enemySyncUI();return;}if(comicOpen||state.wheel||progressionPanelOpen||adminPanelOpen||kingRewardOpen||!assetsReady){syncHud();return;}const campaignBefore={x:player.x,y:player.y};updateStats(dt);t+=dt;evolutionTick(dt);if(impactPause>0){impactPause=Math.max(0,impactPause-dt);updateParticles(dt);return;}const abilityLocked=evolutionCasting()||speedAction.phase!=='idle'||cannonAction.phase!=='idle'||ghostAction.phase!=='idle';if(speedAction.phase!=='idle')updateSpeedAbility(dt);if(cannonAction.phase!=='idle')updateCannonAbility(dt);if(ghostAction.phase!=='idle')updateGhostAbility(dt);const metrics=actorMetrics(),dash=metrics.dash;let input=abilityLocked?{x:0,y:0}:moveInput(),moving=(input.x!==0||input.y!==0);const lunge=(isHeatblast()||isDiamondhead()||isXLR8()||isCannonbolt()||isGhostfreak()||isBlitzwolfer()||isUpgrade())&&player.mode.startsWith('light')?{start:player.modeTime,duration:player.modeDur,combo:player.lightN,x:player.actionX,y:player.actionY,distances:isDiamondhead()?[4,6,9]:isXLR8()?[5,7,10]:isCannonbolt()?[3,5,0]:isGhostfreak()?[3,4,6]:isBlitzwolfer()?[5,6,10]:isUpgrade()?[4,6,10]:[6,8,12]}:null;const mode=player.mode,dashStart=player.modeTime,dashDt=Math.min(dt,Math.max(0,dash.duration-dashStart));
+function update(dt){if(Ben10MainMenu.state.screen!=='game')return;if(stats.health<=0&&assetsReady&&!comicOpen){t+=dt;player.mode='defeat';player.modeDur=1.2;player.modeTime=Math.min(1.2,player.modeTime+dt);enemySyncUI();return;}if(comicOpen||state.wheel||progressionPanelOpen||adminPanelOpen||kingRewardOpen||!assetsReady){syncHud();return;}const campaignBefore={x:player.x,y:player.y};updateStats(dt);t+=dt;evolutionTick(dt);if(impactPause>0){impactPause=Math.max(0,impactPause-dt);updateParticles(dt);return;}const abilityLocked=evolutionCasting()||speedAction.phase!=='idle'||cannonAction.phase!=='idle'||ghostAction.phase!=='idle';if(speedAction.phase!=='idle')updateSpeedAbility(dt);if(cannonAction.phase!=='idle')updateCannonAbility(dt);if(ghostAction.phase!=='idle')updateGhostAbility(dt);const metrics=actorMetrics(),dash=metrics.dash;let input=abilityLocked?{x:0,y:0}:moveInput(),moving=(input.x!==0||input.y!==0);const lunge=(isHeatblast()||isDiamondhead()||isXLR8()||isCannonbolt()||isGhostfreak()||isBlitzwolfer()||isUpgrade())&&player.mode.startsWith('light')?{start:player.modeTime,duration:player.modeDur,combo:player.lightN,x:player.actionX,y:player.actionY,distances:isDiamondhead()?[4,6,9]:isXLR8()?[5,7,10]:isCannonbolt()?[3,5,0]:isGhostfreak()?[3,4,6]:isBlitzwolfer()?[5,6,10]:isUpgrade()?[4,6,10]:[6,8,12]}:null;const mode=player.mode,dashStart=player.modeTime,dashDt=Math.min(dt,Math.max(0,dash.duration-dashStart));
  if(!abilityLocked&&isUpgrade())updateUpgradeAction(dt);
  if(!abilityLocked&&isBlitzwolfer())updateWolfAction(dt);
  if(!abilityLocked&&isStinkfly())updateStinkAnimation(dt);
@@ -2718,7 +2848,7 @@ function update(dt){if(stats.health<=0&&assetsReady&&!comicOpen){t+=dt;player.mo
  if(rolling&&!isGhostfreak()&&!isStinkfly()&&rng()<dt*38)spawnDust(player.x,player.y-3,1,isHeatblast()?'#ffad38':isDiamondhead()?'#8bd3c2':undefined);
  for(const d of dummyList){if(d.enemy)continue;if(d.shake>0)d.shake=Math.max(0,d.shake-dt*8);if(d.hit>0)d.hit-=dt;if(d.stunTime>0)d.stunTime=Math.max(0,d.stunTime-dt);if(!d.alive){d.respawn-=dt;if(d.respawn<=0){d.alive=true;d.health=100;showToast('OBJETIVO REPARADO')}}}
  fire.tick(dt,{...speedWorld(),targets:dummyList},fireImpact);
- updateStinkEffects(dt);updateWildEffects(dt);updateSonicEffects(dt);updateUpgradeEffects(dt);updateParticles(dt);flash=Math.max(0,flash-dt*1.8);shake=Math.max(0,shake-dt*23);enemyGameTick(dt,campaignBefore);updateStats(0);campaignAfterUpdate(campaignBefore);
+ updateStinkEffects(dt);updateWildEffects(dt);updateSonicEffects(dt);updateUpgradeEffects(dt);updateParticles(dt);flash=Math.max(0,flash-dt*1.8);shake=Math.max(0,shake-dt*23);enemyGameTick(dt,campaignBefore);updateStats(0);campaignAfterUpdate(campaignBefore);gameSaveTick(dt);
 }
 // Complete clips include their anticipation, contact and recovery. Each pose
 // names its own source cell, so changing rows never draws two sprites together.
@@ -3021,7 +3151,7 @@ function render(dt=1/60){
  if(!assetsReady){ctx.fillStyle='#101c17';ctx.fillRect(0,0,screenW,screenH);ctx.fillStyle='#b7f17b';ctx.textAlign='center';ctx.font='bold 16px Consolas,monospace';ctx.fillText('PREPARANDO EL OMNITRIX Y EL RECORRIDO…',screenW/2,screenH/2);return;}
  campaignCamera(dt);ctx.save();if(shake)ctx.translate((rng()-.5)*shake,(rng()-.5)*shake);drawWorld();ctx.restore();
 }
-function loop(now){let dt=clamp((now-lastTime)/1000,0,.04);lastTime=now;if(comicOpen){comicDraw(now);requestAnimationFrame(loop);return;}update(dt);if(progressionPanelOpen){evolutionDrawPreview(now)}else if(adminPanelOpen){}else if(state.wheel)updateWheelVisual(now);else render(dt);requestAnimationFrame(loop)}requestAnimationFrame(loop);
+function loop(now){let dt=clamp((now-lastTime)/1000,0,.04);lastTime=now;if(Ben10MainMenu.state.screen!=='game'){requestAnimationFrame(loop);return;}if(comicOpen){comicDraw(now);requestAnimationFrame(loop);return;}update(dt);if(progressionPanelOpen){evolutionDrawPreview(now)}else if(adminPanelOpen){}else if(state.wheel)updateWheelVisual(now);else render(dt);requestAnimationFrame(loop)}requestAnimationFrame(loop);
 function pointerPos(ev){const r=game.getBoundingClientRect();pointer.x=(ev.clientX-r.left)*dpr;pointer.y=(ev.clientY-r.top)*dpr;pointer.active=true}
 game.addEventListener('pointermove',pointerPos);
 game.addEventListener('pointerdown',e=>{if(evolutionCasting())return;e.preventDefault();pointerPos(e);if(e.button===0)lightAttack();else if(e.button===2){if(!progressionPanelOpen&&(isXLR8()||isCannonbolt()||isGhostfreak())){if(evolutionRecordAttack('H'))return;}if(isXLR8())beginSpeedAbility(e);else if(isCannonbolt())beginCannonCharge(e);else if(isGhostfreak())beginGhostAbility(e);else heavyAttack()}});
@@ -3246,9 +3376,9 @@ function evolutionLevelReward(level){return level<2?0:level<=12?1:level<=25?2:3}
 function evolutionEarnedPoints(level){const n=Math.max(0,Math.floor(level)-1);return Math.min(n,11)+Math.min(Math.max(n-11,0),13)*2+Math.max(n-24,0)*3}
 function evolutionFreePoints(){return Math.max(0,evolutionEarnedPoints(stats.level)+progression.legacyCredit+progression.adminPoints-evolutionSpent())}
 function evolutionReqMet(spec,node){return node.req.every(group=>group.split('|').some(id=>evolutionOwned(spec.id,id)))}
-function evolutionSave(){try{localStorage.setItem(EVOLUTION_PANEL_KEY,JSON.stringify({version:33,owned:progression.owned,level:stats.level,xp:stats.xp,totalXP:stats.totalXP,adminPoints:progression.adminPoints,legacyCredit:progression.legacyCredit,migrated:progression.migrated}))}catch{}}
+function evolutionSave(){if(typeof Ben10SaveBank!=='undefined'){if(typeof gameSaveCurrent==='function')gameSaveCurrent();return;}try{localStorage.setItem(EVOLUTION_PANEL_KEY,JSON.stringify({version:33,owned:progression.owned,level:stats.level,xp:stats.xp,totalXP:stats.totalXP,adminPoints:progression.adminPoints,legacyCredit:progression.legacyCredit,migrated:progression.migrated}))}catch{}}
 function evolutionLoad(){try{
- const data=JSON.parse(localStorage.getItem(EVOLUTION_PANEL_KEY)||'null');if(!data||![11,13,32,33].includes(data.version))return;
+ const data=JSON.parse((typeof Ben10GameStorage==='undefined'?localStorage:Ben10GameStorage).getItem(EVOLUTION_PANEL_KEY)||'null');if(!data||![11,13,32,33].includes(data.version))return;
  if(Number.isFinite(data.level))stats.level=clamp(Math.floor(data.level),1,1000);
  if(Number.isFinite(data.xp))stats.xp=clamp(Math.floor(data.xp),0,stats.xpNeeded-1);
  if(Number.isFinite(data.totalXP))stats.totalXP=Math.max(0,Math.floor(data.totalXP));
@@ -3819,7 +3949,7 @@ function comicFinish(){
  document.body.classList.remove('comic-active');
  keys.clear();pointer.active=false;lastTime=performance.now();
  // Start with the player in frame even if the intro was skipped during loading.
- campaignCamera(0,true);
+ campaignCamera(0,true);gameSaveCurrent();
 }
 function comicAdvance(direction=1){
  if(!comicOpen||!comicState.ready)return;
@@ -3868,12 +3998,57 @@ document.body.classList.add('comic-active');comicUpdateUI();comicImage.src='asse
 
 // EVOLUTION_PANEL_V32_END
 
+// MAIN_MENU_GAME_START
+let gamePlaySeconds=0,gameSaveClock=0;
+function gameSaveCurrent(notify=false){
+ if(Ben10SaveBank.active===null||Ben10SaveBank.loading)return false;
+ const boss=kingEncounter.boss,kind=kingEncounter.rewardGranted?'victory':boss&&!kingEncounter.rewardGranted?'boss':encounters.current?'encounter':'travel';
+ const saved=Ben10SaveBank.commit({playSeconds:gamePlaySeconds,progression:{version:33,owned:progression.owned,level:stats.level,xp:stats.xp,totalXP:stats.totalXP,adminPoints:progression.adminPoints,legacyCredit:progression.legacyCredit,migrated:progression.migrated},unlocks:{version:1,diamondhead:campaignUnlocks.diamondhead},checkpoint:{phase:campaign.phaseIndex,cleared:encounters.cleared,x:player.x,y:player.y,kind,introSeen:!comicOpen,kills:state.kills}});
+ if(notify)Ben10MainMenu.notify(saved?'PARTIDA GUARDADA · ESPACIO '+(Ben10SaveBank.active+1):Ben10SaveBank.error);
+ return saved;
+}
+function gameSaveTick(dt){gamePlaySeconds+=dt;gameSaveClock+=dt;if(gameSaveClock>=3){gameSaveClock=0;gameSaveCurrent()}}
+function gameSetComic(show){comicOpen=show;comicUI.layer.hidden=!show;comicUI.layer.setAttribute('aria-hidden',String(!show));document.body.classList.toggle('comic-active',show);if(show){Object.assign(comicState,{index:0,elapsed:0,reveal:0,paused:false,lastFrame:performance.now(),lastAdvance:-Infinity});comicUpdateUI();comicDraw(performance.now())}}
+function gameLoadSlot(index){
+ Ben10SaveBank.loading=true;const {record,isNew}=Ben10SaveBank.activate(index);
+ try{
+  keys.clear();pointer.active=false;toggleWheel(false);toggleProgressionPanel(false);toggleAdminPanel(false);campaignResetEffects();kingResetPhase();
+  stats.reset();Object.assign(progression,{selected:0,focused:'core',owned:{},adminPoints:0,legacyCredit:0,comboLog:[],abilityTimes:{},skill:null,casts:[],fields:[],fx:[],buffs:{},boostTime:0,migrated:false});
+  progression.zoom=1;campaignUnlocks.diamondhead=record.unlocks.diamondhead;evolutionLoad();
+  const point=record.checkpoint;campaignSetPhase(point?.phase||0);
+  if(point){
+   encounters.index=encounters.cleared=Math.min(point.cleared,encounters.plan.length);encounters.complete=encounters.index>=encounters.plan.length;encounters.current=null;encounters.pending=[];encounters.wave=0;encounters.between=0;
+   let location=point.x||point.y?{x:point.x,y:point.y}:campaign.spawn(HUMAN.radius);
+   if(point.kind==='encounter'&&!encounters.complete){const encounter=encounters.plan[encounters.index];location={x:Math.max(encounter.trigger,encounter.left+110),y:campaign.offsetY+285*campaign.scale}}
+   if(point.kind==='boss'&&campaign.phaseIndex===2){encounters.index=encounters.cleared=encounters.plan.length;encounters.complete=true;location=kingRetry()}
+   if(point.kind==='victory'&&campaign.phaseIndex===2){kingEncounter.completed=true;kingEncounter.rewardGranted=true;kingEncounter.boss=null;campaign.arena=null}
+   const at=campaign.clampPoint(location,HUMAN.radius,props)||campaign.spawn(HUMAN.radius);player.x=at.x;player.y=at.y;
+  }
+  Object.assign(player,{selectedAlien:-1,pendingForm:null,mode:'idle',modeTime:0,modeDur:0,dir:'right',actionDir:'right',faceX:1,faceY:0,actionX:1,actionY:0,moving:false});
+  stats.health=stats.config.maxHealth;stats.energy=stats.config.maxEnergy;stats.form=null;stats.clearCombo();stats.rechargeLocked=false;stats.rechargeLeft=0;stats.drainEvents();player.health=stats.health;
+  state.kills=point?.kills||0;gamePlaySeconds=record.playSeconds;gameSaveClock=0;hudSignature='';hudHitFlash=0;hudLevelFlash=0;enemyHudSignature='';enemyBossSignature='';enemyInvulUntil=enemyBattle.time+1.5;enemyStaggerUntil=0;
+  refreshCampaignAlienLocks();evolutionChangeAlien(0);syncHud();enemySyncUI();campaignUpdateUI();campaignCamera(0,true);lastTime=performance.now();
+  gameSetComic(isNew||!point?.introSeen);Ben10MainMenu.setScreen('game');game.focus({preventScroll:true});
+ }finally{Ben10SaveBank.loading=false}
+ gameSaveCurrent();
+}
+function gameCanPause(){return !comicOpen&&!state.wheel&&!progressionPanelOpen&&!adminPanelOpen&&!kingRewardOpen}
+function gamePause(){if(Ben10MainMenu.state.screen!=='game'||!gameCanPause())return;keys.clear();pointer.active=false;gameSaveCurrent();Ben10MainMenu.setScreen('pause')}
+function gameResume(){keys.clear();pointer.active=false;lastTime=performance.now();Ben10MainMenu.setScreen('game');game.focus({preventScroll:true})}
+function gameSaveExit(){gameSaveCurrent();Ben10SaveBank.active=null;keys.clear();pointer.active=false;Ben10MainMenu.setScreen('home')}
+Ben10MainMenu.bind({start:gameLoadSlot,pause:gamePause,resume:gameResume,exit:gameSaveExit,canPause:gameCanPause});
+gameSetComic(false);Ben10MainMenu.setScreen('home');
+addEventListener('pagehide',()=>gameSaveCurrent());
+addEventListener('blur',()=>gameSaveCurrent());
+document.addEventListener('visibilitychange',()=>{if(document.hidden)gameSaveCurrent()});
+// MAIN_MENU_GAME_END
 const readyPromise=Promise.all([Ben10SecretDNA.ready,kingArt.ready,enemyArt.ready,campaignArt.ready,loadImage(sheet),loadImage(verticalSheet),loadImage(watchSheet),loadImage(fourArmsSheet),loadImage(heatblastSheet),loadImage(diamondheadSheet),loadImage(xlr8Sheet),loadImage(cannonboltSheet),loadImage(ghostfreakSheet),loadImage(stinkflySheet),loadImage(wildvineSheet),loadImage(wildThornSheet),loadImage(blitzwolferSheet),loadImage(upgradeSheet)]).then(()=>{
  mainAtlas=prepareAtlas(sheet,8,14,[8,8,8,8,4,4,4,6,6,5,8,4,6,8]);
  verticalAtlas=prepareAtlas(verticalSheet,8,4,[8,8,8,8]);
  const up=mainAtlas.rows[ROW.up][0].bodyHeight,down=mainAtlas.rows[ROW.down][0].bodyHeight;
  normalizeAtlas(verticalAtlas,[up,down,up,down]);registerWatchRig(mainAtlas,WATCH_LIMBS.main);registerWatchRig(verticalAtlas,WATCH_LIMBS.vertical);watchIcon=watchSheet;fourArmsAtlas=importRegisteredAtlas(fourArmsSheet,FOUR_ARMS_ATLAS);heatblastAtlas=importRegisteredAtlas(heatblastSheet,HEATBLAST_ATLAS);diamondheadAtlas=importRegisteredAtlas(diamondheadSheet,DIAMONDHEAD_ATLAS);xlr8Atlas=importRegisteredAtlas(xlr8Sheet,XLR8_ATLAS);cannonboltAtlas=importRegisteredAtlas(cannonboltSheet,CANNONBOLT_ATLAS);ghostfreakAtlas=importRegisteredAtlas(ghostfreakSheet,GHOSTFREAK_ATLAS);stinkflyAtlas=importRegisteredAtlas(stinkflySheet,STINKFLY_ATLAS);wildvineAtlas=importRegisteredAtlas(wildvineSheet,WILDVINE_ATLAS);wildThornAtlas=importRegisteredAtlas(wildThornSheet,WILD_THORN_ATLAS);blitzwolferAtlas=importRegisteredAtlas(blitzwolferSheet,BLITZWOLFER_ATLAS);upgradeAtlas=importRegisteredAtlas(upgradeSheet,UPGRADE_ATLAS);buildWheelPortraitCache();assetsReady=true;refreshCampaignAlienLocks();evolutionPrepareModels();evolutionSetPortraits();syncHud();if(state.wheel)drawWheel();
-}).catch(error=>showToast(error.message));
+}).catch(error=>{showToast(error.message);throw error;});
+Promise.all([readyPromise,Ben10MainMenu.logoReady]).then(()=>Ben10MainMenu.enable()).catch(()=>document.getElementById('menuLoadStatus').textContent='No se pudo cargar la demo. Vuelve a abrir el juego.');
 })();
 
 </script>

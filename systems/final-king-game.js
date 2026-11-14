@@ -1,5 +1,5 @@
 // FINAL_KING_GAME_START
-let campaignUnlockStorage;try{campaignUnlockStorage=localStorage}catch{}
+let campaignUnlockStorage;try{campaignUnlockStorage=typeof Ben10GameStorage==='undefined'?localStorage:Ben10GameStorage}catch{}
 const campaignUnlocks=new Ben10CampaignUnlocks.Unlocks(campaignUnlockStorage);
 function campaignAlienUnlocked(id){return campaignUnlocks.has(id);}
 function campaignLockedMessage(){return 'ADN DESCONOCIDO · SIGUE EXPLORANDO';}
@@ -34,7 +34,7 @@ function kingEvent(event){
 function kingGameTick(dt){
  if(campaign.phaseIndex!==2)return;
  const room=campaign.rooms.at(-1),trigger=(room.x-campaign.phase.x+room.width*.30)*campaign.scale;
- if(!kingEncounter.boss&&encounters.complete&&player.x>=trigger)kingStart();
+ if(!kingEncounter.boss&&!kingEncounter.completed&&encounters.complete&&player.x>=trigger)kingStart();
  if(kingEncounter.boss)kingEncounter.update(dt,player,enemyPhysics(),{helpers:enemyBattle.living.filter(e=>e.bossHelper).length});
  kingSyncUI();
 }

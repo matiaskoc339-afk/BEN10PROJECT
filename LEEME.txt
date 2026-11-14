@@ -1,8 +1,18 @@
-BEN 10 — DEMO PC V39 · EL REY ETERNO
+BEN 10: OMNITRIX FRAGMENTADO — DEMO PC V40
 
 Extrae TODA la carpeta y abre index.html en Chrome, Edge o Firefox de PC.
 Conserva assets, mapas, enemigos y jefe-final junto al HTML.
 Funciona sin conexión. No abras el HTML desde dentro del ZIP.
+
+PANTALLA PRINCIPAL Y TRES PARTIDAS
+Elige un espacio con clic, 1-3 o flechas y Enter. Cada partida conserva
+su propio nivel, XP, mejoras, ADN recuperado y punto de control.
+P o Menú: pausar. Guardar y volver al inicio: elegir otra partida.
+El guardado es automático. Al continuar vuelves como Ben con vida
+y energía completas; repites el combate pendiente desde su comienzo.
+El progreso anterior se importa al espacio 1 la primera vez.
+Borrar requiere confirmación y afecta únicamente al espacio elegido.
+Los datos se guardan en el navegador desde el que juegas.
 
 ADN POR DESCUBRIR
 Comienzas con Cuatro Brazos y Fuego. Las demás formas son una incógnita:

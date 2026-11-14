@@ -59,9 +59,9 @@ function evolutionLevelReward(level){return level<2?0:level<=12?1:level<=25?2:3}
 function evolutionEarnedPoints(level){const n=Math.max(0,Math.floor(level)-1);return Math.min(n,11)+Math.min(Math.max(n-11,0),13)*2+Math.max(n-24,0)*3}
 function evolutionFreePoints(){return Math.max(0,evolutionEarnedPoints(stats.level)+progression.legacyCredit+progression.adminPoints-evolutionSpent())}
 function evolutionReqMet(spec,node){return node.req.every(group=>group.split('|').some(id=>evolutionOwned(spec.id,id)))}
-function evolutionSave(){try{localStorage.setItem(EVOLUTION_PANEL_KEY,JSON.stringify({version:33,owned:progression.owned,level:stats.level,xp:stats.xp,totalXP:stats.totalXP,adminPoints:progression.adminPoints,legacyCredit:progression.legacyCredit,migrated:progression.migrated}))}catch{}}
+function evolutionSave(){if(typeof Ben10SaveBank!=='undefined'){if(typeof gameSaveCurrent==='function')gameSaveCurrent();return;}try{localStorage.setItem(EVOLUTION_PANEL_KEY,JSON.stringify({version:33,owned:progression.owned,level:stats.level,xp:stats.xp,totalXP:stats.totalXP,adminPoints:progression.adminPoints,legacyCredit:progression.legacyCredit,migrated:progression.migrated}))}catch{}}
 function evolutionLoad(){try{
- const data=JSON.parse(localStorage.getItem(EVOLUTION_PANEL_KEY)||'null');if(!data||![11,13,32,33].includes(data.version))return;
+ const data=JSON.parse((typeof Ben10GameStorage==='undefined'?localStorage:Ben10GameStorage).getItem(EVOLUTION_PANEL_KEY)||'null');if(!data||![11,13,32,33].includes(data.version))return;
  if(Number.isFinite(data.level))stats.level=clamp(Math.floor(data.level),1,1000);
  if(Number.isFinite(data.xp))stats.xp=clamp(Math.floor(data.xp),0,stats.xpNeeded-1);
  if(Number.isFinite(data.totalXP))stats.totalXP=Math.max(0,Math.floor(data.totalXP));

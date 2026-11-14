@@ -1,11 +1,11 @@
 {
   "name": "ben10-demo",
-  "version": "0.39.0",
+  "version": "0.40.0",
   "private": true,
-  "description": "Demo PC V39: ADN por descubrir con retrato incógnito, roster de aliens recuperados y revelación al desbloquear.",
+  "description": "BEN 10: Omnitrix Fragmentado — pantalla animada de ADN y tres partidas independientes.",
   "scripts": {
     "start": "python3 -m http.server 8000 --bind 0.0.0.0",
-    "test": "npm run test:evolution && npm run test:art && npm run test:browser && npm run test:render && npm run test:targeting && npm run test:campaign && npm run test:combat && npm run test:boss && npm run test:hud && npm run test:secrets",
+    "test": "npm run test:evolution && npm run test:art && npm run test:browser && npm run test:render && npm run test:targeting && npm run test:campaign && npm run test:combat && npm run test:boss && npm run test:hud && npm run test:secrets && npm run test:menu",
     "test:stats": "node --test tests/stats.test.cjs",
     "test:browser": "node tests/evolution-v32-browser.cjs",
     "test:cannon": "node --test tests/cannonbolt-physics.test.cjs",
@@ -61,7 +61,8 @@
     "preview:king": "node scripts/preview-king-sprites.cjs",
     "test:boss": "node --test tests/final-king.test.cjs && node tests/final-king-browser.cjs",
     "test:hud": "node tests/evolution-hud-browser.cjs",
-    "test:secrets": "node tests/secret-dna-browser.cjs"
+    "test:secrets": "node tests/secret-dna-browser.cjs",
+    "test:menu": "node --test tests/save-slots.test.cjs && node tests/main-menu-browser.cjs"
   },
   "devDependencies": {
     "playwright": "1.62.1"

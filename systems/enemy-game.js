@@ -25,7 +25,7 @@ function enemyPlayerHit(hit){
 const enemyBattle=new Ben10Eternals.Battle({onEvent:enemyEvent,onPlayerHit:enemyPlayerHit});
 const encounters=new Ben10Eternals.Director(campaign.data,{scale:campaign.scale,onEvent:event=>{
  if(event.type==='wave-start')enemyBanner(event.encounter.index===encounters.plan.length-1?'GUARDIÁN DEL PASO':'EMBOSCADA',event.encounter.name+' · OLEADA '+event.wave+' / '+event.total);
- if(event.type==='encounter-clear'){enemyBanner(event.phaseComplete?'ZONA DESPEJADA':'¡AVANZA!',event.phaseComplete?'El camino a la entrada está libre':'Busca el siguiente paso');stats.setHealth(stats.health+(event.phaseComplete?12:6));stats.energy=Math.min(stats.config.maxEnergy,stats.energy+(event.phaseComplete?18:10));}
+ if(event.type==='encounter-clear'){enemyBanner(event.phaseComplete?'ZONA DESPEJADA':'¡AVANZA!',event.phaseComplete?'El camino a la entrada está libre':'Busca el siguiente paso');stats.setHealth(stats.health+(event.phaseComplete?12:6));stats.energy=Math.min(stats.config.maxEnergy,stats.energy+(event.phaseComplete?18:10));if(typeof gameSaveCurrent==='function')gameSaveCurrent(true);}
 }});
 function enemyPhysics(){return {move:(p,dx,dy,r)=>campaign.move(p,dx,dy,r,props),clipSegment:(a,b,r)=>campaign.clipSegment(a,b,r,props),clampPoint:(p,r)=>campaign.clampPoint(p,r,props),captured:ghostAction.grab?.target};}
 function enemyResetPhase(index){enemyBattle.reset(index);encounters.setPhase(index);campaign.arena=null;kingResetPhase();dummyList=enemyBattle.enemies;enemyInvulUntil=0;enemyStaggerUntil=0;enemyBannerLeft=0;enemyUI.banner.classList.remove('show');enemyUI.defeat.hidden=true;enemySyncUI();}
