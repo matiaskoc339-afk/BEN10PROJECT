@@ -55,6 +55,7 @@ function evolutionTargetContact(c,damage,{slam=false,knock=0}={}){
  if(evolutionHit(c,d,damage)){if(slam){d.skillLift=0;d.skillTilt=0;d.stunTime=1.1;evolutionEffect(c,'impact',d.x,d.y,80);shake=Math.max(shake,7);}if(knock)evolutionKnock(c,d,knock);return 1;}return 0;
 }
 function evolutionGroundSpike(c,x,y,radius,damage,size=75,kind='pillar'){
+ const point=Ben10Speed.clipSegment({x:c.x,y:c.y},{x,y},speedWorld(),0).end;x=point.x;y=point.y;
  evolutionEffect(c,kind,x,y,size,.85);return evolutionArea(c,x,y,radius,damage,{front:true});
 }
 function evolutionProjectile(c,k,kind,angle=0){

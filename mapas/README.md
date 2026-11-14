@@ -30,7 +30,7 @@ Los 28 puntos del catálogo son referencias del recorrido. No activan cambios de
 
 `data/recorrido.json` registra los panoramas, límites de las fases, posiciones de los puntos de referencia, objetos, colisiones y la reserva del puzzle. `recorrido.js` contiene los mismos datos para abrir el visor directamente desde un archivo local. Las coordenadas del mundo son píxeles lógicos, con una cámara de **640 × 360**. Los obstáculos se calculan por sus pies, no por la caja completa de la imagen; árboles y barandas se dibujan por delante cuando corresponde.
 
-Las tres imágenes de `panoramas` muestran cada fase entera sin interfaz ni personaje. Se pueden abrir con zoom o exportar de nuevo desde el visor. Los fondos aún no se han incorporado al combate; el `index.html` principal conserva exactamente su contenido anterior.
+Las tres imágenes de `panoramas` muestran cada fase entera sin interfaz ni personaje. Se pueden abrir con zoom o descargar desde el visor. Desde V34, el `index.html` principal utiliza estos mismos fondos con el HUD, los diez aliens y sus técnicas. El visor mantiene su función de revisión de arte; el juego añade colisiones compartidas por todas las habilidades y entradas con E o botón.
 
 ## Reconstruir y verificar
 
@@ -44,4 +44,4 @@ EXPORT_MAP_PANORAMAS=1 npm run test:maps:browser
 
 La extracción de capas requiere Python 3, Pillow, NumPy y SciPy. Las pruebas de navegador usan Playwright y Chromium. `scripts/bake-map-player.cjs` sólo es necesario si se quiere volver a extraer el atlas de Ben desde la demo original.
 
-Las comprobaciones cubren el camino completo de las tres fases, la detención ante sus entradas, la entrada manual, límites y obstáculos, carga local de recursos, galería, descarga de panoramas y la integridad de la demo original. Las capturas de revisión quedan en `artifacts/mapas`.
+Las comprobaciones cubren el camino completo de las tres fases, la detención ante sus entradas, la entrada manual, límites y obstáculos, carga local de recursos, galería, descarga de panoramas y la coincidencia del catálogo con el juego. Las capturas del visor quedan en `artifacts/mapas`; las de la demo integrada, en `artifacts/campaign`.

@@ -10,7 +10,7 @@
   const pull=t<config.releaseTime?smooth((t-config.grabTime)/(config.pullEnd-config.grabTime)):1-smooth((t-config.releaseTime)/(config.releaseEnd-config.releaseTime));
   return {frame,pull};
  }
- function bounds(point,world,radius=config.radius){return {x:Math.max(110+radius,Math.min(world.width-95-radius,point.x)),y:Math.max(85+radius,Math.min(world.height-95-radius,point.y))};}
+ function bounds(point,world,radius=config.radius){if(world.clampPoint)return world.clampPoint(point,radius)||point;return {x:Math.max(110+radius,Math.min(world.width-95-radius,point.x)),y:Math.max(85+radius,Math.min(world.height-95-radius,point.y))};}
  function safeLanding(origin,fallback,isBlocked,world){
   const start=bounds(origin,world);if(!isBlocked(start.x,start.y))return start;
   for(let radius=8;radius<=240;radius+=8)for(let i=0;i<32;i++){

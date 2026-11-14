@@ -27,15 +27,17 @@
         splash:special?(crystal?95:86):0,remaining:crystal?(special?680:640):(special?680:620),age:0};
       this.shots.push(shot);return shot;
     }
-    tick(dt,{targets=[],obstacles=[],width=2400,height=1800},onImpact){
+    tick(dt,world,onImpact){
+      const {targets=[],obstacles=[],width=2400,height=1800}=world;
       if(!Number.isFinite(dt)||dt<=0)return;
       const current=this.shots;this.shots=[];
       for(const shot of current){
         const travel=Math.min(shot.remaining,shot.speed*dt),dx=shot.dx*travel,dy=shot.dy*travel;
         let entry=1,target=null,reason=null;
+        if(world.clipSegment){const clip=world.clipSegment(shot,{x:shot.x+dx,y:shot.y+dy},shot.radius,world);if(clip.blocked){entry=clip.fraction;reason='wall';}}
         // A solid at the same distance wins over a target behind it.
         for(const prop of obstacles){
-          if(!prop.block)continue;
+          if(!prop.block||(world.clipSegment&&prop.mapFootprint))continue;
           const hit=circleEntry(shot.x,shot.y,dx,dy,prop.x,prop.y,prop.r+shot.radius);
           if(hit!==null&&hit<=entry){entry=hit;target=null;reason='wall';}
         }

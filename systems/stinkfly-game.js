@@ -50,7 +50,7 @@ function updateStinkEffects(dt){
  syncStinkForm();
  if(stinkAction.burst&&!stinkAction.burst.closed&&(!isStinkfly()||!player.mode.startsWith('light'))){slime.closeBurst(stinkAction.burst);stinkAction.burst=null;}
  const creditable=b=>isStinkfly()&&b.session===stinkAction.session&&b.id>=stinkAction.creditFrom&&b.id>=stinkAction.lastOutcome;
- slime.tick(dt,{targets:dummyList,obstacles:props,width:WORLD.w,height:WORLD.h},s=>{
+ slime.tick(dt,{...speedWorld(),targets:dummyList},s=>{
   if(s.target){damageDummy(s.target,s.damage,false,{slime:true,port:s.port});const b=s.burst;if(b&&!b.credited&&creditable(b)){b.credited=true;stinkAction.lastOutcome=b.id;stats.recordLightHit();if(stats.specialReady)showCombo('COMBO INSECTOIDE LISTO · FUERTE: VENENO');}}
   else if(s.kind==='spit')spawnDust(s.x,s.y-s.height,2,'#a6d35c');
  },b=>{if(b.launched&&!b.hit&&creditable(b)){stinkAction.lastOutcome=b.id;stats.clearCombo();}},(d,damage)=>damageDummy(d,damage,false,{slime:true,port:1,rememberTarget:false}));

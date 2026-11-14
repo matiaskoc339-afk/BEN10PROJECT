@@ -1,6 +1,8 @@
-# Ben 10 · Demo PC V33.1
+# Ben 10 · Demo PC V34
 
-Los nuevos mapas se prueban aparte en **[El camino de los Eternos](mapas/index.html)**: tres fases panorámicas, entradas manuales al castillo y al laboratorio, y una zona reservada para un puzzle. [Documentación y controles](mapas/README.md).
+La demo ya recorre los nuevos mapas de **El camino de los Eternos**. La antigua plaza de pruebas, sus maniquíes y su cartel de entrenamiento se sustituyen por tres fases: calles y parques, castillo de los Eternos y laboratorio de ADN de Diamante. Cada fase tiene cámara lateral continua, suelo transitable, paredes y objetos con colisiones por sus pies. El archivo conserva su alcoba para un puzzle y el laboratorio su arena final; los enemigos y el jefe se añadirán después.
+
+Al llegar a una entrada, pulsa **E** o el botón para pasar a la siguiente fase. La transformación, la vida, la energía, la experiencia y las mejoras se conservan. Los proyectiles, venenos y acciones de la zona anterior se limpian. El final del laboratorio permite volver al inicio del recorrido.
 
 V33 simplifica las conexiones de los árboles y añade poses dibujadas para las 70 técnicas de los diez aliens. Conserva los sprites originales de movimiento y ataques básicos, el escenario y el cómic.
 
@@ -11,6 +13,7 @@ Extrae toda la carpeta y abre [index.html](index.html) en Chrome, Edge o Firefox
 | Acción | Control |
 | --- | --- |
 | Moverse | WASD / flechas |
+| Entrar al castillo / laboratorio | E o botón de entrada |
 | Ataque leve / fuerte | Clic izquierdo / derecho |
 | Dash | Espacio |
 | Omnitrix y elección | R, después 1–9 o 0 |
@@ -49,3 +52,13 @@ La coreografía implementa agarres y caídas reales, desplazamientos barridos, �
 - `npm run test:legacy`: pruebas históricas; algunas expectativas de interfaz y balance pertenecen a versiones anteriores.
 
 Los sistemas de V33 están en `systems/skill-choreography-v33.js` y `systems/skill-effects-v33.js`. La interfaz y progresión siguen en `systems/evolution-v32.js`; el nombre se conserva para mantener las herramientas existentes.
+
+## Mapas y colisiones
+
+`systems/campaign-world.js` comparte la geometría entre caminar, dash, XLR8, Cannonbolt, intangibilidad, desplazamientos de técnicas y proyectiles. Examina el segmento completo para detener movimientos rápidos ante obstáculos o pasos estrechos. El tamaño del suelo y la cámara se mantienen al transformarse; Ben y los aliens conservan sus proporciones originales. El ratón tiene en cuenta las bandas de encuadre y la densidad de la pantalla.
+
+- `npm run build:campaign`: incrusta los módulos de combate y los nuevos mapas en el HTML.
+- `npm run test:campaign`: comprueba la geometría y recorre las tres fases en Chromium con los diez aliens.
+- `npm run package:campaign`: prepara la demo PC completa en `/workspace/outputs`.
+
+El [visor de arte](mapas/index.html) y la [documentación de capas](mapas/README.md) siguen disponibles para revisar los fondos por separado. El juego utiliza esos mismos panoramas.

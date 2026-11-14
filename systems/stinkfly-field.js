@@ -3,7 +3,7 @@
  'use strict';
  const config=Object.freeze({spitDamage:5,spitSpeed:520,spitRange:130,spitRadius:3,tailDamage:42,tailReach:130,poolRadius:62,poolDepth:34,poolDuration:4.2,poisonDamage:6,poisonInterval:.45,globSpeed:380});
  const orders=Object.freeze([[0,3,1,2],[2,1,3,0],[1,0,2,3]]);
- function blocked(a,b,obstacles=[]){return obstacles.some(p=>p.block&&Fire.circleEntry(a.x,a.y,b.x-a.x,b.y-a.y,p.x,p.y,p.r)!==null);}
+ function blocked(a,b,obstacles=[],world=null){if(world?.clipSegment)return world.clipSegment(a,b,0,world).blocked;return obstacles.some(p=>p.block&&Fire.circleEntry(a.x,a.y,b.x-a.x,b.y-a.y,p.x,p.y,p.r)!==null);}
  class SlimeField{
   constructor(){this.shots=[];this.pools=[];this.bursts=new Set();this.serial=0;this.burstSerial=0;this.time=0;}
   clear(){this.shots=[];this.pools=[];this.bursts.clear();this.time=0;}
@@ -26,9 +26,10 @@
    for(const s of shots){
     const wait=Math.min(dt,s.delay||0),elapsed=dt-wait;s.delay=Math.max(0,(s.delay||0)-dt);if(elapsed<=0){this.shots.push(s);continue;}
     const travel=Math.min(s.remaining,s.speed*elapsed),dx=s.dx*travel,dy=s.dy*travel;let entry=1,target=null,reason=null;
-    for(const p of obstacles){if(!p.block)continue;const hit=Fire.circleEntry(s.x,s.y,dx,dy,p.x,p.y,p.r+s.radius);if(hit!==null&&hit<=entry){entry=hit;reason='wall';target=null;}}
+    if(world.clipSegment){const clip=world.clipSegment(s,{x:s.x+dx,y:s.y+dy},s.radius,world);if(clip.blocked){entry=clip.fraction;reason='wall';}}
+    for(const p of obstacles){if(!p.block||(world.clipSegment&&p.mapFootprint))continue;const hit=Fire.circleEntry(s.x,s.y,dx,dy,p.x,p.y,p.r+s.radius);if(hit!==null&&hit<=entry){entry=hit;reason='wall';target=null;}}
     if(s.kind==='spit')for(const d of targets){if(!d.alive)continue;const hit=Fire.circleEntry(s.x,s.y,dx,dy,d.x,d.y,18+s.radius);if(hit!==null&&(hit<entry||(hit===entry&&!reason))){entry=hit;target=d;reason='target';}}
-    const limits=[[s.x,dx,110+s.radius,width-95-s.radius],[s.y,dy,85+s.radius,height-95-s.radius]];
+    const limits=world.clipSegment?[]:[[s.x,dx,110+s.radius,width-95-s.radius],[s.y,dy,85+s.radius,height-95-s.radius]];
     for(const [position,delta,min,max] of limits){
      if(position<min||position>max){entry=0;target=null;reason='edge';break;}
      const hit=delta>0?(max-position)/delta:delta<0?(min-position)/delta:Infinity;
@@ -48,7 +49,7 @@
     if(until<from)continue;
     for(const d of targets){
      const grow=Math.min(1,Math.max(0,(until-p.born)/.16));
-     const inside=d.alive&&((d.x-p.x)/(p.radius*grow+8))**2+((d.y-p.y)/(p.depth*grow+5))**2<=1&&!blocked(p,d,obstacles);
+     const inside=d.alive&&((d.x-p.x)/(p.radius*grow+8))**2+((d.y-p.y)/(p.depth*grow+5))**2<=1&&!blocked(p,d,obstacles,world);
      if(!inside){p.next.delete(d);continue;}
      let next=p.next.has(d)?p.next.get(d):from;
      while(d.alive&&next<=until+1e-8&&next<p.born+p.duration-1e-8){onPoison(d,config.poisonDamage,p);next+=config.poisonInterval;}

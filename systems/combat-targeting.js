@@ -15,6 +15,7 @@ function combatTargetPolicy(form,skill){
 }
 function combatPointerWorld(){
  if(!pointer.active||typeof cam==='undefined')return null;
+ if(typeof campaignPointerWorld==='function')return campaignPointerWorld(pointer.x/dpr,pointer.y/dpr);
  return {x:cam.x+pointer.x/(dpr*cam.zoom),y:cam.y+pointer.y/(dpr*cam.zoom)};
 }
 function combatAimScore(c,d){
@@ -66,7 +67,7 @@ function combatTargetInReach(c){
  if(c.captured)return true;
  return dist(c.x,c.y,d.x,d.y)<=c.targetRange&&(!c.aim||dist(c.aim.x,c.aim.y,d.x,d.y)<=75);
 }
-function combatGroundPoint(c,fallback=100){return c.aim?{...c.aim}:{x:c.x+c.dx*fallback,y:c.y+c.dy*fallback};}
+function combatGroundPoint(c,fallback=100){const end=c.aim?{...c.aim}:{x:c.x+c.dx*fallback,y:c.y+c.dy*fallback};return Ben10Speed.clipSegment({x:c.x,y:c.y},end,speedWorld(),0).end;}
 function combatGroundStep(c,k,count,fallback){
  const end=combatGroundPoint(c,fallback),q=(k+1)/count;
  return {x:lerp(c.x,end.x,q),y:lerp(c.y,end.y,q)};

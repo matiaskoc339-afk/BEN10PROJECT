@@ -13,6 +13,7 @@
  }
  function clipSegment(a,b,world={},radius=config.radius){
   if(!finite(a)||!finite(b))throw new Error('Invalid route point');
+  if(world.clipSegment)return world.clipSegment(a,b,radius,world);
   let fraction=1;
   const bounds=world.bounds||{minX:110+radius,minY:85+radius,maxX:(world.width||2400)-95-radius,maxY:(world.height||1800)-95-radius};
   for(const [start,end,min,max] of [[a.x,b.x,bounds.minX,bounds.maxX],[a.y,b.y,bounds.minY,bounds.maxY]]){

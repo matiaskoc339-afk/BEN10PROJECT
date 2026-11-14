@@ -28,8 +28,8 @@ test('foreground props have physical foot bounds, rather than blocking their who
 test('each ambient loop has genuine distinct authored frames',()=>{
  for(const family of Object.values(data.props))for(const clip of family.animations){const hashes=new Set(clip.frames.map(f=>crypto.createHash('sha256').update(fs.readFileSync(root+'/mapas/'+f.file)).digest('hex')));assert.ok(hashes.size>=4);}
 });
-test('creating this map pack leaves the combat demo unchanged',()=>{
- const ref=JSON.parse(fs.readFileSync(root+'/mapas/data/demo-reference.json'));assert.equal(crypto.createHash('sha256').update(fs.readFileSync(root+'/index.html')).digest('hex'),ref.sha256);
+test('the game embeds the same three-phase art catalogue as the independent map viewer',()=>{
+ const html=fs.readFileSync(root+'/index.html','utf8'),match=html.match(/window\.BEN10_CAMPAIGN_DATA=(\{[^\n]+\});<\/script>/);assert.ok(match);assert.deepEqual(JSON.parse(match[1]),data);
 });
 test('three long panoramas have few registered joins and a reserved puzzle',()=>{
  assert.ok(new Set(data.rooms.map(r=>r.walkBottom)).size>=2);

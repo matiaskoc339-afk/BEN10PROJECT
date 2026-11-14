@@ -1,11 +1,11 @@
 {
   "name": "ben10-demo",
-  "version": "0.33.1",
+  "version": "0.34.0",
   "private": true,
-  "description": "Demo PC V33.1: selección contextual de objetivos y aviso de energía en el reloj.",
+  "description": "Demo PC V34: calles, castillo y laboratorio integrados con colisiones y entradas manuales.",
   "scripts": {
     "start": "python3 -m http.server 8000 --bind 0.0.0.0",
-    "test": "npm run test:evolution && npm run test:art && npm run test:browser && npm run test:render && npm run test:targeting",
+    "test": "npm run test:evolution && npm run test:art && npm run test:browser && npm run test:render && npm run test:targeting && npm run test:campaign",
     "test:stats": "node --test tests/stats.test.cjs",
     "test:browser": "node tests/evolution-v32-browser.cjs",
     "test:cannon": "node --test tests/cannonbolt-physics.test.cjs",
@@ -46,7 +46,10 @@
     "test:targeting": "node tests/combat-targeting-browser.cjs",
     "build:maps": "python3 scripts/build-map-pack.py",
     "test:maps": "node --test tests/map-pack.test.cjs && npm run test:maps:browser",
-    "test:maps:browser": "node tests/map-pack-browser.cjs"
+    "test:maps:browser": "node tests/map-pack-browser.cjs",
+    "build:campaign": "node scripts/embed-evolution.cjs && node scripts/embed-campaign.cjs",
+    "test:campaign": "node --test tests/campaign-world.test.cjs && node tests/campaign-browser.cjs",
+    "package:campaign": "python3 scripts/package-campaign.py"
   },
   "devDependencies": {
     "playwright": "1.62.1"

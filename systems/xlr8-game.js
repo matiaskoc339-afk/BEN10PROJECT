@@ -1,7 +1,7 @@
 // Embedded inside the game closure; geometry lives in speed-route.js.
 const speedGuide=document.getElementById('speedGuide'),speedGuideTitle=document.getElementById('speedGuideTitle'),speedGuideHint=document.getElementById('speedGuideHint'),speedGuideFill=document.getElementById('speedGuideFill');
-function speedWorld(){return {width:WORLD.w,height:WORLD.h,obstacles:props}}
-function speedPointerWorld(event){const r=game.getBoundingClientRect();return {x:cam.x+(event.clientX-r.left)*screenW/r.width/cam.zoom,y:cam.y+(event.clientY-r.top)*screenH/r.height/cam.zoom}}
+function speedWorld(){return campaignPhysicsWorld();}
+function speedPointerWorld(event){const r=game.getBoundingClientRect();return campaignPointerWorld((event.clientX-r.left)*screenW/r.width,(event.clientY-r.top)*screenH/r.height);}
 function releaseSpeedCapture(){
  const target=speedAction.capture,id=speedAction.pointerId;speedAction.capture=null;speedAction.pointerId=null;
  try{if(target?.hasPointerCapture?.(id))target.releasePointerCapture(id);}catch{}

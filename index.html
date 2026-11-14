@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="theme-color" content="#101b17" />
-<title>Ben 10 — V33.1 · Objetivos de combo</title>
+<title>Ben 10 — V34 · El camino de los Eternos</title>
 <style>
 :root { color-scheme: dark; --green:#aaff55; --forest:#1c2e25; --edge:#6dc94a; --ink:#0b100e; }
 * { box-sizing:border-box;  }
@@ -39,7 +39,6 @@ button { font-family:inherit; cursor:pointer; }
 
 #toast { position:fixed; left:50%; top:calc(min(590px,100vw - 28px) * .354 + 24px); transform:translate(-50%,-9px); padding:13px 20px; background:#0f241bee; border:1px solid #85e456; color:#f1ffe7; font:800 13px Consolas,monospace; text-shadow:1px 1px #111; letter-spacing:1px; box-shadow:0 5px 40px #000a; border-radius:5px; opacity:0; pointer-events:none; transition:opacity .17s, transform .17s; white-space:nowrap; max-width:90vw; overflow:hidden; text-overflow:ellipsis; }
 #toast.show { opacity:1; transform:translate(-50%,0); }
-#enemyCount { position:fixed; right:20px; top:20px; font:700 11px Consolas,monospace; color:#c3dcbd; background:#0a1811a8; padding:8px 11px; border:1px solid #3b6242; border-radius:6px; pointer-events:none; }
 #combo { position:fixed; bottom:83px; right:22px; font:1000 18px Consolas,monospace; letter-spacing:1px; color:#d5f9a0; text-shadow:2px 3px #000; opacity:0; transition:opacity .12s; pointer-events:none; }
 #combo.show { opacity:1; }
 #wheelLayer { position:fixed; inset:0; background:radial-gradient(circle at center,#0c1f1980,#010704dd); display:none; justify-content:center; align-items:center; z-index:15;  }
@@ -55,7 +54,7 @@ body.wheel-active #hud * { animation-play-state:paused!important; }
 #wheelTitle { position:fixed; top:max(25px,7vh); left:50%; transform:translateX(-50%); text-align:center; color:#eaffd6; font:900 27px/1.1 Consolas,monospace; text-shadow:2px 3px #000; letter-spacing:2px; white-space:nowrap; }
 #wheelTitle small { display:block; margin-top:10px; color:#b7e9ab; letter-spacing:1px; font:bold 12px Consolas,monospace; }
 #wheelClose { position:fixed; top:24px; right:24px; border:1px solid #628863; background:#18251d; color:#d6f7c9; padding:9px 13px; border-radius:5px; font:700 12px Consolas,monospace; }
-@media (max-height:600px) and (min-width:620px) { #hud{width:min(420px,45vw);top:5px;left:6px;} #enemyCount{top:10px;right:10px;} #toast{top:calc(min(420px,45vw) * .354 + 20px);max-width:65vw;}  }
+@media (max-height:600px) and (min-width:620px) { #hud{width:min(420px,45vw);top:5px;left:6px;}  #toast{top:calc(min(420px,45vw) * .354 + 20px);max-width:65vw;}  }
 @media (max-height:540px) {  .wheel-wrap{width:min(69vh,450px);height:auto;} #wheelTitle{top:10px;font-size:18px;} }
 #speedGuide{position:fixed;z-index:19;bottom:94px;left:50%;transform:translateX(-50%);width:min(560px,88vw);padding:12px 16px;background:#071b29ed;border:1px solid #6edcff;border-radius:7px;text-align:center;pointer-events:none;color:#c4f5ff;font:700 12px Consolas,monospace;box-shadow:0 4px 20px #00121b80}
 #speedGuide[hidden]{display:none}#speedGuideTitle{font-size:15px;margin-bottom:6px}#speedGuideHint{font-size:11px;line-height:1.4;color:#95c9dd}.speed-timer{height:5px;background:#193f52;margin-top:9px;overflow:hidden}#speedGuideFill{height:100%;background:#8ae9ff;transform-origin:left}
@@ -145,15 +144,19 @@ body.wheel-active #hud * { animation-play-state:paused!important; }
 
 
 
-body.comic-active #hud,body.comic-active #enemyCount,body.comic-active #combo,body.comic-active #help,body.comic-active #wheelLayer,body.comic-active #toast{visibility:hidden;pointer-events:none}
+body.comic-active #hud,body.comic-active #combo,body.comic-active #help,body.comic-active #wheelLayer,body.comic-active #toast{visibility:hidden;pointer-events:none}
 #comicIntro{position:fixed;inset:0;z-index:120;display:grid;place-items:center;background:#fff;color:#253225}
 #comicIntro[hidden]{display:none}#comicCanvas{width:100%;height:100%;object-fit:contain;cursor:pointer;display:block}
 .comic-tap{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);font:600 13px 'Trebuchet MS',sans-serif;color:#29352c;background:#fffffff0;padding:7px 17px;border-radius:24px;pointer-events:none;box-shadow:0 1px 8px #0001}
 #comicStatus{position:absolute;inset:0;display:grid;place-items:center;font:14px Consolas;color:#60725e}#comicStatus[hidden]{display:none}
+/* CAMPAIGN_STYLE_START */
+#campaignStatus{position:fixed;right:26px;top:24px;z-index:4;min-width:205px;padding:13px 16px;background:#101f1ddd;border:1px solid #91b77d5c;border-radius:5px;pointer-events:none;box-shadow:0 6px 30px #0003}#campaignStatus>span{display:block;font:9px Consolas,monospace;letter-spacing:2px;color:#b9d89a}#campaignStatus strong{display:block;font-size:14px;margin:7px 0 11px;font-weight:600;color:#e5eeda}#campaignStatus>div{height:3px;background:#3b4d3f;overflow:hidden}#campaignProgress{display:block;width:0;height:100%;background:#b5d98e}#campaignExit{position:fixed;left:28px;bottom:60px;z-index:7;width:294px;padding:20px;background:#10211ef5;border:1px solid #a7c487;border-radius:6px;box-shadow:0 12px 40px #0005}#campaignExit[hidden]{display:none}#campaignExit>span{font:9px Consolas,monospace;letter-spacing:2px;color:#c9e4a9}#campaignExit h2{font-size:20px;margin:10px 0 18px}#campaignEnter{display:flex;align-items:center;gap:11px;width:100%;padding:10px 12px;background:#cde7aa;border:0;border-radius:4px;color:#17291d;font:12px 'Trebuchet MS',sans-serif}#campaignEnter kbd{padding:3px 6px;border:1px solid #77965f;border-radius:3px;font:11px Consolas,monospace}#campaignEnter b{margin-left:auto}#campaignEnter:disabled{opacity:.55;cursor:default}#campaignEnter:focus-visible{outline:2px solid white;outline-offset:4px}.comic-active #campaignStatus,.comic-active #campaignExit,.wheel-active #campaignExit{display:none}body:has(#evolutionLayer.open) #campaignExit,body:has(#demoAdminLayer.open) #campaignExit{display:none}#vignette{background:radial-gradient(ellipse at 50% 42%,transparent 65%,rgba(3,11,9,.13) 100%)}
+
+/* CAMPAIGN_STYLE_END */
 </style>
 </head>
 <body>
-<canvas id="game" aria-label="Campo de pruebas jugable"></canvas>
+<canvas id="game" aria-label="Recorrido jugable: calles, castillo y laboratorio"></canvas>
 <div id="vignette"></div>
 <div id="hud" aria-label="Estado del jugador">
  <svg id="hudArtwork" viewBox="0 0 650 230" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" shape-rendering="crispEdges">
@@ -282,7 +285,13 @@ body.comic-active #hud,body.comic-active #enemyCount,body.comic-active #combo,bo
  <div id="xpGauge" class="sr-only" role="progressbar" aria-label="Experiencia para el siguiente nivel" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
 </div>
 
-<div id="enemyCount">ENTRENAMIENTO · OBJETIVOS: <span id="count">0</span></div>
+<!-- CAMPAIGN_UI_START -->
+<aside id="campaignStatus" aria-label="Progreso del nivel"><span id="campaignPhase">FASE 1 / 3</span><strong id="campaignPlace">Calles y parques</strong><div><i id="campaignProgress"></i></div></aside>
+<section id="campaignExit" aria-label="Salida de la zona" hidden>
+ <span id="campaignExitLabel">ENTRADA DEL CASTILLO</span><h2 id="campaignExitTitle">Castillo de los Eternos</h2>
+ <button id="campaignEnter" type="button"><kbd>E</kbd><span>Entrar al castillo</span><b>→</b></button>
+</section>
+<!-- CAMPAIGN_UI_END -->
 <div id="combo"></div>
 
 <div id="speedGuide" hidden role="status" aria-live="polite"><div id="speedGuideTitle"></div><div id="speedGuideHint"></div><div class="speed-timer"><div id="speedGuideFill"></div></div></div>
@@ -622,26 +631,27 @@ body.comic-active #hud,body.comic-active #enemyCount,body.comic-active #combo,bo
   class ProjectileField{
     constructor(){this.shots=[];this.serial=0;}
     clear(){this.shots=[];}
-    launch({x,y,dx,dy,special=false,kind='fire',attackScale=1}){
+    launch({x,y,dx,dy,special=false,kind='fire'}){
       const length=Math.hypot(dx,dy);
       if(!length||![x,y,dx,dy].every(Number.isFinite))throw new Error('Invalid fireball direction');
       if(!['fire','crystal'].includes(kind))throw new Error('Unknown projectile kind');
-      if(!Number.isFinite(attackScale)||attackScale<0)throw new Error('Invalid projectile attack scale');
       const crystal=kind==='crystal';
-      const shot={id:++this.serial,x,y,dx:dx/length,dy:dy/length,special:!!special,kind,attackScale,
+      const shot={id:++this.serial,x,y,dx:dx/length,dy:dy/length,special:!!special,kind,
         speed:crystal?(special?500:600):(special?460:510),radius:crystal?(special?13:7):(special?12:8),damage:crystal?(special?72:28):(special?70:32),
         splash:special?(crystal?95:86):0,remaining:crystal?(special?680:640):(special?680:620),age:0};
       this.shots.push(shot);return shot;
     }
-    tick(dt,{targets=[],obstacles=[],width=2400,height=1800},onImpact){
+    tick(dt,world,onImpact){
+      const {targets=[],obstacles=[],width=2400,height=1800}=world;
       if(!Number.isFinite(dt)||dt<=0)return;
       const current=this.shots;this.shots=[];
       for(const shot of current){
         const travel=Math.min(shot.remaining,shot.speed*dt),dx=shot.dx*travel,dy=shot.dy*travel;
         let entry=1,target=null,reason=null;
+        if(world.clipSegment){const clip=world.clipSegment(shot,{x:shot.x+dx,y:shot.y+dy},shot.radius,world);if(clip.blocked){entry=clip.fraction;reason='wall';}}
         // A solid at the same distance wins over a target behind it.
         for(const prop of obstacles){
-          if(!prop.block)continue;
+          if(!prop.block||(world.clipSegment&&prop.mapFootprint))continue;
           const hit=circleEntry(shot.x,shot.y,dx,dy,prop.x,prop.y,prop.r+shot.radius);
           if(hit!==null&&hit<=entry){entry=hit;target=null;reason='wall';}
         }
@@ -682,6 +692,7 @@ body.comic-active #hud,body.comic-active #enemyCount,body.comic-active #combo,bo
  }
  function clipSegment(a,b,world={},radius=config.radius){
   if(!finite(a)||!finite(b))throw new Error('Invalid route point');
+  if(world.clipSegment)return world.clipSegment(a,b,radius,world);
   let fraction=1;
   const bounds=world.bounds||{minX:110+radius,minY:85+radius,maxX:(world.width||2400)-95-radius,maxY:(world.height||1800)-95-radius};
   for(const [start,end,min,max] of [[a.x,b.x,bounds.minX,bounds.maxX],[a.y,b.y,bounds.minY,bounds.maxY]]){
@@ -780,7 +791,7 @@ body.comic-active #hud,body.comic-active #enemyCount,body.comic-active #combo,bo
   const pull=t<config.releaseTime?smooth((t-config.grabTime)/(config.pullEnd-config.grabTime)):1-smooth((t-config.releaseTime)/(config.releaseEnd-config.releaseTime));
   return {frame,pull};
  }
- function bounds(point,world,radius=config.radius){return {x:Math.max(110+radius,Math.min(world.width-95-radius,point.x)),y:Math.max(85+radius,Math.min(world.height-95-radius,point.y))};}
+ function bounds(point,world,radius=config.radius){if(world.clampPoint)return world.clampPoint(point,radius)||point;return {x:Math.max(110+radius,Math.min(world.width-95-radius,point.x)),y:Math.max(85+radius,Math.min(world.height-95-radius,point.y))};}
  function safeLanding(origin,fallback,isBlocked,world){
   const start=bounds(origin,world);if(!isBlocked(start.x,start.y))return start;
   for(let radius=8;radius<=240;radius+=8)for(let i=0;i<32;i++){
@@ -801,7 +812,7 @@ body.comic-active #hud,body.comic-active #enemyCount,body.comic-active #combo,bo
  'use strict';
  const config=Object.freeze({spitDamage:5,spitSpeed:520,spitRange:130,spitRadius:3,tailDamage:42,tailReach:130,poolRadius:62,poolDepth:34,poolDuration:4.2,poisonDamage:6,poisonInterval:.45,globSpeed:380});
  const orders=Object.freeze([[0,3,1,2],[2,1,3,0],[1,0,2,3]]);
- function blocked(a,b,obstacles=[]){return obstacles.some(p=>p.block&&Fire.circleEntry(a.x,a.y,b.x-a.x,b.y-a.y,p.x,p.y,p.r)!==null);}
+ function blocked(a,b,obstacles=[],world=null){if(world?.clipSegment)return world.clipSegment(a,b,0,world).blocked;return obstacles.some(p=>p.block&&Fire.circleEntry(a.x,a.y,b.x-a.x,b.y-a.y,p.x,p.y,p.r)!==null);}
  class SlimeField{
   constructor(){this.shots=[];this.pools=[];this.bursts=new Set();this.serial=0;this.burstSerial=0;this.time=0;}
   clear(){this.shots=[];this.pools=[];this.bursts.clear();this.time=0;}
@@ -824,9 +835,10 @@ body.comic-active #hud,body.comic-active #enemyCount,body.comic-active #combo,bo
    for(const s of shots){
     const wait=Math.min(dt,s.delay||0),elapsed=dt-wait;s.delay=Math.max(0,(s.delay||0)-dt);if(elapsed<=0){this.shots.push(s);continue;}
     const travel=Math.min(s.remaining,s.speed*elapsed),dx=s.dx*travel,dy=s.dy*travel;let entry=1,target=null,reason=null;
-    for(const p of obstacles){if(!p.block)continue;const hit=Fire.circleEntry(s.x,s.y,dx,dy,p.x,p.y,p.r+s.radius);if(hit!==null&&hit<=entry){entry=hit;reason='wall';target=null;}}
+    if(world.clipSegment){const clip=world.clipSegment(s,{x:s.x+dx,y:s.y+dy},s.radius,world);if(clip.blocked){entry=clip.fraction;reason='wall';}}
+    for(const p of obstacles){if(!p.block||(world.clipSegment&&p.mapFootprint))continue;const hit=Fire.circleEntry(s.x,s.y,dx,dy,p.x,p.y,p.r+s.radius);if(hit!==null&&hit<=entry){entry=hit;reason='wall';target=null;}}
     if(s.kind==='spit')for(const d of targets){if(!d.alive)continue;const hit=Fire.circleEntry(s.x,s.y,dx,dy,d.x,d.y,18+s.radius);if(hit!==null&&(hit<entry||(hit===entry&&!reason))){entry=hit;target=d;reason='target';}}
-    const limits=[[s.x,dx,110+s.radius,width-95-s.radius],[s.y,dy,85+s.radius,height-95-s.radius]];
+    const limits=world.clipSegment?[]:[[s.x,dx,110+s.radius,width-95-s.radius],[s.y,dy,85+s.radius,height-95-s.radius]];
     for(const [position,delta,min,max] of limits){
      if(position<min||position>max){entry=0;target=null;reason='edge';break;}
      const hit=delta>0?(max-position)/delta:delta<0?(min-position)/delta:Infinity;
@@ -846,7 +858,7 @@ body.comic-active #hud,body.comic-active #enemyCount,body.comic-active #combo,bo
     if(until<from)continue;
     for(const d of targets){
      const grow=Math.min(1,Math.max(0,(until-p.born)/.16));
-     const inside=d.alive&&((d.x-p.x)/(p.radius*grow+8))**2+((d.y-p.y)/(p.depth*grow+5))**2<=1&&!blocked(p,d,obstacles);
+     const inside=d.alive&&((d.x-p.x)/(p.radius*grow+8))**2+((d.y-p.y)/(p.depth*grow+5))**2<=1&&!blocked(p,d,obstacles,world);
      if(!inside){p.next.delete(d);continue;}
      let next=p.next.has(d)?p.next.get(d):from;
      while(d.alive&&next<=until+1e-8&&next<p.born+p.duration-1e-8){onPoison(d,config.poisonDamage,p);next+=config.poisonInterval;}
@@ -975,6 +987,178 @@ body.comic-active #hud,body.comic-active #enemyCount,body.comic-active #combo,bo
 
 </script>
 <!-- UPGRADE_ABILITIES_END -->
+<!-- CAMPAIGN_MODULES_START -->
+<script>window.BEN10_CAMPAIGN_DATA={"version":3,"title":"El camino de los Eternos","width":21766,"height":360,"sceneWidth":640,"connectorWidth":0,"chapterGap":128,"chapters":[{"id":"ciudad","name":"Calles y parques","subtitle":"Bellwood · de la ciudad a la fortaleza","color":"#b8dc8f","start":0,"count":12,"entry":"Entrar al castillo","x":0,"end":8839,"segments":[{"x":0,"width":3269,"height":360,"overlap":0,"image":"assets/phases/ciudad/01-completo.png","wall":"assets/phases/ciudad/01-pared.png","floor":"assets/phases/ciudad/01-suelo.png"},{"x":3205,"width":2798,"height":360,"overlap":64,"image":"assets/phases/ciudad/02-completo.png","wall":"assets/phases/ciudad/02-pared.png","floor":"assets/phases/ciudad/02-suelo.png"},{"x":5939,"width":2900,"height":360,"overlap":64,"image":"assets/phases/ciudad/03-completo.png","wall":"assets/phases/ciudad/03-pared.png","floor":"assets/phases/ciudad/03-suelo.png"}]},{"id":"castillo","name":"Castillo de los Eternos","subtitle":"Patios, murallas y pasadizos","color":"#e5b27d","start":12,"count":10,"entry":"Entrar al laboratorio","x":8967,"end":17607,"segments":[{"x":8967,"width":2244,"height":360,"overlap":0,"image":"assets/phases/castillo/01-completo.png","wall":"assets/phases/castillo/01-pared.png","floor":"assets/phases/castillo/01-suelo.png"},{"x":11147,"width":3255,"height":360,"overlap":64,"image":"assets/phases/castillo/02-completo.png","wall":"assets/phases/castillo/02-pared.png","floor":"assets/phases/castillo/02-suelo.png"},{"x":14338,"width":3269,"height":360,"overlap":64,"image":"assets/phases/castillo/03-completo.png","wall":"assets/phases/castillo/03-pared.png","floor":"assets/phases/castillo/03-suelo.png"}]},{"id":"laboratorio","name":"El ADN de Diamante","subtitle":"Contención petrosapien · laboratorio principal","color":"#8cddd0","start":22,"count":6,"entry":null,"x":17735,"end":21766,"segments":[{"x":17735,"width":2170,"height":360,"overlap":0,"image":"assets/phases/laboratorio/01-completo.png","wall":"assets/phases/laboratorio/01-pared.png","floor":"assets/phases/laboratorio/01-suelo.png"},{"x":19841,"width":1925,"height":360,"overlap":64,"image":"assets/phases/laboratorio/02-completo.png","wall":"assets/phases/laboratorio/02-pared.png","floor":"assets/phases/laboratorio/02-suelo.png"}]}],"rooms":[{"id":"01","index":0,"name":"El barrio de Ben","subtitle":"A · Calle residencial","chapter":"ciudad","x":0,"width":962,"height":360,"sourceFloorY":208,"floorY":208,"walkTop":226,"walkBottom":342,"elevation":0,"material":"asfalto","exit":"calle","sourceSheet":"assets/source/fase-ciudad.png","sourceCell":0,"wall":"assets/ciudad/01-pared.png","floor":"assets/ciudad/01-suelo.png","image":"assets/ciudad/01-completo.png","props":[{"name":"farola","x":113,"y":214,"height":78,"behind":true,"collider":null},{"name":"banco","x":706,"y":214,"height":35,"behind":true,"collider":null},{"name":"arbol","x":857,"y":355,"height":170,"behind":false,"collider":{"rx":13,"ry":7}},{"name":"papelera","x":774,"y":216,"height":29,"behind":true,"mounted":false}],"ambient":[{"kind":"leaves","seed":5}],"connection":null},{"id":"02","index":1,"name":"La esquina comercial","subtitle":"Café y lavandería","chapter":"ciudad","x":962,"width":640,"height":360,"sourceFloorY":208,"floorY":208,"walkTop":226,"walkBottom":342,"elevation":0,"material":"asfalto","exit":"calle","sourceSheet":"assets/source/fase-ciudad.png","sourceCell":1,"wall":"assets/ciudad/02-pared.png","floor":"assets/ciudad/02-suelo.png","image":"assets/ciudad/02-completo.png","props":[{"name":"farola","x":75,"y":214,"height":78,"behind":true,"collider":null},{"name":"banco","x":470,"y":214,"height":35,"behind":true,"collider":null},{"name":"jardinera","x":565,"y":340,"height":34,"behind":false,"collider":{"rx":18,"ry":7}},{"name":"hidrante","x":126,"y":217,"height":28,"behind":true,"mounted":false}],"ambient":[{"kind":"leaves","seed":22}],"connection":null},{"id":"03","index":2,"name":"La calle en obras","subtitle":"Un paso junto al parque","chapter":"ciudad","x":1602,"width":802,"height":360,"sourceFloorY":208,"floorY":208,"walkTop":226,"walkBottom":342,"elevation":0,"material":"asfalto","exit":"sendero","sourceSheet":"assets/source/fase-ciudad.png","sourceCell":2,"wall":"assets/ciudad/03-pared.png","floor":"assets/ciudad/03-suelo.png","image":"assets/ciudad/03-completo.png","props":[{"name":"farola","x":94,"y":214,"height":78,"behind":true,"collider":null},{"name":"obras","x":608,"y":213,"height":34,"behind":true,"collider":null},{"name":"jardinera","x":708,"y":340,"height":34,"behind":false,"collider":{"rx":18,"ry":7}},{"name":"papelera","x":664,"y":216,"height":29,"behind":true,"mounted":false}],"ambient":[{"kind":"leaves","seed":39}],"connection":null},{"id":"04","index":3,"name":"Puerta del parque","subtitle":"Hierro, piedra y follaje","chapter":"ciudad","x":2404,"width":801,"height":360,"sourceFloorY":208,"floorY":208,"walkTop":226,"walkBottom":342,"elevation":0,"material":"adoquin","exit":"arbol","sourceSheet":"assets/source/fase-ciudad.png","sourceCell":3,"wall":"assets/ciudad/04-pared.png","floor":"assets/ciudad/04-suelo.png","image":"assets/ciudad/04-completo.png","props":[{"name":"farola","x":94,"y":214,"height":78,"behind":true,"collider":null},{"name":"banco","x":588,"y":214,"height":35,"behind":true,"collider":null},{"name":"arbol","x":713,"y":355,"height":170,"behind":false,"collider":{"rx":13,"ry":7}},{"name":"jardinera","x":194,"y":215,"height":28,"behind":true,"mounted":false}],"ambient":[{"kind":"leaves","seed":56}],"connection":null},{"id":"05","index":4,"name":"Estanque de los sauces","subtitle":"Pasarela y agua en movimiento","chapter":"ciudad","x":3205,"width":820,"height":360,"sourceFloorY":208,"floorY":208,"walkTop":226,"walkBottom":342,"elevation":0,"material":"madera","exit":"plaza","sourceSheet":"assets/source/fase-ciudad.png","sourceCell":4,"wall":"assets/ciudad/05-pared.png","floor":"assets/ciudad/05-suelo.png","image":"assets/ciudad/05-completo.png","props":[{"name":"water-loop","x":269,"y":213,"height":62,"animated":0,"behind":true},{"name":"farola","x":96,"y":214,"height":78,"behind":true,"collider":null},{"name":"banco","x":602,"y":214,"height":35,"behind":true,"collider":null},{"name":"arbol","x":730,"y":368,"height":170,"behind":false,"collider":{"rx":13,"ry":7}},{"name":"papelera","x":702,"y":217,"height":29,"behind":true,"mounted":false}],"ambient":[{"kind":"leaves","seed":73},{"kind":"water","x":487,"y":160,"width":180}],"connection":null},{"id":"06","index":5,"name":"Plaza del pabellón","subtitle":"Fuente y pérgola","chapter":"ciudad","x":4025,"width":766,"height":360,"sourceFloorY":208,"floorY":208,"walkTop":226,"walkBottom":342,"elevation":0,"material":"adoquin","exit":"ribera","sourceSheet":"assets/source/fase-ciudad.png","sourceCell":5,"wall":"assets/ciudad/06-pared.png","floor":"assets/ciudad/06-suelo.png","image":"assets/ciudad/06-completo.png","props":[{"name":"water-loop","x":586,"y":213,"height":62,"animated":0,"behind":true},{"name":"farola","x":90,"y":214,"height":78,"behind":true,"collider":null},{"name":"banco","x":563,"y":214,"height":35,"behind":true,"collider":null},{"name":"jardinera","x":676,"y":356,"height":34,"behind":false,"collider":{"rx":18,"ry":7}},{"name":"papelera","x":652,"y":217,"height":29,"behind":true,"mounted":false}],"ambient":[{"kind":"leaves","seed":90}],"connection":null},{"id":"07","index":6,"name":"Paseo del río","subtitle":"La ciudad se abre","chapter":"ciudad","x":4791,"width":601,"height":360,"sourceFloorY":208,"floorY":208,"walkTop":226,"walkBottom":342,"elevation":0,"material":"losas","exit":"calle","sourceSheet":"assets/source/fase-ciudad.png","sourceCell":6,"wall":"assets/ciudad/07-pared.png","floor":"assets/ciudad/07-suelo.png","image":"assets/ciudad/07-completo.png","props":[{"name":"farola","x":70,"y":214,"height":78,"behind":true,"collider":null},{"name":"banco","x":441,"y":214,"height":35,"behind":true,"collider":null},{"name":"arbol","x":535,"y":368,"height":170,"behind":false,"collider":{"rx":13,"ry":7}},{"name":"jardinera","x":432,"y":215,"height":30,"behind":true,"mounted":false}],"ambient":[{"kind":"leaves","seed":107}],"connection":null},{"id":"08","index":7,"name":"Plaza cívica","subtitle":"La última parada urbana","chapter":"ciudad","x":5392,"width":547,"height":360,"sourceFloorY":208,"floorY":208,"walkTop":226,"walkBottom":342,"elevation":0,"material":"losas","exit":"arco","sourceSheet":"assets/source/fase-ciudad.png","sourceCell":7,"wall":"assets/ciudad/08-pared.png","floor":"assets/ciudad/08-suelo.png","image":"assets/ciudad/08-completo.png","props":[{"name":"farola","x":64,"y":214,"height":78,"behind":true,"collider":null},{"name":"banco","x":402,"y":214,"height":35,"behind":true,"collider":null},{"name":"jardinera","x":483,"y":340,"height":34,"behind":false,"collider":{"rx":18,"ry":7}},{"name":"quiosco","x":94,"y":217,"height":88,"behind":true,"mounted":false}],"ambient":[{"kind":"leaves","seed":124}],"connection":null},{"id":"09","index":8,"name":"Barrio antiguo","subtitle":"Calles de otra época","chapter":"ciudad","x":5939,"width":1305,"height":360,"sourceFloorY":208,"floorY":208,"walkTop":226,"walkBottom":342,"elevation":0,"material":"empedrado","exit":"puente","sourceSheet":"assets/source/fase-ciudad.png","sourceCell":8,"wall":"assets/ciudad/09-pared.png","floor":"assets/ciudad/09-suelo.png","image":"assets/ciudad/09-completo.png","props":[{"name":"farola","x":153,"y":214,"height":78,"behind":true,"collider":null},{"name":"obras","x":989,"y":213,"height":34,"behind":true,"collider":null},{"name":"jardinera","x":1152,"y":340,"height":34,"behind":false,"collider":{"rx":18,"ry":7}},{"name":"jardinera","x":275,"y":216,"height":30,"behind":true,"mounted":false}],"ambient":[{"kind":"leaves","seed":141}],"connection":null},{"id":"10","index":9,"name":"Puente del canal","subtitle":"El castillo aparece al fondo","chapter":"ciudad","x":7244,"width":493,"height":360,"sourceFloorY":208,"floorY":208,"walkTop":226,"walkBottom":310,"elevation":0,"material":"piedra","exit":"camino","sourceSheet":"assets/source/fase-ciudad.png","sourceCell":9,"wall":"assets/ciudad/10-pared.png","floor":"assets/ciudad/10-suelo.png","image":"assets/ciudad/10-completo.png","props":[{"name":"farola","x":58,"y":214,"height":78,"behind":true,"collider":null},{"name":"baranda","x":347,"y":213,"height":40,"behind":true,"collider":null},{"name":"jardinera","x":435,"y":336,"height":34,"behind":false,"collider":{"rx":18,"ry":7}},{"name":"pilar","x":86,"y":215,"height":57,"behind":true,"mounted":false},{"name":"baranda","x":65,"y":336,"height":39,"behind":false,"collider":{"rx":69,"ry":5}},{"name":"baranda","x":200,"y":336,"height":39,"behind":false,"collider":{"rx":69,"ry":5}},{"name":"baranda","x":335,"y":336,"height":39,"behind":false,"collider":{"rx":69,"ry":5}},{"name":"baranda","x":470,"y":336,"height":39,"behind":false,"collider":{"rx":69,"ry":5}}],"ambient":[{"kind":"leaves","seed":158}],"connection":null},{"id":"11","index":10,"name":"Camino de la fortaleza","subtitle":"Laderas y muros antiguos","chapter":"ciudad","x":7737,"width":580,"height":360,"sourceFloorY":208,"floorY":208,"walkTop":226,"walkBottom":342,"elevation":0,"material":"grava","exit":"porton","sourceSheet":"assets/source/fase-ciudad.png","sourceCell":10,"wall":"assets/ciudad/11-pared.png","floor":"assets/ciudad/11-suelo.png","image":"assets/ciudad/11-completo.png","props":[{"name":"farola","x":68,"y":214,"height":78,"behind":true,"collider":null},{"name":"banco","x":426,"y":214,"height":35,"behind":true,"collider":null},{"name":"arbol","x":517,"y":355,"height":170,"behind":false,"collider":{"rx":13,"ry":7}},{"name":"jardinera","x":129,"y":216,"height":30,"behind":true,"mounted":false}],"ambient":[{"kind":"leaves","seed":175}],"connection":null},{"id":"12","index":11,"name":"El puente levadizo","subtitle":"Entrada a los Caballeros Eternos","chapter":"ciudad","x":8317,"width":522,"height":360,"sourceFloorY":208,"floorY":208,"walkTop":226,"walkBottom":342,"elevation":0,"material":"piedra","exit":"porton","sourceSheet":"assets/source/fase-ciudad.png","sourceCell":11,"wall":"assets/ciudad/12-pared.png","floor":"assets/ciudad/12-suelo.png","image":"assets/ciudad/12-completo.png","props":[{"name":"farola","x":61,"y":214,"height":78,"behind":true,"collider":null},{"name":"baranda","x":367,"y":213,"height":40,"behind":true,"collider":null},{"name":"jardinera","x":461,"y":340,"height":34,"behind":false,"collider":{"rx":18,"ry":7}},{"name":"portal","x":94,"y":214,"height":76,"behind":true,"mounted":false}],"ambient":[{"kind":"leaves","seed":192}],"connection":null},{"id":"13","index":12,"name":"Patio de la puerta","subtitle":"Dentro de la fortaleza","chapter":"castillo","x":8967,"width":436,"height":360,"sourceFloorY":208,"floorY":208,"walkTop":226,"walkBottom":342,"elevation":0,"material":"piedra","exit":"muralla","sourceSheet":"assets/source/fase-castillo.png","sourceCell":0,"wall":"assets/castillo/13-pared.png","floor":"assets/castillo/13-suelo.png","image":"assets/castillo/13-completo.png","props":[{"name":"escudo","x":67,"y":213,"height":48,"behind":true,"collider":null},{"name":"barril","x":347,"y":213,"height":42,"behind":true,"collider":null},{"name":"barril","x":395,"y":349,"height":52,"behind":false,"collider":{"rx":18,"ry":7}},{"name":"cajas","x":319,"y":216,"height":40,"behind":true,"mounted":false}],"ambient":[{"kind":"embers","x":422,"y":96,"seed":132}],"connection":null},{"id":"14","index":13,"name":"La muralla exterior","subtitle":"Cielo sobre las almenas","chapter":"castillo","x":9403,"width":545,"height":360,"sourceFloorY":208,"floorY":208,"walkTop":226,"walkBottom":310,"elevation":0,"material":"piedra","exit":"arco","sourceSheet":"assets/source/fase-castillo.png","sourceCell":1,"wall":"assets/castillo/14-pared.png","floor":"assets/castillo/14-suelo.png","image":"assets/castillo/14-completo.png","props":[{"name":"jardinera","x":81,"y":214,"height":50,"behind":true,"collider":null},{"name":"barril","x":434,"y":213,"height":42,"behind":true,"collider":null},{"name":"jardinera","x":494,"y":336,"height":48,"behind":false,"collider":{"rx":18,"ry":7}},{"name":"brasero","x":132,"y":215,"height":47,"behind":true,"mounted":false},{"name":"baranda","x":72,"y":336,"height":39,"behind":false,"collider":{"rx":69,"ry":5}},{"name":"baranda","x":221,"y":336,"height":39,"behind":false,"collider":{"rx":69,"ry":5}},{"name":"baranda","x":370,"y":336,"height":39,"behind":false,"collider":{"rx":69,"ry":5}},{"name":"baranda","x":519,"y":336,"height":39,"behind":false,"collider":{"rx":69,"ry":5}}],"ambient":[],"connection":null},{"id":"15","index":14,"name":"Sala de guardia","subtitle":"Antorchas y arcos de piedra","chapter":"castillo","x":9948,"width":545,"height":360,"sourceFloorY":208,"floorY":208,"walkTop":226,"walkBottom":342,"elevation":0,"material":"losas","exit":"armeria","sourceSheet":"assets/source/fase-castillo.png","sourceCell":2,"wall":"assets/castillo/15-pared.png","floor":"assets/castillo/15-suelo.png","image":"assets/castillo/15-completo.png","props":[{"name":"escudo","x":83,"y":213,"height":48,"behind":true,"collider":null},{"name":"barril","x":434,"y":213,"height":42,"behind":true,"collider":null},{"name":"cofre","x":494,"y":349,"height":43,"behind":false,"collider":{"rx":18,"ry":7}},{"name":"cofre","x":123,"y":218,"height":34,"behind":true,"mounted":false}],"ambient":[{"kind":"embers","x":528,"y":96,"seed":154}],"connection":null},{"id":"16","index":15,"name":"Galería de armas","subtitle":"Herramientas de los Caballeros","chapter":"castillo","x":10493,"width":654,"height":360,"sourceFloorY":208,"floorY":208,"walkTop":226,"walkBottom":342,"elevation":0,"material":"losas","exit":"arco","sourceSheet":"assets/source/fase-castillo.png","sourceCell":3,"wall":"assets/castillo/16-pared.png","floor":"assets/castillo/16-suelo.png","image":"assets/castillo/16-completo.png","props":[{"name":"escudo","x":100,"y":213,"height":48,"behind":true,"collider":null},{"name":"cajas","x":521,"y":213,"height":43,"behind":true,"collider":null},{"name":"cajas","x":593,"y":349,"height":46,"behind":false,"collider":{"rx":18,"ry":7}},{"name":"escudo","x":472,"y":215,"height":47,"behind":true,"mounted":false}],"ambient":[],"connection":null},{"id":"17","index":16,"name":"El gran comedor","subtitle":"Madera, tapices y velas","chapter":"castillo","x":11147,"width":1276,"height":360,"sourceFloorY":208,"floorY":208,"walkTop":226,"walkBottom":342,"elevation":0,"material":"losas","exit":"claustro","sourceSheet":"assets/source/fase-castillo.png","sourceCell":4,"wall":"assets/castillo/17-pared.png","floor":"assets/castillo/17-suelo.png","image":"assets/castillo/17-completo.png","props":[{"name":"escudo","x":195,"y":213,"height":48,"behind":true,"collider":null},{"name":"barril","x":1017,"y":213,"height":42,"behind":true,"collider":null},{"name":"brasero","x":1156,"y":349,"height":58,"behind":false,"collider":{"rx":18,"ry":7}},{"name":"cofre","x":299,"y":216,"height":35,"behind":true,"mounted":false}],"ambient":[{"kind":"embers","x":1236,"y":96,"seed":176}],"connection":null},{"id":"18","index":17,"name":"Claustro del jardín","subtitle":"Una pausa bajo los arcos","chapter":"castillo","x":12423,"width":798,"height":360,"sourceFloorY":208,"floorY":208,"walkTop":226,"walkBottom":342,"elevation":0,"material":"piedra","exit":"biblioteca","sourceSheet":"assets/source/fase-castillo.png","sourceCell":5,"wall":"assets/castillo/18-pared.png","floor":"assets/castillo/18-suelo.png","image":"assets/castillo/18-completo.png","props":[{"name":"jardinera","x":118,"y":214,"height":50,"behind":true,"collider":null},{"name":"barril","x":636,"y":213,"height":42,"behind":true,"collider":null},{"name":"jardinera","x":723,"y":368,"height":49,"behind":false,"collider":{"rx":18,"ry":7}},{"name":"jardinera","x":611,"y":217,"height":34,"behind":true,"mounted":false}],"ambient":[],"connection":null},{"id":"19","index":18,"name":"Archivo de los Eternos","subtitle":"Mesa de los sellos · espacio para un puzzle","chapter":"castillo","x":13221,"width":1117,"height":360,"sourceFloorY":208,"floorY":208,"walkTop":226,"walkBottom":342,"elevation":0,"material":"baldosas","exit":"bodega","sourceSheet":"assets/source/fase-castillo.png","sourceCell":6,"wall":"assets/castillo/19-pared.png","floor":"assets/castillo/19-suelo.png","image":"assets/castillo/19-completo.png","props":[{"name":"escudo","x":171,"y":213,"height":48,"behind":true,"collider":null},{"name":"atril","x":829,"y":212,"height":57,"behind":true,"collider":null},{"name":"barril","x":1012,"y":349,"height":52,"behind":false,"collider":{"rx":18,"ry":7}},{"name":"cofre","x":951,"y":217,"height":31,"behind":true,"mounted":false}],"ambient":[{"kind":"embers","x":1082,"y":96,"seed":198}],"connection":null},{"id":"20","index":19,"name":"Bodega del mecanismo","subtitle":"El servicio de la fortaleza","chapter":"castillo","x":14338,"width":1308,"height":360,"sourceFloorY":208,"floorY":208,"walkTop":226,"walkBottom":342,"elevation":0,"material":"piedra","exit":"escalera","sourceSheet":"assets/source/fase-castillo.png","sourceCell":7,"wall":"assets/castillo/20-pared.png","floor":"assets/castillo/20-suelo.png","image":"assets/castillo/20-completo.png","props":[{"name":"escudo","x":200,"y":213,"height":48,"behind":true,"collider":null},{"name":"torno","x":961,"y":212,"height":48,"behind":true,"collider":null},{"name":"cajas","x":1185,"y":349,"height":47,"behind":false,"collider":{"rx":18,"ry":7}},{"name":"cajas","x":1093,"y":217,"height":36,"behind":true,"mounted":false}],"ambient":[],"connection":null},{"id":"21","index":20,"name":"Escalera oculta","subtitle":"La primera señal del laboratorio","chapter":"castillo","x":15646,"width":1111,"height":360,"sourceFloorY":208,"floorY":208,"walkTop":226,"walkBottom":342,"elevation":0,"material":"piedra","exit":"boveda","sourceSheet":"assets/source/fase-castillo.png","sourceCell":8,"wall":"assets/castillo/21-pared.png","floor":"assets/castillo/21-suelo.png","image":"assets/castillo/21-completo.png","props":[{"name":"escudo","x":170,"y":213,"height":48,"behind":true,"collider":null},{"name":"barril","x":885,"y":213,"height":42,"behind":true,"collider":null},{"name":"cofre","x":1007,"y":349,"height":43,"behind":false,"collider":{"rx":18,"ry":7}},{"name":"lampara","x":229,"y":160,"height":30,"behind":true,"mounted":true}],"ambient":[{"kind":"embers","x":1076,"y":96,"seed":220}],"connection":null},{"id":"22","index":21,"name":"La puerta de la bóveda","subtitle":"Piedra medieval y metal moderno","chapter":"castillo","x":16757,"width":850,"height":360,"sourceFloorY":208,"floorY":208,"walkTop":226,"walkBottom":342,"elevation":0,"material":"piedra","exit":"laboratorio","sourceSheet":"assets/source/fase-castillo.png","sourceCell":9,"wall":"assets/castillo/22-pared.png","floor":"assets/castillo/22-suelo.png","image":"assets/castillo/22-completo.png","props":[{"name":"escudo","x":130,"y":213,"height":48,"behind":true,"collider":null},{"name":"barril","x":677,"y":213,"height":42,"behind":true,"collider":null},{"name":"brasero","x":770,"y":349,"height":57,"behind":false,"collider":{"rx":18,"ry":7}},{"name":"cajas","x":604,"y":216,"height":37,"behind":true,"mounted":false}],"ambient":[],"connection":null},{"id":"23","index":22,"name":"Acceso de servicio","subtitle":"Entrada al complejo científico","chapter":"laboratorio","x":17735,"width":421,"height":360,"sourceFloorY":208,"floorY":208,"walkTop":226,"walkBottom":342,"elevation":0,"material":"metal","exit":"laboratorio","sourceSheet":"assets/source/fase-laboratorio.png","sourceCell":0,"wall":"assets/laboratorio/23-pared.png","floor":"assets/laboratorio/23-suelo.png","image":"assets/laboratorio/23-completo.png","props":[{"name":"consola","x":53,"y":213,"height":52,"behind":true,"collider":null},{"name":"muestra","x":335,"y":213,"height":67,"behind":true,"collider":null},{"name":"pilar","x":391,"y":352,"height":145,"behind":false,"collider":{"rx":13,"ry":7}},{"name":"carro","x":102,"y":217,"height":36,"behind":true,"mounted":false}],"ambient":[{"kind":"circuit","seed":418,"x":197,"y":150}],"connection":null},{"id":"24","index":23,"name":"Extracción de muestras","subtitle":"Tejido petrosapien bajo contención","chapter":"laboratorio","x":18156,"width":843,"height":360,"sourceFloorY":208,"floorY":208,"walkTop":226,"walkBottom":342,"elevation":0,"material":"metal","exit":"laboratorio","sourceSheet":"assets/source/fase-laboratorio.png","sourceCell":1,"wall":"assets/laboratorio/24-pared.png","floor":"assets/laboratorio/24-suelo.png","image":"assets/laboratorio/24-completo.png","props":[{"name":"dna-loop","x":464,"y":213,"height":79,"animated":0,"behind":true},{"name":"consola","x":105,"y":213,"height":52,"behind":true,"collider":null},{"name":"muestra","x":672,"y":213,"height":67,"behind":true,"collider":null},{"name":"cable","x":784,"y":352,"height":28,"behind":false,"collider":{"rx":18,"ry":7}},{"name":"tubos","x":610,"y":216,"height":40,"behind":true,"mounted":false}],"ambient":[{"kind":"circuit","seed":437,"x":395,"y":150}],"connection":null},{"id":"25","index":24,"name":"Análisis genético","subtitle":"Los patrones del ADN de Diamante","chapter":"laboratorio","x":18999,"width":842,"height":360,"sourceFloorY":208,"floorY":208,"walkTop":226,"walkBottom":342,"elevation":0,"material":"metal","exit":"laboratorio","sourceSheet":"assets/source/fase-laboratorio.png","sourceCell":2,"wall":"assets/laboratorio/25-pared.png","floor":"assets/laboratorio/25-suelo.png","image":"assets/laboratorio/25-completo.png","props":[{"name":"dna-loop","x":463,"y":213,"height":79,"animated":0,"behind":true},{"name":"consola","x":105,"y":213,"height":52,"behind":true,"collider":null},{"name":"muestra","x":671,"y":213,"height":67,"behind":true,"collider":null},{"name":"tubos","x":783,"y":352,"height":66,"behind":false,"collider":{"rx":18,"ry":7}},{"name":"carro","x":191,"y":217,"height":37,"behind":true,"mounted":false}],"ambient":[{"kind":"circuit","seed":456,"x":395,"y":150}],"connection":null},{"id":"26","index":25,"name":"Conductos de energía","subtitle":"Hacia el reactor central","chapter":"laboratorio","x":19841,"width":654,"height":360,"sourceFloorY":208,"floorY":208,"walkTop":226,"walkBottom":342,"elevation":0,"material":"metal","exit":"laboratorio","sourceSheet":"assets/source/fase-laboratorio.png","sourceCell":3,"wall":"assets/laboratorio/26-pared.png","floor":"assets/laboratorio/26-suelo.png","image":"assets/laboratorio/26-completo.png","props":[{"name":"consola","x":82,"y":213,"height":52,"behind":true,"collider":null},{"name":"muestra","x":521,"y":213,"height":67,"behind":true,"collider":null},{"name":"caja","x":608,"y":352,"height":42,"behind":false,"collider":{"rx":18,"ry":7}},{"name":"cable","x":480,"y":217,"height":17,"behind":true,"mounted":false}],"ambient":[{"kind":"circuit","seed":475,"x":307,"y":150}],"connection":null},{"id":"27","index":26,"name":"Cámara de observación","subtitle":"El laboratorio principal, al otro lado","chapter":"laboratorio","x":20495,"width":443,"height":360,"sourceFloorY":208,"floorY":208,"walkTop":226,"walkBottom":342,"elevation":0,"material":"metal","exit":"compuerta","sourceSheet":"assets/source/fase-laboratorio.png","sourceCell":4,"wall":"assets/laboratorio/27-pared.png","floor":"assets/laboratorio/27-suelo.png","image":"assets/laboratorio/27-completo.png","props":[{"name":"dna-loop","x":244,"y":213,"height":79,"animated":0,"behind":true},{"name":"consola","x":55,"y":213,"height":52,"behind":true,"collider":null},{"name":"muestra","x":353,"y":213,"height":67,"behind":true,"collider":null},{"name":"pilar","x":412,"y":352,"height":144,"behind":false,"collider":{"rx":13,"ry":7}},{"name":"sensor","x":100,"y":216,"height":61,"behind":true,"mounted":false}],"ambient":[{"kind":"circuit","seed":494,"x":208,"y":150}],"connection":null},{"id":"28","index":27,"name":"Laboratorio principal","subtitle":"B · Espacio reservado para el Rey Eterno","chapter":"laboratorio","x":20938,"width":828,"height":360,"sourceFloorY":208,"floorY":208,"walkTop":226,"walkBottom":342,"elevation":0,"material":"metal","exit":"final","sourceSheet":"assets/source/fase-laboratorio.png","sourceCell":5,"wall":"assets/laboratorio/28-pared.png","floor":"assets/laboratorio/28-suelo.png","image":"assets/laboratorio/28-completo.png","props":[{"name":"pedestal","x":84,"y":214,"height":38,"behind":true,"collider":null},{"name":"carro","x":718,"y":212,"height":40,"behind":true,"collider":null},{"name":"cable","x":718,"y":368,"height":35,"behind":false,"collider":{"rx":18,"ry":7}},{"name":"consola","x":162,"y":216,"height":48,"behind":true,"mounted":false}],"ambient":[{"kind":"circuit","seed":513,"x":388,"y":150},{"kind":"reactor","x":414,"y":156,"width":94,"height":104}],"connection":null}],"props":{"ciudad":{"static":[{"name":"arbol","file":"assets/props/ciudad/arbol.png","width":240,"height":239,"anchorX":112,"anchorY":235,"row":0,"column":0},{"name":"banco","file":"assets/props/ciudad/banco.png","width":197,"height":109,"anchorX":83,"anchorY":105,"row":0,"column":1},{"name":"farola","file":"assets/props/ciudad/farola.png","width":66,"height":232,"anchorX":32,"anchorY":228,"row":0,"column":2},{"name":"papelera","file":"assets/props/ciudad/papelera.png","width":90,"height":125,"anchorX":44,"anchorY":121,"row":0,"column":3},{"name":"hidrante","file":"assets/props/ciudad/hidrante.png","width":98,"height":131,"anchorX":48,"anchorY":127,"row":0,"column":4},{"name":"jardinera","file":"assets/props/ciudad/jardinera.png","width":198,"height":113,"anchorX":98,"anchorY":109,"row":0,"column":5},{"name":"verja","file":"assets/props/ciudad/verja.png","width":206,"height":154,"anchorX":103,"anchorY":150,"row":1,"column":0},{"name":"pilar","file":"assets/props/ciudad/pilar.png","width":143,"height":214,"anchorX":72,"anchorY":210,"row":1,"column":1},{"name":"quiosco","file":"assets/props/ciudad/quiosco.png","width":250,"height":231,"anchorX":125,"anchorY":227,"row":1,"column":2},{"name":"baranda","file":"assets/props/ciudad/baranda.png","width":228,"height":171,"anchorX":106,"anchorY":167,"row":1,"column":3},{"name":"obras","file":"assets/props/ciudad/obras.png","width":226,"height":114,"anchorX":112,"anchorY":110,"row":1,"column":4},{"name":"portal","file":"assets/props/ciudad/portal.png","width":176,"height":213,"anchorX":88,"anchorY":209,"row":1,"column":5}],"animations":[{"name":"agua","frames":[{"name":"animation-0-0","file":"assets/props/ciudad/animation-0-0.png","width":202,"height":156,"anchorX":101,"anchorY":152,"row":2,"column":0},{"name":"animation-0-1","file":"assets/props/ciudad/animation-0-1.png","width":202,"height":173,"anchorX":101,"anchorY":169,"row":2,"column":1},{"name":"animation-0-2","file":"assets/props/ciudad/animation-0-2.png","width":201,"height":191,"anchorX":100,"anchorY":187,"row":2,"column":2},{"name":"animation-0-3","file":"assets/props/ciudad/animation-0-3.png","width":202,"height":214,"anchorX":101,"anchorY":210,"row":2,"column":3},{"name":"animation-0-4","file":"assets/props/ciudad/animation-0-4.png","width":201,"height":186,"anchorX":100,"anchorY":182,"row":2,"column":4},{"name":"animation-0-5","file":"assets/props/ciudad/animation-0-5.png","width":201,"height":156,"anchorX":100,"anchorY":152,"row":2,"column":5}],"fps":7,"loop":true,"referenceHeight":214,"anchor":"bottom"},{"name":"viento","frames":[{"name":"animation-1-0","file":"assets/props/ciudad/animation-1-0.png","width":224,"height":133,"anchorX":112,"anchorY":129,"row":3,"column":0},{"name":"animation-1-1","file":"assets/props/ciudad/animation-1-1.png","width":225,"height":140,"anchorX":112,"anchorY":136,"row":3,"column":1},{"name":"animation-1-2","file":"assets/props/ciudad/animation-1-2.png","width":226,"height":153,"anchorX":114,"anchorY":149,"row":3,"column":2},{"name":"animation-1-3","file":"assets/props/ciudad/animation-1-3.png","width":228,"height":149,"anchorX":113,"anchorY":145,"row":3,"column":3},{"name":"animation-1-4","file":"assets/props/ciudad/animation-1-4.png","width":225,"height":136,"anchorX":112,"anchorY":132,"row":3,"column":4},{"name":"animation-1-5","file":"assets/props/ciudad/animation-1-5.png","width":224,"height":135,"anchorX":111,"anchorY":131,"row":3,"column":5}],"fps":8,"loop":true,"referenceHeight":153,"anchor":"bottom"}]},"castillo":{"static":[{"name":"pilar","file":"assets/props/castillo/pilar.png","width":172,"height":241,"anchorX":62,"anchorY":237,"row":0,"column":0},{"name":"baranda","file":"assets/props/castillo/baranda.png","width":216,"height":145,"anchorX":104,"anchorY":141,"row":0,"column":1},{"name":"barril","file":"assets/props/castillo/barril.png","width":139,"height":170,"anchorX":66,"anchorY":166,"row":0,"column":2},{"name":"cofre","file":"assets/props/castillo/cofre.png","width":207,"height":152,"anchorX":104,"anchorY":148,"row":0,"column":3},{"name":"cajas","file":"assets/props/castillo/cajas.png","width":201,"height":172,"anchorX":96,"anchorY":168,"row":0,"column":4},{"name":"escudo","file":"assets/props/castillo/escudo.png","width":170,"height":201,"anchorX":80,"anchorY":197,"row":0,"column":5},{"name":"jardinera","file":"assets/props/castillo/jardinera.png","width":231,"height":143,"anchorX":111,"anchorY":139,"row":1,"column":0},{"name":"brasero","file":"assets/props/castillo/brasero.png","width":155,"height":173,"anchorX":73,"anchorY":169,"row":1,"column":1},{"name":"lampara","file":"assets/props/castillo/lampara.png","width":227,"height":224,"anchorX":110,"anchorY":220,"row":1,"column":2},{"name":"atril","file":"assets/props/castillo/atril.png","width":176,"height":189,"anchorX":93,"anchorY":185,"row":1,"column":3},{"name":"torno","file":"assets/props/castillo/torno.png","width":226,"height":175,"anchorX":108,"anchorY":171,"row":1,"column":4},{"name":"umbral","file":"assets/props/castillo/umbral.png","width":236,"height":79,"anchorX":115,"anchorY":75,"row":1,"column":5}],"animations":[{"name":"antorcha","frames":[{"name":"animation-0-0","file":"assets/props/castillo/animation-0-0.png","width":90,"height":174,"anchorX":51,"anchorY":170,"row":2,"column":0},{"name":"animation-0-1","file":"assets/props/castillo/animation-0-1.png","width":91,"height":207,"anchorX":51,"anchorY":203,"row":2,"column":1},{"name":"animation-0-2","file":"assets/props/castillo/animation-0-2.png","width":102,"height":202,"anchorX":51,"anchorY":198,"row":2,"column":2},{"name":"animation-0-3","file":"assets/props/castillo/animation-0-3.png","width":101,"height":204,"anchorX":51,"anchorY":200,"row":2,"column":3},{"name":"animation-0-4","file":"assets/props/castillo/animation-0-4.png","width":92,"height":204,"anchorX":51,"anchorY":200,"row":2,"column":4},{"name":"animation-0-5","file":"assets/props/castillo/animation-0-5.png","width":90,"height":186,"anchorX":51,"anchorY":182,"row":2,"column":5}],"fps":7,"loop":true,"referenceHeight":207,"anchor":"bottom"},{"name":"tela","frames":[{"name":"animation-1-0","file":"assets/props/castillo/animation-1-0.png","width":163,"height":215,"anchorX":81,"anchorY":211,"row":3,"column":0},{"name":"animation-1-1","file":"assets/props/castillo/animation-1-1.png","width":162,"height":209,"anchorX":80,"anchorY":205,"row":3,"column":1},{"name":"animation-1-2","file":"assets/props/castillo/animation-1-2.png","width":163,"height":210,"anchorX":80,"anchorY":206,"row":3,"column":2},{"name":"animation-1-3","file":"assets/props/castillo/animation-1-3.png","width":163,"height":210,"anchorX":81,"anchorY":206,"row":3,"column":3},{"name":"animation-1-4","file":"assets/props/castillo/animation-1-4.png","width":162,"height":210,"anchorX":80,"anchorY":206,"row":3,"column":4},{"name":"animation-1-5","file":"assets/props/castillo/animation-1-5.png","width":162,"height":214,"anchorX":80,"anchorY":210,"row":3,"column":5}],"fps":8,"loop":true,"referenceHeight":215,"anchor":"top"}]},"laboratorio":{"static":[{"name":"consola","file":"assets/props/laboratorio/consola.png","width":208,"height":192,"anchorX":101,"anchorY":188,"row":0,"column":0},{"name":"muestra","file":"assets/props/laboratorio/muestra.png","width":161,"height":214,"anchorX":78,"anchorY":210,"row":0,"column":1},{"name":"pilar","file":"assets/props/laboratorio/pilar.png","width":128,"height":226,"anchorX":68,"anchorY":222,"row":0,"column":2},{"name":"carro","file":"assets/props/laboratorio/carro.png","width":209,"height":142,"anchorX":110,"anchorY":138,"row":0,"column":3},{"name":"cable","file":"assets/props/laboratorio/cable.png","width":234,"height":101,"anchorX":117,"anchorY":97,"row":0,"column":4},{"name":"pedestal","file":"assets/props/laboratorio/pedestal.png","width":200,"height":149,"anchorX":101,"anchorY":145,"row":0,"column":5},{"name":"sensor","file":"assets/props/laboratorio/sensor.png","width":178,"height":195,"anchorX":81,"anchorY":191,"row":1,"column":0},{"name":"caja","file":"assets/props/laboratorio/caja.png","width":180,"height":158,"anchorX":91,"anchorY":154,"row":1,"column":1},{"name":"baranda","file":"assets/props/laboratorio/baranda.png","width":223,"height":122,"anchorX":111,"anchorY":118,"row":1,"column":2},{"name":"tubos","file":"assets/props/laboratorio/tubos.png","width":183,"height":189,"anchorX":90,"anchorY":185,"row":1,"column":3},{"name":"panel","file":"assets/props/laboratorio/panel.png","width":202,"height":212,"anchorX":104,"anchorY":208,"row":1,"column":4},{"name":"umbral","file":"assets/props/laboratorio/umbral.png","width":239,"height":68,"anchorX":122,"anchorY":64,"row":1,"column":5}],"animations":[{"name":"adn","frames":[{"name":"animation-0-0","file":"assets/props/laboratorio/animation-0-0.png","width":124,"height":218,"anchorX":62,"anchorY":214,"row":2,"column":0},{"name":"animation-0-1","file":"assets/props/laboratorio/animation-0-1.png","width":124,"height":217,"anchorX":62,"anchorY":213,"row":2,"column":1},{"name":"animation-0-2","file":"assets/props/laboratorio/animation-0-2.png","width":124,"height":217,"anchorX":62,"anchorY":213,"row":2,"column":2},{"name":"animation-0-3","file":"assets/props/laboratorio/animation-0-3.png","width":124,"height":217,"anchorX":62,"anchorY":213,"row":2,"column":3},{"name":"animation-0-4","file":"assets/props/laboratorio/animation-0-4.png","width":124,"height":217,"anchorX":62,"anchorY":213,"row":2,"column":4},{"name":"animation-0-5","file":"assets/props/laboratorio/animation-0-5.png","width":124,"height":217,"anchorX":62,"anchorY":213,"row":2,"column":5}],"fps":7,"loop":true,"referenceHeight":218,"anchor":"bottom"},{"name":"rotor","frames":[{"name":"animation-1-0","file":"assets/props/laboratorio/animation-1-0.png","width":188,"height":190,"anchorX":94,"anchorY":186,"row":3,"column":0},{"name":"animation-1-1","file":"assets/props/laboratorio/animation-1-1.png","width":188,"height":190,"anchorX":94,"anchorY":186,"row":3,"column":1},{"name":"animation-1-2","file":"assets/props/laboratorio/animation-1-2.png","width":188,"height":190,"anchorX":94,"anchorY":186,"row":3,"column":2},{"name":"animation-1-3","file":"assets/props/laboratorio/animation-1-3.png","width":188,"height":190,"anchorX":94,"anchorY":186,"row":3,"column":3},{"name":"animation-1-4","file":"assets/props/laboratorio/animation-1-4.png","width":188,"height":190,"anchorX":94,"anchorY":186,"row":3,"column":4},{"name":"animation-1-5","file":"assets/props/laboratorio/animation-1-5.png","width":188,"height":190,"anchorX":94,"anchorY":186,"row":3,"column":5}],"fps":8,"loop":true,"referenceHeight":190,"anchor":"bottom"}]}},"puzzles":[{"id":"archivo","chapter":"castillo","room":18,"x":13969,"y":248,"width":112,"height":48,"name":"Mesa de los sellos","reserved":true,"description":"Alcoba del archivo con atril y cofre; espacio reservado para un puzzle de sellos. Sin bloquear el recorrido."}],"player":{"file":"assets/ben-reference.png","cellWidth":96,"cellHeight":96,"anchorX":48,"anchorY":88,"bodyHeight":56,"walkRows":{"down":0,"up":1,"right":2,"left":3},"idleRow":4},"enemies":[],"combat":false};</script>
+<script>
+(function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory();else root.Ben10MapWorld=factory()})(typeof globalThis==='undefined'?this:globalThis,function(){
+ 'use strict';
+ const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+ function roomAt(data,x){let lo=0,hi=data.rooms.length-1;while(lo<hi){const mid=Math.ceil((lo+hi)/2);if(data.rooms[mid].x<=x)lo=mid;else hi=mid-1;}return data.rooms[lo];}
+ function chapterAt(data,x){return data.chapters.find(c=>c.id===roomAt(data,x).chapter)}
+ function elevationAt(data,x){const room=roomAt(data,x),next=data.rooms[room.index+1],local=x-room.x;
+  if(next&&next.chapter===room.chapter&&local>room.width){const q=clamp((local-room.width)/data.connectorWidth,0,1);return room.elevation+(next.elevation-room.elevation)*q;}
+  return room.elevation;
+ }
+ function laneAt(data,x){const room=roomAt(data,x),next=data.rooms[room.index+1],local=x-room.x;let top=room.walkTop,bottom=room.walkBottom;
+  if(next&&next.chapter===room.chapter&&local>room.width-64){const q=clamp((local-room.width+64)/64,0,1);top+=(next.walkTop-top)*q;bottom+=(next.walkBottom-bottom)*q;}
+  return {top,bottom};
+ }
+ function obstacles(data,x){const room=roomAt(data,x);return data.rooms.slice(Math.max(0,room.index-1),room.index+2).flatMap(r=>r.props.filter(p=>p.collider).map(p=>({x:r.x+p.x,y:p.y,rx:p.collider.rx,ry:p.collider.ry})));}
+ function blocked(data,x,y,radius=6){return obstacles(data,x).some(p=>((x-p.x)/(p.rx+radius))**2+((y-p.y)/(p.ry+radius*.55))**2<1)}
+ function move(data,from,dx,dy){const chapter=chapterAt(data,from.x);let x=clamp(from.x+dx,chapter.x+18,chapter.end-18),lane=laneAt(data,x),y=clamp(from.y+dy,lane.top,lane.bottom);
+  if(blocked(data,x,y)){if(!blocked(data,x,from.y))y=clamp(from.y,lane.top,lane.bottom);else{x=from.x;lane=laneAt(data,x);y=clamp(from.y+dy,lane.top,lane.bottom);if(blocked(data,x,y))y=from.y;}}
+  return {x,y};
+ }
+ return {roomAt,chapterAt,elevationAt,laneAt,blocked,move};
+});
+
+</script>
+<script>
+/* One ground-plane geometry for walking, dashes, skills and projectiles. */
+(function(root,factory){
+ const api=factory(typeof module==='object'&&module.exports?require('../mapas/world.js'):root.Ben10MapWorld);
+ if(typeof module==='object'&&module.exports)module.exports=api;else root.Ben10Campaign=api;
+})(typeof globalThis==='undefined'?this:globalThis,function(MapWorld){
+ 'use strict';
+ const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+ const finite=p=>p&&Number.isFinite(p.x)&&Number.isFinite(p.y);
+ function ellipseEntry(a,b,p,rx,ry){
+  const x=(a.x-p.x)/rx,y=(a.y-p.y)/ry,dx=(b.x-a.x)/rx,dy=(b.y-a.y)/ry;
+  const c=x*x+y*y-1,n=dx*dx+dy*dy,dot=x*dx+y*dy;
+  if(!n)return null;
+  // An actor already touching an object can retreat from it.
+  if(c<=1e-8)return dot>=0?null:0;
+  const disc=dot*dot-n*c;if(disc<0)return null;
+  const at=(-dot-Math.sqrt(disc))/n;return at>=0&&at<=1?at:null;
+ }
+ class Level{
+  constructor(data,{scale=1.25,offsetY=620}={}){
+   this.data=data;this.scale=scale;this.offsetY=offsetY;this.phaseIndex=0;this.setPhase(0);
+  }
+  get phase(){return this.data.chapters[this.phaseIndex];}
+  get width(){return (this.phase.end-this.phase.x)*this.scale;}
+  get height(){return this.offsetY+this.data.height*this.scale;}
+  get mapRect(){return {x:0,y:this.offsetY,width:this.width,height:this.data.height*this.scale};}
+  world(x,y){return {x:(x-this.phase.x)*this.scale,y:this.offsetY+y*this.scale};}
+  logical(point){return {x:point.x/this.scale+this.phase.x,y:(point.y-this.offsetY)/this.scale};}
+  setPhase(index){
+   if(!Number.isInteger(index)||!this.data.chapters[index])throw Error('Invalid campaign phase');
+   this.phaseIndex=index;this.rooms=this.data.rooms.filter(r=>r.chapter===this.phase.id);
+   // Frame the actual door, keeping a little scenery beyond the end of the lane.
+   const inset=[240,275,140][index];
+   this.exit={x:this.width-inset*this.scale,y:this.offsetY+270*this.scale,range:115*this.scale};
+   this.walkEnd=Math.min(this.width-18*this.scale,this.exit.x+72*this.scale);
+   this.props=this.rooms.flatMap(room=>room.props.map(prop=>this.makeProp(room,prop)));
+   return this.spawn();
+  }
+  makeProp(room,prop){
+   const family=this.data.props[room.chapter],meta=prop.animated===undefined?family.static.find(p=>p.name===prop.name):family.animations[prop.animated].frames[0];
+   const height=prop.height*this.scale,width=meta?meta.width/meta.height*height:height;
+   const narrow=['arbol','pilar','farola','portal','sensor'].includes(prop.name);
+   const radius=prop.collider?.rx*this.scale||(narrow?Math.max(6,height*.075):width*.4);
+   const depth=prop.collider?.ry*this.scale||Math.max(4,Math.min(10,height*.14));
+   const pos=this.world(room.x+prop.x,prop.y);
+   return {...pos,r:Math.min(radius,depth),rx:radius,ry:depth,mapFootprint:true,block:!prop.mounted&&prop.y>=room.floorY-2,
+    room,art:prop,type:'campaign',height,width};
+  }
+  laneAt(x){
+   const logical=clamp(x/this.scale+this.phase.x,this.phase.x,this.phase.end-.001),lane=MapWorld.laneAt(this.data,logical);
+   return {top:this.offsetY+lane.top*this.scale,bottom:this.offsetY+lane.bottom*this.scale};
+  }
+  bounds(radius=0){return {minX:18*this.scale+radius,maxX:this.walkEnd-radius,minY:this.offsetY+226*this.scale+radius*.35,maxY:this.offsetY+342*this.scale-radius*.35};}
+  onFloor(point,radius=0){
+   if(!finite(point))return false;const bounds=this.bounds(radius),lane=this.laneAt(point.x),depth=radius*.35;
+   return point.x>=bounds.minX-1e-7&&point.x<=bounds.maxX+1e-7&&point.y>=lane.top+depth-1e-7&&point.y<=lane.bottom-depth+1e-7;
+  }
+  blocked(point,radius=14,obstacles=this.props,{ignoreProps=false}={}){
+   if(!this.onFloor(point,radius))return true;if(ignoreProps)return false;
+   return obstacles.some(p=>{if(!p.block)return false;const rx=(p.rx??p.r)+radius,ry=(p.ry??p.r)+(p.mapFootprint?radius*.35:radius);return ((point.x-p.x)/rx)**2+((point.y-p.y)/ry)**2<1-1e-8;});
+  }
+  clipSegment(a,b,radius=14,obstacles=this.props,{ignoreProps=false}={}){
+   if(!finite(a)||!finite(b))throw Error('Invalid campaign motion');
+   let fraction=1;
+   if(!ignoreProps)for(const p of obstacles){if(!p.block)continue;const entry=ellipseEntry(a,b,p,(p.rx??p.r)+radius,(p.ry??p.r)+(p.mapFootprint?radius*.35:radius));if(entry!==null)fraction=Math.min(fraction,entry);}
+   // Sampling the full segment catches a narrow bridge even when both endpoints
+   // are in wide plazas. Refinement keeps fast attacks flush with the wall.
+   const span=Math.hypot(b.x-a.x,b.y-a.y),steps=Math.max(1,Math.ceil(span/3));let previous=0;
+   for(let i=1;i<=steps;i++){
+    const u=Math.min(fraction,i/steps),p={x:a.x+(b.x-a.x)*u,y:a.y+(b.y-a.y)*u};
+    if(!this.onFloor(p,radius)){let low=previous,high=u;for(let k=0;k<18;k++){const m=(low+high)/2,q={x:a.x+(b.x-a.x)*m,y:a.y+(b.y-a.y)*m};if(this.onFloor(q,radius))low=m;else high=m;}fraction=Math.min(fraction,low);break;}
+    previous=u;if(u>=fraction)break;
+   }
+   const blocked=fraction<1-1e-8,u=blocked?Math.max(0,fraction-.025/Math.max(span,.025)):1;
+   return {end:{x:a.x+(b.x-a.x)*u,y:a.y+(b.y-a.y)*u},fraction,blocked};
+  }
+  clampPoint(point,radius=14,obstacles=this.props,{ignoreProps=false}={}){
+   const box=this.bounds(radius),x=clamp(point.x,box.minX,box.maxX),lane=this.laneAt(x),depth=radius*.35;
+   const candidate={x,y:clamp(point.y,lane.top+depth,lane.bottom-depth)};
+   if(!this.blocked(candidate,radius,obstacles,{ignoreProps}))return candidate;
+   for(let distance=4;distance<=140;distance+=4)for(let i=0;i<24;i++){
+    const a=i*Math.PI/12,p={x:candidate.x+Math.cos(a)*distance,y:candidate.y+Math.sin(a)*distance};
+    if(!this.blocked(p,radius,obstacles,{ignoreProps}))return p;
+   }
+   return null;
+  }
+  move(from,dx,dy,radius=14,obstacles=this.props,{ignoreProps=false}={}){
+   const options={ignoreProps},hit=this.clipSegment(from,{x:from.x+dx,y:from.y+dy},radius,obstacles,options);
+   let p=hit.end;if(!hit.blocked)return p;
+   // Slide along an edge instead of making diagonal movement stick to it.
+   p=this.clipSegment(p,{x:from.x+dx,y:p.y},radius,obstacles,options).end;
+   return this.clipSegment(p,{x:p.x,y:from.y+dy},radius,obstacles,options).end;
+  }
+  spawn(radius=21){return this.clampPoint({x:100*this.scale,y:this.offsetY+285*this.scale},radius)||{x:180*this.scale,y:this.offsetY+285*this.scale};}
+  atExit(point){return point.x>=this.exit.x-this.exit.range&&this.onFloor(point,0);}
+  progress(x){return clamp(x/(this.exit.x-this.exit.range),0,1);}
+ }
+ return {Level,ellipseEntry};
+});
+
+</script>
+<script>
+(function(root){
+ 'use strict';
+ class Renderer{
+  constructor(data,{base='mapas/'}={}){
+   this.data=data;this.base=base;this.images=new Map();this.masks=new Map();
+   const paths=new Set();for(const chapter of data.chapters)for(const s of chapter.segments)paths.add(s.image);
+   for(const family of Object.values(data.props)){for(const p of family.static)paths.add(p.file);for(const clip of family.animations)for(const f of clip.frames)paths.add(f.file);}
+   this.ready=Promise.all([...paths].map(file=>new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>{this.images.set(file,image);resolve()};image.onerror=()=>reject(Error('No se pudo cargar el mapa: '+file));image.src=base+file;}))).then(()=>{
+    for(const chapter of data.chapters)for(const s of chapter.segments){if(!s.overlap)continue;const image=this.images.get(s.image),surface=document.createElement('canvas');surface.width=image.width;surface.height=image.height;const c=surface.getContext('2d');c.drawImage(image,0,0);c.globalCompositeOperation='destination-in';const gradient=c.createLinearGradient(0,0,s.overlap,0);gradient.addColorStop(0,'transparent');gradient.addColorStop(1,'black');c.fillStyle=gradient;c.fillRect(0,0,surface.width,surface.height);this.masks.set(s.image,surface);}
+   });
+  }
+  background(ctx,level,view){
+   ctx.save();ctx.translate(0,level.offsetY);ctx.scale(level.scale,level.scale);ctx.imageSmoothingEnabled=false;
+   for(const s of level.phase.segments){const x=(s.x-level.phase.x)*level.scale;if(x+s.width*level.scale<view.left||x>view.right)continue;ctx.drawImage(this.masks.get(s.image)||this.images.get(s.image),s.x-level.phase.x,0);}
+   ctx.restore();
+  }
+  sprite(ctx,prop,time){
+   const p=prop.art,family=this.data.props[prop.room.chapter],clip=p.animated===undefined?null:family.animations[p.animated];
+   const meta=clip?clip.frames[Math.floor(time*clip.fps+prop.room.index*1.3)%clip.frames.length]:family.static.find(f=>f.name===p.name);
+   if(!meta)return;const image=this.images.get(meta.file);if(!image)return;
+   const scale=prop.height/(clip?.referenceHeight||meta.height),anchorY=clip?.anchor==='top'?0:meta.anchorY;
+   const y=prop.y-(clip?.anchor==='top'?prop.height:0);
+   ctx.save();if(!p.mounted&&!clip){ctx.fillStyle='#10192538';ctx.beginPath();ctx.ellipse(prop.x,prop.y,Math.max(8,prop.height*.16),3.5,0,0,7);ctx.fill();}
+   ctx.imageSmoothingEnabled=false;ctx.drawImage(image,Math.round(prop.x-meta.anchorX*scale),Math.round(y-anchorY*scale),Math.round(meta.width*scale),Math.round(meta.height*scale));ctx.restore();
+  }
+  visibleProps(level,view){return level.props.filter(p=>p.x+p.width/2>=view.left-40&&p.x-p.width/2<=view.right+40);}
+  ambient(ctx,level,time,view){
+   ctx.save();ctx.translate(0,level.offsetY);ctx.scale(level.scale,level.scale);
+   for(const room of level.rooms){const base=room.x-level.phase.x;if((base+room.width)*level.scale<view.left||base*level.scale>view.right)continue;
+    for(const a of room.ambient){
+     if(a.kind==='leaves'){for(let i=0;i<6;i++){const x=base+(time*(9+i%3)+i*89+a.seed)%(room.width+30),y=80+((i*47+time*(5+i%2))%230);ctx.fillStyle=['#b7ae60aa','#c8bd6c99','#90ad6299'][i%3];ctx.fillRect(Math.round(x),Math.round(y),3,1);}}
+     else if(a.kind==='water'){ctx.strokeStyle='#d4efff88';ctx.lineWidth=1;for(let i=0;i<5;i++){const x=base+a.x+Math.sin(time*.5+i*2)*a.width*.45;ctx.beginPath();ctx.moveTo(x,a.y+i%3*5);ctx.lineTo(x+8+Math.sin(time*2+i)*4,a.y+i%3*5);ctx.stroke();}}
+     else if(a.kind==='embers'){for(let i=0;i<5;i++){const age=(time*.4+i*.23)%1;ctx.globalAlpha=(1-age)*.5;ctx.fillStyle='#f6c47c';ctx.fillRect(Math.round(base+a.x+Math.sin(age*7+i)*8),Math.round(a.y-age*32),1,2);}ctx.globalAlpha=1;}
+     else if(a.kind==='circuit'){ctx.globalAlpha=.2+.13*Math.sin(time*1.6+room.index);ctx.fillStyle='#96f6cf';for(let i=0;i<4;i++)ctx.fillRect(base+80+i*130,209,35,1);ctx.globalAlpha=1;}
+     else if(a.kind==='reactor'){ctx.save();ctx.globalCompositeOperation='screen';ctx.globalAlpha=.04+.035*Math.sin(time*1.8);ctx.fillStyle='#8cebc6';ctx.beginPath();ctx.ellipse(base+a.x,a.y,a.width*.6,a.height*.55,0,0,7);ctx.fill();ctx.restore();}
+    }
+   }ctx.restore();
+  }
+ }
+ root.Ben10CampaignRenderer=Renderer;
+})(typeof globalThis==='undefined'?this:globalThis);
+
+</script>
+<!-- CAMPAIGN_MODULES_END -->
 <script>
 
 (()=>{'use strict';
@@ -1088,7 +1272,8 @@ function drawRegisteredFrame(c,frame,x,y,scale){
 
 const CW=64,CH=64,ROW={down:0,up:1,right:2,left:3,light1:4,light2:5,light3:6,heavy1:7,heavy2:8,dash:13,omnitrix:10,hurt:11,defeat:12};
 const FRAMES={down:8,up:8,right:8,left:8,light1:4,light2:4,light3:4,heavy1:6,heavy2:6,dash:8,omnitrix:8,hurt:4,defeat:6};
-const WORLD={w:2400,h:1800}, TILE=48;let screenW=window.innerWidth,screenH=window.innerHeight,dpr=1;
+const campaign=new Ben10Campaign.Level(window.BEN10_CAMPAIGN_DATA);
+const WORLD={w:campaign.width,h:campaign.height};let screenW=window.innerWidth,screenH=window.innerHeight,dpr=1;
 let cam={x:0,y:0,zoom:CAMERA_ZOOM},t=0,lastTime=performance.now(),shake=0,flash=0;
 const player={x:1210,y:915,vx:0,vy:0,dir:'down',faceX:0,faceY:1,speed:247,health:100,mode:'idle',modeTime:0,modeDur:0,runClock:0,lightN:0,heavyN:0,lastLight:-5,lastHeavy:-5,lastDash:-5,hit:false,selectedAlien:-1,pendingForm:null,specialQueued:false,specialAnimation:false,bufferedAttack:null,moving:false,idleClock:0,actionDir:'down',actionX:0,actionY:1};
 const stats=new Ben10Stats.PlayerStats();
@@ -1301,36 +1486,105 @@ function showToast(s){let el=document.getElementById('toast');el.textContent=s;e
 function showCombo(s){let el=document.getElementById('combo');el.textContent=s;el.classList.add('show');clearTimeout(state.comboTimer);state.comboTimer=setTimeout(()=>el.classList.remove('show'),780)}
 function resize(){if(speedAction.phase!=='idle')cancelSpeedAbility();if(cannonAction.phase!=='idle')cancelCannonAbility();if(ghostAction.phase!=='idle')cancelGhostAbility();cancelStinkAction(true);cancelWildAction(true);cancelWolfAction(true);cancelUpgradeAction(true);screenW=window.innerWidth;screenH=window.innerHeight;dpr=Math.min(Math.max(1,Math.round(devicePixelRatio||1)),2);game.width=Math.round(screenW*dpr);game.height=Math.round(screenH*dpr);cam.zoom=CAMERA_ZOOM;ctx.imageSmoothingEnabled=false}
 window.addEventListener('resize',resize);resize();
-// Pixel-art city plaza: the tile layer is generated once and then scrolled by the camera.
-const ground=document.createElement('canvas');ground.width=WORLD.w;ground.height=WORLD.h;const g=ground.getContext('2d');g.imageSmoothingEnabled=false;
-function rect(x,y,w,h,c){g.fillStyle=c;g.fillRect(x,y,w,h)}
-function groundType(x,y){let cross=(x>930&&x<1470)||(y>690&&y<1120);let courtyard=(x>260&&x<2130&&y>215&&y<1580);return cross?2:courtyard?1:0}
-for(let y=0;y<WORLD.h;y+=TILE)for(let x=0;x<WORLD.w;x+=TILE){
- const type=groundType(x+TILE/2,y+TILE/2);let variant=Math.floor(rng()*4);
- const base= type===2?['#35444a','#37474c','#3b484b','#3a464a'][variant]:type===1?['#4a4d48','#4b504b','#4a504b','#464a46'][variant]:['#263e34','#2a4235','#294235','#273b32'][variant];
- rect(x,y,TILE,TILE,base);
- if(type){rect(x,y,TILE,2,type===2?'#202e32':'#333c38');rect(x,y,2,TILE,'#2d3836');
- if(rng()<.63){let xx=x+7+rng()*27|0,yy=y+6+rng()*24|0;rect(xx,yy,2+rng()*12|0,1,'#81908a30');if(rng()<.3){rect(xx+6,yy+1,1,11,'#1b292a')}}
- if(rng()<.08){rect(x+5,y+25,4,3,'#426b48');rect(x+12,y+29,4,3,'#315941')}
- } else {for(let k=0;k<7;k++){let tx=x+rng()*TILE|0,ty=y+rng()*TILE|0;rect(tx,ty,2,5,rng()<.5?'#426b48':'#365a41')}}
+// CAMPAIGN_GAME_START
+const campaignArt=new Ben10CampaignRenderer(campaign.data);
+let campaignView={x:0,y:0,width:screenW,height:screenH},campaignExitReady=false;
+const campaignUI=Object.fromEntries(['campaignStatus','campaignPhase','campaignPlace','campaignProgress','campaignExit','campaignExitLabel','campaignExitTitle','campaignEnter'].map(id=>[id,document.getElementById(id)]));
+function campaignPhysicsWorld(){
+ return {width:WORLD.w,height:WORLD.h,obstacles:props,bounds:campaign.bounds(0),
+  clipSegment:(a,b,radius,world)=>campaign.clipSegment(a,b,radius,world?.obstacles||props),
+  clampPoint:(point,radius)=>campaign.clampPoint(point,radius,props,{ignoreProps:true})};
 }
-// Sidewalk edging, road accents and scattered plants.
-rect(0,681,WORLD.w,8,'#252c2c');rect(0,1125,WORLD.w,8,'#252c2c');rect(923,0,8,WORLD.h,'#252c2c');rect(1477,0,8,WORLD.h,'#252c2c');
-for(let y=50;y<WORLD.h-50;y+=90){rect(1194,y,7,30,'#7785738b')}for(let x=40;x<WORLD.w-40;x+=90){rect(x,902,30,7,'#7785738b')}
-for(let i=0;i<150;i++){let x=rng()*WORLD.w|0,y=rng()*WORLD.h|0;if(groundType(x,y)===2)continue;let k=rng();rect(x,y,2+(k*5)|0,2,k>.68?'#676b5988':'#253a2c')}
-// Plaza center details.
-rect(1071,794,272,6,'#596660');rect(1071,1036,272,6,'#222f30');
-for(let z=0;z<14;z++){let angle=z*Math.PI/7,x=1206+Math.cos(angle)*142,y=914+Math.sin(angle)*142;rect(x|0,y|0,4,5,'#71866c')}
-// Decorative props with separate depth sorting.
-function prop(x,y,type,block=true){props.push({x,y,type,block,r:type==='tree'?33:type==='crate'?27:19})}
-for(let x=80;x<2290;x+=180){prop(x,145,'tree');prop(x,1670,'tree')}
-for(let y=270;y<1610;y+=200){prop(112,y,'tree');prop(2290,y,'tree')}
-[[590,435],[622,438],[1750,1290],[1808,1290],[1725,425],[380,1285],[2050,840],[555,1410],[1870,710]].forEach(([x,y])=>prop(x,y,'crate'));
-[[730,555],[1650,580],[725,1285],[1690,1335]].forEach(([x,y])=>prop(x,y,'lamp',false));
-[[690,920],[1710,920],[1205,490],[1205,1390],[890,1310],[1550,515]].forEach(([x,y],i)=>dummyList.push({x,y,health:100,max:100,alive:true,shake:0,respawn:0,hit:0,id:i}));
-function drawTree(x,y){ctx.fillStyle='#101b16ab';ctx.beginPath();ctx.ellipse(x+5,y-2,38,16,0,0,Math.PI*2);ctx.fill();ctx.fillStyle='#3f3325';ctx.fillRect(x-11,y-36,22,40);ctx.fillStyle='#5d4632';ctx.fillRect(x-3,y-39,8,37);ctx.fillStyle='#142a27';ctx.fillRect(x-42,y-93,84,59);ctx.fillStyle='#355b3f';ctx.fillRect(x-36,y-102,71,57);ctx.fillStyle='#47744d';ctx.fillRect(x-27,y-107,52,22);ctx.fillStyle='#5b8d56';ctx.fillRect(x-18,y-106,28,12);ctx.fillStyle='#1e4630';ctx.fillRect(x-39,y-72,15,29);ctx.fillRect(x+16,y-66,20,20)}
-function drawCrate(x,y){ctx.fillStyle='#0007';ctx.fillRect(x-27,y-7,59,24);ctx.fillStyle='#2b291c';ctx.fillRect(x-27,y-39,55,40);ctx.fillStyle='#8c7247';ctx.fillRect(x-25,y-44,50,12);ctx.fillStyle='#59472f';ctx.fillRect(x-25,y-30,50,20);ctx.fillStyle='#a18a55';ctx.fillRect(x-25,y-44,7,43);ctx.fillRect(x+18,y-44,7,43);ctx.fillRect(x-25,y-19,50,6);ctx.fillStyle='#2d2b20';ctx.fillRect(x-10,y-35,5,10);ctx.fillRect(x+7,y-35,5,10);}
-function drawLamp(x,y){ctx.fillStyle='#0007';ctx.beginPath();ctx.ellipse(x,y,20,7,0,0,7);ctx.fill();ctx.fillStyle='#1d2728';ctx.fillRect(x-6,y-94,12,92);ctx.fillStyle='#657477';ctx.fillRect(x-2,y-87,4,82);ctx.fillStyle='#131c1e';ctx.fillRect(x-16,y-109,32,15);ctx.fillStyle='#d8f8a1';ctx.fillRect(x-11,y-107,22,7);ctx.fillStyle='#dbff8c19';ctx.beginPath();ctx.arc(x,y-99,48,0,7);ctx.fill()}
+function campaignGroundPoint(point,origin=player){return campaign.clipSegment(origin,point,0,props).end;}
+function campaignCollide(x,y,radius){
+ if(campaign.blocked({x,y},radius,props))return true;
+ for(const d of dummyList)if(d!==ghostAction.grab?.target&&d.alive&&dist(x,y,d.x,d.y-2)<16+radius)return true;
+ return false;
+}
+function campaignMovePlayer(x,y){
+ const before={x:player.x,y:player.y},radius=actorMetrics().radius;
+ const next=campaign.move(before,x-before.x,y-before.y,radius,props);
+ if(!dummyList.some(d=>d.alive&&d!==ghostAction.grab?.target&&dist(next.x,next.y,d.x,d.y-2)<16+radius)){player.x=next.x;player.y=next.y;}
+}
+function campaignCanEnter(){return assetsReady&&!comicOpen&&!state.wheel&&!progressionPanelOpen&&!adminPanelOpen&&player.mode==='idle'&&!evolutionCasting()&&speedAction.phase==='idle'&&cannonAction.phase==='idle'&&ghostAction.phase==='idle'&&stats.health>0;}
+function campaignResetEffects(){
+ evolutionCancelSkill();cancelSpeedAbility();cancelCannonAbility();cancelGhostAbility();cancelStinkAction(true);cancelWildAction(true);cancelWolfAction(true);cancelUpgradeAction(true);
+ fire.clear();slime.clear();thorns.clear();sonics.clear();eyeBeams.clear();pieces=[];dummyList=[];
+ progression.fields=[];progression.fx=[];progression.comboLog=[];combatTargetState.focus=null;stats.clearCombo();
+ player.bufferedAttack=null;player.specialQueued=false;player.specialAnimation=false;player.pendingForm=null;
+ player.mode='idle';player.modeTime=0;player.modeDur=0;player.hit=false;player.moving=false;player.runClock=0;player.idleClock=0;impactPause=0;flash=0;shake=0;
+ clearTimeout(state.toastTimer);clearTimeout(state.comboTimer);
+ for(const id of ['toast','combo']){const el=document.getElementById(id);el.classList.remove('show');el.textContent='';}
+}
+function campaignSetPhase(index,initial=false){
+ if(!initial)campaignResetEffects();
+ campaign.setPhase(index);WORLD.w=campaign.width;WORLD.h=campaign.height;props=campaign.props;
+ const position=campaign.spawn(initial?HUMAN.radius:actorMetrics().radius);player.x=position.x;player.y=position.y;
+ player.dir='right';player.faceX=1;player.faceY=0;player.actionDir='right';player.actionX=1;player.actionY=0;
+ campaignExitReady=false;campaignUI.campaignExit.hidden=true;keys.clear();pointer.active=false;
+ cam.x=0;cam.y=campaign.offsetY;
+ if(!initial){campaignUpdateUI();campaignCamera(0,true);game.focus({preventScroll:true});}
+}
+function campaignEnter(){
+ if(!campaignExitReady||!campaignCanEnter())return false;
+ campaignSetPhase((campaign.phaseIndex+1)%campaign.data.chapters.length);return true;
+}
+function campaignUpdateUI(){
+ const logical=campaign.logical(player),room=Ben10MapWorld.roomAt(campaign.data,logical.x);
+ campaignUI.campaignPhase.textContent='FASE '+(campaign.phaseIndex+1)+' / 3';
+ campaignUI.campaignPlace.textContent=room.name;campaignUI.campaignProgress.style.width=campaign.progress(player.x)*100+'%';
+ campaignExitReady=campaign.atExit(player);campaignUI.campaignExit.hidden=!campaignExitReady;
+ campaignUI.campaignEnter.disabled=!campaignCanEnter();
+ const end=campaign.phaseIndex===2;
+ campaignUI.campaignExitLabel.textContent=end?'LABORATORIO PRINCIPAL':campaign.phaseIndex===0?'ENTRADA DEL CASTILLO':'ENTRADA DEL LABORATORIO';
+ campaignUI.campaignExitTitle.textContent=end?'Sala del Rey Eterno':campaign.phaseIndex===0?'Castillo de los Eternos':'El laboratorio oculto';
+ campaignUI.campaignEnter.querySelector('span').textContent=end?'Volver al inicio':campaign.phase.entry;
+}
+function campaignAfterUpdate(before){
+ const radius=actorMetrics().radius,intangible=ghostIntangible()||evolutionSkillIntangible();
+ if(campaign.onFloor(before,radius)){
+  const p=campaign.clipSegment(before,player,radius,props,{ignoreProps:intangible}).end;player.x=p.x;player.y=p.y;
+ }
+ if(campaign.blocked(player,radius,props,{ignoreProps:intangible})){
+  const safe=campaign.clampPoint(player,radius,props,{ignoreProps:intangible})||campaign.spawn(radius);player.x=safe.x;player.y=safe.y;
+ }
+ for(const f of progression.fields)if(f.kind==='pool'&&!campaign.onFloor(f,0)){const point=campaignGroundPoint(f,f.source);f.x=point.x;f.y=point.y;}
+ campaignUpdateUI();
+}
+function campaignCamera(dt=1/60,snap=false){
+ const worldWidth=640*campaign.scale,worldHeight=360*campaign.scale,zoom=Math.min(screenW/worldWidth,screenH/worldHeight);
+ campaignView={x:(screenW-worldWidth*zoom)/2,y:(screenH-worldHeight*zoom)/2,width:worldWidth*zoom,height:worldHeight*zoom};
+ cam.zoom=zoom;cam.y=campaign.offsetY;
+ if(speedAction.phase==='charge'||speedAction.phase==='plan')return;
+ const wanted=clamp(player.x-worldWidth*.42,0,Math.max(0,WORLD.w-worldWidth));
+ cam.x=snap?wanted:lerp(cam.x,wanted,1-Math.exp(-((speedAction.phase==='rush'||cannonAction.phase==='rush')?24:8)*dt));
+ cam.x=clamp(cam.x,0,Math.max(0,WORLD.w-worldWidth));
+}
+function campaignPointerWorld(x,y){return {x:cam.x+(x-campaignView.x)/cam.zoom,y:cam.y+(y-campaignView.y)/cam.zoom};}
+function campaignDrawWorld(){
+ ctx.fillStyle='#0c1717';ctx.fillRect(0,0,screenW,screenH);
+ ctx.save();ctx.beginPath();ctx.rect(campaignView.x,campaignView.y,campaignView.width,campaignView.height);ctx.clip();
+ ctx.translate(campaignView.x-cam.x*cam.zoom,campaignView.y-cam.y*cam.zoom);ctx.scale(cam.zoom,cam.zoom);
+ const view={left:cam.x,right:cam.x+campaignView.width/cam.zoom},visible=props.filter(p=>p.type==='campaign'&&p.x+p.width/2>=view.left-50&&p.x-p.width/2<=view.right+50);
+ campaignArt.background(ctx,campaign,view);
+ ctx.save();ctx.beginPath();ctx.rect(0,campaign.offsetY+208*campaign.scale,WORLD.w,152*campaign.scale);ctx.clip();drawWildTrails();drawStinkPools();ctx.restore();
+ drawSpeedRoute();drawCannonCharge();
+ for(const p of visible)if(p.art.behind)campaignArt.sprite(ctx,p,t);
+ campaignArt.ambient(ctx,campaign,t,view);
+ const items=visible.filter(p=>!p.art.behind).map(p=>({y:p.y,draw:()=>campaignArt.sprite(ctx,p,t)}));
+ for(const d of dummyList)if(d!==ghostAction.grab?.target)items.push({y:d.y,draw:()=>drawDummy(d)});
+ for(const wave of thorns.waves)for(const node of wave.nodes)items.push({y:node.y,draw:()=>drawWildThorn(node,wave)});
+ for(const wave of sonics.waves)items.push({y:wave.origin.y,draw:()=>drawSonicWave(wave)});
+ for(const beam of eyeBeams.beams)items.push({y:beam.origin.y,draw:()=>drawUpgradeLaser(beam)});
+ for(const shot of slime.shots)items.push({y:shot.y,draw:()=>drawStinkShot(shot)});
+ for(const shot of fire.shots)items.push({y:shot.y,draw:()=>shot.kind==='crystal'?drawCrystalShard(shot):drawFireball(shot)});
+ items.push({y:player.y,draw:drawPlayer});items.sort((a,b)=>a.y-b.y);for(const item of items)item.draw();drawParticles();evolutionDrawEffects();
+ ctx.restore();if(flash>0){ctx.fillStyle=`rgba(148,255,85,${Math.pow(flash,2)*.24})`;ctx.fillRect(0,0,screenW,screenH);}
+}
+campaignUI.campaignEnter.addEventListener('click',()=>campaignEnter());
+game.tabIndex=0;campaignSetPhase(0,true);
+// CAMPAIGN_GAME_END
+
 function drawDummy(d,options={}){let x=d.x+(d.shake?Math.sin(t*90)*Math.min(d.shake*4,9):0),y=d.y;if(!options.airborne){ctx.fillStyle='#03090875';ctx.beginPath();ctx.ellipse(x,y+2,32,10,0,0,7);ctx.fill();}if(!d.alive){ctx.fillStyle='#806342';ctx.fillRect(x-28,y-11,57,9);ctx.fillStyle='#a88a57';ctx.fillRect(x-13,y-15,16,5);return}
  ctx.fillStyle='#36362a';ctx.fillRect(x-7,y-8,14,15);ctx.fillStyle='#7e6848';ctx.fillRect(x-6,y-62,12,59);
  ctx.fillStyle='#a18048';ctx.fillRect(x-32,y-47,64,9);ctx.fillStyle='#71552d';ctx.fillRect(x-26,y-61,52,22);ctx.fillStyle='#a18a54';ctx.fillRect(x-20,y-56,40,12);
@@ -1349,7 +1603,7 @@ function drawParticles(){for(const p of pieces){ctx.globalAlpha=clamp(p.life/p.m
  ctx.beginPath();ctx.moveTo(bx-7,by);ctx.lineTo(bx-3,by-h);ctx.lineTo(bx+3,by-h-8*growth);ctx.lineTo(bx+7,by);ctx.closePath();ctx.fillStyle='#275b50';ctx.fill();ctx.strokeStyle='#163e37';ctx.lineWidth=2;ctx.stroke();
  ctx.beginPath();ctx.moveTo(bx-3,by-h);ctx.lineTo(bx+3,by-h-8*growth);ctx.lineTo(bx+1,by-1);ctx.lineTo(bx-6,by-1);ctx.closePath();ctx.fillStyle='#b2f1d6';ctx.fill();}
  }else if(p.type==='shockwave'){const r=(1-p.life/p.max)*p.size;ctx.strokeStyle=p.color;ctx.lineWidth=3+4*p.life/p.max;ctx.beginPath();ctx.ellipse(p.x,p.y,r,r*.38,0,0,7);ctx.stroke();}else{ctx.fillStyle=p.color;ctx.fillRect(Math.floor(p.x-p.size/2),Math.floor(p.y-p.size/2),Math.ceil(p.size),Math.ceil(p.size))}}ctx.globalAlpha=1}
-function collide(x,y,radius=actorMetrics().radius){if(x<110+radius||y<85+radius||x>WORLD.w-95-radius||y>WORLD.h-95-radius)return true;for(const p of props)if(p.block&&dist(x,y,p.x,p.y)<p.r+radius)return true;for(const d of dummyList)if(d!==ghostAction.grab?.target&&d.alive&&dist(x,y,d.x,d.y-2)<16+radius)return true;return false}
+function collide(x,y,radius=actorMetrics().radius){return campaignCollide(x,y,radius);}
 function startMode(mode,duration){player.bufferedAttack=null;if(!mode.startsWith('heavy')){player.specialQueued=false;player.specialAnimation=false;}player.mode=mode;player.modeTime=0;player.modeDur=duration;player.hit=false;player.idleClock=0;player.actionDir=player.dir;player.actionX=player.faceX;player.actionY=player.faceY}
 function faceForAction(){const input=moveInput();if(input.x||input.y)faceFrom(input.x,input.y)}
 function moveInput(){let x=(keys.has('d')||keys.has('arrowright')?1:0)-(keys.has('a')||keys.has('arrowleft')?1:0);let y=(keys.has('s')||keys.has('arrowdown')?1:0)-(keys.has('w')||keys.has('arrowup')?1:0);let l=Math.hypot(x,y);return l?{x:x/Math.max(1,l),y:y/Math.max(1,l)}:{x:0,y:0}}
@@ -1371,7 +1625,7 @@ function damageDummy(d,damage,heavy,feedback={}){
  const attackScale=feedback.attackScale??(stats.form?evolutionBonus().atk:null);
  if(attackScale!==null)damage=Math.max(1,Math.round(damage*attackScale));
  d.health=Math.max(0,d.health-damage);d.hit=.28;d.shake=feedback.slime?.35:heavy?2:1;if(feedback.slime){spawnDust(d.x,d.y-48,3,'#a9d259');floatText(d.x+((feedback.port??1)-1.5)*7,d.y-115-(feedback.port??0)*3,'-'+damage,'#d2ed87',13);d.shake=.35;}else{spawnHit(d.x,d.y-48,heavy);floatText(d.x,d.y-125,'-'+damage,heavy?'#ffe2a2':'#d8fbaa');}
- if(d.health<=0){d.alive=false;d.respawn=4.2;state.kills++;document.getElementById('count').textContent=String(state.kills);stats.awardXP(stats.config.targetXP);evolutionSave();floatText(d.x,d.y-145,'+'+stats.config.targetXP+' XP','#ffc56f');spawnDust(d.x,d.y-25,20,'#ac9572');}
+ if(d.health<=0){d.alive=false;d.respawn=4.2;state.kills++;stats.awardXP(stats.config.targetXP);evolutionSave();floatText(d.x,d.y-145,'+'+stats.config.targetXP+' XP','#ffc56f');spawnDust(d.x,d.y-25,20,'#ac9572');}
  return true;
 }
 function fireImpact(shot){
@@ -1432,8 +1686,8 @@ function calculateHit(){
 // XLR8_GAME_START
 // Embedded inside the game closure; geometry lives in speed-route.js.
 const speedGuide=document.getElementById('speedGuide'),speedGuideTitle=document.getElementById('speedGuideTitle'),speedGuideHint=document.getElementById('speedGuideHint'),speedGuideFill=document.getElementById('speedGuideFill');
-function speedWorld(){return {width:WORLD.w,height:WORLD.h,obstacles:props}}
-function speedPointerWorld(event){const r=game.getBoundingClientRect();return {x:cam.x+(event.clientX-r.left)*screenW/r.width/cam.zoom,y:cam.y+(event.clientY-r.top)*screenH/r.height/cam.zoom}}
+function speedWorld(){return campaignPhysicsWorld();}
+function speedPointerWorld(event){const r=game.getBoundingClientRect();return campaignPointerWorld((event.clientX-r.left)*screenW/r.width,(event.clientY-r.top)*screenH/r.height);}
 function releaseSpeedCapture(){
  const target=speedAction.capture,id=speedAction.pointerId;speedAction.capture=null;speedAction.pointerId=null;
  try{if(target?.hasPointerCapture?.(id))target.releasePointerCapture(id);}catch{}
@@ -1847,7 +2101,7 @@ function updateStinkEffects(dt){
  syncStinkForm();
  if(stinkAction.burst&&!stinkAction.burst.closed&&(!isStinkfly()||!player.mode.startsWith('light'))){slime.closeBurst(stinkAction.burst);stinkAction.burst=null;}
  const creditable=b=>isStinkfly()&&b.session===stinkAction.session&&b.id>=stinkAction.creditFrom&&b.id>=stinkAction.lastOutcome;
- slime.tick(dt,{targets:dummyList,obstacles:props,width:WORLD.w,height:WORLD.h},s=>{
+ slime.tick(dt,{...speedWorld(),targets:dummyList},s=>{
   if(s.target){damageDummy(s.target,s.damage,false,{slime:true,port:s.port});const b=s.burst;if(b&&!b.credited&&creditable(b)){b.credited=true;stinkAction.lastOutcome=b.id;stats.recordLightHit();if(stats.specialReady)showCombo('COMBO INSECTOIDE LISTO · FUERTE: VENENO');}}
   else if(s.kind==='spit')spawnDust(s.x,s.y-s.height,2,'#a6d35c');
  },b=>{if(b.launched&&!b.hit&&creditable(b)){stinkAction.lastOutcome=b.id;stats.clearCombo();}},(d,damage)=>damageDummy(d,damage,false,{slime:true,port:1,rememberTarget:false}));
@@ -1919,7 +2173,7 @@ function drawWildThorn(node,wave){
  ctx.save();ctx.translate(Math.round(node.x),Math.round(node.y));if(node.index%2)ctx.scale(-1,1);ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';drawRegisteredFrame(ctx,f,-f.anchorX*scale,-f.anchorY*scale,scale);ctx.restore();
 }
 // WILDVINE_GAME_END
-function update(dt){if(comicOpen||state.wheel||progressionPanelOpen||adminPanelOpen||!assetsReady){syncHud();return;}updateStats(dt);t+=dt;evolutionTick(dt);if(impactPause>0){impactPause=Math.max(0,impactPause-dt);updateParticles(dt);return;}const abilityLocked=evolutionCasting()||speedAction.phase!=='idle'||cannonAction.phase!=='idle'||ghostAction.phase!=='idle';if(speedAction.phase!=='idle')updateSpeedAbility(dt);if(cannonAction.phase!=='idle')updateCannonAbility(dt);if(ghostAction.phase!=='idle')updateGhostAbility(dt);const metrics=actorMetrics(),dash=metrics.dash;let input=abilityLocked?{x:0,y:0}:moveInput(),moving=(input.x!==0||input.y!==0);const lunge=(isHeatblast()||isDiamondhead()||isXLR8()||isCannonbolt()||isGhostfreak()||isBlitzwolfer()||isUpgrade())&&player.mode.startsWith('light')?{start:player.modeTime,duration:player.modeDur,combo:player.lightN,x:player.actionX,y:player.actionY,distances:isDiamondhead()?[4,6,9]:isXLR8()?[5,7,10]:isCannonbolt()?[3,5,0]:isGhostfreak()?[3,4,6]:isBlitzwolfer()?[5,6,10]:isUpgrade()?[4,6,10]:[6,8,12]}:null;const mode=player.mode,dashStart=player.modeTime,dashDt=Math.min(dt,Math.max(0,dash.duration-dashStart));
+function update(dt){if(comicOpen||state.wheel||progressionPanelOpen||adminPanelOpen||!assetsReady){syncHud();return;}const campaignBefore={x:player.x,y:player.y};updateStats(dt);t+=dt;evolutionTick(dt);if(impactPause>0){impactPause=Math.max(0,impactPause-dt);updateParticles(dt);return;}const abilityLocked=evolutionCasting()||speedAction.phase!=='idle'||cannonAction.phase!=='idle'||ghostAction.phase!=='idle';if(speedAction.phase!=='idle')updateSpeedAbility(dt);if(cannonAction.phase!=='idle')updateCannonAbility(dt);if(ghostAction.phase!=='idle')updateGhostAbility(dt);const metrics=actorMetrics(),dash=metrics.dash;let input=abilityLocked?{x:0,y:0}:moveInput(),moving=(input.x!==0||input.y!==0);const lunge=(isHeatblast()||isDiamondhead()||isXLR8()||isCannonbolt()||isGhostfreak()||isBlitzwolfer()||isUpgrade())&&player.mode.startsWith('light')?{start:player.modeTime,duration:player.modeDur,combo:player.lightN,x:player.actionX,y:player.actionY,distances:isDiamondhead()?[4,6,9]:isXLR8()?[5,7,10]:isCannonbolt()?[3,5,0]:isGhostfreak()?[3,4,6]:isBlitzwolfer()?[5,6,10]:isUpgrade()?[4,6,10]:[6,8,12]}:null;const mode=player.mode,dashStart=player.modeTime,dashDt=Math.min(dt,Math.max(0,dash.duration-dashStart));
  if(!abilityLocked&&isUpgrade())updateUpgradeAction(dt);
  if(!abilityLocked&&isBlitzwolfer())updateWolfAction(dt);
  if(!abilityLocked&&isStinkfly())updateStinkAnimation(dt);
@@ -1931,14 +2185,13 @@ function update(dt){if(comicOpen||state.wheel||progressionPanelOpen||adminPanelO
  if(rolling&&!vx&&!vy){vy=1}
  let speed=rolling?lerp(dash.startSpeed,dash.endSpeed,clamp((dashStart+dashDt*.5)/dash.duration,0,1)):player.mode.startsWith('heavy')?0:player.mode.startsWith('light')?metrics.speed*.32:locked?0:metrics.speed*(isCannonbolt()?lerp(.45,1,cannonMotion.curl):1);
  const beforeX=player.x,beforeY=player.y,step=lunge?heatblastLunge(Math.min(lunge.duration,lunge.start+dt),lunge.duration,lunge.combo,lunge.distances)-heatblastLunge(lunge.start,lunge.duration,lunge.combo,lunge.distances):0;const travel=speed*(rolling?dashDt:dt);let newX=player.x+vx*travel+(lunge?.x||0)*step,newY=player.y+vy*travel+(lunge?.y||0)*step;
- if(!collide(newX,player.y))player.x=newX;
- if(!collide(player.x,newY))player.y=newY;
+ campaignMovePlayer(newX,newY);
  const moved=dist(beforeX,beforeY,player.x,player.y);player.moving=abilityLocked?(speedAction.phase==='rush'||cannonAction.phase==='rush'||(ghostAction.phase==='hold'&&player.moving)):moved>.001&&(player.mode!=='idle'||moving);if(player.mode==='idle'&&player.moving){player.runClock+=moved/metrics.speed*1.1;player.idleClock=0;if(!isGhostfreak()&&rng()<dt*7)spawnDust(player.x,player.y-1,1,'#8c9386')}else if(player.mode==='idle'){player.runClock=0;player.idleClock+=dt}
  if(!abilityLocked)updateCannonMotion(dt,player.moving,moved);
  if(rolling&&!isGhostfreak()&&!isStinkfly()&&rng()<dt*38)spawnDust(player.x,player.y-3,1,isHeatblast()?'#ffad38':isDiamondhead()?'#8bd3c2':undefined);
  for(const d of dummyList){if(d.shake>0)d.shake=Math.max(0,d.shake-dt*8);if(d.hit>0)d.hit-=dt;if(d.stunTime>0)d.stunTime=Math.max(0,d.stunTime-dt);if(!d.alive){d.respawn-=dt;if(d.respawn<=0){d.alive=true;d.health=100;showToast('OBJETIVO REPARADO')}}}
- fire.tick(dt,{targets:dummyList,obstacles:props,width:WORLD.w,height:WORLD.h},fireImpact);
- updateStinkEffects(dt);updateWildEffects(dt);updateSonicEffects(dt);updateUpgradeEffects(dt);updateParticles(dt);flash=Math.max(0,flash-dt*1.8);shake=Math.max(0,shake-dt*23);updateStats(0);
+ fire.tick(dt,{...speedWorld(),targets:dummyList},fireImpact);
+ updateStinkEffects(dt);updateWildEffects(dt);updateSonicEffects(dt);updateUpgradeEffects(dt);updateParticles(dt);flash=Math.max(0,flash-dt*1.8);shake=Math.max(0,shake-dt*23);updateStats(0);campaignAfterUpdate(campaignBefore);
 }
 // Complete clips include their anticipation, contact and recovery. Each pose
 // names its own source cell, so changing rows never draws two sprites together.
@@ -2235,30 +2488,19 @@ function drawPlayer(){
  drawGhostGrabTarget();paintPlayerSprite(ctx,pose,player.x,player.y);drawGhostGrabOverlay();ctx.restore();
  if(player.mode==='omnitrix'){let f=player.modeTime/player.modeDur;ctx.save();ctx.strokeStyle=`rgba(141,255,66,${Math.sin(f*Math.PI)*.9})`;ctx.lineWidth=3;for(let z=0;z<2;z++){ctx.beginPath();ctx.arc(player.x,player.y-48,28+f*65+z*16,0,Math.PI*2);ctx.stroke()}if(f>.7){ctx.globalAlpha=(f-.7)*1.1;ctx.fillStyle='#c3ff9f';ctx.beginPath();ctx.arc(player.x,player.y-45,35+20*(f-.7),0,7);ctx.fill()}ctx.restore()}
 }
-function drawWorld(){ctx.fillStyle='#0c1b17';ctx.fillRect(0,0,screenW,screenH);
- ctx.save();ctx.translate(Math.round(-cam.x*cam.zoom),Math.round(-cam.y*cam.zoom));ctx.scale(cam.zoom,cam.zoom);
- ctx.drawImage(ground,0,0);drawWildTrails();drawStinkPools();drawSpeedRoute();drawCannonCharge();
- // Ground markers and an easy-to-read training area center.
- ctx.save();ctx.globalAlpha=.35;ctx.strokeStyle='#96b086';ctx.lineWidth=3;ctx.strokeRect(1004,745,397,320);ctx.restore();
- ctx.font='900 16px Consolas,monospace';ctx.fillStyle='#718e76';ctx.textAlign='center';ctx.fillText('CAMPO DE PRUEBAS',1208,756);
- const items=[];for(const p of props){if(Math.abs(p.x-(cam.x+screenW/2/cam.zoom))<screenW/cam.zoom/2+140&&Math.abs(p.y-(cam.y+screenH/2/cam.zoom))<screenH/cam.zoom/2+150)items.push({y:p.y,draw:()=>{if(p.type==='tree')drawTree(p.x,p.y);else if(p.type==='crate')drawCrate(p.x,p.y);else drawLamp(p.x,p.y)}})}
- for(const d of dummyList)if(d!==ghostAction.grab?.target)items.push({y:d.y,draw:()=>{drawDummy(d);if((d.stunTime||0)>0){ctx.fillStyle='#ccf4f7';ctx.font='900 22px Consolas,monospace';ctx.textAlign='center';ctx.fillText('✦',d.x,d.y-125);}}});
- for(const wave of thorns.waves)for(const node of wave.nodes)items.push({y:node.y,draw:()=>drawWildThorn(node,wave)});
- for(const wave of sonics.waves)items.push({y:wave.origin.y,draw:()=>drawSonicWave(wave)});
- for(const beam of eyeBeams.beams)items.push({y:beam.origin.y,draw:()=>drawUpgradeLaser(beam)});
- for(const shot of slime.shots)items.push({y:shot.y,draw:()=>drawStinkShot(shot)});
- for(const shot of fire.shots)items.push({y:shot.y,draw:()=>shot.kind==='crystal'?drawCrystalShard(shot):drawFireball(shot)});
- items.push({y:player.y,draw:drawPlayer});items.sort((a,b)=>a.y-b.y);for(const item of items)item.draw();drawParticles();evolutionDrawEffects();
- ctx.restore();if(flash>0){ctx.fillStyle=`rgba(148,255,85,${Math.pow(flash,2)*.24})`;ctx.fillRect(0,0,screenW,screenH)}
+function drawWorld(){campaignDrawWorld();}
+function render(dt=1/60){
+ ctx.setTransform(dpr,0,0,dpr,0,0);ctx.imageSmoothingEnabled=false;
+ if(!assetsReady){ctx.fillStyle='#101c17';ctx.fillRect(0,0,screenW,screenH);ctx.fillStyle='#b7f17b';ctx.textAlign='center';ctx.font='bold 16px Consolas,monospace';ctx.fillText('PREPARANDO EL OMNITRIX Y EL RECORRIDO…',screenW/2,screenH/2);return;}
+ campaignCamera(dt);ctx.save();if(shake)ctx.translate((rng()-.5)*shake,(rng()-.5)*shake);drawWorld();ctx.restore();
 }
-function render(dt=1/60){ctx.setTransform(dpr,0,0,dpr,0,0);ctx.imageSmoothingEnabled=false;if(!assetsReady){ctx.fillStyle='#101c17';ctx.fillRect(0,0,screenW,screenH);ctx.fillStyle='#b7f17b';ctx.textAlign='center';ctx.font='bold 16px Consolas,monospace';ctx.fillText('PREPARANDO EL OMNITRIX…',screenW/2,screenH/2);return;}const a=actorMetrics(),smooth=1-Math.exp(-((speedAction.phase==='rush'||cannonAction.phase==='rush')?24:8)*dt);const planning=speedAction.phase==='charge'||speedAction.phase==='plan';if(!planning){cam.zoom=lerp(cam.zoom,a.zoom,smooth);let wantX=player.x-screenW/(2*cam.zoom),wantY=player.y-screenH*.52/cam.zoom-a.height*.45;cam.x=clamp(lerp(cam.x,wantX,smooth),0,Math.max(0,WORLD.w-screenW/cam.zoom));cam.y=clamp(lerp(cam.y,wantY,smooth),0,Math.max(0,WORLD.h-screenH/cam.zoom));}ctx.save();if(shake)ctx.translate((rng()-.5)*shake,(rng()-.5)*shake);drawWorld();ctx.restore()}
 function loop(now){let dt=clamp((now-lastTime)/1000,0,.04);lastTime=now;if(comicOpen){comicDraw(now);requestAnimationFrame(loop);return;}update(dt);if(progressionPanelOpen){evolutionDrawPreview(now)}else if(adminPanelOpen){}else if(state.wheel)updateWheelVisual(now);else render(dt);requestAnimationFrame(loop)}requestAnimationFrame(loop);
 function pointerPos(ev){const r=game.getBoundingClientRect();pointer.x=(ev.clientX-r.left)*dpr;pointer.y=(ev.clientY-r.top)*dpr;pointer.active=true}
 game.addEventListener('pointermove',pointerPos);
 game.addEventListener('pointerdown',e=>{if(evolutionCasting())return;e.preventDefault();pointerPos(e);if(e.button===0)lightAttack();else if(e.button===2){if(!progressionPanelOpen&&(isXLR8()||isCannonbolt()||isGhostfreak())){if(evolutionRecordAttack('H'))return;}if(isXLR8())beginSpeedAbility(e);else if(isCannonbolt())beginCannonCharge(e);else if(isGhostfreak())beginGhostAbility(e);else heavyAttack()}});
 window.addEventListener('pointermove',moveSpeedPointer);window.addEventListener('pointerup',releaseSpeedPointer);window.addEventListener('pointerup',releaseCannonCharge);window.addEventListener('pointerup',releaseGhostAbility);window.addEventListener('pointercancel',e=>{if(e.pointerId===speedAction.pointerId)cancelSpeedAbility();if(e.pointerId===cannonAction.pointerId)cancelCannonAbility();if(e.pointerId===ghostAction.pointerId)cancelGhostAbility()});
 game.addEventListener('contextmenu',e=>e.preventDefault());document.addEventListener('contextmenu',e=>e.preventDefault());
-window.addEventListener('keydown',e=>{let k=e.key.toLowerCase();if(comicOpen){comicHandleKey(e);return;}if(k==='f9'&&!e.repeat){e.preventDefault();toggleAdminPanel();return;}if(adminPanelOpen){if(k==='escape')toggleAdminPanel(false);return;}if(e.target.matches?.('input,textarea,select')&&k!=='escape')return;if(k===' '&&e.target.closest?.('button')?.matches(':focus-visible'))return;if([' ','arrowup','arrowdown','arrowleft','arrowright'].includes(k))e.preventDefault();if(k==='k'&&!e.repeat){toggleProgressionPanel();return}if(progressionPanelOpen){if(k==='escape')toggleProgressionPanel(false);return}if(k==='f'&&!e.repeat){evolutionUseAbility();return}if(k==='r'&&!e.repeat){toggleWheel();return}if(k==='t'&&!e.repeat){returnToBen();return}if(state.wheel){if(k==='escape'){toggleWheel(false)}else if(ROSTER_KEYS.includes(k)){selectSlot(ROSTER_KEYS.indexOf(k))}return}keys.add(k);if(k===' '&&!e.repeat)dodge();});
+window.addEventListener('keydown',e=>{let k=e.key.toLowerCase();if(comicOpen){comicHandleKey(e);return;}if(k==='f9'&&!e.repeat){e.preventDefault();toggleAdminPanel();return;}if(adminPanelOpen){if(k==='escape')toggleAdminPanel(false);return;}if(e.target.matches?.('input,textarea,select')&&k!=='escape')return;if(k===' '&&e.target.closest?.('button')?.matches(':focus-visible'))return;if([' ','arrowup','arrowdown','arrowleft','arrowright'].includes(k))e.preventDefault();if(k==='k'&&!e.repeat){toggleProgressionPanel();return}if(progressionPanelOpen){if(k==='escape')toggleProgressionPanel(false);return}if(k==='f'&&!e.repeat){evolutionUseAbility();return}if(k==='r'&&!e.repeat){toggleWheel();return}if(k==='t'&&!e.repeat){returnToBen();return}if(state.wheel){if(k==='escape'){toggleWheel(false)}else if(ROSTER_KEYS.includes(k)){selectSlot(ROSTER_KEYS.indexOf(k))}return}if(k==='e'&&!e.repeat){if(campaignEnter())e.preventDefault();return;}keys.add(k);if(k===' '&&!e.repeat)dodge();});
 window.addEventListener('keyup',e=>{keys.delete(e.key.toLowerCase());if(player.mode==='idle'){const input=moveInput();if(!input.x&&!input.y){player.moving=false;player.runClock=0;player.idleClock=0}}});window.addEventListener('blur',()=>{cancelSpeedAbility();cancelCannonAbility();cancelGhostAbility();cancelStinkAction(true);cancelWildAction(true);cancelWolfAction(true);cancelUpgradeAction(true);keys.clear();player.moving=false;player.runClock=0;player.idleClock=0});
 // Classic roster: retain the original ten aliens and add Cannonbolt in slot 5.
 const layer=document.getElementById('wheelLayer'),wc=document.getElementById('wheelCanvas'),wctx=wc.getContext('2d');
@@ -2610,6 +2852,7 @@ function evolutionTargetContact(c,damage,{slam=false,knock=0}={}){
  if(evolutionHit(c,d,damage)){if(slam){d.skillLift=0;d.skillTilt=0;d.stunTime=1.1;evolutionEffect(c,'impact',d.x,d.y,80);shake=Math.max(shake,7);}if(knock)evolutionKnock(c,d,knock);return 1;}return 0;
 }
 function evolutionGroundSpike(c,x,y,radius,damage,size=75,kind='pillar'){
+ const point=Ben10Speed.clipSegment({x:c.x,y:c.y},{x,y},speedWorld(),0).end;x=point.x;y=point.y;
  evolutionEffect(c,kind,x,y,size,.85);return evolutionArea(c,x,y,radius,damage,{front:true});
 }
 function evolutionProjectile(c,k,kind,angle=0){
@@ -2763,6 +3006,7 @@ function combatTargetPolicy(form,skill){
 }
 function combatPointerWorld(){
  if(!pointer.active||typeof cam==='undefined')return null;
+ if(typeof campaignPointerWorld==='function')return campaignPointerWorld(pointer.x/dpr,pointer.y/dpr);
  return {x:cam.x+pointer.x/(dpr*cam.zoom),y:cam.y+pointer.y/(dpr*cam.zoom)};
 }
 function combatAimScore(c,d){
@@ -2814,7 +3058,7 @@ function combatTargetInReach(c){
  if(c.captured)return true;
  return dist(c.x,c.y,d.x,d.y)<=c.targetRange&&(!c.aim||dist(c.aim.x,c.aim.y,d.x,d.y)<=75);
 }
-function combatGroundPoint(c,fallback=100){return c.aim?{...c.aim}:{x:c.x+c.dx*fallback,y:c.y+c.dy*fallback};}
+function combatGroundPoint(c,fallback=100){const end=c.aim?{...c.aim}:{x:c.x+c.dx*fallback,y:c.y+c.dy*fallback};return Ben10Speed.clipSegment({x:c.x,y:c.y},end,speedWorld(),0).end;}
 function combatGroundStep(c,k,count,fallback){
  const end=combatGroundPoint(c,fallback),q=(k+1)/count;
  return {x:lerp(c.x,end.x,q),y:lerp(c.y,end.y,q)};
@@ -3020,9 +3264,7 @@ function comicFinish(){
  document.body.classList.remove('comic-active');
  keys.clear();pointer.active=false;lastTime=performance.now();
  // Start with the player in frame even if the intro was skipped during loading.
- const a=actorMetrics();cam.zoom=a.zoom;
- cam.x=clamp(player.x-screenW/(2*cam.zoom),0,Math.max(0,WORLD.w-screenW/cam.zoom));
- cam.y=clamp(player.y-screenH*.52/cam.zoom-a.height*.45,0,Math.max(0,WORLD.h-screenH/cam.zoom));
+ campaignCamera(0,true);
 }
 function comicAdvance(direction=1){
  if(!comicOpen||!comicState.ready)return;
@@ -3071,7 +3313,7 @@ document.body.classList.add('comic-active');comicUpdateUI();comicImage.src='asse
 
 // EVOLUTION_PANEL_V32_END
 
-const readyPromise=Promise.all([loadImage(sheet),loadImage(verticalSheet),loadImage(watchSheet),loadImage(fourArmsSheet),loadImage(heatblastSheet),loadImage(diamondheadSheet),loadImage(xlr8Sheet),loadImage(cannonboltSheet),loadImage(ghostfreakSheet),loadImage(stinkflySheet),loadImage(wildvineSheet),loadImage(wildThornSheet),loadImage(blitzwolferSheet),loadImage(upgradeSheet)]).then(()=>{
+const readyPromise=Promise.all([campaignArt.ready,loadImage(sheet),loadImage(verticalSheet),loadImage(watchSheet),loadImage(fourArmsSheet),loadImage(heatblastSheet),loadImage(diamondheadSheet),loadImage(xlr8Sheet),loadImage(cannonboltSheet),loadImage(ghostfreakSheet),loadImage(stinkflySheet),loadImage(wildvineSheet),loadImage(wildThornSheet),loadImage(blitzwolferSheet),loadImage(upgradeSheet)]).then(()=>{
  mainAtlas=prepareAtlas(sheet,8,14,[8,8,8,8,4,4,4,6,6,5,8,4,6,8]);
  verticalAtlas=prepareAtlas(verticalSheet,8,4,[8,8,8,8]);
  const up=mainAtlas.rows[ROW.up][0].bodyHeight,down=mainAtlas.rows[ROW.down][0].bodyHeight;
