@@ -36,10 +36,10 @@ Las posiciones, alturas, suelo, uniones y conexiones están en `data/manifest.js
 - Farol oscilante, banderines, resorte de trampa y plataforma de cristal con destellos, como piezas separadas.
 - Entrada exterior con carpa enorme y puerta oscura; fondo de Ruta Cristal con perspectiva estrictamente lateral y plataformas reutilizables.
 
-Las reglas futuras quedan anotadas: el ácido hará daño gradual **sin matar**; el confeti no dañará a Ben y podrá curar payasos. No se han añadido estadísticas, IA, oleadas, colisiones, plataformas jugables ni cambios de transformación a la demo. Zombozo y su combate final quedan pendientes. Los botones del visor de espejos solo revisan la conexión visual; no ejecutan el minijuego.
+La demo V43 aplica estas reglas: el ácido hace daño gradual **sin matar** y el confeti no daña a Ben, pero cura payasos. También incluye estadísticas, IA, oleadas y dos rutas de plataformas, con transformaciones desactivadas dentro de los espejos. El combate de Zombozo sigue pendiente. Los botones de este visor solo revisan la conexión visual; el nivel se juega desde la demo principal.
 
 ## Archivos y verificación
 
 `data/catalog.js` contiene los mismos datos que el manifiesto para abrir el visor sin un servidor. `data/panoramas.json` documenta los recortes de pared/suelo. `data/art-jobs.json` conserva las instrucciones de dibujo y `data/provenance.json` sus huellas. Los informes de comprobación están en `data/validation.json` y `data/browser-validation.json`.
 
-La demo PC V42 se conserva completa. Esta biblioteca se prepara aparte para integrar la fase del circo en una entrega posterior.
+La demo PC V43 utiliza estos recursos en el circo jugable. Esta carpeta conserva el visor independiente del arte. La integración, los combates y las plataformas están documentados en `../docs/v43-circo-y-espejos.md`.

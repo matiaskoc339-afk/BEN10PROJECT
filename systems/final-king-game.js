@@ -52,9 +52,9 @@ function kingDamage(e,amount,feedback){
  if(outcome.damage){spawnHit(e.x,e.y-55,true);floatText(e.x,e.y-e.bodyHeight-6,'−'+Math.ceil(outcome.damage),'#ffd4ba',14)}kingSyncUI();return !!(outcome.damage||outcome.defenseDamage);
 }
 function kingRetry(){enemyBattle.reset(2);kingEncounter.reset();kingLastHUD='';campaign.arena=kingArena();const p=campaign.clampPoint({x:campaign.arena.left+105,y:campaign.offsetY+285*campaign.scale},HUMAN.radius,props);player.x=p.x;player.y=p.y;kingStart();return p}
-function kingCloseReward(){kingRewardOpen=false;kingUI.reward.hidden=true;lastTime=performance.now();game.focus({preventScroll:true});campaignUpdateUI();}
+function kingCloseReward(goToSelection=true){kingRewardOpen=false;kingUI.reward.hidden=true;lastTime=performance.now();game.focus({preventScroll:true});campaignUpdateUI();adventure.eternalsCleared=true;if(goToSelection)adventureShowHub();}
 document.getElementById('kingRewardContinue').addEventListener('click',kingCloseReward);
-document.getElementById('kingRewardTransform').addEventListener('click',()=>{kingCloseReward();returnToBen();stats.energy=stats.config.maxEnergy;stats.rechargeLocked=false;stats.rechargeLeft=0;selectSlot(3)});
+document.getElementById('kingRewardTransform').addEventListener('click',()=>{kingCloseReward(false);returnToBen();stats.energy=stats.config.maxEnergy;stats.rechargeLocked=false;stats.rechargeLeft=0;selectSlot(3)});
 document.addEventListener('keydown',event=>{if(!kingRewardOpen)return;event.preventDefault();event.stopImmediatePropagation();if(['Enter','Escape'].includes(event.key))kingCloseReward();},{capture:true});
 function refreshCampaignAlienLocks(){if(typeof evolutionRefreshRoster==='function')evolutionRefreshRoster();if(state.wheel)drawWheel();}
 // FINAL_KING_GAME_END

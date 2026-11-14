@@ -17,7 +17,7 @@ function enemyEvent(event){
 function enemyPlayerHit(hit){
  const dodging=player.mode==='dash'&&player.modeTime<player.modeDur*.85||cannonAction.kind==='dash'&&['fold','rush'].includes(cannonAction.phase);
  if(stats.health<=0||enemyBattle.time<enemyInvulUntil||dodging||player.mode==='omnitrix'||stats.invulnerable||ghostIntangible()||evolutionSkillIntangible())return false;
- const n=stats.damage(hit.damage);if(!n)return false;enemyInvulUntil=enemyBattle.time+.75;enemyStaggerUntil=t+.17;hudHitFlash=.28;
+ if(hit.nonLethal&&stats.health<=1)return false;const n=stats.damage(hit.nonLethal?Math.min(hit.damage,stats.health-1):hit.damage);if(!n)return false;enemyInvulUntil=enemyBattle.time+.75;enemyStaggerUntil=t+.17;hudHitFlash=.28;
  if(!evolutionCasting()){
   cancelSpeedAbility();cancelCannonAbility();cancelGhostAbility();cancelStinkAction(true);cancelWildAction(true);cancelWolfAction(true);cancelUpgradeAction(true);
   player.mode='idle';player.modeTime=0;player.modeDur=0;player.bufferedAttack=null;player.specialQueued=false;player.specialAnimation=false;player.moving=false;
@@ -25,8 +25,8 @@ function enemyPlayerHit(hit){
  if(stats.health>0){const p=campaign.move(player,hit.dir.x*20,hit.dir.y*12,actorMetrics().radius,props);player.x=p.x;player.y=p.y;}
  spawnHit(player.x,player.y-38,false);shake=Math.min(5,shake);updateStats(0);return true;
 }
-const enemyBattle=new Ben10Eternals.Battle({onEvent:enemyEvent,onPlayerHit:enemyPlayerHit});
-const encounters=new Ben10Eternals.Director(campaign.data,{scale:campaign.scale,onEvent:event=>{
+const enemyBattle=new Ben10Circus.Battle({onEvent:enemyEvent,onPlayerHit:enemyPlayerHit});
+const encounters=new Ben10Circus.Director(campaign.data,{scale:campaign.scale,onEvent:event=>{
  if(event.type==='wave-start'){enemyRouteLeft=0;document.getElementById('routeHint').hidden=true;enemyBanner('COMBATE '+String(event.encounter.index+1).padStart(2,'0'),(event.encounter.index===encounters.plan.length-1?'GUARDIÁN DEL PASO · ':event.encounter.name+' · ')+'RONDA '+event.wave+' / '+event.total,2.3,'combat');}
  if(event.type==='encounter-clear'){enemyBanner('COMBATE SUPERADO',event.phaseComplete?'El camino a la entrada está libre':'La patrulla ha caído. Sigue avanzando.',2.1,'clear');enemyShowRoute(event.phaseComplete);stats.heal(event.phaseComplete?12:6);stats.energy=Math.min(stats.config.maxEnergy,stats.energy+(event.phaseComplete?18:10));if(typeof gameSaveCurrent==='function')gameSaveCurrent(true);}
 }});

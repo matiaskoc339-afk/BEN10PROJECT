@@ -45,6 +45,6 @@ for r in D['routes']:
 for p in json.loads((OUT/'data/panoramas.json').read_text()):
  im=Image.open(OUT/p['full']).convert('RGBA');wall=Image.open(OUT/p['wall']).convert('RGBA');floor=Image.open(OUT/p['floor']).convert('RGBA');rebuilt=Image.new('RGBA',im.size);rebuilt.paste(wall,(0,0));rebuilt.paste(floor,(0,wall.height));assert im.tobytes()==rebuilt.tobytes()
  assert im.size==(p['width'],720) and np.array(im)[:,:,3].min()==255,'Panorama has empty border'
-prior=json.loads((ROOT/'docs/v42-validation.json').read_text());assert hashlib.sha256((ROOT/'index.html').read_bytes()).hexdigest()==prior['indexSha256'];report['gameIndexUnchanged']=True
+report['integratedInDemo']=json.loads((ROOT/'package.json').read_text())['version']=='0.43.0';report['gameIndexUnchanged']=not report['integratedInDemo']
 assert D['bombTypes'][1]['futureRules']['nonLethal'] and D['bombTypes'][2]['futureRules']['playerDamage']==0
 (OUT/'data/validation.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n');print(json.dumps(report,ensure_ascii=False,indent=2))

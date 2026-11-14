@@ -1,0 +1,49 @@
+/* Circus combat, bomb rules and scripted ambushes; shares the proven knockback/XP contract. */
+(function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory(require('./eternal-enemies.js'));else root.Ben10Circus=factory(root.Ben10Eternals)})(globalThis,function(E){
+'use strict';
+const clamp=(n,a,b)=>Math.max(a,Math.min(b,n)),dist=(a,b)=>Math.hypot(a.x-b.x,(a.y-b.y)*1.6),dir=(x,y)=>{const n=Math.hypot(x,y)||1;return{x:x/n,y:y/n}};
+const ROLES={fuerte:{health:180,armor:.18,damage:12,speed:72,reach:94,width:41,cooldown:2.3,windup:.86,height:112,xp:46,name:'Coloso del circo'},rapido:{health:56,armor:.02,damage:5,speed:185,reach:78,width:25,cooldown:1.4,windup:.3,height:80,xp:26,name:'Saltimbanqui'},tramposo:{health:86,armor:.06,damage:14,speed:102,reach:390,width:25,cooldown:2.75,windup:.70,height:92,xp:35,name:'Artificiero'}};
+function statsFor(role,tier='normal',boss=false){const r=ROLES[role];if(!r||!['normal','loco'].includes(tier))throw Error('Invalid clown');const loco=tier==='loco';return{name:r.name+(loco?' loco':''),maxHealth:boss?420:Math.round(r.health*(loco?1.6:1)),damage:boss?16:Math.round(r.damage*(loco?1.3:1)),armor:boss?.25:r.armor+(loco?.08:0),speed:r.speed*(loco?1.16:1),reach:r.reach,attackWidth:r.width,cooldown:r.cooldown*(loco?.8:1),windup:r.windup*(loco?.88:1),radius:role==='fuerte'?25:15,bodyHeight:boss?136:r.height+(loco?5:0),xp:boss?190:Math.round(r.xp*(loco?1.7:1)),rank:boss?5:loco?3:1}}
+class Battle extends E.Battle{
+ constructor(options){super(options);this.circus=false;this.bombs=[];this.pools=[];this.effects=[];this.acidLeft=0;this.acidTick=0}
+ reset(phase=0){super.reset(phase);this.bombs=[];this.pools=[];this.effects=[];this.acidLeft=0;this.acidTick=0}
+ spawn(role,tier,point,progress=0,boss=false){if(!ROLES[role])return super.spawn(role,tier,point,progress);const s=statsFor(role,tier,boss),e={...s,...point,id:++this.nextId,role,tier,clown:true,enemy:true,kind:boss?'miniboss':'soldier',spriteId:role+'-'+tier,health:s.maxHealth,alive:true,respawn:Infinity,mode:'spawn',modeTime:0,animationTime:0,spawnLeft:.7,cooldownLeft:.75+(this.nextId%4)*.17,facing:'left',hit:0,shake:0,stunTime:0,poise:0,poiseLeft:0,buffLeft:0,deadAge:0,attack:null,support:null,knockX:0,knockY:0,retreatLeft:0,strafe:this.nextId%2?1:-1,tactics:{teamwork:tier==='loco',commit:.33},bombIndex:0};this.enemies.push(e);this.emit({type:'spawn',enemy:e});return e}
+ damage(e,amount,options){if(!e.clown)return super.damage(e,amount,options);const role=e.role;if(role==='fuerte')e.role='champion';try{return super.damage(e,amount,options)}finally{e.role=role}}
+ move(e,dx,dy,world){const p=world.move?world.move(e,dx,dy,e.radius):{x:e.x+dx,y:e.y+dy};const moved=Math.hypot(p.x-e.x,p.y-e.y);if(Math.abs(p.x-e.x)>.1)e.facing=p.x>e.x?'right':'left';e.x=p.x;e.y=p.y;e.animationTime+=moved/Math.max(1,e.speed);return moved}
+ startAttack(e,player,world){if(!e.clown)return super.startAttack(e,player,world);if(this.living.filter(a=>a.attack).length>=(this.phase>0?3:2))return false;const aim=world.clampPoint?.({x:player.x+(e.tier==='loco'?this.playerMotion.x*.2:0),y:player.y},0)||{x:player.x,y:player.y};const d=dir(aim.x-e.x,aim.y-e.y);e.facing=d.x>=0?'right':'left';e.mode=(e.bombIndex++%2)?'secondary':'attack';e.modeTime=0;e.attack={age:0,windup:e.windup,active:.13,recovery:e.role==='fuerte'?.7:.37,origin:{x:e.x,y:e.y},aim,dir:d,hit:false,secondary:e.mode==='secondary'};this.emit({type:'windup',enemy:e});return true}
+ attackTick(e,dt,player,world){if(!e.clown)return super.attackTick(e,dt,player,world);const a=e.attack;a.age+=dt;e.modeTime=a.age;
+  if(!a.hit&&a.age>=a.windup){a.hit=true;
+   if(e.role==='tramposo'){const random=this.random(),kind=random<.45?'explosive':random<.8?'acid':'confetti',duration=e.tier==='loco'?.85:1.05;this.bombs.push({kind,owner:e,start:{x:e.x,y:e.y},target:{...a.aim},x:e.x,y:e.y,age:0,duration});this.emit({type:'clown-bomb',enemy:e,kind})}
+   else {const dx=player.x-e.x,dy=player.y-e.y,along=dx*a.dir.x+dy*a.dir.y,side=Math.abs(dx*a.dir.y-dy*a.dir.x);if(along>=-15&&along<=e.reach&&side<=e.attackWidth)this.strike(e,player,e.damage,a.dir);this.emit({type:'impact',enemy:e});}
+  }
+  if(a.age>=a.windup+a.active+a.recovery){e.attack=null;e.mode='idle';e.modeTime=0;e.cooldownLeft=e.cooldown*(.9+this.random()*.2);if(e.role==='rapido')e.retreatLeft=.72}
+ }
+ tickClown(e,dt,player,world){e.modeTime+=dt;e.hit=Math.max(0,e.hit-dt);e.shake=Math.max(0,e.shake-dt*5);e.stunTime=Math.max(0,e.stunTime-dt);e.poiseLeft-=dt;if(e.poiseLeft<=0)e.poise=0;if(!e.alive){e.deadAge+=dt;return}if(e.spawnLeft>0){e.spawnLeft-=dt;if(e.spawnLeft<=0){e.mode='idle';e.modeTime=0}return}
+  if(e.skillHidden||e.skillLift>1||world.captured===e){e.attack=null;return}if(Math.hypot(e.knockX,e.knockY)>2){this.move(e,e.knockX*dt,e.knockY*dt,world);e.knockX*=Math.exp(-dt*12);e.knockY*=Math.exp(-dt*12)}if(e.stunTime>0||e.mode==='hurt'&&e.modeTime<.28){e.mode='hurt';return}if(e.mode==='hurt'){e.mode='idle';e.modeTime=0}e.cooldownLeft-=dt;
+  if(e.attack){this.attackTick(e,dt,player,world);return}if(player.health<=0)return;
+  let goal={x:player.x+(e.x>player.x?1:-1)*(e.role==='fuerte'?66:54),y:player.y},d=dist(e,player),canAttack=d<e.reach;
+  if(e.role==='rapido'){if(e.retreatLeft>0){e.retreatLeft-=dt;const back=dir(e.x-player.x,e.y-player.y);goal={x:e.x+back.x*115,y:e.y+back.y*35+e.strafe*28};canAttack=false}else{goal={x:player.x+((e.id%2)?-1:1)*55,y:player.y+(d>115?e.strafe*38:0)};canAttack=d<100}}
+  if(e.role==='tramposo'){const side=e.x>player.x?1:-1;goal={x:player.x+side*275,y:player.y+e.strafe*35};canAttack=d<390&&d>115;if(d<145)canAttack=false}
+  if(canAttack&&e.cooldownLeft<=0&&this.startAttack(e,player,world))return;
+  const v=dir(goal.x-e.x,goal.y-e.y);let vx=v.x,vy=v.y;for(const other of this.living){if(other===e)continue;const dx=e.x-other.x,dy=e.y-other.y,n=Math.hypot(dx,dy*1.8),safe=e.radius+other.radius+10;if(n>0&&n<safe){vx+=dx/n*(safe-n)/safe*1.4;vy+=dy/n*(safe-n)/safe*1.8}}
+  const travel=Math.min(e.speed*dt,Math.hypot(goal.x-e.x,goal.y-e.y));e.mode=this.move(e,vx*travel,vy*travel*.75,world)>.1?'walk':'idle';if(e.mode==='idle')e.facing=player.x>e.x?'right':'left';
+ }
+ detonate(b,player){const p=b.target,radius=b.owner.tier==='loco'?98:82;this.effects.push({kind:b.kind,x:p.x,y:p.y,age:0,duration:.8});this.emit({type:'clown-explosion',enemy:b.owner,kind:b.kind,point:p});
+  if(b.kind==='confetti'){for(const e of this.living)if(e.clown&&dist(e,p)<radius){const amount=Math.min(e.maxHealth-e.health,e.tier==='loco'?17:10);e.health+=amount;if(amount)this.emit({type:'heal',enemy:b.owner,target:e,amount})}return}
+  if(b.kind==='acid'){this.pools.push({x:p.x,y:p.y,age:0,duration:4.5,radius:radius*.62,owner:b.owner});return}
+  if(dist(player,p)<radius)this.onPlayerHit({enemy:b.owner,damage:b.owner.damage,origin:p,dir:dir(player.x-p.x,player.y-p.y)})
+ }
+ update(dt,player,world){if(!this.circus)return super.update(dt,player,world);if(!(dt>0))return;dt=Math.min(dt,.05);this.time+=dt;if(this.lastPlayer){this.playerMotion.x=clamp((player.x-this.lastPlayer.x)/dt,-300,300);this.playerMotion.y=clamp((player.y-this.lastPlayer.y)/dt,-200,200)}this.lastPlayer={x:player.x,y:player.y};for(const e of this.enemies)this.tickClown(e,dt,player,world);
+  for(const b of this.bombs){b.age+=dt;const p=clamp(b.age/b.duration,0,1);b.x=b.start.x+(b.target.x-b.start.x)*p;b.y=b.start.y+(b.target.y-b.start.y)*p;if(b.age>=b.duration)this.detonate(b,player)}this.bombs=this.bombs.filter(b=>b.age<b.duration);
+  for(const p of this.pools){p.age+=dt;if(dist(player,p)<p.radius)this.acidLeft=Math.max(this.acidLeft,2.8)}this.pools=this.pools.filter(p=>p.age<p.duration);
+  this.acidLeft=Math.max(0,this.acidLeft-dt);this.acidTick-=dt;if(this.acidLeft>0&&this.acidTick<=0){this.acidTick=.85;this.onPlayerHit({damage:2,nonLethal:true,acid:true,origin:{...player},dir:{x:0,y:0}})}for(const fx of this.effects)fx.age+=dt;this.effects=this.effects.filter(f=>f.age<f.duration);this.enemies=this.enemies.filter(e=>e.alive||e.deadAge<5);
+ }
+}
+function plan(data,phase,scale){const width=(data.chapters[phase].end-data.chapters[phase].x)*scale;return [140,970,1840].map((x,index)=>{const trigger=x*scale,last=index===2,waves=[];for(let w=0;w<(phase===0&&index===0?1:phase===2&&last?3:2);w++){const units=[];if(phase===0&&index===0){units.push({role:'fuerte',tier:'normal',boss:true},{role:'rapido',tier:'normal'},{role:'rapido',tier:'normal'});}else {const size=4+phase+(last?1:0);for(let n=0;n<size;n++){const role=n===0?'fuerte':n%3===0?'tramposo':'rapido',tier=phase===0?'normal':phase===1?(index>0&&(n+w)%2===0?'loco':'normal'):(n%3===1?'normal':'loco');units.push({role,tier})}}waves.push(units)}return{id:'circus-'+phase+'-'+index,index,phase,name:['La primera función','El número macabro','El último acto'][index],trigger,left:Math.max(24*scale,trigger-120*scale),right:Math.min(width-135*scale,trigger+490*scale),waves}})}
+class Director extends E.Director{
+ setPhase(phase){if(!this.circus)return super.setPhase(phase);this.phase=phase;this.plan=this.entrance?[]:plan(this.data,phase,this.scale);Object.assign(this,{index:0,current:null,wave:0,pending:[],spawnClock:0,between:0,complete:this.entrance,cleared:0,lastClear:null})}
+ spawnNext(battle,level,player){if(!this.circus)return super.spawnNext(battle,level,player);const entry=this.pending.shift(),side=entry.slot%3!==2,point=level.clampPoint({x:side?this.current.right-32:this.current.left+32,y:level.offsetY+(248+(entry.slot*27)%78)*level.scale},entry.role==='fuerte'?25:15,level.props)||level.spawn(16);battle.spawn(entry.role,entry.tier,point,this.index/this.plan.length,entry.boss)}
+ queueWave(battle){battle.bombs=[];battle.pools=[];battle.acidLeft=0;super.queueWave(battle)}
+}
+return{ROLES,statsFor,Battle,Director,plan};
+});

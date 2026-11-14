@@ -124,5 +124,23 @@
       724
     ],
     "sha256": "e835a05c4ce905ec4aa5f94c23a0255ef465a70109ac8c352751f65b220d0e1e"
+  },
+  {
+    "source": "/workspace/generated_images/exec-943109fb-a5b9-422c-aff4-67c62065de66.png",
+    "destination": "assets/source/ben-mirror-jump.png",
+    "size": [
+      2172,
+      724
+    ],
+    "sha256": "dfd80c782c901e76da8c4267c8fcac033afbc72cf63b35fb2c62d0c598410c06"
+  },
+  {
+    "source": "/workspace/generated_images/exec-972f0ee7-ee2e-4d8a-8787-b5ad7c23a4be.png",
+    "destination": "../assets/ui/zombozo-portrait.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "sha256": "6a92af83d3d360d3503fb1614c734f2d0cff3e40893fdb47cb4da3e7522a8b11"
   }
 ]

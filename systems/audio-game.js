@@ -17,10 +17,12 @@ function audioModeStarted(mode){
 }
 function audioPlayerHit(form,heavy,feedback,d){let cue=Ben10SoundDesign.hit(form,heavy,{slime:feedback.slime,combo:player.lightN});if(d.enemy&&!feedback.slime&&!['heatblast','diamondhead','ghostfreak','stinkfly','cannonbolt'].includes(form))cue=d.tier==='crystal'||d.kind==='finalboss'&&d.phase<3?'crystal.hit':form==='four-arms'?'metal.heavy':'metal.hit';audioPlay(cue,d,{source:form,key:'impact-material:'+cue,interval:feedback.slime?.16:.055,gain:feedback.slime?.35:1,pitch:form==='four-arms'?.88:form==='ben'?1.2:1})}
 function audioEnemyEvent(event){const e=event.enemy;if(!e)return;const context=gameAudio.damage;
+ if(event.type==='clown-bomb')audioPlay('body.throw',e,{key:'clown-throw:'+e.id,gain:.7});
+ if(event.type==='clown-explosion')audioPlay(event.kind==='acid'?'slime.splat':event.kind==='confetti'?'ui.heal':'fire.burst',event.point,{key:'clown-bomb-impact:'+e.id,gain:.65});
  if(event.type==='block'){if(context)context.blocked=true;audioPlay('metal.block',e,{source:'enemy',key:'impact:'+e.id})}
  if(event.type==='guard-break')audioPlay('metal.break',e,{source:'enemy',key:'guard-break:'+e.id});
  if(event.type==='shot')audioPlay(e.tier==='crystal'?'crystal.grow':'enemy.shot',e,{source:'enemy',key:'enemy-shot:'+e.id});
- if(event.type==='impact'&&e.role!=='ranged')audioPlay(e.role==='champion'?'boss.slash':'enemy.swing',e,{source:'enemy',key:'enemy-swing:'+e.id});
+ if(event.type==='impact'&&e.role!=='ranged')audioPlay(e.clown?(e.role==='fuerte'?'body.slam':'body.swing'):e.role==='champion'?'boss.slash':'enemy.swing',e,{source:'enemy',key:'enemy-swing:'+e.id});
  if(event.type==='channel-start')audioPlay('enemy.support',e,{source:'enemy',key:'support:'+e.id});
  if(['heal','boost'].includes(event.type))audioPlay('enemy.support',e,{source:'enemy',key:'support-contact:'+e.id,gain:.6});
  if(event.type==='channel-interrupted')audioPlay('ui.denied',e,{source:'enemy',gain:.2,key:'channel-stop:'+e.id});
@@ -43,7 +45,7 @@ function audioGameTick(dt){
   gameAudio.steps+=moved;const stride=isFourArms()?43:isWildvine()?35:30;if(gameAudio.steps>=stride){gameAudio.steps%=stride;const cue=isFourArms()?'ground.heavy':isWildvine()?'ground.root':isUpgrade()?'ground.gel':campaign.phaseIndex===2?'ground.metal':'ground.step';audioPlay(cue,player,{source:form,key:'player-step',pitch:isHeatblast()?1.1:1})}
  }else gameAudio.steps=0;
  if(c){if(gameAudio.lastZ>12&&(c.z||0)<2&&p>.5&&!['meteor','comet','bounce'].includes(c.route))audioPlay('ground.land',player,{gain:.35,source:form});gameAudio.lastZ=c.z||0}else gameAudio.lastZ=0;
- for(const e of enemyBattle.enemies){if(!e.alive)continue;const last=gameAudio.enemySteps.get(e.id),moved=last?Math.hypot(e.x-last.x,e.y-last.y):0;const walked=(last?.walked||0)+(moved<50?moved:0);gameAudio.enemySteps.set(e.id,{x:e.x,y:e.y,walked});if(walked>46&&['walk','idle'].includes(e.mode)){audioPlay(e.role==='champion'||e.kind==='finalboss'?'ground.heavy':'ground.metal',e,{source:'enemy-step',key:'enemy-footsteps',interval:.16,gain:.2});gameAudio.enemySteps.set(e.id,{x:e.x,y:e.y,walked:0})}}
+ for(const e of enemyBattle.enemies){if(!e.alive)continue;const last=gameAudio.enemySteps.get(e.id),moved=last?Math.hypot(e.x-last.x,e.y-last.y):0;const walked=(last?.walked||0)+(moved<50?moved:0);gameAudio.enemySteps.set(e.id,{x:e.x,y:e.y,walked});if(walked>46&&['walk','idle'].includes(e.mode)){audioPlay(e.role==='fuerte'||e.role==='champion'||e.kind==='finalboss'?'ground.heavy':e.clown?'ground.step':'ground.metal',e,{source:'enemy-step',key:'enemy-footsteps',interval:.16,gain:.2});gameAudio.enemySteps.set(e.id,{x:e.x,y:e.y,walked:0})}}
  for(const e of enemyBattle.enemies)if(!e.alive&&!gameAudio.enemyFalls.has(e.id)&&e.deadAge>=.35){gameAudio.enemyFalls.add(e.id);if(e.kind!=='finalboss')audioPlay('enemy.fall',e,{key:'enemy-fall:'+e.id,gain:.55})}
  if(gameAudio.enemyFalls.size>300)gameAudio.enemyFalls.clear();if(gameAudio.bossFall&&kingEncounter.time>=gameAudio.bossFall.at){audioPlay('boss.fall',gameAudio.bossFall.enemy,{source:'king'});gameAudio.bossFall=null}Ben10Audio.prune();
 }

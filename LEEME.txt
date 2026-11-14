@@ -1,77 +1,38 @@
-BEN 10: OMNITRIX FRAGMENTADO — DEMO PC V42
+BEN 10: OMNITRIX FRAGMENTADO - DEMO PC V43
 
-Extrae TODA la carpeta y abre index.html en Chrome, Edge o Firefox de PC.
-Conserva assets, mapas, enemigos y jefe-final junto al HTML.
-Funciona sin conexión. No abras el HTML desde dentro del ZIP.
+Extrae toda la carpeta y abre index.html en Chrome o Edge. Conserva las subcarpetas junto al HTML: contienen los mapas, sprites y sonidos. No requiere instalar el juego.
 
-SONIDO
-Sonido en la pantalla de inicio o P -> Sonido: volumen y silencio.
-M: silenciar o activar los efectos. Los ajustes se conservan.
-El audio se activa al elegir la partida y funciona sin internet.
-Incluye transformaciones, ataques, impactos, poderes, pasos, armaduras
-y avisos del Omnitrix. Los efectos se detienen al pausar o cancelar.
+INICIO Y GUARDADO
+Elige uno de los tres espacios. El juego guarda las mejoras, los ADN y los puntos de control en el navegador. P permite pausar, guardar y volver al inicio. Usa el mismo navegador y ubicación para continuar la partida.
 
-VIDA Y CÁPSULAS
-Si Ben tiene 25/50, su alien empieza con 25/50. Al regresar, Ben conserva
-los 25/50 que tenía antes, aunque el alien haya recibido más daño.
-Si cae el alien vuelves a Ben; el reloj se vacía y debe recargarse.
-Solo perder toda la vida como Ben termina el combate.
-Los caballeros pueden soltar cápsulas flotantes: curan 12 PV en las calles,
-16 en el castillo y 20 en el laboratorio al recogerlas.
-La probabilidad es baja, del 7% al 18%, y aumenta si Ben está herido.
-Recogerlas como alien también cura la reserva de Ben.
+CONTROLES NORMALES
+- WASD o flechas: moverse por el escenario.
+- Click izquierdo: ataque leve.
+- Click derecho: fuerte/especial, según el alien.
+- Espacio: dash.
+- R: abrir el Omnitrix. 1: Cuatro Brazos; 2: Fuego; 4: Diamante, después de conseguirlo.
+- T o centro del Omnitrix: volver a Ben.
+- K: arbol de habilidades de tus aliens.
+- F: técnica desbloqueada del alien.
+- E o Enter: entrar cuando estes cerca de una puerta o espejo de salida.
+- P: pausa y guardado.
+- M: silenciar o activar el sonido. El botón Sonido permite ajustar el volumen.
 
-PANTALLA PRINCIPAL Y TRES PARTIDAS
-Elige un espacio con clic, 1-3 o flechas y Enter. Cada partida conserva
-su propio nivel, XP, mejoras, ADN recuperado y punto de control.
-P o Menú: pausar. Guardar y volver al inicio: elegir otra partida.
-El guardado es automático. Al continuar vuelves como Ben con vida
-y energía completas; repites el combate pendiente desde su comienzo.
-El progreso anterior se importa al espacio 1 la primera vez.
-Borrar requiere confirmación y afecta únicamente al espacio elegido.
-Los datos se guardan en el navegador desde el que juegas.
+ELIGE A TU SIGUIENTE RIVAL
+Tras derrotar al Rey Eterno, pulsa Continuar en la recompensa de Diamante para abrir el selector. Si eliges Probar a Diamante, la salida del laboratorio también permite abrirlo después.
 
-ADN POR DESCUBRIR
-Comienzas con Cuatro Brazos y Fuego. Las demás formas son una incógnita:
-no aparecen en Tus aliens y el reloj muestra una silueta con interrogación,
-sin sus nombres ni sus retratos. Al recuperar un ADN nuevo, su identidad
-se revela y su árbol aparece en la ventana de habilidades.
-El desbloqueo y las mejoras aprendidas se guardan automáticamente.
+Elige a Zombozo. Llegarás a la entrada caminable de su circo: acércate a la puerta y pulsa E/Enter o el botón para entrar. Hay tres actos con oleadas de enemigos. El primer coloso aparece como minijefe; los siguientes son enemigos normales. Las variantes locas aparecen más adelante.
 
-VENTANA DE HABILIDADES · K
-El árbol se abre completo. Selecciona una mejora para verla de cerca;
-usa +, - y Ver forma para explorar. La vista previa muestra su animación,
-la combinación de ataques y su coste de energía. Los puntos, requisitos
-y mejoras aprendidas aparecen en el panel. Conservas tus compras anteriores.
+Las bombas explosivas hacen daño de area. El acido quita vida poco a poco, pero no mata por si solo. El confeti no daña a Ben y puede curar a los payasos cercanos.
 
-EL RECORRIDO
-Calles y parques -> castillo -> laboratorio oculto.
-Cada combate bloquea el paso hasta terminar todas sus rondas.
-Al superarlo, una flecha aparece unos segundos para indicar el camino.
-Hay 16 combates, 28 oleadas y un minijefe con hacha al final de cada fase.
-Tras la última oleada del laboratorio, avanza al tramo final para
-enfrentarte al Rey Eterno. El espacio del puzzle queda reservado.
+RUTA CRISTAL
+Los espejos conectan los tres actos mediante dos secciones de plataformas. Dentro solo puedes usar a Ben.
+- A/D o flechas izquierda/derecha: moverse.
+- Espacio, W o flecha arriba: saltar. Suelta antes la tecla para un salto más corto.
+- P: pausa y guardado.
+- Toca el espejo final sobre su plataforma para salir al siguiente acto.
 
-DIFICULTAD: DIFÍCIL
-Ben y todos sus aliens tienen 50 PV máximos. El alien empieza con la vida
-actual de Ben y este la conserva al regresar. Cada alien tiene su defensa. El reloj tiene 90 de
-energía y los ataques de Ben hacen menos daño.
-Los caballeros coordinan flanqueos y protegen a sus apoyos. Interrumpe sus
-curas, rompe los escudos con fuertes y esquiva las líneas de tiro.
-Cada combate despejado devuelve un poco de vida y energía.
+Hay fosos, trampas y un punto de control. La segunda ruta añade más peligros y una plataforma móvil. Caer en un foso hace daño y te devuelve al punto de control. Perder toda la vida permite reintentar desde allí. La vida restante se conserva al regresar al mundo normal.
 
-REY ETERNO
-Tiene tres fases. Rompe su defensa cristalina para poder dañarlo; Fuego
-desgasta esa defensa más rápido. Cuando pierde vida se vuelve más agresivo,
-embiste y esquiva. Al perder su coraza llama soldados básicos mientras huye.
-Sus ayudantes caen cuando él muere. Espera a que termine la caída para
-descubrir tu recompensa. Si pierdes, reintentas el jefe sin repetir la
-última oleada. Conservas nivel, experiencia y mejoras.
-
-WASD / flechas: moverse.
-Clic izquierdo: leve. Clic derecho: fuerte. Espacio: dash / esquivar.
-R: Omnitrix. Dentro del reloj, usa la tecla de un ADN conocido para elegirlo.
-T: volver a Ben. K: habilidades del alien. F: habilidad aprendida.
-E o botón de entrada: pasar al castillo o al laboratorio tras despejarlo.
-Esc: salir de la intro o cerrar paneles.
-F9: panel de pruebas para añadir puntos, conservado de la demo.
+ALCANCE DE ESTA VERSION
+El recorrido llega al escenario principal de Zombozo. Su combate se añadirá más adelante. Al terminar el tercer acto puedes volver al selector; llegar al escenario no cuenta como derrotar a Zombozo ni abre la ruta del villano final.

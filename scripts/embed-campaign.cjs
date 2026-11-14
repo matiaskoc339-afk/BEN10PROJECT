@@ -7,22 +7,23 @@ function block(begin,end,value,before){
  else{if(!html.includes(before))throw Error('Missing integration anchor '+before);html=html.replace(before,()=>value+'\n'+before);}
 }
 function between(begin,end,value){const a=html.indexOf(begin),b=html.indexOf(end,a);if(a<0||b<a)throw Error('Missing game anchor '+begin);html=html.slice(0,a)+value+'\n'+html.slice(b);}
-const css='/* CAMPAIGN_STYLE_START */\n'+read('systems/campaign.css')+'\n'+read('systems/enemy-ui.css')+'\n/* CAMPAIGN_STYLE_END */';
+const css='/* CAMPAIGN_STYLE_START */\n'+read('systems/campaign.css')+'\n'+read('systems/enemy-ui.css')+'\n'+read('systems/adventure-ui.css')+'\n/* CAMPAIGN_STYLE_END */';
 block('/* CAMPAIGN_STYLE_START */','/* CAMPAIGN_STYLE_END */',css,'</style>');
-const modules='<!-- CAMPAIGN_MODULES_START -->\n<script>window.BEN10_CAMPAIGN_DATA='+JSON.stringify(JSON.parse(read('mapas/data/recorrido.json')))+';window.BEN10_ENEMY_DATA='+JSON.stringify(JSON.parse(read('enemigos/data/manifest.json')))+';window.BEN10_HEALTH_ART='+JSON.stringify(JSON.parse(read('assets/ui/health-pickup.json')))+';window.BEN10_KING_ART='+JSON.stringify(JSON.parse(read('jefe-final/data/manifest.json')))+';</script>\n'+['mapas/world.js','systems/save-slots.js','systems/title-logo-mask.js','systems/menu-background.js','systems/audio-samples.js','systems/audio-design.js','systems/audio-engine.js','systems/audio-ui.js','systems/main-menu.js','systems/campaign-world.js','systems/campaign-renderer.js','systems/combat-balance.js','systems/health-pickups.js','systems/campaign-unlocks.js','systems/secret-dna.js','systems/eternal-enemies.js','systems/enemy-renderer.js','systems/final-king.js','systems/final-king-renderer.js'].map(file=>'<script>\n'+read(file)+'\n</script>').join('\n')+'\n<!-- CAMPAIGN_MODULES_END -->';
+const modules='<!-- CAMPAIGN_MODULES_START -->\n<script>window.BEN10_CAMPAIGN_DATA='+JSON.stringify(JSON.parse(read('mapas/data/recorrido.json')))+';window.BEN10_ENEMY_DATA='+JSON.stringify(JSON.parse(read('enemigos/data/manifest.json')))+';window.BEN10_HEALTH_ART='+JSON.stringify(JSON.parse(read('assets/ui/health-pickup.json')))+';window.BEN10_KING_ART='+JSON.stringify(JSON.parse(read('jefe-final/data/manifest.json')))+';window.BEN10_CIRCUS_ART='+JSON.stringify({...JSON.parse(read('fase2-circo/data/manifest.json')),artOnly:false,gameplayIntegrated:true})+';window.BEN10_CIRCUS_LEVEL='+read('fase2-circo/data/level.json')+';window.BEN10_MIRROR_BEN='+read('fase2-circo/data/mirror-ben.json')+';</script>\n'+['mapas/world.js','systems/save-slots.js','systems/title-logo-mask.js','systems/menu-background.js','systems/audio-samples.js','systems/audio-design.js','systems/audio-engine.js','systems/audio-ui.js','systems/main-menu.js','systems/campaign-world.js','systems/campaign-renderer.js','systems/combat-balance.js','systems/health-pickups.js','systems/campaign-unlocks.js','systems/secret-dna.js','systems/eternal-enemies.js','systems/enemy-renderer.js','systems/circus-enemies.js','systems/mirror-platformer.js','systems/circus-renderer.js','systems/final-king.js','systems/final-king-renderer.js'].map(file=>'<script>\n'+read(file)+'\n</script>').join('\n')+'\n<!-- CAMPAIGN_MODULES_END -->';
 block('<!-- CAMPAIGN_MODULES_START -->','<!-- CAMPAIGN_MODULES_END -->',modules,"<script>\n\n(()=>{'use strict';");
-const ui='<!-- CAMPAIGN_UI_START -->\n'+read('systems/campaign-ui.html')+read('systems/enemy-ui.html')+'<!-- CAMPAIGN_UI_END -->';
+const ui='<!-- CAMPAIGN_UI_START -->\n'+read('systems/campaign-ui.html')+read('systems/enemy-ui.html')+read('systems/adventure-ui.html')+'<!-- CAMPAIGN_UI_END -->';
 block('<!-- CAMPAIGN_UI_START -->','<!-- CAMPAIGN_UI_END -->',ui,'<div id="combo">');
 html=html.replace(/<div id="enemyCount">[^\n]+\n/,'').replace(/^#enemyCount \{[^\n]+\n/m,'');
 html=html.replace(/#enemyCount\{[^}]+\}/g,'').replace('body.comic-active #enemyCount,','');
 html=html.replace('aria-label="Campo de pruebas jugable"','aria-label="Recorrido jugable: calles, castillo y laboratorio"');
-html=html.replace(/<title>[^<]+<\/title>/,'<title>BEN 10 — Omnitrix Fragmentado · V42</title>');
+html=html.replace(/<title>[^<]+<\/title>/,'<title>BEN 10 — Omnitrix Fragmentado · V43</title>');
 html=html.replace('const stats=new Ben10Stats.PlayerStats();','const stats=Ben10Balance.createPlayerStats(Ben10Stats);');
 html=html.replace('speed:247,health:100,mode:', 'speed:247,health:Ben10Balance.PLAYER_CONFIG.maxHealth,mode:');
 html=html.replace('let damage=special?75:heavy?20:player.lightN===3?12:8,reach=', 'let damage=Ben10Balance.humanAttackDamage({special,heavy,combo:player.lightN}),reach=');
 html=html.replace('const WORLD={w:2400,h:1800}, TILE=48;', 'const campaign=new Ben10Campaign.Level(window.BEN10_CAMPAIGN_DATA);\nconst WORLD={w:campaign.width,h:campaign.height};');
 if(html.includes('// Pixel-art city plaza:'))between('// Pixel-art city plaza:','function drawDummy(',read('systems/campaign-game.js'));
 else block('// CAMPAIGN_GAME_START','// CAMPAIGN_GAME_END',read('systems/campaign-game.js').trim(),'function drawDummy(');
+if(!html.includes("const adventure={story:"))html=html.replace('const campaign=new Ben10Campaign.Level',"const adventure={story:'eternals',mode:'circus',hubOpen:false,eternalsCleared:false,circusVisited:false,circusRouteCleared:false,mirrorIndex:0,dialogueLeft:0};\nconst campaign=new Ben10Campaign.Level");
 block('// RECOVERY_GAME_START','// RECOVERY_GAME_END',read('systems/recovery-game.js').trim(),'// ENEMY_GAME_START');
 block('// ENEMY_GAME_START','// ENEMY_GAME_END',read('systems/enemy-game.js').trim(),'// CAMPAIGN_GAME_START');
 block('// FINAL_KING_GAME_START','// FINAL_KING_GAME_END',read('systems/final-king-game.js').trim(),'// CAMPAIGN_GAME_START');
@@ -75,6 +76,7 @@ for(const [name,file] of [['XLR8_GAME','systems/xlr8-game.js'],['STINKFLY_GAME',
 block('/* MAIN_MENU_STYLE_START */','/* MAIN_MENU_STYLE_END */',read('systems/main-menu.css').trim(),'</style>');
 block('<!-- MAIN_MENU_UI_START -->','<!-- MAIN_MENU_UI_END -->',read('systems/main-menu.html').trim(),'<div id="combo">');
 block('// AUDIO_GAME_START','// AUDIO_GAME_END',read('systems/audio-game.js').trim(),'// MAIN_MENU_GAME_START');
+block('// ADVENTURE_GAME_START','// ADVENTURE_GAME_END',read('systems/adventure-game.js').trim(),'// MAIN_MENU_GAME_START');
 block('// MAIN_MENU_GAME_START','// MAIN_MENU_GAME_END',read('systems/main-menu-game.js').trim(),'const readyPromise=');
 if(!html.includes("function update(dt){if(Ben10MainMenu.state.screen!=="))html=html.replace('function update(dt){',"function update(dt){if(Ben10MainMenu.state.screen!=='game')return;");
 if(!html.includes("lastTime=now;if(Ben10MainMenu.state.screen!=="))html=html.replace('lastTime=now;if(comicOpen)',"lastTime=now;if(Ben10MainMenu.state.screen!=='game'){requestAnimationFrame(loop);return;}if(comicOpen)");
@@ -86,5 +88,6 @@ if(!html.includes('recoveryTick(dt);updateStats(0);campaignAfterUpdate'))html=ht
 html=html.replace("if(event.type==='form-ended'){progression.comboLog=[];","if(event.type==='form-ended'){evolutionCancelSkill();if(event.reason==='alien-defeated'){enemyInvulUntil=Math.max(enemyInvulUntil,enemyBattle.time+1.35);enemyBanner('¡VUELVES A BEN!','TRANSFORMACIÓN AGOTADA · RECARGANDO OMNITRIX',1.7);}progression.comboLog=[];");
 block('<!-- AUDIO_UI_START -->','<!-- AUDIO_UI_END -->',read('systems/audio-ui.html').trim(),'<div id="combo">');
 block('/* AUDIO_STYLE_START */','/* AUDIO_STYLE_END */',read('systems/audio-ui.css').trim(),'</style>');
+if(!html.includes('Promise.all([circusArt.ready,'))html=html.replace('const readyPromise=Promise.all([','const readyPromise=Promise.all([circusArt.ready,');
 fs.writeFileSync(target,html);
-console.log('Embedded V42: authored audio cues, contact-synchronized effects, offline mixer and progressive healing.');
+console.log('Embedded V43: villain selection, circus encounters and two mirror platform routes.');

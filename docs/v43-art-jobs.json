@@ -1,0 +1,21 @@
+{
+  "tool": "image_gen",
+  "jobs": [
+    {
+      "id": "zombozo-portrait",
+      "dest": "assets/ui/zombozo-portrait.png",
+      "refs": [],
+      "transparent": false,
+      "prompt": "Create a single square 1024x1024 illustrated pixel arcade villain-select portrait for a Ben 10 Classic fan game. ZOMBOZO classic evil circus clown: heavy round gray-white face, red bulb nose, intimidating yellow eyes with dark sockets, big sharp sinister grin, swept violet side hair, tall crooked purple top hat with lime green band, burgundy/violet suit and bright green bow tie, stocky big collar and purple gloved hand holding a showman's cane. Bust at 3/4 view facing camera. Faithful classic television design translated into crisp detailed 2D pixel sprite illustration, strong dark outlines, stepped pixel shading, limited jewel circus palette, NOT photorealistic, NOT 3D. Behind him dark striped burgundy circus curtain and subtle neon green mirror smoke. Character takes 85% of square, no text, no logos, no panel divisions. Attractive menacing boss selection illustration."
+    },
+    {
+      "id": "ben-mirror-jump",
+      "dest": "fase2-circo/assets/source/ben-mirror-jump.png",
+      "refs": [
+        "/workspace/BEN10PROJECT-v31-publish/fase2-circo/assets/context/ben.png"
+      ],
+      "transparent": true,
+      "prompt": "Using the reference Ben Tennyson pixel sprite EXACT same child proportions, brown hair, classic white shirt with black vertical front stripe, olive cargo pants, black/white shoes, Omnitrix on LEFT WRIST and same black pixel outlines/shading. Create ONE transparent sprite sheet, precisely 8 columns and 2 rows =16 individual different poses, equal cells with generous padding, all Ben facing RIGHT, complete body NEVER cut off. TRUE ALPHA BACKGROUND, no ground line, no panels, no text or shadows. TOP ROW eight sequential JUMP poses: crouching anticipation, strong launch with knees rising, ascending, airborne bent knees, apex arms balancing, descent with legs lowering, landing knees compression, stand recovery. BOTTOM ROW eight different airborne poses for a faster jump: slight crouch, leap, ascending knees tucked, apex forward reach, descent, brace for landing, squat landing, fight idle recovery. Ben always exactly two arms two legs. Draw actual different body poses per frame, pixel art consistent with reference's existing sprite. Every pose centered in its cell and feet on same bottom baseline regardless of jump (vertical trajectory handled by engine). 1536x512 wide sheet. Generous transparent gaps. Not stretched or rotated copies."
+    }
+  ]
+}

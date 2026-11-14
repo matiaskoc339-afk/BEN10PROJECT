@@ -1,0 +1,212 @@
+{
+  "level": {
+    "story": "circus",
+    "version": 1,
+    "height": 360,
+    "width": 8393.0,
+    "connectorWidth": 0,
+    "chapters": [
+      {
+        "id": "01-vestibulo",
+        "name": "Vestíbulo de la carpa",
+        "subtitle": "El circo de Zombozo",
+        "x": 0,
+        "end": 2750.0,
+        "entry": "Entrar al espejo",
+        "segments": [],
+        "color": "#c7a4ed"
+      },
+      {
+        "id": "02-obstaculos",
+        "name": "El espectáculo de obstáculos",
+        "subtitle": "El circo de Zombozo",
+        "x": 2878.0,
+        "end": 5578.0,
+        "entry": "Entrar al espejo",
+        "segments": [],
+        "color": "#c7a4ed"
+      },
+      {
+        "id": "03-escenario",
+        "name": "Escenario principal",
+        "subtitle": "El circo de Zombozo",
+        "x": 5706.0,
+        "end": 8393.0,
+        "entry": "Entrar al espejo",
+        "segments": [],
+        "color": "#c7a4ed"
+      }
+    ],
+    "rooms": [
+      {
+        "index": 0,
+        "chapter": "01-vestibulo",
+        "name": "Vestíbulo de la carpa",
+        "x": 0.0,
+        "width": 916.6666666666666,
+        "floorY": 230,
+        "walkTop": 230,
+        "walkBottom": 342,
+        "elevation": 0,
+        "props": [],
+        "ambient": []
+      },
+      {
+        "index": 1,
+        "chapter": "01-vestibulo",
+        "name": "La función continúa",
+        "x": 916.6666666666666,
+        "width": 916.6666666666666,
+        "floorY": 230,
+        "walkTop": 230,
+        "walkBottom": 342,
+        "elevation": 0,
+        "props": [],
+        "ambient": []
+      },
+      {
+        "index": 2,
+        "chapter": "01-vestibulo",
+        "name": "El último acto",
+        "x": 1833.3333333333333,
+        "width": 916.6666666666666,
+        "floorY": 230,
+        "walkTop": 230,
+        "walkBottom": 342,
+        "elevation": 0,
+        "props": [],
+        "ambient": []
+      },
+      {
+        "index": 3,
+        "chapter": "02-obstaculos",
+        "name": "El espectáculo de obstáculos",
+        "x": 2878.0,
+        "width": 900.0,
+        "floorY": 230,
+        "walkTop": 230,
+        "walkBottom": 342,
+        "elevation": 0,
+        "props": [],
+        "ambient": []
+      },
+      {
+        "index": 4,
+        "chapter": "02-obstaculos",
+        "name": "La función continúa",
+        "x": 3778.0,
+        "width": 900.0,
+        "floorY": 230,
+        "walkTop": 230,
+        "walkBottom": 342,
+        "elevation": 0,
+        "props": [],
+        "ambient": []
+      },
+      {
+        "index": 5,
+        "chapter": "02-obstaculos",
+        "name": "El último acto",
+        "x": 4678.0,
+        "width": 900.0,
+        "floorY": 230,
+        "walkTop": 230,
+        "walkBottom": 342,
+        "elevation": 0,
+        "props": [],
+        "ambient": []
+      },
+      {
+        "index": 6,
+        "chapter": "03-escenario",
+        "name": "Escenario principal",
+        "x": 5706.0,
+        "width": 895.6666666666666,
+        "floorY": 230,
+        "walkTop": 230,
+        "walkBottom": 342,
+        "elevation": 0,
+        "props": [],
+        "ambient": []
+      },
+      {
+        "index": 7,
+        "chapter": "03-escenario",
+        "name": "La función continúa",
+        "x": 6601.666666666667,
+        "width": 895.6666666666666,
+        "floorY": 230,
+        "walkTop": 230,
+        "walkBottom": 342,
+        "elevation": 0,
+        "props": [],
+        "ambient": []
+      },
+      {
+        "index": 8,
+        "chapter": "03-escenario",
+        "name": "El último acto",
+        "x": 7497.333333333333,
+        "width": 895.6666666666666,
+        "floorY": 230,
+        "walkTop": 230,
+        "walkBottom": 342,
+        "elevation": 0,
+        "props": [],
+        "ambient": []
+      }
+    ],
+    "props": {
+      "01-vestibulo": {
+        "static": [],
+        "animations": []
+      },
+      "02-obstaculos": {
+        "static": [],
+        "animations": []
+      },
+      "03-escenario": {
+        "static": [],
+        "animations": []
+      }
+    }
+  },
+  "entrance": {
+    "story": "circus",
+    "version": 1,
+    "height": 360,
+    "width": 1080,
+    "connectorWidth": 0,
+    "chapters": [
+      {
+        "id": "circus-entrance",
+        "name": "La carpa de Zombozo",
+        "x": 0,
+        "end": 1080,
+        "segments": [],
+        "entry": "Entrar a la carpa"
+      }
+    ],
+    "rooms": [
+      {
+        "index": 0,
+        "chapter": "circus-entrance",
+        "name": "La entrada del circo",
+        "x": 0,
+        "width": 1080,
+        "floorY": 248,
+        "walkTop": 248,
+        "walkBottom": 342,
+        "elevation": 0,
+        "props": [],
+        "ambient": []
+      }
+    ],
+    "props": {
+      "circus-entrance": {
+        "static": [],
+        "animations": []
+      }
+    }
+  }
+}

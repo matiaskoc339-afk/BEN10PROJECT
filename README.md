@@ -1,6 +1,8 @@
-# BEN 10: Omnitrix Fragmentado · Demo PC V42
+# BEN 10: Omnitrix Fragmentado · Demo PC V43
 
-La **fase 2 de Zombozo** tiene una [biblioteca de arte independiente](fase2-circo/LEEME.md): seis variantes de payasos, 216 poses, tres panoramas continuos, entrada exterior, Ruta Cristal y objetos animados. Abre [su visor](fase2-circo/index.html) para revisar los recursos. Todavía no se integra en la demo.
+V43 añade el selector de villanos tras el Rey Eterno y el **circo de Zombozo**: tres actos con nueve combates, payasos normales y locos, el primer coloso como minijefe, bombas explosivas/ácidas/confeti y dos rutas de plataformas por espejos, solo con Ben. La segunda ruta es más difícil. Los destinos y puntos de control se guardan en los tres espacios. El combate de Zombozo queda pendiente; el tercer acto termina al llegar a su escenario. Consulta [los controles, estadísticas y guardado](docs/v43-circo-y-espejos.md).
+
+Se conserva la [biblioteca y visor del arte del circo](fase2-circo/LEEME.md) para revisar las animaciones originales.
 
 V42 añade sonidos propios por material y acción: golpes, transformaciones, fuego, cristal, poderes de los diez aliens, pasos, enemigos, jefe e interfaz. Las 70 técnicas suenan en sus contactos y los efectos sostenidos se detienen al cancelar o pausar. Incluye volumen y silencio con **M**. Las cápsulas curan **12/16/20 PV** al avanzar por las tres fases. Consulta [el diseño de sonido y sus controles](docs/v42-sonido-y-curacion.md).
 

@@ -1,0 +1,135 @@
+{
+  "atlas": "assets/atlases/ben-mirror-jump.png",
+  "nativeBodyHeight": 128,
+  "frames": [
+    {
+      "x": 0,
+      "y": 0,
+      "width": 130,
+      "height": 160,
+      "anchorX": 65.0,
+      "anchorY": 148
+    },
+    {
+      "x": 130,
+      "y": 0,
+      "width": 130,
+      "height": 160,
+      "anchorX": 65.0,
+      "anchorY": 148
+    },
+    {
+      "x": 260,
+      "y": 0,
+      "width": 130,
+      "height": 160,
+      "anchorX": 65.0,
+      "anchorY": 148
+    },
+    {
+      "x": 390,
+      "y": 0,
+      "width": 130,
+      "height": 160,
+      "anchorX": 65.0,
+      "anchorY": 148
+    },
+    {
+      "x": 520,
+      "y": 0,
+      "width": 130,
+      "height": 160,
+      "anchorX": 65.0,
+      "anchorY": 148
+    },
+    {
+      "x": 650,
+      "y": 0,
+      "width": 130,
+      "height": 160,
+      "anchorX": 65.0,
+      "anchorY": 148
+    },
+    {
+      "x": 780,
+      "y": 0,
+      "width": 130,
+      "height": 160,
+      "anchorX": 65.0,
+      "anchorY": 148
+    },
+    {
+      "x": 910,
+      "y": 0,
+      "width": 130,
+      "height": 160,
+      "anchorX": 65.0,
+      "anchorY": 148
+    },
+    {
+      "x": 0,
+      "y": 160,
+      "width": 130,
+      "height": 160,
+      "anchorX": 65.0,
+      "anchorY": 148
+    },
+    {
+      "x": 130,
+      "y": 160,
+      "width": 130,
+      "height": 160,
+      "anchorX": 65.0,
+      "anchorY": 148
+    },
+    {
+      "x": 260,
+      "y": 160,
+      "width": 130,
+      "height": 160,
+      "anchorX": 65.0,
+      "anchorY": 148
+    },
+    {
+      "x": 390,
+      "y": 160,
+      "width": 130,
+      "height": 160,
+      "anchorX": 65.0,
+      "anchorY": 148
+    },
+    {
+      "x": 520,
+      "y": 160,
+      "width": 130,
+      "height": 160,
+      "anchorX": 65.0,
+      "anchorY": 148
+    },
+    {
+      "x": 650,
+      "y": 160,
+      "width": 130,
+      "height": 160,
+      "anchorX": 65.0,
+      "anchorY": 148
+    },
+    {
+      "x": 780,
+      "y": 160,
+      "width": 130,
+      "height": 160,
+      "anchorX": 65.0,
+      "anchorY": 148
+    },
+    {
+      "x": 910,
+      "y": 160,
+      "width": 130,
+      "height": 160,
+      "anchorX": 65.0,
+      "anchorY": 148
+    }
+  ],
+  "poseCount": 16
+}

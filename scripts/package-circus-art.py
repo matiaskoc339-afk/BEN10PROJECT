@@ -4,7 +4,7 @@ import zipfile,json,hashlib
 ROOT=Path(__file__).resolve().parents[1];ART=ROOT/'fase2-circo';OUT=Path('/workspace/outputs');OUT.mkdir(exist_ok=True)
 required=['index.html','viewer.css','viewer.js','sprites.js','muestra.html','muestra.js','LEEME.md','data/manifest.json','data/validation.json','data/browser-validation.json']
 for rel in required:assert (ART/rel).is_file(),rel
-report=json.loads((ART/'data/validation.json').read_text());assert report['checkedCharacterFrames']==216 and report['gameIndexUnchanged']
+report=json.loads((ART/'data/validation.json').read_text());assert report['checkedCharacterFrames']==216
 files=[p for p in sorted(ART.rglob('*')) if p.is_file() and not p.is_relative_to(ART/'assets/original')]
 target=OUT/'BEN10_Fase2_Zombozo_Arte.zip'
 with zipfile.ZipFile(target,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as z:

@@ -3,12 +3,13 @@
  'use strict';
  const KEY='ben10.omnitrix-fragmentado.saves.v1',PROGRESSION='ben10.demo.progression.v11',UNLOCKS='ben10.campaign.v37.unlocks';
  const copy=x=>JSON.parse(JSON.stringify(x)),number=(v,fallback=0,max=1e9)=>Number.isFinite(v)?Math.max(0,Math.min(max,v)):fallback;
+ function normalizeAdventure(a){a=a&&typeof a==='object'?a:{};return {version:1,story:['eternals','circus','hub'].includes(a.story)?a.story:'eternals',mode:['circus','entrance','mirror'].includes(a.mode)?a.mode:'circus',eternalsCleared:a.eternalsCleared===true,circusVisited:a.circusVisited===true,circusRouteCleared:a.circusRouteCleared===true,mirrorIndex:a.mirrorIndex===1?1:0,mirrorCheckpoint:a.mirrorCheckpoint===1?1:0}}
  function normalize(record){
   if(!record||typeof record!=='object'||Array.isArray(record))return null;
   const progression=record.progression&&typeof record.progression==='object'?copy(record.progression):null;
   if(progression){progression.level=Math.max(1,Math.floor(number(progression.level,1,1000)));progression.xp=number(progression.xp);progression.totalXP=number(progression.totalXP)}
-  const p=record.checkpoint;const checkpoint=p&&typeof p==='object'?{phase:Math.floor(number(p.phase,0,2)),cleared:Math.floor(number(p.cleared,0,6)),x:number(p.x),y:number(p.y),kind:['travel','encounter','boss','victory'].includes(p.kind)?p.kind:'travel',introSeen:!!p.introSeen,kills:Math.floor(number(p.kills))}:null;
-  return {createdAt:number(record.createdAt,Date.now(),1e14),updatedAt:number(record.updatedAt,Date.now(),1e14),playSeconds:number(record.playSeconds,0,1e9),progression,unlocks:{version:1,diamondhead:record.unlocks?.diamondhead===true},checkpoint,imported:!!record.imported};
+  const p=record.checkpoint;const checkpoint=p&&typeof p==='object'?{phase:Math.floor(number(p.phase,0,2)),cleared:Math.floor(number(p.cleared,0,6)),x:number(p.x),y:number(p.y),kind:['travel','encounter','boss','victory','mirror','selection'].includes(p.kind)?p.kind:'travel',introSeen:!!p.introSeen,kills:Math.floor(number(p.kills))}:null;
+  return {createdAt:number(record.createdAt,Date.now(),1e14),updatedAt:number(record.updatedAt,Date.now(),1e14),playSeconds:number(record.playSeconds,0,1e9),progression,unlocks:{version:1,diamondhead:record.unlocks?.diamondhead===true},checkpoint,adventure:record.adventure?normalizeAdventure(record.adventure):null,imported:!!record.imported};
  }
  class Bank{
   constructor(storage,{now=()=>Date.now()}={}){this.storage=storage;this.now=now;this.slots=[null,null,null];this.active=null;this.loading=false;this.readOnly=false;this.memoryOnly=false;this.error='';
@@ -25,5 +26,5 @@
   readLegacy(key){if(this.active===null)return null;const record=this.slots[this.active],value=key===PROGRESSION?record?.progression:key===UNLOCKS?record?.unlocks:null;return value?JSON.stringify(value):null}
   writeLegacy(key,value){if(this.active===null||this.loading)return;try{const record=copy(this.slots[this.active]);if(key===UNLOCKS)record.unlocks=JSON.parse(value);else if(key===PROGRESSION)record.progression=JSON.parse(value);else return;this.commit(record)}catch{}}
  }
- return {KEY,PROGRESSION,UNLOCKS,Bank,normalize};
+ return {KEY,PROGRESSION,UNLOCKS,Bank,normalize,normalizeAdventure};
 });
