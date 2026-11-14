@@ -16,7 +16,7 @@ block('<!-- CAMPAIGN_UI_START -->','<!-- CAMPAIGN_UI_END -->',ui,'<div id="combo
 html=html.replace(/<div id="enemyCount">[^\n]+\n/,'').replace(/^#enemyCount \{[^\n]+\n/m,'');
 html=html.replace(/#enemyCount\{[^}]+\}/g,'').replace('body.comic-active #enemyCount,','');
 html=html.replace('aria-label="Campo de pruebas jugable"','aria-label="Recorrido jugable: calles, castillo y laboratorio"');
-html=html.replace(/<title>[^<]+<\/title>/,'<title>Ben 10 — V37 · El Rey Eterno</title>');
+html=html.replace(/<title>[^<]+<\/title>/,'<title>Ben 10 — V38 · El Rey Eterno</title>');
 html=html.replace('const stats=new Ben10Stats.PlayerStats();','const stats=Ben10Balance.createPlayerStats(Ben10Stats);');
 html=html.replace('speed:247,health:100,mode:', 'speed:247,health:Ben10Balance.PLAYER_CONFIG.maxHealth,mode:');
 html=html.replace('let damage=special?75:heavy?20:player.lightN===3?12:8,reach=', 'let damage=Ben10Balance.humanAttackDamage({special,heavy,combo:player.lightN}),reach=');
@@ -66,4 +66,4 @@ for(const [name,file] of [['SPEED_ROUTE','systems/speed-route.js'],['FIRE_PROJEC
 }
 for(const [name,file] of [['XLR8_GAME','systems/xlr8-game.js'],['STINKFLY_GAME','systems/stinkfly-game.js']])block('// '+name+'_START','// '+name+'_END','// '+name+'_START\n'+read(file)+'// '+name+'_END','function update(dt){');
 fs.writeFileSync(target,html);
-console.log('Embedded V37: final king encounter, three phases, locked DNA and persistent Diamondhead reward.');
+console.log('Embedded V38: final king encounter, three phases, locked DNA and persistent Diamondhead reward.');

@@ -29,7 +29,7 @@ king=json.loads((root/'jefe-final/data/manifest.json').read_text())
 files.update('jefe-final/'+phase['atlas'] for phase in king['phases'])
 
 reports={}
-for name,file in [('combat',f'artifacts/v{version}/combat-review.json'),('boss',f'artifacts/v{version}/boss-review.json'),('campaign','artifacts/campaign/browser-review.json'),('skills','artifacts/v33/browser-review.json'),('render','artifacts/v33/final-render-review.json'),('targeting','artifacts/targeting/browser-review.json')]:
+for name,file in [('combat',f'artifacts/v{version}/combat-review.json'),('boss',f'artifacts/v{version}/boss-review.json'),('hud',f'artifacts/v{version}/hud-review.json'),('campaign','artifacts/campaign/browser-review.json'),('skills','artifacts/v33/browser-review.json'),('render','artifacts/v33/final-render-review.json'),('targeting','artifacts/targeting/browser-review.json')]:
     reports[name]=json.loads((root/file).read_text())
     assert reports[name].get('passed'),f'Validation missing: {name}'
 assert len(reports['skills']['skills'])==70
@@ -45,6 +45,8 @@ assert len(reports['combat']['progressiveTactics'])==3
 assert reports['boss']['initialTwoForms'] and reports['boss']['afterLastWaveOnly']
 assert reports['boss']['phases']==[1,2,3]
 assert reports['boss']['royalFallAndReward'] and reports['boss']['unlockSurvivesReload'] and reports['boss']['diamondheadPlayable']
+assert reports['hud']['purchaseAndProgress'] and reports['hud']['saveRetained'] and reports['hud']['realDnaLocks']
+assert len(reports['hud']['viewports'])==4
 assert data['renderMode']=='hd-tiles'
 output.parent.mkdir(parents=True,exist_ok=True)
 for file in sorted(files):

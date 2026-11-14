@@ -1,11 +1,11 @@
 {
   "name": "ben10-demo",
-  "version": "0.37.0",
+  "version": "0.38.0",
   "private": true,
-  "description": "Demo PC V37: Rey Eterno en tres fases, defensa cristalina, ayudantes y desbloqueo persistente de Diamante.",
+  "description": "Demo PC V38: ventana de habilidades arcade del Omnitrix, árboles propios y combate final del Rey Eterno.",
   "scripts": {
     "start": "python3 -m http.server 8000 --bind 0.0.0.0",
-    "test": "npm run test:evolution && npm run test:art && npm run test:browser && npm run test:render && npm run test:targeting && npm run test:campaign && npm run test:combat && npm run test:boss",
+    "test": "npm run test:evolution && npm run test:art && npm run test:browser && npm run test:render && npm run test:targeting && npm run test:campaign && npm run test:combat && npm run test:boss && npm run test:hud",
     "test:stats": "node --test tests/stats.test.cjs",
     "test:browser": "node tests/evolution-v32-browser.cjs",
     "test:cannon": "node --test tests/cannonbolt-physics.test.cjs",
@@ -59,7 +59,8 @@
     "test:king": "python3 scripts/validate-king-sprites.py && node tests/king-sprites-browser.cjs",
     "package:king": "python3 scripts/package-king-sprites.py",
     "preview:king": "node scripts/preview-king-sprites.cjs",
-    "test:boss": "node --test tests/final-king.test.cjs && node tests/final-king-browser.cjs"
+    "test:boss": "node --test tests/final-king.test.cjs && node tests/final-king-browser.cjs",
+    "test:hud": "node tests/evolution-hud-browser.cjs"
   },
   "devDependencies": {
     "playwright": "1.62.1"

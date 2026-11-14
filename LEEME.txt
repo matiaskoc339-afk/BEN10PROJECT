@@ -1,7 +1,16 @@
-BEN 10 — DEMO PC V37 · EL REY ETERNO
+BEN 10 — DEMO PC V38 · EL REY ETERNO
 
 Extrae TODA la carpeta y abre index.html en Chrome, Edge o Firefox de PC.
 Conserva assets, mapas y enemigos junto al HTML. Funciona sin conexión.
+Conserva también jefe-final: contiene las armaduras y animaciones del rey.
+
+NUEVA VENTANA DE HABILIDADES · K
+Marco metálico y emblema del Omnitrix, retratos, estado del ADN e iconos
+de atributos y técnicas. El árbol se abre completo; selecciona una mejora
+para verla de cerca. Usa +, - y Ver forma para explorar. La vista previa
+muestra la animación de la técnica y su combinación de ataques.
+Los costes, puntos, requisitos y mejoras aprendidas aparecen en el panel.
+Se conservan los árboles, las compras y los desbloqueos de la V37.
 
 Calles y parques → castillo → laboratorio de ADN de Diamante.
 Cada emboscada bloquea el paso hasta terminar todas sus oleadas.

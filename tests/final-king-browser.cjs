@@ -1,6 +1,6 @@
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict');
 let chromium;try{({chromium}=require('playwright'))}catch{({chromium}=require('/workspace/BEN10PROJECT/node_modules/playwright'))}
-const root=path.resolve(__dirname,'..'),out=root+'/artifacts/v37';fs.mkdirSync(out,{recursive:true});
+const root=path.resolve(__dirname,'..'),out=root+'/artifacts/v'+require('../package.json').version.split('.')[1];fs.mkdirSync(out,{recursive:true});
 let html=fs.readFileSync(root+'/index.html','utf8').replace('function update(dt){','function update(dt){if(window.__kingHold)return;');
 const hook=`
  window.__kingHold=true;
