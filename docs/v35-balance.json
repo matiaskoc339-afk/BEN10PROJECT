@@ -1,0 +1,335 @@
+{
+  "mode": "Difícil",
+  "roles": [
+    {
+      "role": "melee",
+      "tiers": [
+        {
+          "tier": "recruit",
+          "name": "Espadachín",
+          "maxHealth": 78,
+          "damage": 7,
+          "speed": 100,
+          "armor": 0.02,
+          "rank": 1,
+          "reach": 68,
+          "attackWidth": 28,
+          "cooldown": 1.55,
+          "windup": 0.5,
+          "xp": 22,
+          "radius": 16,
+          "bodyHeight": 88
+        },
+        {
+          "tier": "elite",
+          "name": "Espadachín",
+          "maxHealth": 121,
+          "damage": 9,
+          "speed": 106,
+          "armor": 0.13,
+          "rank": 2,
+          "reach": 68,
+          "attackWidth": 28,
+          "cooldown": 1.55,
+          "windup": 0.5,
+          "xp": 33,
+          "radius": 16,
+          "bodyHeight": 98
+        },
+        {
+          "tier": "crystal",
+          "name": "Espadachín",
+          "maxHealth": 160,
+          "damage": 10,
+          "speed": 110.00000000000001,
+          "armor": 0.24,
+          "rank": 3,
+          "reach": 76,
+          "attackWidth": 28,
+          "cooldown": 1.55,
+          "windup": 0.5,
+          "xp": 46,
+          "radius": 16,
+          "bodyHeight": 104
+        }
+      ]
+    },
+    {
+      "role": "ranged",
+      "tiers": [
+        {
+          "tier": "recruit",
+          "name": "Ballestero",
+          "maxHealth": 58,
+          "damage": 8,
+          "speed": 86,
+          "armor": 0.02,
+          "rank": 1,
+          "reach": 360,
+          "attackWidth": 16,
+          "cooldown": 2.5,
+          "windup": 0.75,
+          "xp": 24,
+          "radius": 16,
+          "bodyHeight": 88
+        },
+        {
+          "tier": "elite",
+          "name": "Ballestero",
+          "maxHealth": 90,
+          "damage": 10,
+          "speed": 91.16000000000001,
+          "armor": 0.13,
+          "rank": 2,
+          "reach": 360,
+          "attackWidth": 16,
+          "cooldown": 2.5,
+          "windup": 0.75,
+          "xp": 36,
+          "radius": 16,
+          "bodyHeight": 98
+        },
+        {
+          "tier": "crystal",
+          "name": "Ballestero",
+          "maxHealth": 119,
+          "damage": 12,
+          "speed": 94.60000000000001,
+          "armor": 0.24,
+          "rank": 3,
+          "reach": 368,
+          "attackWidth": 16,
+          "cooldown": 2.5,
+          "windup": 0.75,
+          "xp": 50,
+          "radius": 16,
+          "bodyHeight": 104
+        }
+      ]
+    },
+    {
+      "role": "support",
+      "tiers": [
+        {
+          "tier": "recruit",
+          "name": "Artificiero",
+          "maxHealth": 64,
+          "damage": 5,
+          "speed": 91,
+          "armor": 0.02,
+          "rank": 1,
+          "reach": 165,
+          "attackWidth": 28,
+          "cooldown": 2.3,
+          "windup": 0.7,
+          "xp": 28,
+          "radius": 16,
+          "bodyHeight": 88
+        },
+        {
+          "tier": "elite",
+          "name": "Artificiero",
+          "maxHealth": 99,
+          "damage": 6,
+          "speed": 96.46000000000001,
+          "armor": 0.13,
+          "rank": 2,
+          "reach": 165,
+          "attackWidth": 28,
+          "cooldown": 2.3,
+          "windup": 0.7,
+          "xp": 42,
+          "radius": 16,
+          "bodyHeight": 98
+        },
+        {
+          "tier": "crystal",
+          "name": "Artificiero",
+          "maxHealth": 131,
+          "damage": 7,
+          "speed": 100.10000000000001,
+          "armor": 0.24,
+          "rank": 3,
+          "reach": 173,
+          "attackWidth": 28,
+          "cooldown": 2.3,
+          "windup": 0.7,
+          "xp": 59,
+          "radius": 16,
+          "bodyHeight": 104
+        }
+      ]
+    },
+    {
+      "role": "agile",
+      "tiers": [
+        {
+          "tier": "recruit",
+          "name": "Explorador",
+          "maxHealth": 52,
+          "damage": 5,
+          "speed": 155,
+          "armor": 0.02,
+          "rank": 1,
+          "reach": 86,
+          "attackWidth": 25,
+          "cooldown": 1.35,
+          "windup": 0.4,
+          "xp": 25,
+          "radius": 16,
+          "bodyHeight": 88
+        },
+        {
+          "tier": "elite",
+          "name": "Explorador",
+          "maxHealth": 81,
+          "damage": 6,
+          "speed": 164.3,
+          "armor": 0.13,
+          "rank": 2,
+          "reach": 86,
+          "attackWidth": 25,
+          "cooldown": 1.35,
+          "windup": 0.4,
+          "xp": 38,
+          "radius": 16,
+          "bodyHeight": 98
+        },
+        {
+          "tier": "crystal",
+          "name": "Explorador",
+          "maxHealth": 107,
+          "damage": 7,
+          "speed": 170.5,
+          "armor": 0.24,
+          "rank": 3,
+          "reach": 94,
+          "attackWidth": 25,
+          "cooldown": 1.35,
+          "windup": 0.4,
+          "xp": 53,
+          "radius": 16,
+          "bodyHeight": 104
+        }
+      ]
+    },
+    {
+      "role": "defender",
+      "tiers": [
+        {
+          "tier": "recruit",
+          "name": "Baluarte",
+          "maxHealth": 108,
+          "damage": 9,
+          "speed": 67,
+          "armor": 0.02,
+          "rank": 1,
+          "reach": 78,
+          "attackWidth": 34,
+          "cooldown": 2.25,
+          "windup": 0.72,
+          "xp": 30,
+          "radius": 21,
+          "bodyHeight": 88
+        },
+        {
+          "tier": "elite",
+          "name": "Baluarte",
+          "maxHealth": 167,
+          "damage": 11,
+          "speed": 71.02000000000001,
+          "armor": 0.13,
+          "rank": 2,
+          "reach": 78,
+          "attackWidth": 34,
+          "cooldown": 2.25,
+          "windup": 0.72,
+          "xp": 45,
+          "radius": 21,
+          "bodyHeight": 98
+        },
+        {
+          "tier": "crystal",
+          "name": "Baluarte",
+          "maxHealth": 221,
+          "damage": 13,
+          "speed": 73.7,
+          "armor": 0.24,
+          "rank": 3,
+          "reach": 86,
+          "attackWidth": 34,
+          "cooldown": 2.25,
+          "windup": 0.72,
+          "xp": 63,
+          "radius": 21,
+          "bodyHeight": 104
+        }
+      ]
+    }
+  ],
+  "phases": [
+    {
+      "phase": 1,
+      "encounters": 6,
+      "waves": 9,
+      "enemies": 53,
+      "champion": {
+        "name": "Campeón del hacha",
+        "maxHealth": 628,
+        "damage": 18,
+        "speed": 71,
+        "armor": 0.16,
+        "rank": 5,
+        "reach": 122,
+        "attackWidth": 53,
+        "cooldown": 2.55,
+        "windup": 1.05,
+        "xp": 180,
+        "radius": 27,
+        "bodyHeight": 142
+      }
+    },
+    {
+      "phase": 2,
+      "encounters": 6,
+      "waves": 11,
+      "enemies": 69,
+      "champion": {
+        "name": "Campeón del hacha",
+        "maxHealth": 681,
+        "damage": 19,
+        "speed": 71,
+        "armor": 0.16,
+        "rank": 5,
+        "reach": 122,
+        "attackWidth": 53,
+        "cooldown": 2.55,
+        "windup": 1.05,
+        "xp": 225,
+        "radius": 27,
+        "bodyHeight": 142
+      }
+    },
+    {
+      "phase": 3,
+      "encounters": 4,
+      "waves": 8,
+      "enemies": 53,
+      "champion": {
+        "name": "Campeón del hacha",
+        "maxHealth": 1077,
+        "damage": 29,
+        "speed": 78.10000000000001,
+        "armor": 0.24,
+        "rank": 5,
+        "reach": 130,
+        "attackWidth": 53,
+        "cooldown": 2.55,
+        "windup": 1.05,
+        "xp": 270,
+        "radius": 27,
+        "bodyHeight": 148
+      }
+    }
+  ]
+}

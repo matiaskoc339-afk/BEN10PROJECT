@@ -10,13 +10,14 @@ function campaignPhysicsWorld(){
 function campaignGroundPoint(point,origin=player){return campaign.clipSegment(origin,point,0,props).end;}
 function campaignCollide(x,y,radius){
  if(campaign.blocked({x,y},radius,props))return true;
- for(const d of dummyList)if(d!==ghostAction.grab?.target&&d.alive&&dist(x,y,d.x,d.y-2)<16+radius)return true;
+ for(const d of dummyList)if(d!==ghostAction.grab?.target&&d.alive&&d.spawnLeft<=0&&((x-d.x)/((d.radius||16)+radius))**2+((y-d.y)/((d.radius||16)*.4+radius*.4))**2<1)return true;
  return false;
 }
 function campaignMovePlayer(x,y){
  const before={x:player.x,y:player.y},radius=actorMetrics().radius;
  const next=campaign.move(before,x-before.x,y-before.y,radius,props);
- if(!dummyList.some(d=>d.alive&&d!==ghostAction.grab?.target&&dist(next.x,next.y,d.x,d.y-2)<16+radius)){player.x=next.x;player.y=next.y;}
+ const hit=dummyList.find(d=>d.alive&&d.spawnLeft<=0&&d!==ghostAction.grab?.target&&((next.x-d.x)/((d.radius||16)+radius))**2+((next.y-d.y)/((d.radius||16)*.4+radius*.4))**2<1);
+ if(!hit){player.x=next.x;player.y=next.y;}else{const slide=campaign.move(before,0,y-before.y,radius,props);player.y=slide.y;}
 }
 function campaignCanEnter(){return assetsReady&&!comicOpen&&!state.wheel&&!progressionPanelOpen&&!adminPanelOpen&&player.mode==='idle'&&!evolutionCasting()&&speedAction.phase==='idle'&&cannonAction.phase==='idle'&&ghostAction.phase==='idle'&&stats.health>0;}
 function campaignResetEffects(){
@@ -33,6 +34,7 @@ function campaignSetPhase(index,initial=false){
  campaign.setPhase(index);WORLD.w=campaign.width;WORLD.h=campaign.height;props=campaign.props;
  const position=campaign.spawn(initial?HUMAN.radius:actorMetrics().radius);player.x=position.x;player.y=position.y;
  player.dir='right';player.faceX=1;player.faceY=0;player.actionDir='right';player.actionX=1;player.actionY=0;
+ enemyResetPhase(index);
  campaignExitReady=false;campaignUI.campaignExit.hidden=true;keys.clear();pointer.active=false;
  cam.x=0;cam.y=campaign.offsetY;
  if(!initial){campaignUpdateUI();campaignCamera(0,true);game.focus({preventScroll:true});}
@@ -45,7 +47,7 @@ function campaignUpdateUI(){
  const logical=campaign.logical(player),room=Ben10MapWorld.roomAt(campaign.data,logical.x);
  campaignUI.campaignPhase.textContent='FASE '+(campaign.phaseIndex+1)+' / 3';
  campaignUI.campaignPlace.textContent=room.name;campaignUI.campaignProgress.style.width=campaign.progress(player.x)*100+'%';
- campaignExitReady=campaign.atExit(player);campaignUI.campaignExit.hidden=!campaignExitReady;
+ campaignExitReady=campaign.atExit(player)&&encounters.complete;campaignUI.campaignExit.hidden=!campaignExitReady;
  campaignUI.campaignEnter.disabled=!campaignCanEnter();
  const end=campaign.phaseIndex===2;
  campaignUI.campaignExitLabel.textContent=end?'LABORATORIO PRINCIPAL':campaign.phaseIndex===0?'ENTRADA DEL CASTILLO':'ENTRADA DEL LABORATORIO';
@@ -68,7 +70,8 @@ function campaignCamera(dt=1/60,snap=false){
  campaignView={x:(screenW-worldWidth*zoom)/2,y:(screenH-worldHeight*zoom)/2,width:worldWidth*zoom,height:worldHeight*zoom};
  cam.zoom=zoom;cam.y=campaign.offsetY;
  if(speedAction.phase==='charge'||speedAction.phase==='plan')return;
- const wanted=clamp(player.x-worldWidth*.42,0,Math.max(0,WORLD.w-worldWidth));
+ const arena=campaign.arena,arenaCamera=arena?(arena.right-arena.left<=worldWidth?(arena.left+arena.right-worldWidth)/2:clamp(player.x-worldWidth*.42,arena.left,arena.right-worldWidth)):player.x-worldWidth*.42;
+ const wanted=clamp(arenaCamera,0,Math.max(0,WORLD.w-worldWidth));
  cam.x=snap?wanted:lerp(cam.x,wanted,1-Math.exp(-((speedAction.phase==='rush'||cannonAction.phase==='rush')?24:8)*dt));
  cam.x=clamp(cam.x,0,Math.max(0,WORLD.w-worldWidth));
 }
@@ -79,6 +82,7 @@ function campaignDrawWorld(){
  ctx.translate(campaignView.x-cam.x*cam.zoom,campaignView.y-cam.y*cam.zoom);ctx.scale(cam.zoom,cam.zoom);
  const view={left:cam.x,right:cam.x+campaignView.width/cam.zoom},visible=props.filter(p=>p.type==='campaign'&&p.x+p.width/2>=view.left-50&&p.x-p.width/2<=view.right+50);
  campaignArt.background(ctx,campaign,view);
+ enemyArt.ground(ctx,enemyBattle);enemyDrawGates();
  ctx.save();ctx.beginPath();ctx.rect(0,campaign.offsetY+208*campaign.scale,WORLD.w,152*campaign.scale);ctx.clip();drawWildTrails();drawStinkPools();ctx.restore();
  drawSpeedRoute();drawCannonCharge();
  for(const p of visible)if(p.art.behind)campaignArt.sprite(ctx,p,t);
@@ -90,7 +94,7 @@ function campaignDrawWorld(){
  for(const beam of eyeBeams.beams)items.push({y:beam.origin.y,draw:()=>drawUpgradeLaser(beam)});
  for(const shot of slime.shots)items.push({y:shot.y,draw:()=>drawStinkShot(shot)});
  for(const shot of fire.shots)items.push({y:shot.y,draw:()=>shot.kind==='crystal'?drawCrystalShard(shot):drawFireball(shot)});
- items.push({y:player.y,draw:drawPlayer});items.sort((a,b)=>a.y-b.y);for(const item of items)item.draw();drawParticles();evolutionDrawEffects();
+ items.push({y:player.y,draw:()=>{ctx.save();if(stats.health>0&&enemyBattle.time<enemyInvulUntil)ctx.globalAlpha=.65+.3*Math.sin(t*38);drawPlayer();ctx.restore();}});items.sort((a,b)=>a.y-b.y);for(const item of items)item.draw();enemyArt.effects(ctx,enemyBattle,t);drawParticles();evolutionDrawEffects();
  ctx.restore();if(flash>0){ctx.fillStyle=`rgba(148,255,85,${Math.pow(flash,2)*.24})`;ctx.fillRect(0,0,screenW,screenH);}
 }
 campaignUI.campaignEnter.addEventListener('click',()=>campaignEnter());

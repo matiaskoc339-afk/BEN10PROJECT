@@ -1,7 +1,7 @@
 const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
 const root=path.resolve(__dirname,'..'),data=JSON.parse(fs.readFileSync(root+'/mapas/data/recorrido.json')),world=require('../mapas/world.js');
 test('28 distinct stretches form three connected chapters, with a shorter laboratory',()=>{
- assert.equal(data.rooms.length,28);assert.deepEqual(data.chapters.map(c=>c.count),[12,10,6]);assert.equal(data.enemies.length,0);assert.equal(data.combat,false);
+ assert.equal(data.rooms.length,28);assert.deepEqual(data.chapters.map(c=>c.count),[12,10,6]);assert.equal(data.enemies.length,0);assert.equal(data.combat,true);
  for(let i=0;i<27;i++)assert.equal(data.rooms[i+1].x,data.rooms[i].x+data.rooms[i].width+(data.rooms[i].chapter===data.rooms[i+1].chapter?0:data.chapterGap));
  assert.equal(data.width,data.rooms.at(-1).x+data.rooms.at(-1).width);assert.equal(data.rooms.at(-1).name,'Laboratorio principal');
  const hashes=new Set(data.rooms.map(r=>crypto.createHash('sha256').update(fs.readFileSync(root+'/mapas/'+r.image)).digest('hex')));assert.equal(hashes.size,28);
@@ -29,7 +29,7 @@ test('each ambient loop has genuine distinct authored frames',()=>{
  for(const family of Object.values(data.props))for(const clip of family.animations){const hashes=new Set(clip.frames.map(f=>crypto.createHash('sha256').update(fs.readFileSync(root+'/mapas/'+f.file)).digest('hex')));assert.ok(hashes.size>=4);}
 });
 test('the game embeds the same three-phase art catalogue as the independent map viewer',()=>{
- const html=fs.readFileSync(root+'/index.html','utf8'),match=html.match(/window\.BEN10_CAMPAIGN_DATA=(\{[^\n]+\});<\/script>/);assert.ok(match);assert.deepEqual(JSON.parse(match[1]),data);
+ const html=fs.readFileSync(root+'/index.html','utf8'),match=html.match(/window\.BEN10_CAMPAIGN_DATA=(\{[^\n]+\});window.BEN10_ENEMY_DATA=/);assert.ok(match);assert.deepEqual(JSON.parse(match[1]),data);
 });
 test('three long panoramas have few registered joins and a reserved puzzle',()=>{
  assert.ok(new Set(data.rooms.map(r=>r.walkBottom)).size>=2);

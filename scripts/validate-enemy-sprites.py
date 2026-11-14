@@ -1,4 +1,4 @@
-"""Validate the exported art contract and ensure this task never changes combat."""
+"""Validate the standalone art contract used by the V35 combat integration."""
 from pathlib import Path
 from PIL import Image
 import json, hashlib, numpy as np
@@ -50,8 +50,8 @@ for unit in data['units']:
     assert max(heights['defeat'][-2:])<np.median(heights['idle'])*.65,(unit['id'],'defeat must end prone')
     report['units'].append({'id':unit['id'],'distinctPoses':sum(unique.values()),'minimumMargin':minimum_margin,'proneHeightRatio':round(max(heights['defeat'][-2:])/float(np.median(heights['idle'])),3)})
 ref=json.loads((ART/'data/demo-reference.json').read_text())
-assert hashlib.sha256((ROOT/'index.html').read_bytes()).hexdigest()==ref['sha256'],'The playable demo changed during sprite-only preparation'
-report['demoUnchanged']=True
+report['originalSpriteDeliveryReference']=ref['sha256']
+report['combatDemoSha256']=hashlib.sha256((ROOT/'index.html').read_bytes()).hexdigest()
 out=ROOT/'artifacts/enemigos';out.mkdir(parents=True,exist_ok=True)
 (out/'asset-validation.json').write_text(json.dumps(report,indent=2)+'\n')
-print('17 variants / 102 clips / 612 distinct poses: transparent padded cells, fixed pivots, prone defeats and unchanged demo verified.')
+print('17 variants / 102 clips / 612 distinct poses: transparent padded cells, fixed pivots, prone defeats verified.')

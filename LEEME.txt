@@ -1,35 +1,33 @@
-BEN 10 — DEMO PC V34 · EL CAMINO DE LOS ETERNOS
+BEN 10 — DEMO PC V35 · EL ASEDIO DE LOS ETERNOS
 
-Extrae toda la carpeta y abre index.html en Chrome, Edge o Firefox de PC.
-Conserva las carpetas assets y mapas junto al HTML. No hace falta instalar nada.
+Extrae TODA la carpeta y abre index.html en Chrome, Edge o Firefox de PC.
+Conserva assets, mapas y enemigos junto al HTML. Funciona sin conexión.
 
-El recorrido tiene tres fases: calles y parques, castillo de los Eternos y
-laboratorio de ADN de Diamante. Al llegar a una puerta, pulsa E o el botón
-para entrar. El suelo, las paredes, las barandas y los objetos tienen colisión;
-los dashes y las habilidades rápidas respetan esos mismos límites.
-Vida, energía, experiencia y mejoras se conservan entre fases.
-Se prepararon la alcoba del puzzle y la arena final. Los enemigos vendrán después.
+Calles y parques → castillo → laboratorio de ADN de Diamante.
+Cada emboscada bloquea el paso hasta terminar todas sus oleadas.
+Hay 16 combates, 28 oleadas y un minijefe con hacha al final de cada fase.
+El campeón del laboratorio lleva armadura cristalina; el Rey Eterno
+se añadirá en otra entrega. El espacio del puzzle queda reservado.
+
+DIFICULTAD: DIFÍCIL
+Los apoyos curan y potencian a los aliados más importantes: interrúmpelos.
+Rompe los escudos con fuertes o ataca por detrás. Esquiva las señales del
+hacha y las líneas de tiro. El reloj y las mejoras del árbol importan.
+Cada combate despejado devuelve un poco de vida y energía.
+Al caer puedes reintentar ese combate con vida y energía completas;
+conservas nivel, XP y mejoras. La vida se conserva al cambiar de fase.
 
 WASD / flechas: moverse.
-E o botón de entrada: pasar al castillo o al laboratorio.
-Clic izquierdo: leve. Clic derecho: fuerte. Espacio: dash.
-R: Omnitrix. 1–9 y 0: elegir alien dentro del reloj.
+Clic izquierdo: leve. Clic derecho: fuerte. Espacio: dash / esquivar.
+R: Omnitrix. Dentro del reloj, 1–9 y 0: elegir alien.
 T: volver a Ben. K: árbol del alien. F: habilidad aprendida.
-F9: panel de pruebas para añadir puntos.
+E o botón de entrada: entrar al castillo o al laboratorio tras despejarlo.
 Esc: salir de la intro o cerrar paneles.
+F9: panel de pruebas para añadir puntos, conservado de la demo.
 
-Cada alien mantiene 24 mejoras, seis combos y F, con menos líneas en su árbol.
-Selecciona una técnica para ver su animación y la combinación que la activa.
-Las compras V32, nivel, XP y puntos se conservan.
+Se mantienen los diez aliens, sus sprites y las 70 técnicas de los árboles.
+V35 añade fondos con más detalle, 17 variantes de caballeros con animaciones,
+objetos recolocados, agua animada en la fuente del fondo e IA por especialidad.
 
-V33 añade poses nuevas para las técnicas sin sustituir los sprites básicos.
-Los agarres levantan y estrellan al rival; las habilidades de suelo, impulsos,
-intangibilidad y proyectiles siguen la nueva animación de cada técnica.
-La F de Diamante endurece el cuerpo y no hace daño.
-
-OBJETIVOS Y ENERGÍA
-Las técnicas buscan primero al enemigo al que venías haciendo el combo;
-después al que señalas o tienes delante, y luego a uno cercano del frente.
-El aro del suelo muestra el objetivo. El alcance y los obstáculos cuentan;
-un enemigo puede apartarse antes del impacto y hacerte fallar.
-Sin energía suficiente, el reloj destella en rojo sin mostrar un aviso escrito.
+Si falta una imagen o el navegador muestra una pantalla vacía, comprueba que
+extrajiste todas las carpetas: no abras index.html desde el interior del ZIP.

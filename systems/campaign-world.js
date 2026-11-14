@@ -27,7 +27,7 @@
   logical(point){return {x:point.x/this.scale+this.phase.x,y:(point.y-this.offsetY)/this.scale};}
   setPhase(index){
    if(!Number.isInteger(index)||!this.data.chapters[index])throw Error('Invalid campaign phase');
-   this.phaseIndex=index;this.rooms=this.data.rooms.filter(r=>r.chapter===this.phase.id);
+   this.phaseIndex=index;this.arena=null;this.rooms=this.data.rooms.filter(r=>r.chapter===this.phase.id);
    // Frame the actual door, keeping a little scenery beyond the end of the lane.
    const inset=[240,275,140][index];
    this.exit={x:this.width-inset*this.scale,y:this.offsetY+270*this.scale,range:115*this.scale};
@@ -49,7 +49,7 @@
    const logical=clamp(x/this.scale+this.phase.x,this.phase.x,this.phase.end-.001),lane=MapWorld.laneAt(this.data,logical);
    return {top:this.offsetY+lane.top*this.scale,bottom:this.offsetY+lane.bottom*this.scale};
   }
-  bounds(radius=0){return {minX:18*this.scale+radius,maxX:this.walkEnd-radius,minY:this.offsetY+226*this.scale+radius*.35,maxY:this.offsetY+342*this.scale-radius*.35};}
+  bounds(radius=0){return {minX:Math.max(18*this.scale,this.arena?.left??0)+radius,maxX:Math.min(this.walkEnd,this.arena?.right??Infinity)-radius,minY:this.offsetY+226*this.scale+radius*.35,maxY:this.offsetY+342*this.scale-radius*.35};}
   onFloor(point,radius=0){
    if(!finite(point))return false;const bounds=this.bounds(radius),lane=this.laneAt(point.x),depth=radius*.35;
    return point.x>=bounds.minX-1e-7&&point.x<=bounds.maxX+1e-7&&point.y>=lane.top+depth-1e-7&&point.y<=lane.bottom-depth+1e-7;

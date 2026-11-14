@@ -1,0 +1,469 @@
+{
+  "prompt": "Faithfully REMASTER the exact provided game background tile into richly detailed sharp HD pixel/cel art at full canvas resolution, approximately 2048x768 or higher, preserving EXACT 8:3 (2.667:1) aspect ratio. Use the WHOLE canvas edge-to-edge with NO BORDERS, NO BLACK BARS, NO framing. This tile joins its neighbors, so retain exactly the reference geometry, same object silhouettes/positions, same colors, same camera elevation and side beat-em-up perspective, wall/floor boundary at y=58% and clear WALKABLE paving bottom42%. Reconstruct fine crisp paving joints, leaf clusters, masonry, lighting, windows/metal lines with clean detailed shading at native resolution. Do not just enlarge a blurry bitmap. Do not replace the floor with a vertical wall or add new architecture or furniture: preserve every landmark's exact normalized bounding box and the first/last10% edges especially accurately. No new characters, HUD, labels, text, images of game screens, fog, painterly blur, diffuse grain, or added objects in walking lane. Same Ben10 illustrated pixel arcade art, a high quality restoration not a redesign.",
+  "jobs": [
+    {
+      "id": "ciudad-01-01",
+      "chapter": "ciudad",
+      "segment": 0,
+      "localX": 0,
+      "logicalWidth": 960,
+      "logicalHeight": 360,
+      "reference": "mapas/assets/phases/ciudad/01-completo.png",
+      "output": "mapas/assets/remaster/ciudad-01-01.png",
+      "referenceCrop": [
+        0,
+        0,
+        960,
+        360
+      ]
+    },
+    {
+      "id": "ciudad-01-02",
+      "chapter": "ciudad",
+      "segment": 0,
+      "localX": 800,
+      "logicalWidth": 960,
+      "logicalHeight": 360,
+      "reference": "mapas/assets/phases/ciudad/01-completo.png",
+      "output": "mapas/assets/remaster/ciudad-01-02.png",
+      "referenceCrop": [
+        800,
+        0,
+        960,
+        360
+      ]
+    },
+    {
+      "id": "ciudad-01-03",
+      "chapter": "ciudad",
+      "segment": 0,
+      "localX": 1600,
+      "logicalWidth": 960,
+      "logicalHeight": 360,
+      "reference": "mapas/assets/phases/ciudad/01-completo.png",
+      "output": "mapas/assets/remaster/ciudad-01-03.png",
+      "referenceCrop": [
+        1600,
+        0,
+        960,
+        360
+      ]
+    },
+    {
+      "id": "ciudad-01-04",
+      "chapter": "ciudad",
+      "segment": 0,
+      "localX": 2309,
+      "logicalWidth": 960,
+      "logicalHeight": 360,
+      "reference": "mapas/assets/phases/ciudad/01-completo.png",
+      "output": "mapas/assets/remaster/ciudad-01-04.png",
+      "referenceCrop": [
+        2309,
+        0,
+        960,
+        360
+      ]
+    },
+    {
+      "id": "ciudad-02-01",
+      "chapter": "ciudad",
+      "segment": 1,
+      "localX": 0,
+      "logicalWidth": 960,
+      "logicalHeight": 360,
+      "reference": "mapas/assets/phases/ciudad/02-completo.png",
+      "output": "mapas/assets/remaster/ciudad-02-01.png",
+      "referenceCrop": [
+        0,
+        0,
+        960,
+        360
+      ]
+    },
+    {
+      "id": "ciudad-02-02",
+      "chapter": "ciudad",
+      "segment": 1,
+      "localX": 800,
+      "logicalWidth": 960,
+      "logicalHeight": 360,
+      "reference": "mapas/assets/phases/ciudad/02-completo.png",
+      "output": "mapas/assets/remaster/ciudad-02-02.png",
+      "referenceCrop": [
+        800,
+        0,
+        960,
+        360
+      ]
+    },
+    {
+      "id": "ciudad-02-03",
+      "chapter": "ciudad",
+      "segment": 1,
+      "localX": 1600,
+      "logicalWidth": 960,
+      "logicalHeight": 360,
+      "reference": "mapas/assets/phases/ciudad/02-completo.png",
+      "output": "mapas/assets/remaster/ciudad-02-03.png",
+      "referenceCrop": [
+        1600,
+        0,
+        960,
+        360
+      ]
+    },
+    {
+      "id": "ciudad-02-04",
+      "chapter": "ciudad",
+      "segment": 1,
+      "localX": 1838,
+      "logicalWidth": 960,
+      "logicalHeight": 360,
+      "reference": "mapas/assets/phases/ciudad/02-completo.png",
+      "output": "mapas/assets/remaster/ciudad-02-04.png",
+      "referenceCrop": [
+        1838,
+        0,
+        960,
+        360
+      ]
+    },
+    {
+      "id": "ciudad-03-01",
+      "chapter": "ciudad",
+      "segment": 2,
+      "localX": 0,
+      "logicalWidth": 960,
+      "logicalHeight": 360,
+      "reference": "mapas/assets/phases/ciudad/03-completo.png",
+      "output": "mapas/assets/remaster/ciudad-03-01.png",
+      "referenceCrop": [
+        0,
+        0,
+        960,
+        360
+      ]
+    },
+    {
+      "id": "ciudad-03-02",
+      "chapter": "ciudad",
+      "segment": 2,
+      "localX": 800,
+      "logicalWidth": 960,
+      "logicalHeight": 360,
+      "reference": "mapas/assets/phases/ciudad/03-completo.png",
+      "output": "mapas/assets/remaster/ciudad-03-02.png",
+      "referenceCrop": [
+        800,
+        0,
+        960,
+        360
+      ]
+    },
+    {
+      "id": "ciudad-03-03",
+      "chapter": "ciudad",
+      "segment": 2,
+      "localX": 1600,
+      "logicalWidth": 960,
+      "logicalHeight": 360,
+      "reference": "mapas/assets/phases/ciudad/03-completo.png",
+      "output": "mapas/assets/remaster/ciudad-03-03.png",
+      "referenceCrop": [
+        1600,
+        0,
+        960,
+        360
+      ]
+    },
+    {
+      "id": "ciudad-03-04",
+      "chapter": "ciudad",
+      "segment": 2,
+      "localX": 1940,
+      "logicalWidth": 960,
+      "logicalHeight": 360,
+      "reference": "mapas/assets/phases/ciudad/03-completo.png",
+      "output": "mapas/assets/remaster/ciudad-03-04.png",
+      "referenceCrop": [
+        1940,
+        0,
+        960,
+        360
+      ]
+    },
+    {
+      "id": "castillo-01-01",
+      "chapter": "castillo",
+      "segment": 0,
+      "localX": 0,
+      "logicalWidth": 960,
+      "logicalHeight": 360,
+      "reference": "mapas/assets/phases/castillo/01-completo.png",
+      "output": "mapas/assets/remaster/castillo-01-01.png",
+      "referenceCrop": [
+        0,
+        0,
+        960,
+        360
+      ]
+    },
+    {
+      "id": "castillo-01-02",
+      "chapter": "castillo",
+      "segment": 0,
+      "localX": 800,
+      "logicalWidth": 960,
+      "logicalHeight": 360,
+      "reference": "mapas/assets/phases/castillo/01-completo.png",
+      "output": "mapas/assets/remaster/castillo-01-02.png",
+      "referenceCrop": [
+        800,
+        0,
+        960,
+        360
+      ]
+    },
+    {
+      "id": "castillo-01-03",
+      "chapter": "castillo",
+      "segment": 0,
+      "localX": 1284,
+      "logicalWidth": 960,
+      "logicalHeight": 360,
+      "reference": "mapas/assets/phases/castillo/01-completo.png",
+      "output": "mapas/assets/remaster/castillo-01-03.png",
+      "referenceCrop": [
+        1284,
+        0,
+        960,
+        360
+      ]
+    },
+    {
+      "id": "castillo-02-01",
+      "chapter": "castillo",
+      "segment": 1,
+      "localX": 0,
+      "logicalWidth": 960,
+      "logicalHeight": 360,
+      "reference": "mapas/assets/phases/castillo/02-completo.png",
+      "output": "mapas/assets/remaster/castillo-02-01.png",
+      "referenceCrop": [
+        0,
+        0,
+        960,
+        360
+      ]
+    },
+    {
+      "id": "castillo-02-02",
+      "chapter": "castillo",
+      "segment": 1,
+      "localX": 800,
+      "logicalWidth": 960,
+      "logicalHeight": 360,
+      "reference": "mapas/assets/phases/castillo/02-completo.png",
+      "output": "mapas/assets/remaster/castillo-02-02.png",
+      "referenceCrop": [
+        800,
+        0,
+        960,
+        360
+      ]
+    },
+    {
+      "id": "castillo-02-03",
+      "chapter": "castillo",
+      "segment": 1,
+      "localX": 1600,
+      "logicalWidth": 960,
+      "logicalHeight": 360,
+      "reference": "mapas/assets/phases/castillo/02-completo.png",
+      "output": "mapas/assets/remaster/castillo-02-03.png",
+      "referenceCrop": [
+        1600,
+        0,
+        960,
+        360
+      ]
+    },
+    {
+      "id": "castillo-02-04",
+      "chapter": "castillo",
+      "segment": 1,
+      "localX": 2295,
+      "logicalWidth": 960,
+      "logicalHeight": 360,
+      "reference": "mapas/assets/phases/castillo/02-completo.png",
+      "output": "mapas/assets/remaster/castillo-02-04.png",
+      "referenceCrop": [
+        2295,
+        0,
+        960,
+        360
+      ]
+    },
+    {
+      "id": "castillo-03-01",
+      "chapter": "castillo",
+      "segment": 2,
+      "localX": 0,
+      "logicalWidth": 960,
+      "logicalHeight": 360,
+      "reference": "mapas/assets/phases/castillo/03-completo.png",
+      "output": "mapas/assets/remaster/castillo-03-01.png",
+      "referenceCrop": [
+        0,
+        0,
+        960,
+        360
+      ]
+    },
+    {
+      "id": "castillo-03-02",
+      "chapter": "castillo",
+      "segment": 2,
+      "localX": 800,
+      "logicalWidth": 960,
+      "logicalHeight": 360,
+      "reference": "mapas/assets/phases/castillo/03-completo.png",
+      "output": "mapas/assets/remaster/castillo-03-02.png",
+      "referenceCrop": [
+        800,
+        0,
+        960,
+        360
+      ]
+    },
+    {
+      "id": "castillo-03-03",
+      "chapter": "castillo",
+      "segment": 2,
+      "localX": 1600,
+      "logicalWidth": 960,
+      "logicalHeight": 360,
+      "reference": "mapas/assets/phases/castillo/03-completo.png",
+      "output": "mapas/assets/remaster/castillo-03-03.png",
+      "referenceCrop": [
+        1600,
+        0,
+        960,
+        360
+      ]
+    },
+    {
+      "id": "castillo-03-04",
+      "chapter": "castillo",
+      "segment": 2,
+      "localX": 2309,
+      "logicalWidth": 960,
+      "logicalHeight": 360,
+      "reference": "mapas/assets/phases/castillo/03-completo.png",
+      "output": "mapas/assets/remaster/castillo-03-04.png",
+      "referenceCrop": [
+        2309,
+        0,
+        960,
+        360
+      ]
+    },
+    {
+      "id": "laboratorio-01-01",
+      "chapter": "laboratorio",
+      "segment": 0,
+      "localX": 0,
+      "logicalWidth": 960,
+      "logicalHeight": 360,
+      "reference": "mapas/assets/phases/laboratorio/01-completo.png",
+      "output": "mapas/assets/remaster/laboratorio-01-01.png",
+      "referenceCrop": [
+        0,
+        0,
+        960,
+        360
+      ]
+    },
+    {
+      "id": "laboratorio-01-02",
+      "chapter": "laboratorio",
+      "segment": 0,
+      "localX": 800,
+      "logicalWidth": 960,
+      "logicalHeight": 360,
+      "reference": "mapas/assets/phases/laboratorio/01-completo.png",
+      "output": "mapas/assets/remaster/laboratorio-01-02.png",
+      "referenceCrop": [
+        800,
+        0,
+        960,
+        360
+      ]
+    },
+    {
+      "id": "laboratorio-01-03",
+      "chapter": "laboratorio",
+      "segment": 0,
+      "localX": 1210,
+      "logicalWidth": 960,
+      "logicalHeight": 360,
+      "reference": "mapas/assets/phases/laboratorio/01-completo.png",
+      "output": "mapas/assets/remaster/laboratorio-01-03.png",
+      "referenceCrop": [
+        1210,
+        0,
+        960,
+        360
+      ]
+    },
+    {
+      "id": "laboratorio-02-01",
+      "chapter": "laboratorio",
+      "segment": 1,
+      "localX": 0,
+      "logicalWidth": 960,
+      "logicalHeight": 360,
+      "reference": "mapas/assets/phases/laboratorio/02-completo.png",
+      "output": "mapas/assets/remaster/laboratorio-02-01.png",
+      "referenceCrop": [
+        0,
+        0,
+        960,
+        360
+      ]
+    },
+    {
+      "id": "laboratorio-02-02",
+      "chapter": "laboratorio",
+      "segment": 1,
+      "localX": 800,
+      "logicalWidth": 960,
+      "logicalHeight": 360,
+      "reference": "mapas/assets/phases/laboratorio/02-completo.png",
+      "output": "mapas/assets/remaster/laboratorio-02-02.png",
+      "referenceCrop": [
+        800,
+        0,
+        960,
+        360
+      ]
+    },
+    {
+      "id": "laboratorio-02-03",
+      "chapter": "laboratorio",
+      "segment": 1,
+      "localX": 965,
+      "logicalWidth": 960,
+      "logicalHeight": 360,
+      "reference": "mapas/assets/phases/laboratorio/02-completo.png",
+      "output": "mapas/assets/remaster/laboratorio-02-03.png",
+      "referenceCrop": [
+        965,
+        0,
+        960,
+        360
+      ]
+    }
+  ]
+}

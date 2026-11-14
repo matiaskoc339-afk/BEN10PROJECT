@@ -1,6 +1,6 @@
-# Ben 10 · Demo PC V34
+# Ben 10 — Demo PC V35 · El asedio de los Eternos
 
-La demo ya recorre los nuevos mapas de **El camino de los Eternos**. La antigua plaza de pruebas, sus maniquíes y su cartel de entrenamiento se sustituyen por tres fases: calles y parques, castillo de los Eternos y laboratorio de ADN de Diamante. Cada fase tiene cámara lateral continua, suelo transitable, paredes y objetos con colisiones por sus pies. El archivo conserva su alcoba para un puzzle y el laboratorio su arena final; los enemigos y el jefe se añadirán después.
+V35 incorpora los Caballeros Eternos al recorrido: cinco roles con tres rangos de armadura, 16 combates, 28 oleadas y un campeón con hacha al final de cada fase. Las arenas bloquean el avance hasta eliminar la última oleada; los apoyos priorizan aliados de mayor rango y sus curas se pueden interrumpir. Los fondos se restauraron en 29 tramos de mayor resolución, con solapamientos continuos, objetos recolocados y agua animada sobre la fuente del parque.
 
 Al llegar a una entrada, pulsa **E** o el botón para pasar a la siguiente fase. La transformación, la vida, la energía, la experiencia y las mejoras se conservan. Los proyectiles, venenos y acciones de la zona anterior se limpian. El final del laboratorio permite volver al inicio del recorrido.
 
@@ -65,4 +65,6 @@ El [visor de arte](mapas/index.html) y la [documentación de capas](mapas/README
 
 ## Biblioteca de enemigos en preparación
 
-Los [sprites de Caballeros Eternos](enemigos/index.html) se revisan en un visor separado: cinco especialidades con tres rangos y dos campeones con hacha, con reposo, caminata, dos acciones, golpe y derrota. El [catálogo](enemigos/catalogo.html) permite ver las 17 variantes juntas. Esta biblioteca aún no añade enemigos al combate. Consulta [los archivos y sus anclajes](enemigos/README.md) para su integración posterior.
+Los [sprites de Caballeros Eternos](enemigos/index.html) se revisan en un visor separado: cinco especialidades con tres rangos y dos campeones con hacha, con reposo, caminata, dos acciones, golpe y derrota. El [catálogo](enemigos/catalogo.html) permite ver las 17 variantes juntas. V35 utiliza sus atlas y animaciones en el combate. Consulta [los archivos y sus anclajes](enemigos/README.md) para su integración posterior.
+
+Consulta [el balance y comportamiento de los enemigos](docs/v35-combate.md). Las pruebas nuevas se ejecutan con `npm run test:combat`; `npm run package:campaign` genera el ZIP completo de V35 para jugar sin conexión.

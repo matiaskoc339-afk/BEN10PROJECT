@@ -1,6 +1,6 @@
 # Caballeros Eternos · sprites y animaciones
 
-Biblioteca de arte para la demo V34. Contiene **17 variantes, 102 clips y 612 poses dibujadas**, con fondo transparente. Esta entrega prepara el arte: no incorpora enemigos, IA, daño, oleadas ni al jefe final en el juego.
+Biblioteca de arte para la demo V34. Contiene **17 variantes, 102 clips y 612 poses dibujadas**, con fondo transparente. V35 incorpora estos sprites al combate mediante `systems/eternal-enemies.js`, `enemy-game.js` y `enemy-renderer.js`. El visor de esta carpeta sigue dedicado al arte. El jefe final se prepara en otra entrega.
 
 Abre **[index.html](index.html)** para reproducir cada animación. **[catalogo.html](catalogo.html)** muestra las 17 variantes juntas. Ambos visores funcionan sin conexión: conserva toda la carpeta `enemigos` y no abras el HTML desde la vista previa de un ZIP; extráelo primero.
 
@@ -28,7 +28,7 @@ Cada personaje dispone de seis filas y seis fotogramas por fila:
 5. `hurt`: retroceso, desequilibrio y recuperación.
 6. `defeat`: pierde el equilibrio, cae y termina tendido.
 
-Los ataques no se reproducen en bucle por defecto y la derrota mantiene su último fotograma. El visor permite repetirlos, bajar a 0,25×, avanzar fotogramas, cambiar de lado y comparar rangos con Ben como referencia de tamaño. La canalización y la guardia son **poses de arte**, todavía sin efectos de juego.
+Los ataques no se reproducen en bucle por defecto y la derrota mantiene su último fotograma. El visor permite repetirlos, bajar a 0,25×, avanzar fotogramas, cambiar de lado y comparar rangos con Ben como referencia de tamaño. La canalización y la guardia son **poses de arte**, con sus efectos de juego definidos por separado en el sistema de combate.
 
 ## Archivos e integración posterior
 
@@ -66,4 +66,4 @@ npm run test:enemies
 npm run package:enemies
 ```
 
-La reconstrucción requiere Python 3, Pillow, NumPy y SciPy. Las pruebas verifican las 612 poses, transparencia, márgenes, anclajes, caída final, reproducción en navegador, descarga de PNG/JSON y que `index.html` de la demo siga siendo idéntico a V34. El ZIP se genera en `/workspace/outputs/BEN10_Caballeros_Eternos_Sprites.zip` por defecto, o en la ruta indicada mediante `--output`.
+La reconstrucción requiere Python 3, Pillow, NumPy y SciPy. Las pruebas verifican las 612 poses, transparencia, márgenes, anclajes, caída final, reproducción en navegador, descarga de PNG/JSON y la integridad de las láminas originales. El ZIP se genera en `/workspace/outputs/BEN10_Caballeros_Eternos_Sprites.zip` por defecto, o en la ruta indicada mediante `--output`.

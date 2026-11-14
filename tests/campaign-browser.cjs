@@ -1,7 +1,7 @@
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict');
 let chromium;try{({chromium}=require('playwright'))}catch{({chromium}=require('/workspace/BEN10PROJECT/node_modules/playwright'))}
 const root=path.resolve(__dirname,'..'),out=root+'/artifacts/campaign';fs.mkdirSync(out,{recursive:true});
-let html=fs.readFileSync(root+'/index.html','utf8').replace('function update(dt){','function update(dt){if(window.__campaignHold)return;');
+let html=require('./fixture-without-encounters.cjs')(fs.readFileSync(root+'/index.html','utf8')).replace('function update(dt){','function update(dt){if(window.__campaignHold)return;');
 const hook=`
  function campaignTestStep(seconds){window.__campaignHold=false;for(let i=0;i<Math.ceil(seconds*60);i++)update(1/60);window.__campaignHold=true;campaignCamera(0,true);render(0);}
  window.__campaign={ready:()=>assetsReady,hold:value=>window.__campaignHold=value,

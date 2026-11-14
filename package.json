@@ -1,11 +1,11 @@
 {
   "name": "ben10-demo",
-  "version": "0.34.0",
+  "version": "0.35.0",
   "private": true,
-  "description": "Demo PC V34: calles, castillo y laboratorio integrados con colisiones y entradas manuales.",
+  "description": "Demo PC V35: mapas con más detalle, Caballeros Eternos por rol, oleadas cerradas y tres minijefes.",
   "scripts": {
     "start": "python3 -m http.server 8000 --bind 0.0.0.0",
-    "test": "npm run test:evolution && npm run test:art && npm run test:browser && npm run test:render && npm run test:targeting && npm run test:campaign",
+    "test": "npm run test:evolution && npm run test:art && npm run test:browser && npm run test:render && npm run test:targeting && npm run test:campaign && npm run test:combat",
     "test:stats": "node --test tests/stats.test.cjs",
     "test:browser": "node tests/evolution-v32-browser.cjs",
     "test:cannon": "node --test tests/cannonbolt-physics.test.cjs",
@@ -52,7 +52,9 @@
     "package:campaign": "python3 scripts/package-campaign.py",
     "build:enemies": "python3 scripts/build-enemy-sprites.py",
     "test:enemies": "python3 scripts/validate-enemy-sprites.py && node tests/enemy-sprites-browser.cjs",
-    "package:enemies": "python3 scripts/package-enemy-sprites.py"
+    "package:enemies": "python3 scripts/package-enemy-sprites.py",
+    "test:combat": "node --test tests/eternal-enemies.test.cjs && node tests/v35-combat-browser.cjs",
+    "test:package": "node tests/v35-packaged-browser.cjs"
   },
   "devDependencies": {
     "playwright": "1.62.1"

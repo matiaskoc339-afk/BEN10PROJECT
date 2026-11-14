@@ -209,3 +209,7 @@ manifest={'version':3,'title':'El camino de los Eternos','width':CHAPTERS[-1]['e
 (OUT/'data/recorrido.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
 (OUT/'data/recorrido.js').write_text('window.BEN10_MAPS='+json.dumps(manifest,ensure_ascii=False)+';\n')
 print(f'Built 3 panoramic phases, {len(phase_art)} long art sections, {len(rooms)} landmarks, 36 props and 6 animated sprite loops.')
+
+# Preserve V35 native source registration and authored object clusters on rebuild.
+import subprocess,sys
+subprocess.run([sys.executable,str(ROOT/"scripts/refine-map-layout.py")],check=True)
