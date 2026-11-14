@@ -1,5 +1,5 @@
 const {test}=require('node:test'),assert=require('node:assert/strict');
-const {Battle,Director,statsFor,encounterPlan}=require('../systems/eternal-enemies.js');
+const {Battle,Director,statsFor,encounterPlan,tacticalProfile}=require('../systems/eternal-enemies.js');
 const {Level}=require('../systems/campaign-world.js'),data=require('../mapas/data/recorrido.json');
 const player=()=>({x:400,y:265,health:100});
 const world={move:(p,dx,dy,r)=>({x:Math.max(20+r,Math.min(980-r,p.x+dx)),y:Math.max(205+r*.35,Math.min(342-r*.35,p.y+dy))}),clipSegment:(a,b)=>({end:{...b},blocked:false}),clampPoint:p=>({...p})};
@@ -66,4 +66,25 @@ test('all three phases finish only after their champion is defeated; retries pre
   assert.equal(champions,1);assert.equal(d.complete,true);assert.equal(level.arena,null);
   d.setPhase(phase);d.activate(2,b,level);d.cleared=2;p.health=0;const at=d.retry(b,level);assert.equal(d.current.index,2);assert.equal(d.cleared,2);assert.ok(at.x>level.arena.left&&at.x<level.arena.right);assert.equal(d.wave,0);assert.ok(d.pending.length);
  }
+});
+test('tactical awareness rises within each phase and unlocks behaviours without increasing attack stats',()=>{
+ const basic=tacticalProfile(0,0,'recruit'),castle=tacticalProfile(1,.4,'elite'),lab=tacticalProfile(2,.8,'crystal');assert.ok(basic.awareness<castle.awareness&&castle.awareness<lab.awareness);assert.equal(basic.flank,false);assert.equal(castle.flank,true);assert.equal(lab.lead,true);assert.equal(lab.regroup,true);assert.ok(tacticalProfile(0,.8,'elite').awareness>tacticalProfile(0,.1,'elite').awareness);assert.equal(statsFor('melee','elite',1).damage,9);
+});
+test('advanced squads use an actual route around the player while the shield covers a channeling support',()=>{
+ const b=new Battle();b.reset(2);const p={...player(),faceX:1},agile=ready(b,'agile','crystal',550),shield=ready(b,'defender','crystal',620),healer=ready(b,'support','crystal',700);healer.support={target:shield,kind:'heal',age:0,applied:false};for(const e of b.enemies)e.cooldownLeft=100;
+ b.update(1/60,p,world);assert.equal(agile.order.kind,'flank');assert.equal(agile.order.allowAttack,false);assert.ok(Math.abs(agile.order.goal.y-p.y)>=38);assert.equal(shield.order.kind,'cover');assert.equal(shield.order.target,healer.id);assert.ok(shield.order.goal.x>p.x&&shield.order.goal.x<healer.x);const beforeY=agile.y;advance(b,.2,p);assert.ok(Math.abs(agile.y-p.y)>Math.abs(beforeY-p.y));
+});
+test('advanced ranged attacks lead observed movement and then commit so a turn can evade them',()=>{
+ const b=new Battle();b.reset(2);const p={x:350,y:235,health:100,faceX:1},e=ready(b,'ranged','crystal',650,265);e.cooldownLeft=100;
+ for(let n=0;n<12;n++){p.y+=1;b.update(1/60,p,world)}assert.equal(b.startAttack(e,p,world),true);assert.ok(e.attack.aim.y>p.y);advance(b,.5,p);const committed={...e.attack.aim};p.y=325;b.update(.02,p,world);assert.deepEqual(e.attack.aim,committed);assert.ok(e.attack.windup>=.75);
+});
+test('late enemies stagger their starts instead of synchronising every attack on one dodge',()=>{
+ const b=new Battle();b.reset(2);const p=player(),a=ready(b,'melee','crystal',350),c=ready(b,'melee','crystal',450);assert.equal(b.startAttack(a,p,world),true);assert.equal(b.startAttack(c,p,world),false);b.time+=.45;assert.equal(b.startAttack(c,p,world),true);
+});
+test('smart supports reserve heals and boosts instead of wasting duplicate channels',()=>{
+ const b=new Battle();b.reset(2);const a=ready(b,'support','crystal',150),c=ready(b,'support','crystal',175),target=ready(b,'defender','elite',220),other=ready(b,'melee','elite',240);target.health=target.maxHealth*.8;other.health=other.maxHealth*.8;
+ assert.equal(b.chooseAlly(a,world,true),target);a.support={target,kind:'heal',age:.1,applied:false};assert.equal(b.chooseAlly(c,world,true),other);a.support={target,kind:'boost',age:.1,applied:false};assert.notEqual(b.chooseAlly(c,world,false),target);
+});
+test('wounded late soldiers seek a healer briefly, while an isolated enemy still fights',()=>{
+ const b=new Battle();b.reset(2);const p=player(),e=ready(b,'melee','elite',470),s=ready(b,'support','crystal',750);e.health=e.maxHealth*.2;e.cooldownLeft=s.cooldownLeft=100;b.update(.02,p,world);assert.equal(e.order.kind,'regroup');assert.equal(e.order.target,s.id);assert.equal(e.order.allowAttack,false);assert.ok(e.regroupUntil-b.time<2);s.alive=false;b.tacticalClock=0;b.update(.02,p,world);assert.notEqual(e.order?.kind,'regroup');
 });

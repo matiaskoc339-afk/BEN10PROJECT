@@ -1,4 +1,6 @@
-# Ben 10 — Demo PC V35 · El asedio de los Eternos
+# Ben 10 — Demo PC V36 · El asedio de los Eternos
+
+V36 reduce la vida compartida a **50 PV**: Ben y los diez aliens mantienen la misma vida máxima y la misma vida restante al transformarse. Las defensas de cada alien siguen siendo distintas. El reloj tiene **90 de energía**, los ataques de Ben hacen menos daño y los caballeros coordinan mejor sus movimientos a medida que avanza el recorrido.
 
 V35 incorpora los Caballeros Eternos al recorrido: cinco roles con tres rangos de armadura, 16 combates, 28 oleadas y un campeón con hacha al final de cada fase. Las arenas bloquean el avance hasta eliminar la última oleada; los apoyos priorizan aliados de mayor rango y sus curas se pueden interrumpir. Los fondos se restauraron en 29 tramos de mayor resolución, con solapamientos continuos, objetos recolocados y agua animada sobre la fuente del parque.
 
@@ -63,8 +65,8 @@ Los sistemas de V33 están en `systems/skill-choreography-v33.js` y `systems/ski
 
 El [visor de arte](mapas/index.html) y la [documentación de capas](mapas/README.md) siguen disponibles para revisar los fondos por separado. El juego utiliza esos mismos panoramas.
 
-## Biblioteca de enemigos en preparación
+## Caballeros Eternos
 
-Los [sprites de Caballeros Eternos](enemigos/index.html) se revisan en un visor separado: cinco especialidades con tres rangos y dos campeones con hacha, con reposo, caminata, dos acciones, golpe y derrota. El [catálogo](enemigos/catalogo.html) permite ver las 17 variantes juntas. V35 utiliza sus atlas y animaciones en el combate. Consulta [los archivos y sus anclajes](enemigos/README.md) para su integración posterior.
+Los [sprites de Caballeros Eternos](enemigos/index.html) se revisan en un visor separado: cinco especialidades con tres rangos y dos campeones con hacha, con reposo, caminata, dos acciones, golpe y derrota. El [catálogo](enemigos/catalogo.html) permite ver las 17 variantes juntas. El juego utiliza sus atlas y animaciones en el combate. Consulta [los archivos y sus anclajes](enemigos/README.md).
 
-Consulta [el balance y comportamiento de los enemigos](docs/v35-combate.md). Las pruebas nuevas se ejecutan con `npm run test:combat`; `npm run package:campaign` genera el ZIP completo de V35 para jugar sin conexión.
+Consulta [los ajustes de vida, reloj e IA de V36](docs/v36-balance.md) y [el sistema de encuentros](docs/v35-combate.md). Las pruebas de combate se ejecutan con `npm run test:combat`; `npm run package:campaign` genera el ZIP completo de V36 para jugar sin conexión.

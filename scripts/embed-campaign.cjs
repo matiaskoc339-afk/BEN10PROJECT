@@ -9,14 +9,17 @@ function block(begin,end,value,before){
 function between(begin,end,value){const a=html.indexOf(begin),b=html.indexOf(end,a);if(a<0||b<a)throw Error('Missing game anchor '+begin);html=html.slice(0,a)+value+'\n'+html.slice(b);}
 const css='/* CAMPAIGN_STYLE_START */\n'+read('systems/campaign.css')+'\n'+read('systems/enemy-ui.css')+'\n/* CAMPAIGN_STYLE_END */';
 block('/* CAMPAIGN_STYLE_START */','/* CAMPAIGN_STYLE_END */',css,'</style>');
-const modules='<!-- CAMPAIGN_MODULES_START -->\n<script>window.BEN10_CAMPAIGN_DATA='+JSON.stringify(JSON.parse(read('mapas/data/recorrido.json')))+';window.BEN10_ENEMY_DATA='+JSON.stringify(JSON.parse(read('enemigos/data/manifest.json')))+';</script>\n'+['mapas/world.js','systems/campaign-world.js','systems/campaign-renderer.js','systems/eternal-enemies.js','systems/enemy-renderer.js'].map(file=>'<script>\n'+read(file)+'\n</script>').join('\n')+'\n<!-- CAMPAIGN_MODULES_END -->';
+const modules='<!-- CAMPAIGN_MODULES_START -->\n<script>window.BEN10_CAMPAIGN_DATA='+JSON.stringify(JSON.parse(read('mapas/data/recorrido.json')))+';window.BEN10_ENEMY_DATA='+JSON.stringify(JSON.parse(read('enemigos/data/manifest.json')))+';</script>\n'+['mapas/world.js','systems/campaign-world.js','systems/campaign-renderer.js','systems/combat-balance.js','systems/eternal-enemies.js','systems/enemy-renderer.js'].map(file=>'<script>\n'+read(file)+'\n</script>').join('\n')+'\n<!-- CAMPAIGN_MODULES_END -->';
 block('<!-- CAMPAIGN_MODULES_START -->','<!-- CAMPAIGN_MODULES_END -->',modules,"<script>\n\n(()=>{'use strict';");
 const ui='<!-- CAMPAIGN_UI_START -->\n'+read('systems/campaign-ui.html')+read('systems/enemy-ui.html')+'<!-- CAMPAIGN_UI_END -->';
 block('<!-- CAMPAIGN_UI_START -->','<!-- CAMPAIGN_UI_END -->',ui,'<div id="combo">');
 html=html.replace(/<div id="enemyCount">[^\n]+\n/,'').replace(/^#enemyCount \{[^\n]+\n/m,'');
 html=html.replace(/#enemyCount\{[^}]+\}/g,'').replace('body.comic-active #enemyCount,','');
 html=html.replace('aria-label="Campo de pruebas jugable"','aria-label="Recorrido jugable: calles, castillo y laboratorio"');
-html=html.replace(/<title>[^<]+<\/title>/,'<title>Ben 10 — V35 · El asedio de los Eternos</title>');
+html=html.replace(/<title>[^<]+<\/title>/,'<title>Ben 10 — V36 · El asedio de los Eternos</title>');
+html=html.replace('const stats=new Ben10Stats.PlayerStats();','const stats=Ben10Balance.createPlayerStats(Ben10Stats);');
+html=html.replace('speed:247,health:100,mode:', 'speed:247,health:Ben10Balance.PLAYER_CONFIG.maxHealth,mode:');
+html=html.replace('let damage=special?75:heavy?20:player.lightN===3?12:8,reach=', 'let damage=Ben10Balance.humanAttackDamage({special,heavy,combo:player.lightN}),reach=');
 html=html.replace('const WORLD={w:2400,h:1800}, TILE=48;', 'const campaign=new Ben10Campaign.Level(window.BEN10_CAMPAIGN_DATA);\nconst WORLD={w:campaign.width,h:campaign.height};');
 if(html.includes('// Pixel-art city plaza:'))between('// Pixel-art city plaza:','function drawDummy(',read('systems/campaign-game.js'));
 else block('// CAMPAIGN_GAME_START','// CAMPAIGN_GAME_END',read('systems/campaign-game.js').trim(),'function drawDummy(');
@@ -54,4 +57,4 @@ for(const [name,file] of [['SPEED_ROUTE','systems/speed-route.js'],['FIRE_PROJEC
 }
 for(const [name,file] of [['XLR8_GAME','systems/xlr8-game.js'],['STINKFLY_GAME','systems/stinkfly-game.js']])block('// '+name+'_START','// '+name+'_END','// '+name+'_START\n'+read(file)+'// '+name+'_END','function update(dt){');
 fs.writeFileSync(target,html);
-console.log('Embedded V35: role-based knights, progressive locked encounters, three champions and refined map rendering.');
+console.log('Embedded V36: shared 50 HP, 90 energy, weaker human attacks and progressive tactical AI.');

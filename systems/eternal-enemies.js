@@ -11,8 +11,12 @@
   champion:{name:'Campeón del hacha',health:580,damage:18,speed:71,reach:122,width:53,cooldown:2.55,windup:1.05,xp:180}
  };
  const TIERS={recruit:{health:1,damage:1,speed:1,armor:.02,rank:1},elite:{health:1.55,damage:1.22,speed:1.06,armor:.13,rank:2},crystal:{health:2.05,damage:1.48,speed:1.10,armor:.24,rank:3},normal:{health:1,damage:1,speed:1,armor:.16,rank:4}};
+ function tacticalProfile(phase=0,progress=0,tier='recruit'){
+  const awareness=clamp(phase*.32+clamp(progress,0,1)*.26+(tier==='crystal'?.13:tier==='elite'?.08:tier==='normal'?.06:0),0,.98);
+  return {awareness,teamwork:awareness>=.28,flank:awareness>=.38,lead:awareness>=.55,regroup:awareness>=.65,stagger:awareness>=.55,commit:.35+awareness*.15};
+ }
  function statsFor(role,tier,phase=0,progress=0){const r=ROLES[role],t=TIERS[tier];if(!r||!t)throw Error('Unknown knight role/tier');const boss=role==='champion',phaseHP=1+phase*.09+progress*.10;return {name:r.name,maxHealth:Math.round(r.health*(boss&&tier==='crystal'?1.48:t.health)*phaseHP),damage:Math.round(r.damage*t.damage*(1+phase*.04)),speed:r.speed*t.speed,armor:t.armor,rank:boss?5:t.rank,reach:r.reach+(tier==='crystal'?8:0),attackWidth:r.width,cooldown:r.cooldown,windup:r.windup,xp:Math.round(r.xp*(boss?(1+phase*.25):(tier==='crystal'?2.1:tier==='elite'?1.5:1))),radius:boss?27:role==='defender'?21:16,bodyHeight:boss?(tier==='crystal'?148:142):tier==='recruit'?88:tier==='elite'?98:104};}
- function makeEnemy(id,role,tier,position,phase=0,progress=0){const s=statsFor(role,tier,phase,progress);return {...s,...position,id,role,tier,enemy:true,kind:role==='champion'?'miniboss':'soldier',spriteId:role+'-'+tier,health:s.maxHealth,alive:true,respawn:Infinity,mode:'spawn',modeTime:0,animationTime:0,spawnLeft:.7,cooldownLeft:.65+(id%5)*.13,supportLeft:1.4,decisionLeft:0,facing:position.facing||'left',hit:0,shake:0,stunTime:0,poise:0,poiseLeft:0,buffLeft:0,guardLeft:0,guardCooldown:1.5,strafe:(id%2?1:-1),deadAge:0,attack:null,support:null,knockX:0,knockY:0};}
+ function makeEnemy(id,role,tier,position,phase=0,progress=0){const s=statsFor(role,tier,phase,progress);return {...s,...position,id,role,tier,tactics:tacticalProfile(phase,progress,tier),order:null,regroupUntil:0,regroupCooldown:0,flankUntil:0,enemy:true,kind:role==='champion'?'miniboss':'soldier',spriteId:role+'-'+tier,health:s.maxHealth,alive:true,respawn:Infinity,mode:'spawn',modeTime:0,animationTime:0,spawnLeft:.7,cooldownLeft:.65+(id%5)*.13,supportLeft:1.4,decisionLeft:0,facing:position.facing||'left',hit:0,shake:0,stunTime:0,poise:0,poiseLeft:0,buffLeft:0,guardLeft:0,guardCooldown:1.5,strafe:(id%2?1:-1),deadAge:0,attack:null,support:null,knockX:0,knockY:0};}
  const seen=(world,a,b)=>!world.clipSegment||!world.clipSegment(a,b,0).blocked;
  function moveEnemy(e,dx,dy,world,avoid=true){
   const old={x:e.x,y:e.y},point=world.move?world.move(old,dx,dy,e.radius):{x:e.x+dx,y:e.y+dy};e.x=point.x;e.y=point.y;
@@ -24,17 +28,48 @@
   const moved=Math.hypot(e.x-old.x,e.y-old.y);e.animationTime+=moved/Math.max(1,e.speed);return moved;
  }
  class Battle{
-  constructor({seed=1051,onEvent=()=>{},onPlayerHit=()=>false}={}){this.seed=seed;this.onEvent=onEvent;this.onPlayerHit=onPlayerHit;this.time=0;this.nextId=0;this.enemies=[];this.projectiles=[];this.phase=0;this.maxAttackers=2;this.events=[];}
+  constructor({seed=1051,onEvent=()=>{},onPlayerHit=()=>false}={}){this.seed=seed;this.onEvent=onEvent;this.onPlayerHit=onPlayerHit;this.time=0;this.nextId=0;this.enemies=[];this.projectiles=[];this.phase=0;this.maxAttackers=2;this.events=[];this.tacticalClock=0;this.lastPlayer=null;this.playerMotion={x:0,y:0};this.lastAttackStart=-Infinity;}
   random(){this.seed=(Math.imul(this.seed,1664525)+1013904223)>>>0;return this.seed/4294967296}
   emit(event){this.events.push({...event,time:this.time});if(this.events.length>180)this.events.shift();this.onEvent(event)}
-  reset(phase=0){this.phase=phase;this.enemies.length=0;this.projectiles.length=0;this.events.length=0;this.maxAttackers=phase===2?3:2;}
+  reset(phase=0){this.phase=phase;this.enemies.length=0;this.projectiles.length=0;this.events.length=0;this.maxAttackers=phase===2?3:2;this.tacticalClock=0;this.lastPlayer=null;this.playerMotion={x:0,y:0};this.lastAttackStart=-Infinity;}
   spawn(role,tier,point,progress=0){const e=makeEnemy(++this.nextId,role,tier,point,this.phase,progress);this.enemies.push(e);this.emit({type:'spawn',enemy:e});return e;}
   get living(){return this.enemies.filter(e=>e.alive)}
   chooseAlly(e,world,healing=true){
-   const allies=this.enemies.filter(a=>a!==e&&a.alive&&a.spawnLeft<=0&&length(e,a)<340&&seen(world,e,a)&&(healing?a.health<a.maxHealth*.88:a.buffLeft<1));
+   const reserved=e.tactics.teamwork?this.enemies.filter(a=>a!==e&&a.alive&&a.support&&!a.support.applied).map(a=>a.support):[];
+   const projected=a=>a.health+reserved.filter(c=>c.kind==='heal'&&c.target===a).reduce(n=>n+Math.min(34,a.maxHealth*.2),0);
+   const allies=this.enemies.filter(a=>a!==e&&a.alive&&a.spawnLeft<=0&&length(e,a)<340&&seen(world,e,a)&&(healing?projected(a)<a.maxHealth*.88:a.buffLeft<1&&!reserved.some(c=>c.kind==='boost'&&c.target===a)));
    // A wounded recruit does not consume a cast while a wounded officer is in reach.
    const priority=allies.some(a=>a.rank>=2)?allies.filter(a=>a.rank>=2):allies;
-   priority.sort((a,b)=>((b.rank*100+(1-b.health/b.maxHealth)*70+b.maxHealth*.02)-(a.rank*100+(1-a.health/a.maxHealth)*70+a.maxHealth*.02))||length(e,a)-length(e,b));return priority[0]||null;
+   priority.sort((a,b)=>((b.rank*100+(1-projected(b)/b.maxHealth)*70+b.maxHealth*.02)-(a.rank*100+(1-projected(a)/a.maxHealth)*70+a.maxHealth*.02))||length(e,a)-length(e,b));return priority[0]||null;
+  }
+  planTeam(player,world){
+   const team=this.living.filter(e=>e.spawnLeft<=0),smart=team.filter(e=>e.tactics.teamwork),ground=(p,e)=>world.clampPoint?.(p,e.radius)||p,front=player.faceX<0?-1:1;
+   for(const e of this.enemies)e.order=null;
+   if(!smart.length)return;
+   const supports=team.filter(e=>e.role==='support'),guards=team.filter(e=>e.role==='defender'),ranged=team.filter(e=>e.role==='ranged');
+   const protectedAllies=[...supports.filter(e=>e.support),...supports.filter(e=>!e.support),...ranged];
+   const flankers=smart.filter(e=>e.tactics.flank&&['agile','melee'].includes(e.role)).sort((a,b)=>(a.role==='agile'?-1:0)-(b.role==='agile'?-1:0)||a.id-b.id).slice(0,this.phase===2?2:1);
+   for(const e of smart){
+    if(e.tactics.regroup&&supports.length&&e.role!=='support'&&e.kind!=='miniboss'&&e.health<e.maxHealth*.27&&this.time>=e.regroupCooldown){e.regroupUntil=this.time+1.6;e.regroupCooldown=this.time+6;}
+    if(e.regroupUntil>this.time&&supports.length){const healer=supports.slice().sort((a,b)=>length(e,a)-length(e,b))[0],side=healer.x>player.x?1:-1;e.order={kind:'regroup',target:healer.id,goal:ground({x:healer.x+side*42,y:healer.y+e.strafe*17},e),allowAttack:false};continue;}
+    if(flankers.includes(e)){
+     if(this.time>=e.flankUntil){const side=-front;if(e.flankSide!==side)e.flankStage=(e.x-player.x)*side>50?'align':'around';e.flankSide=side;e.flankUntil=this.time+1.25;}
+     const side=e.flankSide,upper=ground({x:player.x-side*80,y:player.y+55},e),lower=ground({x:player.x-side*80,y:player.y-55},e),lane=Math.abs(upper.y-player.y)>Math.abs(lower.y-player.y)?1:-1;
+     if(e.flankStage==='around'&&Math.abs(e.y-player.y)>=38)e.flankStage='cross';
+     if(e.flankStage==='cross'&&(e.x-player.x)*side>50)e.flankStage='align';
+     const goal=e.flankStage==='around'?{x:player.x-side*80,y:player.y+lane*55}:e.flankStage==='cross'?{x:player.x+side*85,y:player.y+lane*50}:{x:player.x+side*68,y:player.y+e.strafe*13};
+     e.order={kind:'flank',goal:ground(goal,e),allowAttack:e.flankStage==='align'||length(e,player)<43};continue;
+    }
+    if(e.role==='defender'&&protectedAllies.length){const ally=protectedAllies[guards.indexOf(e)%protectedAllies.length],direction=unit(player.x-ally.x,player.y-ally.y);e.order={kind:'cover',target:ally.id,goal:ground({x:ally.x+direction.x*85,y:ally.y+direction.y*55},e)};}
+    else if(e.role==='ranged'){const side=e.x>=player.x?1:-1;e.order={kind:'crossfire',goal:ground({x:player.x+side*285,y:player.y+(ranged.indexOf(e)%2?36:-36)},e)};}
+    else if(e.role==='support'&&guards.length){const guard=guards.slice().sort((a,b)=>length(e,a)-length(e,b))[0],side=guard.x>=player.x?1:-1;e.order={kind:'shelter',target:guard.id,goal:ground({x:guard.x+side*105,y:guard.y+e.strafe*18},e)};}
+    else if(e.role==='melee')e.order={kind:'pressure',goal:ground({x:player.x+front*(53+e.id%3*7),y:player.y+(e.id%2?20:-20)},e)};
+   }
+  }
+  attackAim(e,player,world){
+   if(e.role!=='ranged'||!e.tactics.lead)return {x:player.x,y:player.y};
+   const lead=.08+e.tactics.awareness*.18,point={x:player.x+clamp(this.playerMotion.x*lead,-55,55),y:player.y+clamp(this.playerMotion.y*lead,-40,40)};
+   return world.clampPoint?.(point,0)||point;
   }
   damage(e,amount,{heavy=false,source={x:e.x-1,y:e.y},dot=false}={}){
    if(!e?.alive||!(amount>0))return {damage:0,killed:false,blocked:false};
@@ -56,16 +91,17 @@
   slotsAvailable(e){return this.enemies.reduce((n,a)=>n+(a.alive&&a.attack?(a.role==='champion'?2:1):0),0)+(e.role==='champion'?2:1)<=this.maxAttackers+(e.role==='champion'?1:0);}
   startAttack(e,player,world){
    if(!this.slotsAvailable(e)||!seen(world,e,player))return false;
+   if(e.tactics.stagger&&this.time-this.lastAttackStart<.22+.18*e.tactics.awareness)return false;
    const secondary=e.role==='champion'?this.random()<.45:e.role==='melee'?this.random()<.3:e.role==='ranged'?this.random()<.35:false;
-   const aim={x:player.x,y:player.y},dir=unit(aim.x-e.x,aim.y-e.y);
+   const aim=this.attackAim(e,player,world),dir=unit(aim.x-e.x,aim.y-e.y);
    e.facing=dir.x>=0?'right':'left';e.mode=secondary?'secondary':'attack';e.modeTime=0;e.guardLeft=0;
    e.attack={age:0,windup:e.windup+(secondary&&e.role==='ranged'?.12:0),active:e.role==='agile'?.20:.12,recovery:e.role==='champion'?.65:.42,origin:{x:e.x,y:e.y},aim,dir,hit:false,secondary};
-   this.emit({type:'windup',enemy:e});return true;
+   this.lastAttackStart=this.time;this.emit({type:'windup',enemy:e});return true;
   }
   attackTick(e,dt,player,world){
    const a=e.attack;a.age+=dt;e.modeTime=a.age;
    // Aim is committed early; moving or dashing can make the attack miss.
-   if(a.age<a.windup*.35&&e.role!=='champion'){a.aim={x:player.x,y:player.y};a.dir=unit(player.x-e.x,player.y-e.y);e.facing=a.dir.x>=0?'right':'left';}
+   if(a.age<a.windup*e.tactics.commit&&e.role!=='champion'){a.aim=this.attackAim(e,player,world);a.dir=unit(a.aim.x-e.x,a.aim.y-e.y);e.facing=a.dir.x>=0?'right':'left';}
    if(e.role==='agile'&&a.age>=a.windup&&a.age<a.windup+a.active){const before={x:e.x,y:e.y};moveEnemy(e,a.dir.x*475*dt,a.dir.y*300*dt,world,false);if(!a.hit&&this.segmentDistance(before,e,player)<26){a.hit=true;this.strike(e,player,e.damage,a.dir);}}
    if(!a.hit&&a.age>=a.windup){
     if(e.role==='ranged'){
@@ -82,6 +118,7 @@
   segmentDistance(a,b,p){const dx=b.x-a.x,dy=b.y-a.y,q=clamp(((p.x-a.x)*dx+(p.y-a.y)*dy)/(dx*dx+dy*dy||1),0,1);return Math.hypot(p.x-a.x-dx*q,(p.y-a.y-dy*q)*1.5)}
   supportTick(e,dt,player,world){
    const c=e.support;c.age+=dt;e.modeTime=c.age;
+   if(e.tactics.regroup&&length(e,player)<115&&(e.health<e.maxHealth*.45||/^(heavy|skill)/.test(player.mode||''))){e.support=null;e.mode='idle';e.supportLeft=1.6;this.emit({type:'channel-evaded',enemy:e});return;}
    if(!c.target.alive||length(e,c.target)>365||!seen(world,e,c.target)){e.support=null;e.mode='idle';e.supportLeft=1.2;return;}
    if(!c.applied&&c.age>=.8){c.applied=true;if(c.kind==='heal'){const n=Math.min(c.target.maxHealth-c.target.health,Math.min(34,c.target.maxHealth*.2));c.target.health+=n;this.emit({type:'heal',enemy:e,target:c.target,amount:n});}else{c.target.buffLeft=6;this.emit({type:'boost',enemy:e,target:c.target});}}
    if(c.age>=1.2){e.support=null;e.mode='idle';e.supportLeft=4.8;}
@@ -104,16 +141,18 @@
     if(retreat&&world.move){const escape=world.move(e,heading.x*25,heading.y*20,e.radius);if(Math.hypot(escape.x-e.x,escape.y-e.y)<5){retreat=false;wantAttack=distance<e.reach&&distance>15;}}
    }
    if(e.role==='support'){
-    if(e.supportLeft<=0){const target=this.chooseAlly(e,world,true)||this.chooseAlly(e,world,false);if(target){e.support={target,kind:target.health<target.maxHealth*.88?'heal':'boost',age:0,applied:false};e.mode='secondary';e.modeTime=0;e.facing=target.x>e.x?'right':'left';this.emit({type:'channel',enemy:e,target});return;}}
+    if(e.supportLeft<=0){const healTarget=this.chooseAlly(e,world,true),target=healTarget||this.chooseAlly(e,world,false);if(target){e.support={target,kind:healTarget?'heal':'boost',age:0,applied:false};e.mode='secondary';e.modeTime=0;e.facing=target.x>e.x?'right':'left';this.emit({type:'channel',enemy:e,target});return;}}
     const leader=this.enemies.filter(a=>a!==e&&a.alive).sort((a,b)=>b.rank-a.rank||b.maxHealth-a.maxHealth)[0];
     const side=player.x<e.x?1:-1;goal=leader?{x:leader.x+side*145,y:leader.y+e.strafe*25}:{x:player.x+side*115,y:player.y+e.strafe*18};if(leader&&distance<155){goal={x:e.x+side*115,y:e.y+e.strafe*25};retreat=true;}wantAttack=!leader&&distance<e.reach;
    }
    if(e.role==='agile'){goal={x:player.x+(e.id%2?1:-1)*68,y:player.y+e.strafe*24};wantAttack=distance<142&&distance>25;}
-   if(e.role==='defender'){
+   if(e.role==='defender'&&e.order?.kind!=='regroup'){
     const ally=this.enemies.filter(a=>a.alive&&['support','ranged'].includes(a.role)&&length(e,a)<320).sort((a,b)=>length(e,a)-length(e,b))[0];if(ally&&distance>105)goal={x:ally.x+(player.x-ally.x)*.45,y:ally.y+(player.y-ally.y)*.45};
-    if(e.guardCooldown<=0&&distance<190){e.guardLeft=1.4;e.guardCooldown=3.2;}if(e.guardLeft>0){e.mode='guard';e.facing=player.x>e.x?'right':'left';if(distance<e.reach&&e.cooldownLeft<=0&&this.random()<dt*2.5)this.startAttack(e,player,world);return;}
+    if(e.order?.kind==='cover')goal=e.order.goal;
+    if(e.guardCooldown<=0&&distance<190&&(!e.order||length(e,goal)<42)){e.guardLeft=1.4;e.guardCooldown=3.2;}if(e.guardLeft>0){e.mode='guard';if(e.order?.kind==='cover'&&length(e,goal)>35){const dir=unit(goal.x-e.x,goal.y-e.y);moveEnemy(e,dir.x*e.speed*.45*dt,dir.y*e.speed*.35*dt,world);e.mode='walk';}e.facing=player.x>e.x?'right':'left';if(distance<e.reach&&e.cooldownLeft<=0&&this.random()<dt*2.5)this.startAttack(e,player,world);return;}
    }
    if(e.role==='champion'){goal={x:player.x+(player.x<e.x?82:-82),y:player.y};wantAttack=distance<e.reach+20;}
+   if(e.order){if(!retreat||e.order.kind==='regroup')goal=e.order.goal;if(e.order.allowAttack===false)wantAttack=false;}
    if(wantAttack&&!retreat&&e.cooldownLeft<=0&&this.startAttack(e,player,world))return;
    const delta=unit(goal.x-e.x,goal.y-e.y);let vx=delta.x,vy=delta.y;
    // Soft separation gives every knight a route instead of forming one stacked cutout.
@@ -122,6 +161,8 @@
   }
   update(dt,player,world){
    if(!(dt>0))return;dt=Math.min(dt,.1);this.time+=dt;
+   if(this.lastPlayer){const w=1-Math.exp(-dt*9);this.playerMotion.x+=(clamp((player.x-this.lastPlayer.x)/dt,-800,800)-this.playerMotion.x)*w;this.playerMotion.y+=(clamp((player.y-this.lastPlayer.y)/dt,-500,500)-this.playerMotion.y)*w;}this.lastPlayer={x:player.x,y:player.y};
+   this.tacticalClock-=dt;if(this.tacticalClock<=0){this.planTeam(player,world);this.tacticalClock=.28;}
    for(const e of this.enemies)this.tickEnemy(e,dt,player,world);
    for(const shot of this.projectiles){const a={x:shot.x,y:shot.y},b={x:shot.x+shot.dx*shot.speed*dt,y:shot.y+shot.dy*shot.speed*dt},clip=world.clipSegment?world.clipSegment(a,b,3):{end:b,blocked:false};shot.x=clip.end.x;shot.y=clip.end.y;shot.life-=dt;if(this.segmentDistance(a,shot,player)<19&&seen(world,a,player)){this.strike(shot.owner,player,shot.damage,{x:shot.dx,y:shot.dy});shot.life=0;}if(clip.blocked)shot.life=0;}
    this.projectiles=this.projectiles.filter(s=>s.life>0);this.enemies=this.enemies.filter(e=>e.alive||e.deadAge<5);
@@ -171,5 +212,5 @@
   retry(battle,level){const index=this.current?.index??Math.min(this.index,this.plan.length-1);battle.reset(this.phase);this.current=null;this.pending=[];this.between=0;this.complete=false;this.activate(index,battle,level);return {x:this.current.left+110,y:level.offsetY+285*this.scale};}
   snapshot(battle){return {phase:this.phase,encounter:this.current?this.current.index+1:Math.min(this.index+1,this.plan.length),encounters:this.plan.length,active:!!this.current,wave:this.current?this.wave+1:0,waves:this.current?.waves.length||0,living:battle.living.length,pending:this.pending.length,complete:this.complete,cleared:this.cleared,arena:this.current?{left:this.current.left,right:this.current.right}:null};}
  }
- return {ROLES,TIERS,statsFor,makeEnemy,Battle,Director,encounterPlan};
+ return {ROLES,TIERS,statsFor,tacticalProfile,makeEnemy,Battle,Director,encounterPlan};
 });

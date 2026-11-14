@@ -1,4 +1,4 @@
-BEN 10 — DEMO PC V35 · EL ASEDIO DE LOS ETERNOS
+BEN 10 — DEMO PC V36 · EL ASEDIO DE LOS ETERNOS
 
 Extrae TODA la carpeta y abre index.html en Chrome, Edge o Firefox de PC.
 Conserva assets, mapas y enemigos junto al HTML. Funciona sin conexión.
@@ -10,6 +10,11 @@ El campeón del laboratorio lleva armadura cristalina; el Rey Eterno
 se añadirá en otra entrega. El espacio del puzzle queda reservado.
 
 DIFICULTAD: DIFÍCIL
+Ben y todos sus aliens comparten 50 PV. Transformarse conserva la vida
+restante; cada alien mantiene su propia defensa. El reloj tiene 90 de
+energía y los ataques de Ben hacen menos daño.
+Al avanzar, los caballeros flanquean, protegen a sus apoyos y coordinan
+sus ataques. En el laboratorio, los heridos buscan una cura brevemente.
 Los apoyos curan y potencian a los aliados más importantes: interrúmpelos.
 Rompe los escudos con fuertes o ataca por detrás. Esquiva las señales del
 hacha y las líneas de tiro. El reloj y las mejoras del árbol importan.
@@ -26,8 +31,8 @@ Esc: salir de la intro o cerrar paneles.
 F9: panel de pruebas para añadir puntos, conservado de la demo.
 
 Se mantienen los diez aliens, sus sprites y las 70 técnicas de los árboles.
-V35 añade fondos con más detalle, 17 variantes de caballeros con animaciones,
-objetos recolocados, agua animada en la fuente del fondo e IA por especialidad.
+Se conservan los fondos detallados, 17 variantes de caballeros con animaciones,
+objetos recolocados y agua animada en la fuente del fondo.
 
 Si falta una imagen o el navegador muestra una pantalla vacía, comprueba que
 extrajiste todas las carpetas: no abras index.html desde el interior del ZIP.

@@ -9,11 +9,11 @@ const hook=`
  step:campaignTestStep,walk(seconds){keys.add('d');campaignTestStep(seconds);keys.clear()},
  place(x,y=285){const at=campaign.clampPoint({x:x*campaign.scale,y:campaign.offsetY+y*campaign.scale},actorMetrics().radius,props,{ignoreProps:true});player.x=at.x;player.y=at.y;keys.clear();player.mode='idle';player.dir='right';player.faceX=1;player.faceY=0;campaignAfterUpdate(at);campaignCamera(0,true);render(0)},
  nearExit(){this.place(campaign.exit.x/campaign.scale,285)},phase(index){campaignSetPhase(index);campaignCamera(0,true);render(0)},
- alien(index){returnToBen();stats.drainEvents();stats.energy=100;stats.rechargeLocked=false;stats.rechargeLeft=0;player.mode='idle';keys.clear();selectSlot(index);campaignTestStep(1.1);return stats.form?.id},
- ben(){returnToBen();stats.energy=100;stats.rechargeLocked=false;keys.clear()},
+ alien(index){returnToBen();stats.drainEvents();stats.energy=stats.config.maxEnergy;stats.rechargeLocked=false;stats.rechargeLeft=0;player.mode='idle';keys.clear();selectSlot(index);campaignTestStep(1.1);return stats.form?.id},
+ ben(){returnToBen();stats.energy=stats.config.maxEnergy;stats.rechargeLocked=false;keys.clear()},
  screen(x,y){return {x:campaignView.x+(x-cam.x)*cam.zoom,y:campaignView.y+(y-cam.y)*cam.zoom}},
  route(){return speedAction.plan?.points.map(p=>({...p,onFloor:campaign.onFloor(p,14)}))||[]},
- carry(){stats.health=73;stats.energy=61;stats.xp=42;slime.addPool(player.x,player.y);fire.launch({x:player.x,y:player.y,dx:1,dy:0});progression.fields.push({kind:'pool',x:player.x,y:player.y,life:3,age:0,source:{color:'#fff',form:'heatblast'},radius:30})}
+ carry(){stats.health=37;stats.energy=61;stats.xp=42;slime.addPool(player.x,player.y);fire.launch({x:player.x,y:player.y,dx:1,dy:0});progression.fields.push({kind:'pool',x:player.x,y:player.y,life:3,age:0,source:{color:'#fff',form:'heatblast'},radius:30})}
  };`;
 const at=html.lastIndexOf('\n})();');html=html.slice(0,at)+hook+html.slice(at);
 const report={errors:[],failed:[],httpErrors:[],phases:[],aliens:[]};let browser;

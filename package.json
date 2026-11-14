@@ -1,8 +1,8 @@
 {
   "name": "ben10-demo",
-  "version": "0.35.0",
+  "version": "0.36.0",
   "private": true,
-  "description": "Demo PC V35: mapas con más detalle, Caballeros Eternos por rol, oleadas cerradas y tres minijefes.",
+  "description": "Demo PC V36: vida compartida de 50 PV, reloj de 90, ataques humanos reducidos e IA táctica progresiva.",
   "scripts": {
     "start": "python3 -m http.server 8000 --bind 0.0.0.0",
     "test": "npm run test:evolution && npm run test:art && npm run test:browser && npm run test:render && npm run test:targeting && npm run test:campaign && npm run test:combat",
@@ -53,7 +53,7 @@
     "build:enemies": "python3 scripts/build-enemy-sprites.py",
     "test:enemies": "python3 scripts/validate-enemy-sprites.py && node tests/enemy-sprites-browser.cjs",
     "package:enemies": "python3 scripts/package-enemy-sprites.py",
-    "test:combat": "node --test tests/eternal-enemies.test.cjs && node tests/v35-combat-browser.cjs",
+    "test:combat": "node --test tests/player-balance.test.cjs tests/eternal-enemies.test.cjs && node tests/v35-combat-browser.cjs",
     "test:package": "node tests/v35-packaged-browser.cjs"
   },
   "devDependencies": {
