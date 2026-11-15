@@ -1,10 +1,12 @@
-# BEN 10: Omnitrix Fragmentado · Demo PC V43
+# BEN 10: Omnitrix Fragmentado · Demo PC V44
 
-V43 añade el selector de villanos tras el Rey Eterno y el **circo de Zombozo**: tres actos con nueve combates, payasos normales y locos, el primer coloso como minijefe, bombas explosivas/ácidas/confeti y dos rutas de plataformas por espejos, solo con Ben. La segunda ruta es más difícil. Los destinos y puntos de control se guardan en los tres espacios. El combate de Zombozo queda pendiente; el tercer acto termina al llegar a su escenario. Consulta [los controles, estadísticas y guardado](docs/v43-circo-y-espejos.md).
+V44 incorpora el **combate de Zombozo al final de la tercera ruta del circo**, después del último grupo de payasos. Tiene tres fases: secuaces mientras espera en su asiento, trucos con el cristal de Fantasmático y una fase furiosa con una caja sorpresa que hay que destruir. Tras su caída, acércate al ADN para desbloquear a **Fantasmático**. Incluye checkpoint del jefe, reintentos y guardado del ADN por espacio. Consulta [el combate y las comprobaciones](docs/v44-zombozo.md).
+
+V43 añade el selector de villanos tras el Rey Eterno y el **circo de Zombozo**: tres actos con nueve combates, payasos normales y locos, el primer coloso como minijefe, bombas explosivas/ácidas/confeti y dos rutas de plataformas por espejos, solo con Ben. La segunda ruta es más difícil. Los destinos y puntos de control se guardan en los tres espacios. Desde V44, Zombozo espera al final del tercer acto. Consulta [los controles, estadísticas y guardado](docs/v43-circo-y-espejos.md).
 
 Se conserva la [biblioteca y visor del arte del circo](fase2-circo/LEEME.md) para revisar las animaciones originales.
 
-También está disponible el [visor de sprites del jefe Zombozo](zombozo/LEEME.md): tres fases, 30 animaciones y objetos separados para sus trucos, caja sorpresa y ADN de Fantasmático. Es una entrega de arte; su combate todavía no está integrado.
+También está disponible el [visor de sprites del jefe Zombozo](zombozo/LEEME.md): tres fases, 30 animaciones y objetos separados para sus trucos, caja sorpresa y ADN de Fantasmático. Sus sprites originales se conservan; V44 los utiliza en el combate.
 
 V42 añade sonidos propios por material y acción: golpes, transformaciones, fuego, cristal, poderes de los diez aliens, pasos, enemigos, jefe e interfaz. Las 70 técnicas suenan en sus contactos y los efectos sostenidos se detienen al cancelar o pausar. Incluye volumen y silencio con **M**. Las cápsulas curan **12/16/20 PV** al avanzar por las tres fases. Consulta [el diseño de sonido y sus controles](docs/v42-sonido-y-curacion.md).
 

@@ -41,6 +41,7 @@ function evolutionBeginSkill(index,skill){
  showCombo(skill.name.toUpperCase()+' · −'+skill.cost+' ENERGÍA');syncHud();return true;
 }
 function evolutionShiftTarget(c,d,x,y){
+ if(d.anchored)return;
  const clipped=Ben10Speed.clipSegment({x:d.x,y:d.y},{x,y},speedWorld(),18);d.x=clipped.end.x;d.y=clipped.end.y;
 }
 function evolutionKnock(c,d,strength){evolutionShiftTarget(c,d,d.x+c.dx*strength,d.y+c.dy*strength);}

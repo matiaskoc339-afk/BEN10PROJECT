@@ -1,6 +1,6 @@
 # Zombozo · El último espectáculo
 
-Biblioteca de arte para el jefe del circo: **30 animaciones, 180 poses dibujadas y 72 dibujos nuevos de objetos y efectos**. Los sprites tienen transparencia y pivotes registrados. Esta entrega prepara el arte y los eventos del combate; todavía no añade al jefe a la demo V43.
+Biblioteca de arte para el jefe del circo: **30 animaciones, 180 poses dibujadas y 72 dibujos nuevos de objetos y efectos**. Los sprites tienen transparencia y pivotes registrados. El visor permite revisar el arte de forma independiente. Desde la demo V44, el combate de Zombozo utiliza estos mismos recursos al final del circo.
 
 Abre `index.html` en Chrome, Edge o Firefox de PC. Mantén todas las carpetas juntas. El visor funciona con archivos locales y no necesita internet. También puedes ejecutar `python3 -m http.server 8000` desde esta carpeta.
 

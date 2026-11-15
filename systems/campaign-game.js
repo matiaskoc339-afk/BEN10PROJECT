@@ -10,16 +10,16 @@ function campaignPhysicsWorld(){
 function campaignGroundPoint(point,origin=player){return campaign.clipSegment(origin,point,0,props).end;}
 function campaignCollide(x,y,radius){
  if(campaign.blocked({x,y},radius,props))return true;
- for(const d of dummyList)if(d!==ghostAction.grab?.target&&d.alive&&d.spawnLeft<=0&&((x-d.x)/((d.radius||16)+radius))**2+((y-d.y)/((d.radius||16)*.4+radius*.4))**2<1)return true;
+ for(const d of dummyList)if(d!==ghostAction.grab?.target&&d.alive&&!d.intangible&&d.spawnLeft<=0&&((x-d.x)/((d.radius||16)+radius))**2+((y-d.y)/((d.radius||16)*.4+radius*.4))**2<1)return true;
  return false;
 }
 function campaignMovePlayer(x,y){
  const before={x:player.x,y:player.y},radius=actorMetrics().radius;
  const next=campaign.move(before,x-before.x,y-before.y,radius,props);
- const hit=dummyList.find(d=>d.alive&&d.spawnLeft<=0&&d!==ghostAction.grab?.target&&((next.x-d.x)/((d.radius||16)+radius))**2+((next.y-d.y)/((d.radius||16)*.4+radius*.4))**2<1);
+ const hit=dummyList.find(d=>d.alive&&!d.intangible&&d.spawnLeft<=0&&d!==ghostAction.grab?.target&&((next.x-d.x)/((d.radius||16)+radius))**2+((next.y-d.y)/((d.radius||16)*.4+radius*.4))**2<1);
  if(!hit){player.x=next.x;player.y=next.y;}else{const slide=campaign.move(before,0,y-before.y,radius,props);player.y=slide.y;}
 }
-function campaignCanEnter(){return assetsReady&&!comicOpen&&!state.wheel&&!progressionPanelOpen&&!adminPanelOpen&&!kingRewardOpen&&player.mode==='idle'&&!evolutionCasting()&&speedAction.phase==='idle'&&cannonAction.phase==='idle'&&ghostAction.phase==='idle'&&stats.health>0;}
+function campaignCanEnter(){return assetsReady&&!comicOpen&&!state.wheel&&!progressionPanelOpen&&!adminPanelOpen&&!kingRewardOpen&&!zombozoRewardOpen&&player.mode==='idle'&&!evolutionCasting()&&speedAction.phase==='idle'&&cannonAction.phase==='idle'&&ghostAction.phase==='idle'&&stats.health>0;}
 function campaignResetEffects(){
  healthPickups.clear();
  evolutionCancelSkill();cancelSpeedAbility();cancelCannonAbility();cancelGhostAbility();cancelStinkAction(true);cancelWildAction(true);cancelWolfAction(true);cancelUpgradeAction(true);
@@ -83,7 +83,7 @@ function campaignDrawWorld(){
  ctx.translate(campaignView.x-cam.x*cam.zoom,campaignView.y-cam.y*cam.zoom);ctx.scale(cam.zoom,cam.zoom);
  const view={left:cam.x,right:cam.x+campaignView.width/cam.zoom},visible=props.filter(p=>p.type==='campaign'&&p.x+p.width/2>=view.left-50&&p.x-p.width/2<=view.right+50);
  campaignArt.background(ctx,campaign,view);
- enemyArt.ground(ctx,enemyBattle);for(const item of healthPickups.items)healthPickupArt.shadow(ctx,item);kingArt.ground(ctx,kingEncounter.boss);enemyDrawGates();
+ enemyArt.ground(ctx,enemyBattle);for(const item of healthPickups.items)healthPickupArt.shadow(ctx,item);kingArt.ground(ctx,kingEncounter.boss);zombozoArt.ground(ctx,zombozoEncounter);enemyDrawGates();
  ctx.save();ctx.beginPath();ctx.rect(0,campaign.offsetY+208*campaign.scale,WORLD.w,152*campaign.scale);ctx.clip();drawWildTrails();drawStinkPools();ctx.restore();
  drawSpeedRoute();drawCannonCharge();
  for(const p of visible)if(p.art.behind)campaignArt.sprite(ctx,p,t);
@@ -95,7 +95,7 @@ function campaignDrawWorld(){
  for(const beam of eyeBeams.beams)items.push({y:beam.origin.y,draw:()=>drawUpgradeLaser(beam)});
  for(const shot of slime.shots)items.push({y:shot.y,draw:()=>drawStinkShot(shot)});
  for(const shot of fire.shots)items.push({y:shot.y,draw:()=>shot.kind==='crystal'?drawCrystalShard(shot):drawFireball(shot)});
- items.push({y:player.y,draw:()=>{ctx.save();if(stats.health>0&&enemyBattle.time<enemyInvulUntil)ctx.globalAlpha=.65+.3*Math.sin(t*38);drawPlayer();ctx.restore();}});items.sort((a,b)=>a.y-b.y);for(const item of items)item.draw();enemyArt.effects(ctx,enemyBattle,t);drawParticles();evolutionDrawEffects();
+ items.push({y:player.y,draw:()=>{ctx.save();if(stats.health>0&&enemyBattle.time<enemyInvulUntil)ctx.globalAlpha=.65+.3*Math.sin(t*38);drawPlayer();ctx.restore();}});items.sort((a,b)=>a.y-b.y);for(const item of items)item.draw();enemyArt.effects(ctx,enemyBattle,t);zombozoArt.effects(ctx,zombozoEncounter,t);drawParticles();evolutionDrawEffects();
  ctx.restore();if(flash>0){ctx.fillStyle=`rgba(148,255,85,${Math.pow(flash,2)*.24})`;ctx.fillRect(0,0,screenW,screenH);}
 }
 campaignUI.campaignEnter.addEventListener('click',()=>campaignEnter());

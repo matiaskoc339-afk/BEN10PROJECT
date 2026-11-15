@@ -1,11 +1,11 @@
 {
   "name": "ben10-demo",
-  "version": "0.43.0",
+  "version": "0.44.0",
   "private": true,
-  "description": "V43: selecci\u00f3n de villanos, circo de Zombozo y dos rutas de plataformas por espejos.",
+  "description": "V44: combate de Zombozo en tres fases al final del circo y ADN de Fantasm\u00e1tico.",
   "scripts": {
     "start": "python3 -m http.server 8000 --bind 0.0.0.0",
-    "test": "npm run test:stats && npm run test:evolution && npm run test:art && npm run test:browser && npm run test:render && npm run test:targeting && npm run test:campaign && npm run test:combat && npm run test:boss && npm run test:hud && npm run test:secrets && npm run test:menu && npm run test:recovery && npm run test:audio && npm run test:adventure",
+    "test": "npm run test:stats && npm run test:evolution && npm run test:art && npm run test:browser && npm run test:render && npm run test:targeting && npm run test:campaign && npm run test:combat && npm run test:boss && npm run test:hud && npm run test:secrets && npm run test:menu && npm run test:recovery && npm run test:audio && npm run test:adventure && npm run test:zombozo-boss",
     "test:stats": "node --test tests/stats.test.cjs",
     "test:browser": "node tests/evolution-v32-browser.cjs",
     "test:cannon": "node --test tests/cannonbolt-physics.test.cjs",
@@ -54,7 +54,7 @@
     "test:enemies": "python3 scripts/validate-enemy-sprites.py && node tests/enemy-sprites-browser.cjs",
     "package:enemies": "python3 scripts/package-enemy-sprites.py",
     "test:combat": "node --test tests/player-balance.test.cjs tests/eternal-enemies.test.cjs && node tests/v35-combat-browser.cjs",
-    "test:package": "node tests/v35-packaged-browser.cjs && node tests/adventure-packaged-browser.cjs",
+    "test:package": "node tests/v35-packaged-browser.cjs && node tests/adventure-packaged-browser.cjs && node tests/zombozo-packaged-browser.cjs",
     "build:king": "python3 scripts/build-king-sprites.py",
     "test:king": "python3 scripts/validate-king-sprites.py && node tests/king-sprites-browser.cjs",
     "package:king": "python3 scripts/package-king-sprites.py",
@@ -75,7 +75,8 @@
     "build:zombozo": "python3 scripts/build-zombozo-sprites.py",
     "test:zombozo": "python3 scripts/validate-zombozo-sprites.py && node tests/zombozo-sprites-browser.cjs",
     "package:zombozo": "python3 scripts/package-zombozo-sprites.py",
-    "preview:zombozo": "node scripts/preview-zombozo-sprites.cjs"
+    "preview:zombozo": "node scripts/preview-zombozo-sprites.cjs",
+    "test:zombozo-boss": "node --test tests/zombozo-boss.test.cjs && node tests/zombozo-boss-browser.cjs"
   },
   "devDependencies": {
     "playwright": "1.62.1"

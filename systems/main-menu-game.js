@@ -2,8 +2,8 @@
 let gamePlaySeconds=0,gameSaveClock=0;
 function gameSaveCurrent(notify=false){
  if(Ben10SaveBank.active===null||Ben10SaveBank.loading)return false;
- const boss=kingEncounter.boss,kind=adventure.hubOpen?'selection':adventure.mode==='mirror'?'mirror':kingEncounter.rewardGranted?'victory':boss&&!kingEncounter.rewardGranted?'boss':encounters.current?'encounter':'travel';
- const saved=Ben10SaveBank.commit({playSeconds:gamePlaySeconds,progression:{version:33,owned:progression.owned,level:stats.level,xp:stats.xp,totalXP:stats.totalXP,adminPoints:progression.adminPoints,legacyCredit:progression.legacyCredit,migrated:progression.migrated},unlocks:{version:1,diamondhead:campaignUnlocks.diamondhead},adventure:adventureSnapshot(),checkpoint:{phase:campaign.phaseIndex,cleared:encounters.cleared,x:player.x,y:player.y,kind,introSeen:!comicOpen,kills:state.kills}});
+ const boss=kingEncounter.boss,kind=adventure.hubOpen?'selection':adventure.mode==='mirror'?'mirror':adventure.story==='circus'&&zombozoEncounter.rewardGranted?'zombozo-victory':adventure.story==='circus'&&zombozoEncounter.rewardReady?'zombozo-reward':adventure.story==='circus'&&zombozoEncounter.boss?'zombozo':kingEncounter.rewardGranted?'victory':boss&&!kingEncounter.rewardGranted?'boss':encounters.current?'encounter':'travel';
+ const saved=Ben10SaveBank.commit({playSeconds:gamePlaySeconds,progression:{version:33,owned:progression.owned,level:stats.level,xp:stats.xp,totalXP:stats.totalXP,adminPoints:progression.adminPoints,legacyCredit:progression.legacyCredit,migrated:progression.migrated},unlocks:{version:1,diamondhead:campaignUnlocks.diamondhead,ghostfreak:campaignUnlocks.ghostfreak},adventure:adventureSnapshot(),checkpoint:{phase:campaign.phaseIndex,cleared:encounters.cleared,x:player.x,y:player.y,kind,introSeen:!comicOpen,kills:state.kills}});
  if(notify)Ben10MainMenu.notify(saved?'PARTIDA GUARDADA · ESPACIO '+(Ben10SaveBank.active+1):Ben10SaveBank.error);
  return saved;
 }
@@ -14,7 +14,7 @@ function gameLoadSlot(index){
  try{
   keys.clear();pointer.active=false;toggleWheel(false);toggleProgressionPanel(false);toggleAdminPanel(false);campaignResetEffects();kingResetPhase();
   adventureRestore(record);stats.reset();Object.assign(progression,{selected:0,focused:'core',owned:{},adminPoints:0,legacyCredit:0,comboLog:[],abilityTimes:{},skill:null,casts:[],fields:[],fx:[],buffs:{},boostTime:0,migrated:false});
-  progression.zoom=1;campaignUnlocks.diamondhead=record.unlocks.diamondhead;evolutionLoad();
+  progression.zoom=1;campaignUnlocks.diamondhead=record.unlocks.diamondhead;campaignUnlocks.ghostfreak=record.unlocks.ghostfreak;evolutionLoad();
   const point=record.checkpoint;campaignSetPhase(Math.min(point?.phase||0,campaign.data.chapters.length-1));
   if(point){
    encounters.index=encounters.cleared=Math.min(point.cleared,encounters.plan.length);encounters.complete=encounters.index>=encounters.plan.length;encounters.current=null;encounters.pending=[];encounters.wave=0;encounters.between=0;
@@ -32,7 +32,7 @@ function gameLoadSlot(index){
  }finally{Ben10SaveBank.loading=false}
  gameSaveCurrent();
 }
-function gameCanPause(){return !adventure.hubOpen&&!comicOpen&&!state.wheel&&!progressionPanelOpen&&!adminPanelOpen&&!kingRewardOpen}
+function gameCanPause(){return !adventure.hubOpen&&!comicOpen&&!state.wheel&&!progressionPanelOpen&&!adminPanelOpen&&!kingRewardOpen&&!zombozoRewardOpen}
 function gamePause(){if(Ben10MainMenu.state.screen!=='game'||!gameCanPause())return;keys.clear();pointer.active=false;gameSaveCurrent();Ben10MainMenu.setScreen('pause')}
 function gameResume(){keys.clear();pointer.active=false;lastTime=performance.now();Ben10MainMenu.setScreen('game');game.focus({preventScroll:true})}
 function gameSaveExit(){gameSaveCurrent();Ben10SaveBank.active=null;keys.clear();pointer.active=false;Ben10MainMenu.setScreen('home')}

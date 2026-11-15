@@ -25,7 +25,7 @@ function combatAimScore(c,d){
  return {length,dot,cursor};
 }
 function combatCandidate(c,d,range){
- if(!d?.alive||!dummyList.includes(d))return false;
+ if(!d?.alive||d.intangible||c.targetPolicy?.capture&&d.noCapture||!dummyList.includes(d))return false;
  const {length,dot}=combatAimScore(c,d);
  return length<=range&&dot>=.12&&!Ben10Speed.clipSegment({x:c.x,y:c.y},d,speedWorld(),0).blocked;
 }
@@ -62,7 +62,7 @@ function combatLockTarget(c){
  faceFrom(c.dx,c.dy);
 }
 function combatTargetInReach(c){
- const d=c.target;if(!d?.alive||c.targetLost||!dummyList.includes(d))return false;
+ const d=c.target;if(!d?.alive||d.intangible||c.targetLost||!dummyList.includes(d))return false;
  if(Ben10Speed.clipSegment({x:player.x,y:player.y},d,speedWorld(),0).blocked)return false;
  if(c.captured)return true;
  return dist(c.x,c.y,d.x,d.y)<=c.targetRange&&(!c.aim||dist(c.aim.x,c.aim.y,d.x,d.y)<=75);
@@ -87,7 +87,7 @@ function combatSyncEnergyWarning(){
 function combatDrawTarget(){
  const cast=progression.skill,focus=combatTargetState.focus;
  const target=cast?.target||(!cast&&focus&&focus.form===stats.form?.id&&t-focus.time<=3.2?focus.target:null);
- if(!target?.alive)return;
+ if(!target?.alive||target.intangible)return;
  ctx.save();ctx.strokeStyle='#c1fa85';ctx.globalAlpha=.75;ctx.lineWidth=2;
  for(let i=0;i<4;i++){ctx.beginPath();ctx.ellipse(target.x,target.y-2,27,11,0,i*Math.PI/2+.12,i*Math.PI/2+.62);ctx.stroke();}
  if(cast?.targetPolicy.grounded&&cast.aim&&cast.next===0){ctx.globalAlpha=.4;ctx.setLineDash([4,5]);ctx.beginPath();ctx.ellipse(cast.aim.x,cast.aim.y,40,16,0,0,7);ctx.stroke();}

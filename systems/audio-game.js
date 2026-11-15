@@ -29,7 +29,7 @@ function audioEnemyEvent(event){const e=event.enemy;if(!e)return;const context=g
 }
 function audioKingEvent(event){const e=event.enemy;if(!e)return;const map={'king-start':'ui.combat','king-windup':'boss.draw','king-contact':'boss.slash','king-guard-break':'crystal.break','king-guard-restored':'crystal.grow','king-summon':'boss.command','king-dodge':'speed.skid','king-reward':'ui.unlock'};if(map[event.type])audioPlay(map[event.type],e,{source:'king',key:event.type,interval:.07});if(event.type==='king-phase')audioPlay(event.phase===3?'crystal.break':'boss.command',e,{source:'king'});if(event.type==='king-defeated')gameAudio.bossFall={enemy:e,at:kingEncounter.time+.96};}
 function audioGameTick(dt){
- const active=Ben10MainMenu.state.screen==='game'&&!comicOpen&&!state.wheel&&!progressionPanelOpen&&!adminPanelOpen&&!kingRewardOpen;Ben10Audio.setGameActive(active);Ben10Audio.setRoom(campaign.phaseIndex);if(!active)return;
+ const active=Ben10MainMenu.state.screen==='game'&&!comicOpen&&!state.wheel&&!progressionPanelOpen&&!adminPanelOpen&&!kingRewardOpen&&!zombozoRewardOpen;Ben10Audio.setGameActive(active);Ben10Audio.setRoom(campaign.phaseIndex);if(!active)return;
  const form=stats.form?.id||'ben',c=progression.skill,p=c?c.age/c.duration:0,plan=c?Ben10SoundDesign.skill(c.form,c.definition.id):null;
  audioLoop('skill',plan?.sustain,!!plan?.sustain&&p>=.18&&p<(plan.sustain==='ball.charge'?.58:.84),{gain:.6,source:form});
  audioLoop('speed-wind','speed.wind',!!c&&c.form==='xlr8'&&['rush','kickRush','drift','orbitOnce','zigzag','flurry'].includes(c.route)&&p>.22&&p<.8,{gain:.6,source:form});
@@ -46,7 +46,7 @@ function audioGameTick(dt){
  }else gameAudio.steps=0;
  if(c){if(gameAudio.lastZ>12&&(c.z||0)<2&&p>.5&&!['meteor','comet','bounce'].includes(c.route))audioPlay('ground.land',player,{gain:.35,source:form});gameAudio.lastZ=c.z||0}else gameAudio.lastZ=0;
  for(const e of enemyBattle.enemies){if(!e.alive)continue;const last=gameAudio.enemySteps.get(e.id),moved=last?Math.hypot(e.x-last.x,e.y-last.y):0;const walked=(last?.walked||0)+(moved<50?moved:0);gameAudio.enemySteps.set(e.id,{x:e.x,y:e.y,walked});if(walked>46&&['walk','idle'].includes(e.mode)){audioPlay(e.role==='fuerte'||e.role==='champion'||e.kind==='finalboss'?'ground.heavy':e.clown?'ground.step':'ground.metal',e,{source:'enemy-step',key:'enemy-footsteps',interval:.16,gain:.2});gameAudio.enemySteps.set(e.id,{x:e.x,y:e.y,walked:0})}}
- for(const e of enemyBattle.enemies)if(!e.alive&&!gameAudio.enemyFalls.has(e.id)&&e.deadAge>=.35){gameAudio.enemyFalls.add(e.id);if(e.kind!=='finalboss')audioPlay('enemy.fall',e,{key:'enemy-fall:'+e.id,gain:.55})}
+ for(const e of enemyBattle.enemies)if(!e.alive&&!gameAudio.enemyFalls.has(e.id)&&e.deadAge>=.35){gameAudio.enemyFalls.add(e.id);if(e.kind!=='finalboss'&&!e.zombozo&&!e.surpriseBox)audioPlay('enemy.fall',e,{key:'enemy-fall:'+e.id,gain:.55})}
  if(gameAudio.enemyFalls.size>300)gameAudio.enemyFalls.clear();if(gameAudio.bossFall&&kingEncounter.time>=gameAudio.bossFall.at){audioPlay('boss.fall',gameAudio.bossFall.enemy,{source:'king'});gameAudio.bossFall=null}Ben10Audio.prune();
 }
 // Wrap successful simulation events; views and skill previews remain silent.

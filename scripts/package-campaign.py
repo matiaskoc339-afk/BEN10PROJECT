@@ -38,10 +38,18 @@ files.update('fase2-circo/assets/panoramas/'+r['id']+'.png' for r in circus['rou
 files.update('fase2-circo/'+circus[key]['file'] for key in ['entrance','mirrorRealm'])
 files.add('fase2-circo/assets/atlases/ben-mirror-jump.png')
 
+zombozo=json.loads((root/'zombozo/data/manifest.json').read_text())
+files.update('zombozo/'+s['atlas'] for s in zombozo['sheets'])
+files.update('zombozo/'+c['atlas'] for g in zombozo['props'] for c in g['clips'])
+files.update('zombozo/'+c['atlas'] for c in zombozo['shared'])
+
 reports={}
-for name,file in [('adventure',f'artifacts/v{version}/adventure-review.json'),('audio',f'artifacts/v{version}/audio-review.json'),('recovery',f'artifacts/v{version}/recovery-review.json'),('menu',f'artifacts/v{version}/menu-review.json'),('combat',f'artifacts/v{version}/combat-review.json'),('boss',f'artifacts/v{version}/boss-review.json'),('hud',f'artifacts/v{version}/hud-review.json'),('secrets',f'artifacts/v{version}/secrets-review.json'),('campaign','artifacts/campaign/browser-review.json'),('skills','artifacts/v33/browser-review.json'),('render','artifacts/v33/final-render-review.json'),('targeting','artifacts/targeting/browser-review.json')]:
+for name,file in [('zombozo',f'artifacts/v{version}/zombozo-review.json'),('adventure',f'artifacts/v{version}/adventure-review.json'),('audio',f'artifacts/v{version}/audio-review.json'),('recovery',f'artifacts/v{version}/recovery-review.json'),('menu',f'artifacts/v{version}/menu-review.json'),('combat',f'artifacts/v{version}/combat-review.json'),('boss',f'artifacts/v{version}/boss-review.json'),('hud',f'artifacts/v{version}/hud-review.json'),('secrets',f'artifacts/v{version}/secrets-review.json'),('campaign','artifacts/campaign/browser-review.json'),('skills','artifacts/v33/browser-review.json'),('render','artifacts/v33/final-render-review.json'),('targeting','artifacts/targeting/browser-review.json')]:
     reports[name]=json.loads((root/file).read_text())
     assert reports[name].get('passed'),f'Validation missing: {name}'
+assert reports['zombozo']['afterFinalCircusWaveOnly'] and reports['zombozo']['phases']==[1,2,3]
+assert reports['zombozo']['physicalDNAPickup'] and reports['zombozo']['isolatedPersistentUnlock']
+assert reports['zombozo']['pendingDNAResumesWithoutRefight'] and reports['zombozo']['destructibleBoxAndVulnerability']
 assert reports['adventure']['kingCompletionOpensSelection'] and reports['adventure']['firstBruteMinibossAndPlayerContact']
 assert len(reports['adventure']['phases'])==3 and len(reports['adventure']['mirrors'])==2
 assert reports['adventure']['mirrorCheckpointRestored'] and reports['adventure']['selectionSaveRestored'] and reports['adventure']['acidCannotKillBen']
@@ -86,6 +94,6 @@ with ZipFile(output) as bundle:
     assert bundle.testzip() is None
     assert bundle.read(f'BEN10_DEMO_PC_V{version}/index.html')==(root/'index.html').read_bytes()
 
-report={'version':version,'indexSha256':hashlib.sha256((root/'index.html').read_bytes()).hexdigest(),'zipSha256':hashlib.sha256(output.read_bytes()).hexdigest(),'zipBytes':output.stat().st_size,'runtimeFiles':len(files),'circus':{'acts':3,'encounters':9,'enemyVariants':6,'mirrorRoutes':2,'firstBruteMiniboss':True,'zombozoBossAvailable':False,'villainSelection':True},'phases':[c['name'] for c in data['chapters']],'collisionTestsPassed':8,'enemyVariants':17,'encounters':16,'waves':28,'champions':3,'finalBossPhases':3,'initialForms':['four-arms','heatblast'],'bossReward':'diamondhead','hdTiles':29,'sharedMaxHealth':50,'healthMode':'ben-reserve','healthPickup':{'heal':12,'phaseHealing':[12,16,20],'chanceRange':[0.07,0.18]},'maxEnergy':90,'regressions':reports}
+report={'version':version,'indexSha256':hashlib.sha256((root/'index.html').read_bytes()).hexdigest(),'zipSha256':hashlib.sha256(output.read_bytes()).hexdigest(),'zipBytes':output.stat().st_size,'runtimeFiles':len(files),'circus':{'acts':3,'encounters':9,'enemyVariants':6,'mirrorRoutes':2,'firstBruteMiniboss':True,'zombozoBossAvailable':True,'bossPhases':3,'bossReward':'ghostfreak','villainSelection':True},'phases':[c['name'] for c in data['chapters']],'collisionTestsPassed':8,'enemyVariants':17,'encounters':16,'waves':28,'champions':3,'finalBossPhases':3,'initialForms':['four-arms','heatblast'],'bossReward':'diamondhead','hdTiles':29,'sharedMaxHealth':50,'healthMode':'ben-reserve','healthPickup':{'heal':12,'phaseHealing':[12,16,20],'chanceRange':[0.07,0.18]},'maxEnergy':90,'regressions':reports}
 (root/f'docs/v{version}-validation.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
 print(json.dumps({'zip':str(output),'bytes':output.stat().st_size,'files':len(files),'sha256':report['zipSha256']},indent=2))

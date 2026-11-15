@@ -1,4 +1,4 @@
-BEN 10: OMNITRIX FRAGMENTADO - DEMO PC V43
+BEN 10: OMNITRIX FRAGMENTADO - DEMO PC V44
 
 Extrae toda la carpeta y abre index.html en Chrome o Edge. Conserva las subcarpetas junto al HTML: contienen los mapas, sprites y sonidos. No requiere instalar el juego.
 
@@ -10,7 +10,7 @@ CONTROLES NORMALES
 - Click izquierdo: ataque leve.
 - Click derecho: fuerte/especial, según el alien.
 - Espacio: dash.
-- R: abrir el Omnitrix. 1: Cuatro Brazos; 2: Fuego; 4: Diamante, después de conseguirlo.
+- R: abrir el Omnitrix. 1: Cuatro Brazos; 2: Fuego; 4: Diamante; 6: Fantasmático, después de conseguir sus ADN.
 - T o centro del Omnitrix: volver a Ben.
 - K: arbol de habilidades de tus aliens.
 - F: técnica desbloqueada del alien.
@@ -35,4 +35,6 @@ Los espejos conectan los tres actos mediante dos secciones de plataformas. Dentr
 Hay fosos, trampas y un punto de control. La segunda ruta añade más peligros y una plataforma móvil. Caer en un foso hace daño y te devuelve al punto de control. Perder toda la vida permite reintentar desde allí. La vida restante se conserva al regresar al mundo normal.
 
 ALCANCE DE ESTA VERSION
-El recorrido llega al escenario principal de Zombozo. Su combate se añadirá más adelante. Al terminar el tercer acto puedes volver al selector; llegar al escenario no cuenta como derrotar a Zombozo ni abre la ruta del villano final.
+Incluye el recorrido de los Caballeros Eternos y su Rey, el selector de villanos, tres actos del circo, dos rutas de espejos y el combate de Zombozo. Tras recoger su ADN puedes volver al selector. La ruta del villano final sigue reservada para las próximas historias.
+
+ZOMBOZO: al final del tercer acto, tras el último combate. Vence a sus secuaces y sus tres fases. Rompe la caja sorpresa antes de que explote. Tras su caída, acércate al ADN para recuperar a Fantasmático (R → 6). El jefe y el ADN pendiente de recoger tienen punto de control.

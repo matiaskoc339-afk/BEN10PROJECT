@@ -42,7 +42,7 @@
           if(hit!==null&&hit<=entry){entry=hit;target=null;reason='wall';}
         }
         for(const dummy of targets){
-          if(!dummy.alive)continue;
+          if(!dummy.alive||dummy.intangible)continue;
           const hit=circleEntry(shot.x,shot.y,dx,dy,dummy.x,dummy.y,18+shot.radius);
           if(hit!==null&&(hit<entry||(hit===entry&&reason===null))){entry=hit;target=dummy;reason='target';}
         }
