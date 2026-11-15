@@ -1,0 +1,651 @@
+{
+  "id": "props-caja-adn",
+  "source": "assets/source/props-caja-adn.png",
+  "sourceSha256": "6692a91a440e62379c4b76bffd5e440199ec088eed1c427db51b02896a6cd535",
+  "atlas": "assets/atlases/props-caja-adn.png",
+  "cellWidth": 256,
+  "cellHeight": 240,
+  "clips": [
+    {
+      "id": "box-idle",
+      "name": "Caja cerrada",
+      "durations": [
+        160,
+        160,
+        160,
+        160,
+        160,
+        160
+      ],
+      "loop": true,
+      "height": 52,
+      "group": "box",
+      "atlas": "assets/atlases/props-caja-adn.png",
+      "bodyHeight": 52,
+      "nativeBodyHeight": 132.41379310344828,
+      "eventFrames": {},
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            28,
+            41,
+            168,
+            155
+          ]
+        },
+        {
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            230,
+            37,
+            176,
+            160
+          ]
+        },
+        {
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            445,
+            41,
+            165,
+            155
+          ]
+        },
+        {
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            644,
+            40,
+            177,
+            156
+          ]
+        },
+        {
+          "x": 1024,
+          "y": 0,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            863,
+            43,
+            164,
+            152
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 0,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            1070,
+            45,
+            165,
+            149
+          ]
+        }
+      ]
+    },
+    {
+      "id": "box-arming",
+      "name": "Cuenta atrás y aviso",
+      "durations": [
+        160,
+        180,
+        180,
+        220,
+        250,
+        350
+      ],
+      "height": 52,
+      "group": "box",
+      "eventFrames": {
+        "countdownWarning": 2
+      },
+      "atlas": "assets/atlases/props-caja-adn.png",
+      "bodyHeight": 52,
+      "nativeBodyHeight": 146.53793103448277,
+      "loop": false,
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 240,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            29,
+            254,
+            164,
+            148
+          ]
+        },
+        {
+          "x": 256,
+          "y": 240,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            224,
+            250,
+            185,
+            153
+          ]
+        },
+        {
+          "x": 512,
+          "y": 240,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            428,
+            236,
+            188,
+            167
+          ]
+        },
+        {
+          "x": 768,
+          "y": 240,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            632,
+            234,
+            192,
+            172
+          ]
+        },
+        {
+          "x": 1024,
+          "y": 240,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            847,
+            237,
+            187,
+            168
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 240,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            1048,
+            229,
+            205,
+            176
+          ]
+        }
+      ]
+    },
+    {
+      "id": "box-hit",
+      "name": "La caja recibe golpes",
+      "durations": [
+        80,
+        90,
+        120,
+        160,
+        200,
+        260
+      ],
+      "height": 52,
+      "group": "box",
+      "atlas": "assets/atlases/props-caja-adn.png",
+      "bodyHeight": 52,
+      "nativeBodyHeight": 130.64827586206897,
+      "loop": false,
+      "eventFrames": {},
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 480,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            29,
+            463,
+            163,
+            149
+          ]
+        },
+        {
+          "x": 256,
+          "y": 480,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            236,
+            460,
+            164,
+            151
+          ]
+        },
+        {
+          "x": 512,
+          "y": 480,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            446,
+            459,
+            164,
+            156
+          ]
+        },
+        {
+          "x": 768,
+          "y": 480,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            653,
+            457,
+            165,
+            158
+          ]
+        },
+        {
+          "x": 1024,
+          "y": 480,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            861,
+            458,
+            167,
+            156
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 480,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            1066,
+            458,
+            170,
+            158
+          ]
+        }
+      ]
+    },
+    {
+      "id": "box-break",
+      "name": "Caja destruida a tiempo",
+      "durations": [
+        90,
+        110,
+        120,
+        140,
+        170,
+        400
+      ],
+      "height": 52,
+      "group": "box",
+      "eventFrames": {
+        "boxDestroyed": 3,
+        "bossVulnerable": 3
+      },
+      "atlas": "assets/atlases/props-caja-adn.png",
+      "bodyHeight": 52,
+      "nativeBodyHeight": 147.42068965517242,
+      "loop": false,
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 720,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            26,
+            668,
+            167,
+            156
+          ]
+        },
+        {
+          "x": 256,
+          "y": 720,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            236,
+            646,
+            174,
+            177
+          ]
+        },
+        {
+          "x": 512,
+          "y": 720,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            430,
+            647,
+            186,
+            176
+          ]
+        },
+        {
+          "x": 768,
+          "y": 720,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            637,
+            650,
+            187,
+            169
+          ]
+        },
+        {
+          "x": 1024,
+          "y": 720,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            851,
+            664,
+            182,
+            158
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 720,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            1059,
+            696,
+            189,
+            125
+          ]
+        }
+      ]
+    },
+    {
+      "id": "box-explosion",
+      "name": "Explosión de la caja",
+      "durations": [
+        80,
+        90,
+        100,
+        150,
+        180,
+        300
+      ],
+      "height": 165,
+      "eventFrames": {
+        "largeDamage": 2
+      },
+      "atlas": "assets/atlases/props-caja-adn.png",
+      "bodyHeight": 165,
+      "nativeBodyHeight": 164.00943396226415,
+      "loop": false,
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 960,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            58,
+            887,
+            102,
+            96
+          ]
+        },
+        {
+          "x": 256,
+          "y": 960,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            220,
+            864,
+            177,
+            149
+          ]
+        },
+        {
+          "x": 512,
+          "y": 960,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            413,
+            841,
+            212,
+            193
+          ]
+        },
+        {
+          "x": 768,
+          "y": 960,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            632,
+            849,
+            201,
+            181
+          ]
+        },
+        {
+          "x": 1024,
+          "y": 960,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            850,
+            864,
+            172,
+            152
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 960,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            1065,
+            880,
+            142,
+            112
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dna-float",
+      "name": "ADN de Fantasmático",
+      "durations": [
+        170,
+        170,
+        170,
+        170,
+        170,
+        170
+      ],
+      "height": 30,
+      "loop": true,
+      "atlas": "assets/atlases/props-caja-adn.png",
+      "bodyHeight": 30,
+      "nativeBodyHeight": 162.51572327044025,
+      "eventFrames": {},
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 1200,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            35,
+            1082,
+            142,
+            144
+          ]
+        },
+        {
+          "x": 256,
+          "y": 1200,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            235,
+            1074,
+            154,
+            146
+          ]
+        },
+        {
+          "x": 512,
+          "y": 1200,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            437,
+            1071,
+            159,
+            142
+          ]
+        },
+        {
+          "x": 768,
+          "y": 1200,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            652,
+            1066,
+            149,
+            136
+          ]
+        },
+        {
+          "x": 1024,
+          "y": 1200,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            858,
+            1077,
+            153,
+            144
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 1200,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 193,
+          "sourceBox": [
+            1068,
+            1084,
+            151,
+            134
+          ]
+        }
+      ]
+    }
+  ]
+}

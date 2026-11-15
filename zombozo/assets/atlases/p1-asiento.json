@@ -1,0 +1,653 @@
+{
+  "id": "p1-asiento",
+  "phase": 0,
+  "atlas": "assets/atlases/p1-asiento.png",
+  "source": "assets/source/p1-asiento.png",
+  "sourceSha256": "7b9450ad156fbd0ae307ebc4d4222272f10ba01881a435ea9e58ba7e59248fa1",
+  "scale": 0.8979591836734694,
+  "bodyHeight": 128,
+  "nativeBodyHeight": 176,
+  "cellWidth": 256,
+  "cellHeight": 240,
+  "animations": {
+    "seated": {
+      "id": "seated",
+      "name": "Reposo en el asiento",
+      "durations": [
+        160,
+        160,
+        160,
+        160,
+        160,
+        160
+      ],
+      "loop": true,
+      "eventFrames": {},
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            39,
+            9,
+            176,
+            201
+          ]
+        },
+        {
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            244,
+            11,
+            175,
+            199
+          ]
+        },
+        {
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            447,
+            7,
+            171,
+            203
+          ]
+        },
+        {
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            648,
+            5,
+            172,
+            203
+          ]
+        },
+        {
+          "x": 1024,
+          "y": 0,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            850,
+            11,
+            171,
+            199
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 0,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            1051,
+            14,
+            172,
+            196
+          ]
+        }
+      ],
+      "atlas": "assets/atlases/p1-asiento.png",
+      "sheet": "p1-asiento",
+      "bodyHeight": 128,
+      "nativeBodyHeight": 176
+    },
+    "summon": {
+      "id": "summon",
+      "name": "Que entren los secuaces",
+      "durations": [
+        160,
+        190,
+        180,
+        250,
+        180,
+        180
+      ],
+      "eventFrames": {
+        "summonHelpers": 3
+      },
+      "loop": false,
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 240,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            38,
+            222,
+            174,
+            195
+          ]
+        },
+        {
+          "x": 256,
+          "y": 240,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            241,
+            220,
+            175,
+            199
+          ]
+        },
+        {
+          "x": 512,
+          "y": 240,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            445,
+            218,
+            173,
+            200
+          ]
+        },
+        {
+          "x": 768,
+          "y": 240,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            645,
+            219,
+            198,
+            198
+          ]
+        },
+        {
+          "x": 1024,
+          "y": 240,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            849,
+            224,
+            185,
+            193
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 240,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            1053,
+            220,
+            172,
+            198
+          ]
+        }
+      ],
+      "atlas": "assets/atlases/p1-asiento.png",
+      "sheet": "p1-asiento",
+      "bodyHeight": 128,
+      "nativeBodyHeight": 176
+    },
+    "sleep": {
+      "id": "sleep",
+      "name": "Una siesta en pleno show",
+      "durations": [
+        180,
+        200,
+        240,
+        320,
+        400,
+        400
+      ],
+      "loop": true,
+      "eventFrames": {},
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 480,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            39,
+            432,
+            175,
+            194
+          ]
+        },
+        {
+          "x": 256,
+          "y": 480,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            243,
+            436,
+            174,
+            189
+          ]
+        },
+        {
+          "x": 512,
+          "y": 480,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            445,
+            440,
+            174,
+            185
+          ]
+        },
+        {
+          "x": 768,
+          "y": 480,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            646,
+            444,
+            174,
+            181
+          ]
+        },
+        {
+          "x": 1024,
+          "y": 480,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            850,
+            450,
+            172,
+            176
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 480,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            1052,
+            439,
+            174,
+            186
+          ]
+        }
+      ],
+      "atlas": "assets/atlases/p1-asiento.png",
+      "sheet": "p1-asiento",
+      "bodyHeight": 128,
+      "nativeBodyHeight": 176
+    },
+    "mock-seated": {
+      "id": "mock-seated",
+      "name": "Burla desde el trono",
+      "durations": [
+        140,
+        170,
+        150,
+        220,
+        180,
+        220
+      ],
+      "loop": true,
+      "eventFrames": {},
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 720,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            41,
+            637,
+            173,
+            197
+          ]
+        },
+        {
+          "x": 256,
+          "y": 720,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            243,
+            636,
+            173,
+            198
+          ]
+        },
+        {
+          "x": 512,
+          "y": 720,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            439,
+            638,
+            174,
+            197
+          ]
+        },
+        {
+          "x": 768,
+          "y": 720,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            642,
+            640,
+            177,
+            195
+          ]
+        },
+        {
+          "x": 1024,
+          "y": 720,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            847,
+            642,
+            186,
+            194
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 720,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            1053,
+            639,
+            171,
+            195
+          ]
+        }
+      ],
+      "atlas": "assets/atlases/p1-asiento.png",
+      "sheet": "p1-asiento",
+      "bodyHeight": 128,
+      "nativeBodyHeight": 176
+    },
+    "wake": {
+      "id": "wake",
+      "name": "Se acabó la broma",
+      "durations": [
+        200,
+        130,
+        150,
+        200,
+        230,
+        300
+      ],
+      "eventFrames": {
+        "helpersDefeated": 0,
+        "serious": 4
+      },
+      "loop": false,
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 960,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            40,
+            853,
+            175,
+            185
+          ]
+        },
+        {
+          "x": 256,
+          "y": 960,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            242,
+            841,
+            177,
+            197
+          ]
+        },
+        {
+          "x": 512,
+          "y": 960,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            439,
+            844,
+            177,
+            194
+          ]
+        },
+        {
+          "x": 768,
+          "y": 960,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            640,
+            847,
+            176,
+            192
+          ]
+        },
+        {
+          "x": 1024,
+          "y": 960,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            843,
+            855,
+            174,
+            184
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 960,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            1049,
+            844,
+            173,
+            195
+          ]
+        }
+      ],
+      "atlas": "assets/atlases/p1-asiento.png",
+      "sheet": "p1-asiento",
+      "bodyHeight": 128,
+      "nativeBodyHeight": 176
+    },
+    "stand": {
+      "id": "stand",
+      "name": "Se levanta y pega el ADN",
+      "durations": [
+        180,
+        220,
+        240,
+        260,
+        260,
+        350
+      ],
+      "eventFrames": {
+        "standUp": 2,
+        "tapeCrystal": 4,
+        "phase2Ready": 5
+      },
+      "loop": false,
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 1200,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            34,
+            1060,
+            174,
+            189
+          ]
+        },
+        {
+          "x": 256,
+          "y": 1200,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            236,
+            1053,
+            170,
+            196
+          ]
+        },
+        {
+          "x": 512,
+          "y": 1200,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            431,
+            1047,
+            196,
+            202
+          ]
+        },
+        {
+          "x": 768,
+          "y": 1200,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            637,
+            1047,
+            186,
+            201
+          ]
+        },
+        {
+          "x": 1024,
+          "y": 1200,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            837,
+            1048,
+            187,
+            202
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 1200,
+          "width": 256,
+          "height": 240,
+          "anchorX": 114,
+          "anchorY": 197,
+          "sourceBox": [
+            1041,
+            1044,
+            203,
+            206
+          ]
+        }
+      ],
+      "atlas": "assets/atlases/p1-asiento.png",
+      "sheet": "p1-asiento",
+      "bodyHeight": 128,
+      "nativeBodyHeight": 176
+    }
+  }
+}

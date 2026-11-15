@@ -1,0 +1,74 @@
+[
+  {
+    "source": "/workspace/generated_images/exec-7ebd73b5-abc3-427f-bcca-e202d27f7b73.png",
+    "destination": "assets/source/p1-asiento.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "sha256": "7b9450ad156fbd0ae307ebc4d4222272f10ba01881a435ea9e58ba7e59248fa1"
+  },
+  {
+    "source": "/workspace/generated_images/exec-19014582-cc50-4f63-aa08-6985cd467f7b.png",
+    "destination": "assets/reference/zombozo-model.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "sha256": "2d470f76532364f53a15179c8f5827651aa3a426c065bf825091dfd2a0a1b9ca"
+  },
+  {
+    "source": "/workspace/generated_images/exec-44f980f5-2bba-4a86-8f2c-88f8c235ec88.png",
+    "destination": "assets/source/props-caja-adn.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "sha256": "6692a91a440e62379c4b76bffd5e440199ec088eed1c427db51b02896a6cd535"
+  },
+  {
+    "source": "/workspace/generated_images/exec-dd40b5af-9270-4e4e-be2e-dce5ae98870a.png",
+    "destination": "assets/source/p2-ataques.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "sha256": "63b02ad5499c80e69d4be91fa9c23a143b2afa75da8d547bdb7ae0a100917489"
+  },
+  {
+    "source": "/workspace/generated_images/exec-71c8db7e-033b-40b0-b55c-959ddd1ecb5e.png",
+    "destination": "assets/source/p3-pesadilla.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "sha256": "94cdf4d0dc103ea053f14c16e59a47aa23d7f408a7fcf08595b699738c07fa55"
+  },
+  {
+    "source": "/workspace/generated_images/exec-82459eeb-6f67-40fd-9f72-16d686e7a3e9.png",
+    "destination": "assets/source/p3-furia.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "sha256": "6d004aca43d3c0dbe9c33b16531c92e919db94aba2cf58559e6c18ce90a08747"
+  },
+  {
+    "source": "/workspace/generated_images/exec-5b1fdd70-6756-4c1b-afd8-f6f894258b70.png",
+    "destination": "assets/source/p2-trucos.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "sha256": "6a573ab95de05c78cace3234b0d7ad1b4ac134471a0c459adcc7a207a8593bcc"
+  },
+  {
+    "source": "/workspace/generated_images/exec-847a1dee-e250-44f9-9bb8-8e2a6fc296c0.png",
+    "destination": "assets/source/props-trucos.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "sha256": "af893b8f4bd79f424bb9013f6e7a726c0dff86e8b42864b9e40ed29fbf92c711"
+  }
+]

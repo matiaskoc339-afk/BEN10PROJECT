@@ -1,0 +1,844 @@
+{
+  "version": 1,
+  "title": "Zombozo · El último espectáculo",
+  "spriteOnly": true,
+  "bodyHeight": 128,
+  "nativeBodyHeight": 176,
+  "sheets": [
+    {
+      "id": "p1-asiento",
+      "phase": 0,
+      "scaleReference": [
+        35
+      ],
+      "rows": [
+        {
+          "id": "seated",
+          "name": "Reposo en el asiento",
+          "durations": [
+            160,
+            160,
+            160,
+            160,
+            160,
+            160
+          ],
+          "loop": true
+        },
+        {
+          "id": "summon",
+          "name": "Que entren los secuaces",
+          "durations": [
+            160,
+            190,
+            180,
+            250,
+            180,
+            180
+          ],
+          "eventFrames": {
+            "summonHelpers": 3
+          }
+        },
+        {
+          "id": "sleep",
+          "name": "Una siesta en pleno show",
+          "durations": [
+            180,
+            200,
+            240,
+            320,
+            400,
+            400
+          ],
+          "loop": true
+        },
+        {
+          "id": "mock-seated",
+          "name": "Burla desde el trono",
+          "durations": [
+            140,
+            170,
+            150,
+            220,
+            180,
+            220
+          ],
+          "loop": true
+        },
+        {
+          "id": "wake",
+          "name": "Se acabó la broma",
+          "durations": [
+            200,
+            130,
+            150,
+            200,
+            230,
+            300
+          ],
+          "eventFrames": {
+            "helpersDefeated": 0,
+            "serious": 4
+          }
+        },
+        {
+          "id": "stand",
+          "name": "Se levanta y pega el ADN",
+          "durations": [
+            180,
+            220,
+            240,
+            260,
+            260,
+            350
+          ],
+          "eventFrames": {
+            "standUp": 2,
+            "tapeCrystal": 4,
+            "phase2Ready": 5
+          }
+        }
+      ]
+    },
+    {
+      "id": "p2-ataques",
+      "phase": 1,
+      "scaleReference": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "rows": [
+        {
+          "id": "idle",
+          "name": "Guardia del tramposo",
+          "durations": [
+            160,
+            160,
+            160,
+            160,
+            160,
+            160
+          ],
+          "loop": true
+        },
+        {
+          "id": "walk",
+          "name": "Paso de showman",
+          "durations": [
+            120,
+            120,
+            120,
+            120,
+            120,
+            120
+          ],
+          "loop": true
+        },
+        {
+          "id": "bomb",
+          "name": "Bomba por encima del hombro",
+          "durations": [
+            150,
+            200,
+            120,
+            90,
+            170,
+            220
+          ],
+          "eventFrames": {
+            "releaseBomb": 3
+          }
+        },
+        {
+          "id": "knives",
+          "name": "Cuchillos de circo",
+          "durations": [
+            150,
+            170,
+            140,
+            90,
+            160,
+            230
+          ],
+          "eventFrames": {
+            "releaseKnives": 3
+          }
+        },
+        {
+          "id": "hurt",
+          "name": "Golpe recibido",
+          "durations": [
+            80,
+            100,
+            130,
+            150,
+            180,
+            220
+          ]
+        },
+        {
+          "id": "anger",
+          "name": "El payaso pierde la paciencia",
+          "durations": [
+            180,
+            170,
+            210,
+            230,
+            260,
+            350
+          ],
+          "eventFrames": {
+            "rageBegins": 4,
+            "phase3Ready": 5
+          }
+        }
+      ]
+    },
+    {
+      "id": "p2-trucos",
+      "phase": 1,
+      "scaleReference": [
+        34,
+        35
+      ],
+      "rows": [
+        {
+          "id": "sink",
+          "name": "Se hunde en el suelo",
+          "durations": [
+            120,
+            140,
+            160,
+            180,
+            180,
+            280
+          ],
+          "visibility": [
+            1,
+            1,
+            0.95,
+            0.9,
+            0.8,
+            0.25
+          ],
+          "eventFrames": {
+            "intangibleOn": 1,
+            "underground": 5
+          },
+          "partial": true
+        },
+        {
+          "id": "ground-bomb",
+          "name": "Un brazo y una bomba",
+          "durations": [
+            140,
+            160,
+            180,
+            160,
+            90,
+            230
+          ],
+          "eventFrames": {
+            "intangibleOff": 3,
+            "releaseBomb": 4
+          },
+          "partial": true
+        },
+        {
+          "id": "mount",
+          "name": "Se sube al triciclo",
+          "durations": [
+            180,
+            200,
+            220,
+            210,
+            180,
+            280
+          ],
+          "eventFrames": {
+            "mounted": 5
+          }
+        },
+        {
+          "id": "tricycle",
+          "name": "Embestida de triciclo",
+          "durations": [
+            100,
+            100,
+            100,
+            100,
+            100,
+            100
+          ],
+          "loop": true,
+          "motion": [
+            0,
+            10,
+            20,
+            30,
+            40,
+            50
+          ],
+          "cycleTravel": 60,
+          "contactFrames": [
+            2,
+            4
+          ]
+        },
+        {
+          "id": "vanish",
+          "name": "Desaparición invisible",
+          "durations": [
+            100,
+            130,
+            150,
+            180,
+            200,
+            280
+          ],
+          "visibility": [
+            1,
+            0.85,
+            0.55,
+            0.25,
+            0.06,
+            0
+          ],
+          "eventFrames": {
+            "intangibleOn": 2,
+            "invisible": 5
+          }
+        },
+        {
+          "id": "reappear",
+          "name": "Aparece de la nada",
+          "durations": [
+            100,
+            130,
+            150,
+            170,
+            180,
+            240
+          ],
+          "visibility": [
+            0,
+            0.15,
+            0.4,
+            0.75,
+            1,
+            1
+          ],
+          "eventFrames": {
+            "visible": 2,
+            "intangibleOff": 4,
+            "releaseBomb": 4
+          }
+        }
+      ]
+    },
+    {
+      "id": "p3-furia",
+      "phase": 2,
+      "scaleReference": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "rows": [
+        {
+          "id": "rage-idle",
+          "name": "Reposo enfurecido",
+          "durations": [
+            110,
+            110,
+            110,
+            110,
+            110,
+            110
+          ],
+          "loop": true
+        },
+        {
+          "id": "run",
+          "name": "Carrera furiosa",
+          "durations": [
+            75,
+            75,
+            75,
+            75,
+            75,
+            75
+          ],
+          "loop": true
+        },
+        {
+          "id": "bomb-volley",
+          "name": "Bombas sin descanso",
+          "durations": [
+            110,
+            130,
+            80,
+            140,
+            80,
+            170
+          ],
+          "eventFrames": {
+            "releaseBomb": 1,
+            "releaseSecondBomb": 3,
+            "releaseThirdBomb": 5
+          }
+        },
+        {
+          "id": "knife-fan",
+          "name": "Abanico de cuchillos",
+          "durations": [
+            100,
+            140,
+            100,
+            80,
+            150,
+            190
+          ],
+          "eventFrames": {
+            "releaseKnives": 3
+          }
+        },
+        {
+          "id": "mock-angry",
+          "name": "Burla agresiva",
+          "durations": [
+            100,
+            130,
+            140,
+            170,
+            140,
+            190
+          ],
+          "loop": true
+        },
+        {
+          "id": "rage-hurt",
+          "name": "Retroceso y rabia",
+          "durations": [
+            60,
+            80,
+            90,
+            100,
+            130,
+            170
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p3-pesadilla",
+      "phase": 2,
+      "scaleReference": [
+        29
+      ],
+      "rows": [
+        {
+          "id": "side-rift",
+          "name": "Sale por una grieta lateral",
+          "durations": [
+            100,
+            130,
+            150,
+            170,
+            160,
+            180
+          ],
+          "eventFrames": {
+            "visible": 2,
+            "intangibleOff": 3,
+            "releaseBomb": 5
+          },
+          "partial": true
+        },
+        {
+          "id": "from-above",
+          "name": "Aparece desde arriba",
+          "durations": [
+            110,
+            140,
+            140,
+            150,
+            170,
+            230
+          ],
+          "eventFrames": {
+            "visible": 2,
+            "land": 4,
+            "intangibleOff": 4
+          },
+          "partial": true,
+          "lift": [
+            95,
+            85,
+            65,
+            32,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "box-throw",
+          "name": "Lanza la caja sorpresa",
+          "durations": [
+            160,
+            200,
+            170,
+            90,
+            170,
+            260
+          ],
+          "eventFrames": {
+            "releaseBox": 3,
+            "boxShieldOn": 3
+          }
+        },
+        {
+          "id": "box-shield",
+          "name": "Intangible mientras protege la caja",
+          "durations": [
+            130,
+            140,
+            150,
+            140,
+            90,
+            170
+          ],
+          "loop": true,
+          "visibility": [
+            0.38,
+            0.34,
+            0.4,
+            0.32,
+            0.37,
+            0.35
+          ],
+          "eventFrames": {
+            "releaseBomb": 3
+          },
+          "rule": "box-exists"
+        },
+        {
+          "id": "ghost-dodge",
+          "name": "Esquiva intangible",
+          "durations": [
+            70,
+            80,
+            100,
+            100,
+            100,
+            150
+          ],
+          "visibility": [
+            1,
+            0.65,
+            0.28,
+            0.25,
+            0.7,
+            1
+          ],
+          "eventFrames": {
+            "intangibleOn": 1,
+            "intangibleOff": 4
+          }
+        },
+        {
+          "id": "defeat",
+          "name": "La caída de Zombozo",
+          "durations": [
+            180,
+            240,
+            270,
+            300,
+            330,
+            900
+          ],
+          "eventFrames": {
+            "defeated": 0,
+            "hatFalls": 3,
+            "ghostfreakDNA": 5
+          }
+        }
+      ]
+    }
+  ],
+  "phases": [
+    {
+      "id": "phase-1",
+      "name": "El dueño del espectáculo",
+      "subtitle": "Sentado, burlón y medio dormido",
+      "color": "#d9b568",
+      "default": "seated",
+      "description": "Ordena a sus secuaces desde el asiento. Puede burlarse o dormirse; al caer sus ayudantes se pone serio, se levanta y prepara el ADN.",
+      "rules": {
+        "damageable": false,
+        "nextPhaseCondition": "helpers-defeated",
+        "tapedDNAActive": false
+      }
+    },
+    {
+      "id": "phase-2",
+      "name": "El truco de Fantasmático",
+      "subtitle": "ADN pegado al sombrero con cinta",
+      "color": "#9ae6cd",
+      "default": "idle",
+      "description": "Se hunde, aparece con bombas, lanza cuchillos y embiste en triciclo. La desaparición completa y la intangibilidad tienen ventanas propias.",
+      "rules": {
+        "ghostfreakDNA": true,
+        "tapeVisible": true,
+        "nextPhaseCondition": "health-threshold",
+        "canBecomeInvisible": true,
+        "canBecomeIntangible": true
+      }
+    },
+    {
+      "id": "phase-3",
+      "name": "El último número",
+      "subtitle": "Enfurecido, rápido y espectral",
+      "color": "#d6a7ed",
+      "default": "rage-idle",
+      "description": "Sale del suelo, por grietas laterales y desde arriba. Protege la caja con intangibilidad y bombas; al romperla vuelve a ser vulnerable.",
+      "rules": {
+        "moreAggressive": true,
+        "faster": true,
+        "surpriseBox": {
+          "destructible": true,
+          "hasHealth": true,
+          "hasCountdown": true,
+          "bossIntangibleWhileExists": true,
+          "bossThrowsBombsDuringCountdown": true,
+          "destroyedEndsInvulnerability": true,
+          "cooldownAfterDestroyed": true,
+          "timeoutCausesLargeDamage": true
+        },
+        "reward": "ghostfreak-dna",
+        "rewardCondition": "complete-defeat-animation",
+        "inheritsPhase2Animations": [
+          "sink",
+          "ground-bomb",
+          "vanish",
+          "reappear",
+          "mount",
+          "tricycle"
+        ],
+        "rewardAfterDefeatAnimation": "ghostfreak-dna"
+      }
+    }
+  ],
+  "props": [
+    {
+      "id": "props-caja-adn",
+      "rows": [
+        {
+          "id": "box-idle",
+          "name": "Caja cerrada",
+          "durations": [
+            160,
+            160,
+            160,
+            160,
+            160,
+            160
+          ],
+          "loop": true,
+          "height": 52,
+          "group": "box"
+        },
+        {
+          "id": "box-arming",
+          "name": "Cuenta atrás y aviso",
+          "durations": [
+            160,
+            180,
+            180,
+            220,
+            250,
+            350
+          ],
+          "height": 52,
+          "group": "box",
+          "eventFrames": {
+            "countdownWarning": 2
+          }
+        },
+        {
+          "id": "box-hit",
+          "name": "La caja recibe golpes",
+          "durations": [
+            80,
+            90,
+            120,
+            160,
+            200,
+            260
+          ],
+          "height": 52,
+          "group": "box"
+        },
+        {
+          "id": "box-break",
+          "name": "Caja destruida a tiempo",
+          "durations": [
+            90,
+            110,
+            120,
+            140,
+            170,
+            400
+          ],
+          "height": 52,
+          "group": "box",
+          "eventFrames": {
+            "boxDestroyed": 3,
+            "bossVulnerable": 3
+          }
+        },
+        {
+          "id": "box-explosion",
+          "name": "Explosión de la caja",
+          "durations": [
+            80,
+            90,
+            100,
+            150,
+            180,
+            300
+          ],
+          "height": 165,
+          "eventFrames": {
+            "largeDamage": 2
+          }
+        },
+        {
+          "id": "dna-float",
+          "name": "ADN de Fantasmático",
+          "durations": [
+            170,
+            170,
+            170,
+            170,
+            170,
+            170
+          ],
+          "height": 30,
+          "loop": true
+        }
+      ]
+    },
+    {
+      "id": "props-trucos",
+      "rows": [
+        {
+          "id": "rift-ground",
+          "name": "Portal del suelo",
+          "durations": [
+            140,
+            140,
+            140,
+            140,
+            140,
+            140
+          ],
+          "height": 35,
+          "loop": true
+        },
+        {
+          "id": "rift-side",
+          "name": "Grieta lateral",
+          "durations": [
+            140,
+            140,
+            140,
+            140,
+            140,
+            140
+          ],
+          "height": 130,
+          "loop": true
+        },
+        {
+          "id": "knives-flight",
+          "name": "Cuchillos en vuelo",
+          "durations": [
+            85,
+            85,
+            85,
+            85,
+            85,
+            85
+          ],
+          "height": 16,
+          "loop": true
+        },
+        {
+          "id": "scene-props",
+          "static": [
+            "empty-throne",
+            "parked-tricycle",
+            "damaged-tricycle",
+            "plain-hat",
+            "taped-crystal",
+            "circus-bomb"
+          ],
+          "names": [
+            "Asiento vacío",
+            "Triciclo de payaso",
+            "Triciclo golpeado",
+            "Sombrero sin ADN",
+            "Cristal con cinta",
+            "Bomba del show"
+          ],
+          "heights": [
+            120,
+            45,
+            40,
+            40,
+            30,
+            18
+          ]
+        },
+        {
+          "id": "ghost-burst",
+          "name": "Niebla espectral",
+          "durations": [
+            90,
+            110,
+            140,
+            170,
+            180,
+            300
+          ],
+          "height": 100
+        },
+        {
+          "id": "dna-release",
+          "name": "El ADN queda libre",
+          "durations": [
+            120,
+            140,
+            180,
+            220,
+            260,
+            350
+          ],
+          "height": 60,
+          "eventFrames": {
+            "dnaReleased": 3
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,277 @@
+{
+  "file": "/workspace/outputs/BEN10_Zombozo_Sprites.zip",
+  "bytes": 38456597,
+  "sha256": "2661f24e37f516b6327fc427b256580e0b6a1e5b89b5f667a64908d2bc87b1e7",
+  "phases": 3,
+  "bossClips": 30,
+  "bossPoses": 180,
+  "newPropDrawings": 72,
+  "standaloneArtViewer": true,
+  "gameplayIntegrated": false,
+  "validation": {
+    "asset-validation": {
+      "phases": 3,
+      "bossClips": 30,
+      "bossPoses": 180,
+      "newPropDrawings": 72,
+      "sheets": [
+        {
+          "id": "p1-asiento",
+          "poses": 36,
+          "minimumMargin": 21
+        },
+        {
+          "id": "p2-ataques",
+          "poses": 36,
+          "minimumMargin": 20
+        },
+        {
+          "id": "p2-trucos",
+          "poses": 36,
+          "minimumMargin": 21
+        },
+        {
+          "id": "p3-furia",
+          "poses": 36,
+          "minimumMargin": 20
+        },
+        {
+          "id": "p3-pesadilla",
+          "poses": 36,
+          "minimumMargin": 19
+        },
+        {
+          "id": "props-caja-adn",
+          "poses": 36,
+          "minimumMargin": 22
+        },
+        {
+          "id": "props-trucos",
+          "poses": 36,
+          "minimumMargin": 21
+        }
+      ],
+      "proneHeightRatio": 0.424,
+      "baseGameUnchanged": true,
+      "indexSha256": "9633801f757715ccf0adae153511d3082374222f1b0c91d85d16d4c278c8516e",
+      "passed": true
+    },
+    "browser-review": {
+      "errors": [],
+      "missing": [],
+      "clips": [
+        {
+          "phase": 1,
+          "key": "seated",
+          "frames": 6
+        },
+        {
+          "phase": 1,
+          "key": "summon",
+          "frames": 6
+        },
+        {
+          "phase": 1,
+          "key": "sleep",
+          "frames": 6
+        },
+        {
+          "phase": 1,
+          "key": "mock-seated",
+          "frames": 6
+        },
+        {
+          "phase": 1,
+          "key": "wake",
+          "frames": 6
+        },
+        {
+          "phase": 1,
+          "key": "stand",
+          "frames": 6
+        },
+        {
+          "phase": 2,
+          "key": "idle",
+          "frames": 6
+        },
+        {
+          "phase": 2,
+          "key": "walk",
+          "frames": 6
+        },
+        {
+          "phase": 2,
+          "key": "bomb",
+          "frames": 6
+        },
+        {
+          "phase": 2,
+          "key": "knives",
+          "frames": 6
+        },
+        {
+          "phase": 2,
+          "key": "hurt",
+          "frames": 6
+        },
+        {
+          "phase": 2,
+          "key": "anger",
+          "frames": 6
+        },
+        {
+          "phase": 2,
+          "key": "sink",
+          "frames": 6
+        },
+        {
+          "phase": 2,
+          "key": "ground-bomb",
+          "frames": 6
+        },
+        {
+          "phase": 2,
+          "key": "mount",
+          "frames": 6
+        },
+        {
+          "phase": 2,
+          "key": "tricycle",
+          "frames": 6
+        },
+        {
+          "phase": 2,
+          "key": "vanish",
+          "frames": 6
+        },
+        {
+          "phase": 2,
+          "key": "reappear",
+          "frames": 6
+        },
+        {
+          "phase": 3,
+          "key": "rage-idle",
+          "frames": 6
+        },
+        {
+          "phase": 3,
+          "key": "run",
+          "frames": 6
+        },
+        {
+          "phase": 3,
+          "key": "bomb-volley",
+          "frames": 6
+        },
+        {
+          "phase": 3,
+          "key": "knife-fan",
+          "frames": 6
+        },
+        {
+          "phase": 3,
+          "key": "mock-angry",
+          "frames": 6
+        },
+        {
+          "phase": 3,
+          "key": "rage-hurt",
+          "frames": 6
+        },
+        {
+          "phase": 3,
+          "key": "side-rift",
+          "frames": 6
+        },
+        {
+          "phase": 3,
+          "key": "from-above",
+          "frames": 6
+        },
+        {
+          "phase": 3,
+          "key": "box-throw",
+          "frames": 6
+        },
+        {
+          "phase": 3,
+          "key": "box-shield",
+          "frames": 6
+        },
+        {
+          "phase": 3,
+          "key": "ghost-dodge",
+          "frames": 6
+        },
+        {
+          "phase": 3,
+          "key": "defeat",
+          "frames": 6
+        }
+      ],
+      "viewports": [
+        {
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "width": 1440,
+          "height": 900
+        },
+        {
+          "width": 1920,
+          "height": 1080
+        }
+      ],
+      "localAssetsOnly": true,
+      "invisibility": {
+        "hidden": 0,
+        "raw": 7970
+      },
+      "breakBox": true,
+      "timeoutBox": true,
+      "sequence": [
+        "0:seated",
+        "0:summon",
+        "0:sleep",
+        "0:mock-seated",
+        "0:wake",
+        "0:stand",
+        "1:idle",
+        "1:walk",
+        "1:bomb",
+        "1:knives",
+        "1:hurt",
+        "1:sink",
+        "1:ground-bomb",
+        "1:mount",
+        "1:tricycle",
+        "1:vanish",
+        "1:reappear",
+        "1:anger",
+        "2:rage-idle",
+        "2:run",
+        "2:bomb-volley",
+        "2:knife-fan",
+        "2:mock-angry",
+        "2:rage-hurt",
+        "2:side-rift",
+        "2:from-above",
+        "2:box-throw",
+        "2:box-shield",
+        "2:ghost-dodge",
+        "2:defeat"
+      ],
+      "originalDownload": true,
+      "props": 19,
+      "passed": true
+    }
+  },
+  "extractedZipSmokePassed": true,
+  "extractedFolder": "/workspace/BEN10-ZOMBOZO-ARTE/zombozo",
+  "previewVideo": "/workspace/outputs/BEN10_Zombozo_Animaciones.mp4",
+  "previewSeconds": 49.08,
+  "previewBytes": 7127605
+}

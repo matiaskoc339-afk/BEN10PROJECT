@@ -1,0 +1,650 @@
+{
+  "id": "p3-furia",
+  "phase": 2,
+  "atlas": "assets/atlases/p3-furia.png",
+  "source": "assets/source/p3-furia.png",
+  "sourceSha256": "6d004aca43d3c0dbe9c33b16531c92e919db94aba2cf58559e6c18ce90a08747",
+  "scale": 0.9025641025641026,
+  "bodyHeight": 128,
+  "nativeBodyHeight": 176,
+  "cellWidth": 256,
+  "cellHeight": 240,
+  "animations": {
+    "rage-idle": {
+      "id": "rage-idle",
+      "name": "Reposo enfurecido",
+      "durations": [
+        110,
+        110,
+        110,
+        110,
+        110,
+        110
+      ],
+      "loop": true,
+      "eventFrames": {},
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            8,
+            8,
+            193,
+            205
+          ]
+        },
+        {
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            219,
+            5,
+            195,
+            207
+          ]
+        },
+        {
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            432,
+            2,
+            185,
+            211
+          ]
+        },
+        {
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            634,
+            8,
+            192,
+            205
+          ]
+        },
+        {
+          "x": 1024,
+          "y": 0,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            845,
+            10,
+            185,
+            203
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 0,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            1052,
+            13,
+            183,
+            200
+          ]
+        }
+      ],
+      "atlas": "assets/atlases/p3-furia.png",
+      "sheet": "p3-furia",
+      "bodyHeight": 128,
+      "nativeBodyHeight": 176
+    },
+    "run": {
+      "id": "run",
+      "name": "Carrera furiosa",
+      "durations": [
+        75,
+        75,
+        75,
+        75,
+        75,
+        75
+      ],
+      "loop": true,
+      "eventFrames": {},
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 240,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            1,
+            220,
+            207,
+            197
+          ]
+        },
+        {
+          "x": 256,
+          "y": 240,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            216,
+            218,
+            196,
+            195
+          ]
+        },
+        {
+          "x": 512,
+          "y": 240,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            422,
+            218,
+            204,
+            197
+          ]
+        },
+        {
+          "x": 768,
+          "y": 240,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            632,
+            224,
+            199,
+            195
+          ]
+        },
+        {
+          "x": 1024,
+          "y": 240,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            844,
+            219,
+            202,
+            189
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 240,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            1051,
+            231,
+            194,
+            187
+          ]
+        }
+      ],
+      "atlas": "assets/atlases/p3-furia.png",
+      "sheet": "p3-furia",
+      "bodyHeight": 128,
+      "nativeBodyHeight": 176
+    },
+    "bomb-volley": {
+      "id": "bomb-volley",
+      "name": "Bombas sin descanso",
+      "durations": [
+        110,
+        130,
+        80,
+        140,
+        80,
+        170
+      ],
+      "eventFrames": {
+        "releaseBomb": 1,
+        "releaseSecondBomb": 3,
+        "releaseThirdBomb": 5
+      },
+      "loop": false,
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 480,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            6,
+            424,
+            194,
+            205
+          ]
+        },
+        {
+          "x": 256,
+          "y": 480,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            210,
+            426,
+            200,
+            203
+          ]
+        },
+        {
+          "x": 512,
+          "y": 480,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            426,
+            421,
+            187,
+            207
+          ]
+        },
+        {
+          "x": 768,
+          "y": 480,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            623,
+            432,
+            214,
+            196
+          ]
+        },
+        {
+          "x": 1024,
+          "y": 480,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            844,
+            426,
+            192,
+            202
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 480,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            1044,
+            429,
+            203,
+            198
+          ]
+        }
+      ],
+      "atlas": "assets/atlases/p3-furia.png",
+      "sheet": "p3-furia",
+      "bodyHeight": 128,
+      "nativeBodyHeight": 176
+    },
+    "knife-fan": {
+      "id": "knife-fan",
+      "name": "Abanico de cuchillos",
+      "durations": [
+        100,
+        140,
+        100,
+        80,
+        150,
+        190
+      ],
+      "eventFrames": {
+        "releaseKnives": 3
+      },
+      "loop": false,
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 720,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            6,
+            642,
+            189,
+            196
+          ]
+        },
+        {
+          "x": 256,
+          "y": 720,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            216,
+            637,
+            164,
+            201
+          ]
+        },
+        {
+          "x": 512,
+          "y": 720,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            409,
+            632,
+            217,
+            206
+          ]
+        },
+        {
+          "x": 768,
+          "y": 720,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            623,
+            637,
+            202,
+            203
+          ]
+        },
+        {
+          "x": 1024,
+          "y": 720,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            841,
+            640,
+            181,
+            199
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 720,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            1051,
+            645,
+            172,
+            194
+          ]
+        }
+      ],
+      "atlas": "assets/atlases/p3-furia.png",
+      "sheet": "p3-furia",
+      "bodyHeight": 128,
+      "nativeBodyHeight": 176
+    },
+    "mock-angry": {
+      "id": "mock-angry",
+      "name": "Burla agresiva",
+      "durations": [
+        100,
+        130,
+        140,
+        170,
+        140,
+        190
+      ],
+      "loop": true,
+      "eventFrames": {},
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 960,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            10,
+            851,
+            191,
+            195
+          ]
+        },
+        {
+          "x": 256,
+          "y": 960,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            213,
+            839,
+            197,
+            207
+          ]
+        },
+        {
+          "x": 512,
+          "y": 960,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            418,
+            840,
+            212,
+            207
+          ]
+        },
+        {
+          "x": 768,
+          "y": 960,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            626,
+            862,
+            190,
+            185
+          ]
+        },
+        {
+          "x": 1024,
+          "y": 960,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            844,
+            838,
+            173,
+            209
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 960,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            1052,
+            850,
+            179,
+            196
+          ]
+        }
+      ],
+      "atlas": "assets/atlases/p3-furia.png",
+      "sheet": "p3-furia",
+      "bodyHeight": 128,
+      "nativeBodyHeight": 176
+    },
+    "rage-hurt": {
+      "id": "rage-hurt",
+      "name": "Retroceso y rabia",
+      "durations": [
+        60,
+        80,
+        90,
+        100,
+        130,
+        170
+      ],
+      "loop": false,
+      "eventFrames": {},
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 1200,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            5,
+            1057,
+            181,
+            197
+          ]
+        },
+        {
+          "x": 256,
+          "y": 1200,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            212,
+            1050,
+            195,
+            204
+          ]
+        },
+        {
+          "x": 512,
+          "y": 1200,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            425,
+            1050,
+            196,
+            204
+          ]
+        },
+        {
+          "x": 768,
+          "y": 1200,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            632,
+            1050,
+            199,
+            204
+          ]
+        },
+        {
+          "x": 1024,
+          "y": 1200,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            844,
+            1053,
+            184,
+            201
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 1200,
+          "width": 256,
+          "height": 240,
+          "anchorX": 119,
+          "anchorY": 202,
+          "sourceBox": [
+            1055,
+            1054,
+            176,
+            200
+          ]
+        }
+      ],
+      "atlas": "assets/atlases/p3-furia.png",
+      "sheet": "p3-furia",
+      "bodyHeight": 128,
+      "nativeBodyHeight": 176
+    }
+  }
+}

@@ -1,0 +1,651 @@
+{
+  "id": "p2-ataques",
+  "phase": 1,
+  "atlas": "assets/atlases/p2-ataques.png",
+  "source": "assets/source/p2-ataques.png",
+  "sourceSha256": "63b02ad5499c80e69d4be91fa9c23a143b2afa75da8d547bdb7ae0a100917489",
+  "scale": 0.8712871287128713,
+  "bodyHeight": 128,
+  "nativeBodyHeight": 176,
+  "cellWidth": 256,
+  "cellHeight": 240,
+  "animations": {
+    "idle": {
+      "id": "idle",
+      "name": "Guardia del tramposo",
+      "durations": [
+        160,
+        160,
+        160,
+        160,
+        160,
+        160
+      ],
+      "loop": true,
+      "eventFrames": {},
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            37,
+            1,
+            150,
+            212
+          ]
+        },
+        {
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            247,
+            0,
+            150,
+            213
+          ]
+        },
+        {
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            459,
+            0,
+            147,
+            213
+          ]
+        },
+        {
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            669,
+            1,
+            146,
+            212
+          ]
+        },
+        {
+          "x": 1024,
+          "y": 0,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            874,
+            5,
+            149,
+            208
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 0,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            1083,
+            5,
+            148,
+            207
+          ]
+        }
+      ],
+      "atlas": "assets/atlases/p2-ataques.png",
+      "sheet": "p2-ataques",
+      "bodyHeight": 128,
+      "nativeBodyHeight": 176
+    },
+    "walk": {
+      "id": "walk",
+      "name": "Paso de showman",
+      "durations": [
+        120,
+        120,
+        120,
+        120,
+        120,
+        120
+      ],
+      "loop": true,
+      "eventFrames": {},
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 240,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            37,
+            212,
+            145,
+            207
+          ]
+        },
+        {
+          "x": 256,
+          "y": 240,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            240,
+            212,
+            149,
+            207
+          ]
+        },
+        {
+          "x": 512,
+          "y": 240,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            446,
+            213,
+            156,
+            206
+          ]
+        },
+        {
+          "x": 768,
+          "y": 240,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            660,
+            212,
+            147,
+            206
+          ]
+        },
+        {
+          "x": 1024,
+          "y": 240,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            871,
+            213,
+            140,
+            205
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 240,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            1083,
+            212,
+            136,
+            207
+          ]
+        }
+      ],
+      "atlas": "assets/atlases/p2-ataques.png",
+      "sheet": "p2-ataques",
+      "bodyHeight": 128,
+      "nativeBodyHeight": 176
+    },
+    "bomb": {
+      "id": "bomb",
+      "name": "Bomba por encima del hombro",
+      "durations": [
+        150,
+        200,
+        120,
+        90,
+        170,
+        220
+      ],
+      "eventFrames": {
+        "releaseBomb": 3
+      },
+      "loop": false,
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 480,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            24,
+            420,
+            164,
+            210
+          ]
+        },
+        {
+          "x": 256,
+          "y": 480,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            239,
+            419,
+            160,
+            211
+          ]
+        },
+        {
+          "x": 512,
+          "y": 480,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            425,
+            417,
+            192,
+            213
+          ]
+        },
+        {
+          "x": 768,
+          "y": 480,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            638,
+            417,
+            197,
+            213
+          ]
+        },
+        {
+          "x": 1024,
+          "y": 480,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            842,
+            425,
+            183,
+            205
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 480,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            1080,
+            421,
+            156,
+            209
+          ]
+        }
+      ],
+      "atlas": "assets/atlases/p2-ataques.png",
+      "sheet": "p2-ataques",
+      "bodyHeight": 128,
+      "nativeBodyHeight": 176
+    },
+    "knives": {
+      "id": "knives",
+      "name": "Cuchillos de circo",
+      "durations": [
+        150,
+        170,
+        140,
+        90,
+        160,
+        230
+      ],
+      "eventFrames": {
+        "releaseKnives": 3
+      },
+      "loop": false,
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 720,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            15,
+            631,
+            162,
+            207
+          ]
+        },
+        {
+          "x": 256,
+          "y": 720,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            228,
+            631,
+            168,
+            207
+          ]
+        },
+        {
+          "x": 512,
+          "y": 720,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            423,
+            629,
+            182,
+            210
+          ]
+        },
+        {
+          "x": 768,
+          "y": 720,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            629,
+            630,
+            198,
+            208
+          ]
+        },
+        {
+          "x": 1024,
+          "y": 720,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            838,
+            635,
+            196,
+            203
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 720,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            1081,
+            632,
+            155,
+            206
+          ]
+        }
+      ],
+      "atlas": "assets/atlases/p2-ataques.png",
+      "sheet": "p2-ataques",
+      "bodyHeight": 128,
+      "nativeBodyHeight": 176
+    },
+    "hurt": {
+      "id": "hurt",
+      "name": "Golpe recibido",
+      "durations": [
+        80,
+        100,
+        130,
+        150,
+        180,
+        220
+      ],
+      "loop": false,
+      "eventFrames": {},
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 960,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            33,
+            838,
+            155,
+            209
+          ]
+        },
+        {
+          "x": 256,
+          "y": 960,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            245,
+            838,
+            156,
+            209
+          ]
+        },
+        {
+          "x": 512,
+          "y": 960,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            444,
+            845,
+            150,
+            202
+          ]
+        },
+        {
+          "x": 768,
+          "y": 960,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            645,
+            848,
+            153,
+            199
+          ]
+        },
+        {
+          "x": 1024,
+          "y": 960,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            863,
+            853,
+            147,
+            194
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 960,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            1083,
+            839,
+            148,
+            208
+          ]
+        }
+      ],
+      "atlas": "assets/atlases/p2-ataques.png",
+      "sheet": "p2-ataques",
+      "bodyHeight": 128,
+      "nativeBodyHeight": 176
+    },
+    "anger": {
+      "id": "anger",
+      "name": "El payaso pierde la paciencia",
+      "durations": [
+        180,
+        170,
+        210,
+        230,
+        260,
+        350
+      ],
+      "eventFrames": {
+        "rageBegins": 4,
+        "phase3Ready": 5
+      },
+      "loop": false,
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 1200,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            33,
+            1048,
+            153,
+            206
+          ]
+        },
+        {
+          "x": 256,
+          "y": 1200,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            241,
+            1047,
+            151,
+            207
+          ]
+        },
+        {
+          "x": 512,
+          "y": 1200,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            443,
+            1047,
+            153,
+            207
+          ]
+        },
+        {
+          "x": 768,
+          "y": 1200,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            637,
+            1050,
+            173,
+            204
+          ]
+        },
+        {
+          "x": 1024,
+          "y": 1200,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            842,
+            1051,
+            182,
+            203
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 1200,
+          "width": 256,
+          "height": 240,
+          "anchorX": 107,
+          "anchorY": 198,
+          "sourceBox": [
+            1046,
+            1054,
+            201,
+            200
+          ]
+        }
+      ],
+      "atlas": "assets/atlases/p2-ataques.png",
+      "sheet": "p2-ataques",
+      "bodyHeight": 128,
+      "nativeBodyHeight": 176
+    }
+  }
+}

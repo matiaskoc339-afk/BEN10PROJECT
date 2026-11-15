@@ -2,7 +2,7 @@
   "name": "ben10-demo",
   "version": "0.43.0",
   "private": true,
-  "description": "V43: selección de villanos, circo de Zombozo y dos rutas de plataformas por espejos.",
+  "description": "V43: selecci\u00f3n de villanos, circo de Zombozo y dos rutas de plataformas por espejos.",
   "scripts": {
     "start": "python3 -m http.server 8000 --bind 0.0.0.0",
     "test": "npm run test:stats && npm run test:evolution && npm run test:art && npm run test:browser && npm run test:render && npm run test:targeting && npm run test:campaign && npm run test:combat && npm run test:boss && npm run test:hud && npm run test:secrets && npm run test:menu && npm run test:recovery && npm run test:audio && npm run test:adventure",
@@ -71,7 +71,11 @@
     "package:circo": "python3 scripts/package-circus-art.py",
     "preview:circo": "node scripts/preview-circus-art.cjs",
     "build:adventure": "python3 scripts/build-circus-level.py && python3 scripts/build-mirror-ben.py && node scripts/embed-campaign.cjs",
-    "test:adventure": "node --test tests/circus-combat.test.cjs tests/mirror-platformer.test.cjs && node tests/adventure-browser.cjs"
+    "test:adventure": "node --test tests/circus-combat.test.cjs tests/mirror-platformer.test.cjs && node tests/adventure-browser.cjs",
+    "build:zombozo": "python3 scripts/build-zombozo-sprites.py",
+    "test:zombozo": "python3 scripts/validate-zombozo-sprites.py && node tests/zombozo-sprites-browser.cjs",
+    "package:zombozo": "python3 scripts/package-zombozo-sprites.py",
+    "preview:zombozo": "node scripts/preview-zombozo-sprites.cjs"
   },
   "devDependencies": {
     "playwright": "1.62.1"

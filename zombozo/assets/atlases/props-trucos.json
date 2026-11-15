@@ -1,0 +1,717 @@
+{
+  "id": "props-trucos",
+  "source": "assets/source/props-trucos.png",
+  "sourceSha256": "af893b8f4bd79f424bb9013f6e7a726c0dff86e8b42864b9e40ed29fbf92c711",
+  "atlas": "assets/atlases/props-trucos.png",
+  "cellWidth": 256,
+  "cellHeight": 248,
+  "clips": [
+    {
+      "id": "rift-ground",
+      "name": "Portal del suelo",
+      "durations": [
+        140,
+        140,
+        140,
+        140,
+        140,
+        140
+      ],
+      "height": 35,
+      "loop": true,
+      "atlas": "assets/atlases/props-trucos.png",
+      "bodyHeight": 35,
+      "nativeBodyHeight": 80.45918367346938,
+      "eventFrames": {},
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            41,
+            115,
+            154,
+            40
+          ]
+        },
+        {
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            233,
+            88,
+            174,
+            73
+          ]
+        },
+        {
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            426,
+            76,
+            196,
+            93
+          ]
+        },
+        {
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            640,
+            78,
+            182,
+            84
+          ]
+        },
+        {
+          "x": 1024,
+          "y": 0,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            858,
+            100,
+            162,
+            61
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 0,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            1074,
+            112,
+            124,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rift-side",
+      "name": "Grieta lateral",
+      "durations": [
+        140,
+        140,
+        140,
+        140,
+        140,
+        140
+      ],
+      "height": 130,
+      "loop": true,
+      "atlas": "assets/atlases/props-trucos.png",
+      "bodyHeight": 130,
+      "nativeBodyHeight": 181.1627906976744,
+      "eventFrames": {},
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 248,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            98,
+            244,
+            38,
+            131
+          ]
+        },
+        {
+          "x": 256,
+          "y": 248,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            264,
+            209,
+            107,
+            200
+          ]
+        },
+        {
+          "x": 512,
+          "y": 248,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            434,
+            199,
+            166,
+            215
+          ]
+        },
+        {
+          "x": 768,
+          "y": 248,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            654,
+            205,
+            140,
+            202
+          ]
+        },
+        {
+          "x": 1024,
+          "y": 248,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            896,
+            226,
+            80,
+            173
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 248,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            1124,
+            222,
+            32,
+            138
+          ]
+        }
+      ]
+    },
+    {
+      "id": "knives-flight",
+      "name": "Cuchillos en vuelo",
+      "durations": [
+        85,
+        85,
+        85,
+        85,
+        85,
+        85
+      ],
+      "height": 16,
+      "loop": true,
+      "atlas": "assets/atlases/props-trucos.png",
+      "bodyHeight": 16,
+      "nativeBodyHeight": 165.96385542168676,
+      "eventFrames": {},
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 496,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            42,
+            491,
+            162,
+            68
+          ]
+        },
+        {
+          "x": 256,
+          "y": 496,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            236,
+            454,
+            162,
+            106
+          ]
+        },
+        {
+          "x": 512,
+          "y": 496,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            457,
+            428,
+            99,
+            155
+          ]
+        },
+        {
+          "x": 768,
+          "y": 496,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            664,
+            448,
+            149,
+            122
+          ]
+        },
+        {
+          "x": 1024,
+          "y": 496,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            853,
+            474,
+            166,
+            73
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 496,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            1058,
+            480,
+            164,
+            75
+          ]
+        }
+      ]
+    },
+    {
+      "id": "empty-throne",
+      "name": "Asiento vacío",
+      "static": true,
+      "atlas": "assets/atlases/props-trucos.png",
+      "bodyHeight": 120,
+      "nativeBodyHeight": 166.13636363636365,
+      "loop": false,
+      "durations": [
+        1000
+      ],
+      "eventFrames": {},
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 744,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            27,
+            633,
+            176,
+            182
+          ]
+        }
+      ]
+    },
+    {
+      "id": "parked-tricycle",
+      "name": "Triciclo de payaso",
+      "static": true,
+      "atlas": "assets/atlases/props-trucos.png",
+      "bodyHeight": 45,
+      "nativeBodyHeight": 146.8181818181818,
+      "loop": false,
+      "durations": [
+        1000
+      ],
+      "eventFrames": {},
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 256,
+          "y": 744,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            233,
+            649,
+            176,
+            162
+          ]
+        }
+      ]
+    },
+    {
+      "id": "damaged-tricycle",
+      "name": "Triciclo golpeado",
+      "static": true,
+      "atlas": "assets/atlases/props-trucos.png",
+      "bodyHeight": 40,
+      "nativeBodyHeight": 147.52873563218392,
+      "loop": false,
+      "durations": [
+        1000
+      ],
+      "eventFrames": {},
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 512,
+          "y": 744,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            437,
+            650,
+            174,
+            161
+          ]
+        }
+      ]
+    },
+    {
+      "id": "plain-hat",
+      "name": "Sombrero sin ADN",
+      "static": true,
+      "atlas": "assets/atlases/props-trucos.png",
+      "bodyHeight": 40,
+      "nativeBodyHeight": 141.84713375796179,
+      "loop": false,
+      "durations": [
+        1000
+      ],
+      "eventFrames": {},
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 768,
+          "y": 744,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            652,
+            658,
+            157,
+            141
+          ]
+        }
+      ]
+    },
+    {
+      "id": "taped-crystal",
+      "name": "Cristal con cinta",
+      "static": true,
+      "atlas": "assets/atlases/props-trucos.png",
+      "bodyHeight": 30,
+      "nativeBodyHeight": 168.8198757763975,
+      "loop": false,
+      "durations": [
+        1000
+      ],
+      "eventFrames": {},
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 1024,
+          "y": 744,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            881,
+            648,
+            119,
+            161
+          ]
+        }
+      ]
+    },
+    {
+      "id": "circus-bomb",
+      "name": "Bomba del show",
+      "static": true,
+      "atlas": "assets/atlases/props-trucos.png",
+      "bodyHeight": 18,
+      "nativeBodyHeight": 169.59537572254334,
+      "loop": false,
+      "durations": [
+        1000
+      ],
+      "eventFrames": {},
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 1280,
+          "y": 744,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            1074,
+            641,
+            130,
+            173
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ghost-burst",
+      "name": "Niebla espectral",
+      "durations": [
+        90,
+        110,
+        140,
+        170,
+        180,
+        300
+      ],
+      "height": 100,
+      "atlas": "assets/atlases/props-trucos.png",
+      "bodyHeight": 100,
+      "nativeBodyHeight": 151.22448979591837,
+      "loop": false,
+      "eventFrames": {},
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 992,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            91,
+            907,
+            45,
+            45
+          ]
+        },
+        {
+          "x": 256,
+          "y": 992,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            238,
+            870,
+            156,
+            109
+          ]
+        },
+        {
+          "x": 512,
+          "y": 992,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            422,
+            839,
+            196,
+            166
+          ]
+        },
+        {
+          "x": 768,
+          "y": 992,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            640,
+            856,
+            180,
+            142
+          ]
+        },
+        {
+          "x": 1024,
+          "y": 992,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            869,
+            875,
+            143,
+            103
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 992,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            1089,
+            891,
+            92,
+            75
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dna-release",
+      "name": "El ADN queda libre",
+      "durations": [
+        120,
+        140,
+        180,
+        220,
+        260,
+        350
+      ],
+      "height": 60,
+      "eventFrames": {
+        "dnaReleased": 3
+      },
+      "atlas": "assets/atlases/props-trucos.png",
+      "bodyHeight": 60,
+      "nativeBodyHeight": 150.05128205128204,
+      "loop": false,
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 1240,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            53,
+            1112,
+            128,
+            85
+          ]
+        },
+        {
+          "x": 256,
+          "y": 1240,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            233,
+            1080,
+            165,
+            128
+          ]
+        },
+        {
+          "x": 512,
+          "y": 1240,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            426,
+            1060,
+            195,
+            156
+          ]
+        },
+        {
+          "x": 768,
+          "y": 1240,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            650,
+            1045,
+            156,
+            164
+          ]
+        },
+        {
+          "x": 1024,
+          "y": 1240,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            863,
+            1052,
+            145,
+            151
+          ]
+        },
+        {
+          "x": 1280,
+          "y": 1240,
+          "width": 256,
+          "height": 248,
+          "anchorX": 121,
+          "anchorY": 193,
+          "sourceBox": [
+            1103,
+            1059,
+            80,
+            134
+          ]
+        }
+      ]
+    }
+  ]
+}

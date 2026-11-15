@@ -1,0 +1,691 @@
+{
+  "id": "p3-pesadilla",
+  "phase": 2,
+  "atlas": "assets/atlases/p3-pesadilla.png",
+  "source": "assets/source/p3-pesadilla.png",
+  "sourceSha256": "94cdf4d0dc103ea053f14c16e59a47aa23d7f408a7fcf08595b699738c07fa55",
+  "scale": 0.9361702127659575,
+  "bodyHeight": 128,
+  "nativeBodyHeight": 176,
+  "cellWidth": 272,
+  "cellHeight": 240,
+  "animations": {
+    "side-rift": {
+      "id": "side-rift",
+      "name": "Sale por una grieta lateral",
+      "durations": [
+        100,
+        130,
+        150,
+        170,
+        160,
+        180
+      ],
+      "eventFrames": {
+        "visible": 2,
+        "intangibleOff": 3,
+        "releaseBomb": 5
+      },
+      "partial": true,
+      "loop": false,
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            67,
+            9,
+            88,
+            195
+          ]
+        },
+        {
+          "x": 272,
+          "y": 0,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            244,
+            10,
+            110,
+            190
+          ]
+        },
+        {
+          "x": 544,
+          "y": 0,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            438,
+            8,
+            143,
+            199
+          ]
+        },
+        {
+          "x": 816,
+          "y": 0,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            641,
+            5,
+            159,
+            204
+          ]
+        },
+        {
+          "x": 1088,
+          "y": 0,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            848,
+            2,
+            184,
+            207
+          ]
+        },
+        {
+          "x": 1360,
+          "y": 0,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            1056,
+            0,
+            189,
+            209
+          ]
+        }
+      ],
+      "atlas": "assets/atlases/p3-pesadilla.png",
+      "sheet": "p3-pesadilla",
+      "bodyHeight": 128,
+      "nativeBodyHeight": 176
+    },
+    "from-above": {
+      "id": "from-above",
+      "name": "Aparece desde arriba",
+      "durations": [
+        110,
+        140,
+        140,
+        150,
+        170,
+        230
+      ],
+      "eventFrames": {
+        "visible": 2,
+        "land": 4,
+        "intangibleOff": 4
+      },
+      "partial": true,
+      "lift": [
+        95,
+        85,
+        65,
+        32,
+        0,
+        0
+      ],
+      "loop": false,
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 240,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            22,
+            217,
+            152,
+            143
+          ]
+        },
+        {
+          "x": 272,
+          "y": 240,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            233,
+            217,
+            152,
+            174
+          ]
+        },
+        {
+          "x": 544,
+          "y": 240,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            425,
+            218,
+            178,
+            194
+          ]
+        },
+        {
+          "x": 816,
+          "y": 240,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            630,
+            218,
+            187,
+            193
+          ]
+        },
+        {
+          "x": 1088,
+          "y": 240,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            853,
+            273,
+            177,
+            146
+          ]
+        },
+        {
+          "x": 1360,
+          "y": 240,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            1077,
+            222,
+            151,
+            195
+          ]
+        }
+      ],
+      "atlas": "assets/atlases/p3-pesadilla.png",
+      "sheet": "p3-pesadilla",
+      "bodyHeight": 128,
+      "nativeBodyHeight": 176
+    },
+    "box-throw": {
+      "id": "box-throw",
+      "name": "Lanza la caja sorpresa",
+      "durations": [
+        160,
+        200,
+        170,
+        90,
+        170,
+        260
+      ],
+      "eventFrames": {
+        "releaseBox": 3,
+        "boxShieldOn": 3
+      },
+      "loop": false,
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 480,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            10,
+            431,
+            177,
+            198
+          ]
+        },
+        {
+          "x": 272,
+          "y": 480,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            230,
+            426,
+            154,
+            200
+          ]
+        },
+        {
+          "x": 544,
+          "y": 480,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            448,
+            423,
+            155,
+            203
+          ]
+        },
+        {
+          "x": 816,
+          "y": 480,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            650,
+            423,
+            174,
+            204
+          ]
+        },
+        {
+          "x": 1088,
+          "y": 480,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            850,
+            429,
+            181,
+            197
+          ]
+        },
+        {
+          "x": 1360,
+          "y": 480,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            1072,
+            424,
+            149,
+            199
+          ]
+        }
+      ],
+      "atlas": "assets/atlases/p3-pesadilla.png",
+      "sheet": "p3-pesadilla",
+      "bodyHeight": 128,
+      "nativeBodyHeight": 176
+    },
+    "box-shield": {
+      "id": "box-shield",
+      "name": "Intangible mientras protege la caja",
+      "durations": [
+        130,
+        140,
+        150,
+        140,
+        90,
+        170
+      ],
+      "loop": true,
+      "visibility": [
+        0.38,
+        0.34,
+        0.4,
+        0.32,
+        0.37,
+        0.35
+      ],
+      "eventFrames": {
+        "releaseBomb": 3
+      },
+      "rule": "box-exists",
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 720,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            6,
+            633,
+            194,
+            198
+          ]
+        },
+        {
+          "x": 272,
+          "y": 720,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            223,
+            633,
+            190,
+            197
+          ]
+        },
+        {
+          "x": 544,
+          "y": 720,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            428,
+            632,
+            177,
+            198
+          ]
+        },
+        {
+          "x": 816,
+          "y": 720,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            638,
+            634,
+            196,
+            196
+          ]
+        },
+        {
+          "x": 1088,
+          "y": 720,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            856,
+            630,
+            188,
+            199
+          ]
+        },
+        {
+          "x": 1360,
+          "y": 720,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            1076,
+            629,
+            162,
+            201
+          ]
+        }
+      ],
+      "atlas": "assets/atlases/p3-pesadilla.png",
+      "sheet": "p3-pesadilla",
+      "bodyHeight": 128,
+      "nativeBodyHeight": 176
+    },
+    "ghost-dodge": {
+      "id": "ghost-dodge",
+      "name": "Esquiva intangible",
+      "durations": [
+        70,
+        80,
+        100,
+        100,
+        100,
+        150
+      ],
+      "visibility": [
+        1,
+        0.65,
+        0.28,
+        0.25,
+        0.7,
+        1
+      ],
+      "eventFrames": {
+        "intangibleOn": 1,
+        "intangibleOff": 4
+      },
+      "loop": false,
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 960,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            16,
+            852,
+            160,
+            183
+          ]
+        },
+        {
+          "x": 272,
+          "y": 960,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            219,
+            854,
+            180,
+            178
+          ]
+        },
+        {
+          "x": 544,
+          "y": 960,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            416,
+            837,
+            192,
+            196
+          ]
+        },
+        {
+          "x": 816,
+          "y": 960,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            637,
+            830,
+            177,
+            200
+          ]
+        },
+        {
+          "x": 1088,
+          "y": 960,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            843,
+            835,
+            163,
+            197
+          ]
+        },
+        {
+          "x": 1360,
+          "y": 960,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            1076,
+            836,
+            152,
+            198
+          ]
+        }
+      ],
+      "atlas": "assets/atlases/p3-pesadilla.png",
+      "sheet": "p3-pesadilla",
+      "bodyHeight": 128,
+      "nativeBodyHeight": 176
+    },
+    "defeat": {
+      "id": "defeat",
+      "name": "La caída de Zombozo",
+      "durations": [
+        180,
+        240,
+        270,
+        300,
+        330,
+        900
+      ],
+      "eventFrames": {
+        "defeated": 0,
+        "hatFalls": 3,
+        "ghostfreakDNA": 5
+      },
+      "loop": false,
+      "contactFrames": [],
+      "frames": [
+        {
+          "x": 0,
+          "y": 1200,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            20,
+            1041,
+            154,
+            207
+          ]
+        },
+        {
+          "x": 272,
+          "y": 1200,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            199,
+            1073,
+            170,
+            175
+          ]
+        },
+        {
+          "x": 544,
+          "y": 1200,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            394,
+            1092,
+            202,
+            156
+          ]
+        },
+        {
+          "x": 816,
+          "y": 1200,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            583,
+            1108,
+            239,
+            136
+          ]
+        },
+        {
+          "x": 1088,
+          "y": 1200,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            799,
+            1160,
+            230,
+            88
+          ]
+        },
+        {
+          "x": 1360,
+          "y": 1200,
+          "width": 272,
+          "height": 240,
+          "anchorX": 156,
+          "anchorY": 207,
+          "sourceBox": [
+            1029,
+            1158,
+            221,
+            90
+          ]
+        }
+      ],
+      "atlas": "assets/atlases/p3-pesadilla.png",
+      "sheet": "p3-pesadilla",
+      "bodyHeight": 128,
+      "nativeBodyHeight": 176
+    }
+  }
+}
