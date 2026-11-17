@@ -1,0 +1,36 @@
+<!-- DESERT_V47_UI_START -->
+<section id="alphaHUD" class="v47-alpha-hud" hidden aria-label="Vida de Blitzwolfer Alfa">
+ <div class="v47-alpha-title"><b>BLITZWOLFER ALFA</b><span id="alphaPhase">FASE 1 / 3</span></div>
+ <div class="v47-alpha-health"><i id="alphaHealth"></i></div><small id="alphaState">EL ALFA ACECHA</small>
+</section>
+<section id="alphaReward" class="v47-alpha-reward" role="dialog" aria-modal="true" hidden>
+ <div class="v47-reward-frame"><img src="desierto-blitz/assets/alpha-portrait.png" alt="Blitzwolfer Alfa"><div>
+  <small>ADN RECUPERADO · OMNITRIX</small><h2>BLITZWOLFER DESBLOQUEADO</h2>
+  <p>Has vencido al Alfa de la cueva. El ADN de Blitzwolfer ya está disponible en tu reloj.</p>
+  <button id="alphaRewardTransform" type="button">USAR BLITZWOLFER</button>
+  <button id="alphaRewardContinue" type="button">VOLVER AL SELECTOR</button>
+ </div></div>
+</section>
+<aside id="v47Developer" role="dialog" aria-label="Panel de desarrollador" hidden>
+ <header><strong>DEV · PRUEBAS V47</strong><button id="v47DevClose" type="button" aria-label="Cerrar">×</button></header>
+ <div class="v47-dev-content">
+  <p>Modo de pruebas · <kbd>U</kbd> abre y cierra este panel</p>
+  <strong>PUNTOS DE HABILIDAD</strong>
+  <div class="v47-dev-buttons"><button data-v47-points="5">+5 PT</button><button data-v47-points="20">+20 PT</button><button data-v47-points="100">+100 PT</button></div>
+  <strong>SALTAR COMBATES Y PROBAR MAPAS</strong>
+  <label for="v47DevZone">Zona de este mundo</label><select id="v47DevZone"></select>
+  <label for="v47DevStage">Punto de prueba</label>
+  <select id="v47DevStage">
+   <option value="start">Inicio del mapa</option>
+   <option value="middle">Mitad del mapa</option>
+   <option value="last">Último combate</option>
+   <option value="exit">Salida del mapa (sin combates)</option>
+   <option value="boss">Jefe final / combate principal</option>
+  </select>
+  <button id="v47DevJump" type="button">IR A LA ZONA</button>
+  <small>Los saltos no conceden ADN ni sobrescriben el guardado. Para recuperar tu progreso real, recarga el espacio.</small>
+  <button id="v47DevRestore" type="button">VOLVER A MI PARTIDA GUARDADA</button>
+ </div>
+</aside>
+<div id="v47Stun" hidden>¡AULLIDO SÓNICO! · BEN PARALIZADO</div>
+<!-- DESERT_V47_UI_END -->
