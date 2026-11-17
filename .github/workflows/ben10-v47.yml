@@ -37,7 +37,7 @@ jobs:
         env:
           SOURCE_ID: 1FI7c-2M2hiaFp5jgJTkcD45ksqawNn2d
         run: |
-          gdown "https://drive.google.com/uc?id=$SOURCE_ID" -O "$RUNNER_TEMP/blitwolfermundo.zip" --fuzzy
+          gdown "$SOURCE_ID" -O "$RUNNER_TEMP/blitwolfermundo.zip"
           python - <<'PY'
           import zipfile, os
           p=os.environ['RUNNER_TEMP']+'/blitwolfermundo.zip'
