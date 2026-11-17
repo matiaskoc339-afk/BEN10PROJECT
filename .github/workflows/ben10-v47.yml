@@ -73,6 +73,12 @@ jobs:
           print('V47 index:',p.stat().st_size,'bytes; locally bundled images:',len(assets))
           PY
 
+      - name: Real browser smoke test of the packaged game
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+          node tests/desert-v47-browser.cjs
+
       - name: Commit compiled HTML and local assets
         run: |
           git config user.name "github-actions[bot]"
