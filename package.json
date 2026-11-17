@@ -1,8 +1,8 @@
 {
   "name": "ben10-demo",
-  "version": "0.44.0",
+  "version": "0.47.0",
   "private": true,
-  "description": "V44: combate de Zombozo en tres fases al final del circo y ADN de Fantasm\u00e1tico.",
+  "description": "V47: pueblo, desierto, gusanos, cueva, Blitzwolfer Alfa y panel U. HTML offline.",
   "scripts": {
     "start": "python3 -m http.server 8000 --bind 0.0.0.0",
     "test": "npm run test:stats && npm run test:evolution && npm run test:art && npm run test:browser && npm run test:render && npm run test:targeting && npm run test:campaign && npm run test:combat && npm run test:boss && npm run test:hud && npm run test:secrets && npm run test:menu && npm run test:recovery && npm run test:audio && npm run test:adventure && npm run test:zombozo-boss",
@@ -76,7 +76,9 @@
     "test:zombozo": "python3 scripts/validate-zombozo-sprites.py && node tests/zombozo-sprites-browser.cjs",
     "package:zombozo": "python3 scripts/package-zombozo-sprites.py",
     "preview:zombozo": "node scripts/preview-zombozo-sprites.cjs",
-    "test:zombozo-boss": "node --test tests/zombozo-boss.test.cjs && node tests/zombozo-boss-browser.cjs"
+    "test:zombozo-boss": "node --test tests/zombozo-boss.test.cjs && node tests/zombozo-boss-browser.cjs",
+    "test:desert": "node --test tests/desert-v47.test.cjs",
+    "build:v47": "node scripts/embed-campaign.cjs"
   },
   "devDependencies": {
     "playwright": "1.62.1"
