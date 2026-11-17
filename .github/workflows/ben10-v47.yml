@@ -1,0 +1,95 @@
+name: Build BEN10 V47 offline
+on:
+  push:
+    branches:
+      - v47-blitzwolfer-alfa
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-v47:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - name: Checkout V44 and V47 code
+        uses: actions/checkout@v4
+        with:
+          ref: v47-blitzwolfer-alfa
+          persist-credentials: true
+          fetch-depth: 1
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install image and download tooling
+        run: python -m pip install --quiet Pillow numpy gdown
+
+      - name: Download the original Blitzwolfer sprites from Drive
+        env:
+          SOURCE_ID: 1FI7c-2M2hiaFp5jgJTkcD45ksqawNn2d
+        run: |
+          gdown "https://drive.google.com/uc?id=$SOURCE_ID" -O "$RUNNER_TEMP/blitwolfermundo.zip" --fuzzy
+          python - <<'PY'
+          import zipfile, os
+          p=os.environ['RUNNER_TEMP']+'/blitwolfermundo.zip'
+          with zipfile.ZipFile(p) as f:
+              print('Blitzwolfer resource count:',len(f.namelist()))
+              assert f.testzip() is None, 'Invalid ZIP'
+          PY
+
+      - name: Extract and clean all local sprite sheets
+        run: python scripts/v47-prepare-assets.py "$RUNNER_TEMP/blitwolfermundo.zip"
+
+      - name: Validate JavaScript and legacy saves
+        run: |
+          node --check systems/desert-world.js
+          node --check systems/desert-renderer.js
+          node --check systems/desert-game.js
+          node --test tests/desert-v47.test.cjs tests/campaign-world.test.cjs tests/save-slots.test.cjs
+
+      - name: Bake a fully offline V47 index.html
+        run: |
+          node scripts/embed-campaign.cjs
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          assert 'DESERT_V47_GAME_START' in s
+          assert 'BLITZWOLFER ALFA' in s
+          assert 'id="v47Developer"' in s
+          assert 'V47' in s
+          assert len(s)>90_000_000
+          assets=list(Path('desierto-blitz/assets').glob('*.png'))
+          assert len(assets)>=26, len(assets)
+          print('V47 index:',p.stat().st_size,'bytes; locally bundled images:',len(assets))
+          PY
+
+      - name: Commit compiled HTML and local assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f index.html desierto-blitz/assets
+          git diff --cached --quiet || git commit -m "Build V47 offline HTML and sprite assets [skip ci]"
+          git push origin HEAD:v47-blitzwolfer-alfa
+
+      - name: Package full game in one ZIP
+        run: |
+          git archive --format=zip --prefix=BEN10_V47/ HEAD -o "$RUNNER_TEMP/BEN10_V47_OFFLINE.zip"
+          ls -lh "$RUNNER_TEMP/BEN10_V47_OFFLINE.zip"
+
+      - name: Publish offline ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: BEN10_V47_OFFLINE
+          path: ${{ runner.temp }}/BEN10_V47_OFFLINE.zip
+          compression-level: 0
+          retention-days: 30
